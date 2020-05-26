@@ -19,6 +19,7 @@ function App() {
           Learn React
         </a>
         <Link to="/page-1">Page 1</Link>
+        <Link to='/user-profile'>User Details</Link>
       </header>
     </div>
   );
