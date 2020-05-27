@@ -4,22 +4,30 @@ import {inject,observer} from 'mobx-react';
 import strings from '../../i18n/strings.json';
 import {UserImage,UserProfileDashboard,UserProfileView,NameEmailGender,JobDepartment,UserDetail,UserDetailElement} from './styledComponents.js';
 import {Label as UserDetailLabel} from '../../../Common/styleGuides/StyleGuides.js';
-@inject('authStore')
+
+
+//@inject('authStore')
 @observer
 class UserProfile extends React.Component{
     constructor(){
        super(); 
     }
-    doNetworkCalls(){
+    /*doNetworkCalls(){
         const {authStore:{getUserDetails}}=this.props;   
         getUserDetails();
     }
     componentDidMount(){
         this.doNetworkCalls();
-    }
+    }*/
     render(){
-        const {authStore:{userDetails}}=this.props;
-        
+        //const {authStore:{userDetails}}=this.props;
+        const userDetails={
+    "name":"Loharika",
+    "email":"loharikapatnam74@gmail.com",
+    "gender":"Female",
+    "jobRole":"none",
+    "department":"none"
+}
         return (
             
             <UserProfileDashboard>

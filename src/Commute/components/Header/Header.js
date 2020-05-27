@@ -4,16 +4,16 @@ import {RiderRequestsInfo} from './RiderRequestsInfo.js';
 import {RiderShareInfo} from './RiderShareInfo.js';
 import {UserProfileIcon} from './UserProfileIcon.js';
 import {HeaderStyle,RiderInfo,LogoImageContainer} from './styledComponents.js';
-function Header(){
+function Header(props){
     return (
         <HeaderStyle>
-        <LogoImageContainer>
+        <LogoImageContainer >
             <LogoImage />
         </LogoImageContainer>
             <RiderInfo>
                 <RiderRequestsInfo/>
                 <RiderShareInfo />
-                <UserProfileIcon />
+                <UserProfileIcon onClickUserProfile={props.onClickUserProfile}/>
             </RiderInfo>
         </HeaderStyle>
         );

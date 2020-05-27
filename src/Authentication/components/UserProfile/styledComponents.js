@@ -7,14 +7,14 @@ export const UserImage=styled.img`
     margin:25px;
     `;
 export const  UserProfileDashboard=styled.div`
-    width:100vw;
-    height:100vh;
+    width:auto;
+    height:auto;
     display:flex;
     justify-content:center;
     align-items:center;
 `;
 export const  UserProfileView=styled.div`
-    width:75%;
+    width:auto;
     height:auto;
     border:1px solid lightgrey;
     display:flex;
