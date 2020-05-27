@@ -2,7 +2,7 @@ import React from 'react';
 import {observer} from 'mobx-react';
 import {Typo20DarkBlueGreyHKGrotestBold as FormHeadingText} from '../../../Common/styleGuides/StyleGuides.js';
 import {Form,FormDashboard} from '../../../Common/styledComponents/styleComponents.js';
-import {InputField} from '../../../Common/components/inputField.js';
+import {InputField} from '../../../Common/components/InputField.js';
 import {DateAndTime} from '../../../Common/components/DateTime.js';
 
 import {DisplayDropDown} from '../../../Common/components/DisplayDropDown.js';

@@ -15,6 +15,7 @@
       "apisauce": "1.1.1",
       "autoprefixer": "^9.7.5",
       "babel-plugin-macros": "^2.8.0",
+      "glamor": "2.20.40",
       "js-cookie": "2.2.1",
       "mobx": "5.15.0",
       "mobx-react": "6.1.4",
@@ -26,6 +27,7 @@
       "react-icons": "3.10.0",
       "react-router-dom": "^5.1.2",
       "react-scripts": "3.4.0",
+      "react-toastify": "6.0.5",
       "tailwind.macro": "^1.0.0-alpha.10",
       "typescript": "3.8.3"
    },
