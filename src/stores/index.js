@@ -1,8 +1,8 @@
-import userDetails from '../Authentication/Fixtures/index.fixture.json';
+import userDetails from '../Authentication/fixtures/userProfile.fixture.json';
 
 import CounterStore from './CounterStore';
-import {AuthStore} from '../Authentication/Stores';
-import {AuthService} from '../Authentication/Services';
+import {AuthStore} from '../Authentication/stores';
+import {AuthService} from '../Authentication/services/AuthService';
 const counterStore = new CounterStore();
 const authService=new AuthService();
 const authStore =new AuthStore(authService,userDetails);

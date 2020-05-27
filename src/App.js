@@ -1,13 +1,14 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import {observer,Provider} from 'mobx-react';
-import HomePage from "./components/HomePage";
-import Page1 from "./components/Page1";
-import {endPoints} from './Authentication/EndPoints';
-import LogInPageRoute from './Authentication/Routes/LogInFormRoute.js';;
-import SignInFormRoute from './Authentication/Routes/SignInFormRoute.js';;
-import {UserProfile} from './Authentication/Components/UserProfile/userProfile.js';
-import {ProtectedRoute} from './Common/ProtectedRoute';
+
+import {endPoints as AuthEndPoints} from './Authentication/constants';
+import {endPoints as CommuteEndPoints} from './Commute/constants';
+import {LogInPageRoute} from './Authentication/routes';
+import {SignInFormRoute} from './Authentication/routes';
+import DashBoardRoute from './Commute/routes/DashBoardRoute.js';
+import {UserProfile} from './Authentication/components/UserProfile/UserProfile.js';
+
 import stores from './stores';
 
 import "./App.css";
@@ -20,14 +21,11 @@ class App extends React.Component{
     <Provider {...stores}>
     <Router basename={process.env.PUBLIC_URL}>
       <Switch>
-      <Route exact path="/login-page">
-          <LogInPageRoute />
-       </Route>
-      <ProtectedRoute exact path={endPoints.userProfilePath} component={UserProfile}/>
-        <Route path="/">
-          <SignInFormRoute />
-        </Route>
-        </Switch>
+      <Route exact path={AuthEndPoints.logInPage} component={LogInPageRoute}/>
+      <Route exact path={AuthEndPoints.userProfile} component={UserProfile}/>
+      <Route exact path={CommuteEndPoints.commuteDashBoard} component={DashBoardRoute}/>
+      <Route exact path="/" component={SignInFormRoute}/>
+      </Switch>
     </Router>
     </Provider>
   );
