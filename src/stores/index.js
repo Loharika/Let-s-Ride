@@ -1,12 +1,17 @@
 import userDetails from '../Authentication/fixtures/userProfile.fixture.json';
 
-import CounterStore from './CounterStore';
 import {AuthStore} from '../Authentication/stores';
+import {CommuteStore} from '../Commute/stores/CommuteStore';
+
 import {AuthService} from '../Authentication/services/AuthService';
-const counterStore = new CounterStore();
+import {CommuteService} from '../Commute/services/CommuteService';
+
 const authService=new AuthService();
 const authStore =new AuthStore(authService,userDetails);
+
+const commuteService=new CommuteService();
+const commuteStore=new CommuteStore(commuteService)
 export default {
-  counterStore,
   authStore,
+  commuteStore
 };

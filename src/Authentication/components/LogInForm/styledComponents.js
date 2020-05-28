@@ -20,14 +20,6 @@ const FormDashBoard=styled.div`
   justify-content:center;
   align-items:center;
 `;
-const SignUpButton=styled.button`
-  width: 100%;
-  height: 40px;
-  border-radius: 4px;
-  background-color: #0b69ff;
-  color:white;
-  margin:3px;
-`;
 const LogInPageLink=styled.a`
   color:blue;
 `;
@@ -38,8 +30,7 @@ const LogInDetailsAlert=styled.span`
     color:red;
     font-size:13px;
 `;
-export {FormType,FormDashBoard,Typo32DarkBlueGreyRubikRegular as FormHeading,
-SignUpButton,LogoImageContainer,Logo,Typo14DarkBlueGreyHKGroteskRegular as LoginLink,LogInPageLink
+export {FormType,FormDashBoard,Typo32DarkBlueGreyRubikRegular as FormHeading,LogoImageContainer,Logo,Typo14DarkBlueGreyHKGroteskRegular as LoginLink,LogInPageLink
   ,SignUpPageLink,LogInDetailsAlert
   
 };

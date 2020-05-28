@@ -1,7 +1,8 @@
 import React from 'react';
 import {observer} from 'mobx-react';
-import {Label,ErrorStyle,InputTag,InputFieldWithLabel} from '../styleGuides/StyleGuides.js';
+import {Label,ErrorStyle,InputTag,InputFieldWithLabel,} from '../styleGuides/StyleGuides.js';
 import strings from '../../Authentication/i18n/strings.json';
+
 @observer
 class InputField extends React.Component{
     

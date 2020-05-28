@@ -13,7 +13,7 @@ import {CheckBox,FlexibleTimings,FlexibleTimingsLabel} from './styledComponents.
 import strings from '../../i18n/strings.json';
 
 @observer
-class RideRequest extends React.Component{
+class ShareRide extends React.Component{
     
     render(){
         const {from,to,dateTime,startDateTime,endDateTime,
@@ -32,7 +32,7 @@ class RideRequest extends React.Component{
         return (
             <FormDashboard>
                 <Form>
-                  <FormHeadingText>{strings.text.rideRequest}</FormHeadingText>
+                  <FormHeadingText>{strings.text.shareRide}</FormHeadingText>
                   <InputField placeholderText={strings.placeholderText.ex} 
                             type={strings.type.text} 
                             label={strings.label.from} 
@@ -53,7 +53,7 @@ class RideRequest extends React.Component{
                   <FlexibleTimings>
                     <CheckBox type={strings.type.checkbox} onClick={onClickFlexibleTimings} /><FlexibleTimingsLabel >{strings.label.flexibleTimings}</FlexibleTimingsLabel>
                   </FlexibleTimings>
-                  <DisplayListOfElements listData={{title:strings.text.noOfSeats}} onChange={onChangeNoOfSeats} />
+                  <DisplayListOfElements listData={{title:strings.text.noOfSeatsAvailable}} onChange={onChangeNoOfSeats} />
                   <DisplayListOfElements listData={{title:strings.text.noOfLuggages}} onChange={onChangeNoOfLuggages} />
                   <Button buttonText={strings.text.request} onClickFunction={onSubmitRequest}/>
                 </Form>
@@ -61,4 +61,4 @@ class RideRequest extends React.Component{
             );
     }
 }
-export {RideRequest};
+export {ShareRide};

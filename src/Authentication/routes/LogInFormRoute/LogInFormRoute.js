@@ -27,6 +27,7 @@ class LogInPageRoute extends React.Component{
       this.errorText="";
   }
     onSubmit=()=>{
+        event.preventDefault();
         let {userName,password}=this;
         const {authStore}=this.props;
         if(userName.length!==0 && password.length!==0){

@@ -20,12 +20,13 @@ class RiderShareInfo extends React.Component{
         this.isShareInfoView=!this.isShareInfoView;
     }
     render(){
+        const {navigatePageTo}=this.props;
         return (
         <ShareInfoDropDown>
-          <ShareButton onClick={this.onClickShare}><ButtonText>{strings.share}</ButtonText>{this.isShareInfoView?<FiChevronDown />:<FiChevronUp />}</ShareButton>
+          <ShareButton onClick={this.onClickShare}><ButtonText>{strings.text.share}</ButtonText>{this.isShareInfoView?<FiChevronDown />:<FiChevronUp />}</ShareButton>
           <RiderRequestsView isRequestsView={this.isShareInfoView}>
-            <ShareButton><Share>{strings.ride}</Share></ShareButton>
-            <ShareButton><Share>{strings.travelInfo}</Share></ShareButton>
+            <ShareButton onClick={()=>navigatePageTo('shareRide')}><Share>{strings.text.ride}</Share></ShareButton>
+            <ShareButton><Share>{strings.text.travelInfo}</Share></ShareButton>
           </RiderRequestsView>
         </ShareInfoDropDown> 
         )

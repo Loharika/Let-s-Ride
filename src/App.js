@@ -6,7 +6,7 @@ import {endPoints as AuthEndPoints} from './Authentication/constants';
 import {endPoints as CommuteEndPoints} from './Commute/constants';
 import {LogInPageRoute} from './Authentication/routes';
 import {SignInFormRoute} from './Authentication/routes';
-import DashBoardRoute from './Commute/routes/DashBoardRoute.js';
+import DashBoardRoute from './Commute/routes/DashBoardRoute/DashBoardRoute.js';
 import {UserProfile} from './Authentication/components/UserProfile/UserProfile.js';
 
 import stores from './stores';

@@ -10,7 +10,7 @@ export const Typo14DarkBlueGreyHKGroteskRegular=styled.span`
   
 export const Label=styled.label`
   width: 100%;
-  font-family: HKGrotesk;
+  /*font-family: HKGrotesk;*/
   font-size: 12px;
   font-weight: 600;
   font-stretch: normal;
@@ -52,11 +52,12 @@ export const ErrorStyle=styled.div`
     margin:0px;
 `;
 export const InputTag=styled.input`
-  border:1px solid grey;
+  border:1px solid #d7dfe9;
   width:100%;
    border-radius: 2px;
-   padding:2px;
+   padding:3px 2px ;
    margin-top:2px;
+   
 `;
 export const InputFieldWithLabel=styled.div`
   width:100%;
@@ -84,7 +85,7 @@ export const Typo14SteelHKGroteSkRegular=styled.span`
   margin:2px;
 `;
 export const Typo20DarkBlueGreyHKGrotestBold=styled.span`
-  font-family: HKGrotesk;
+  /*font-family: HKGrotesk;*/
   font-size: 20px;
   font-weight: bold;
   font-stretch: normal;

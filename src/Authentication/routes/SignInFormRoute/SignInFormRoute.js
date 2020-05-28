@@ -31,6 +31,7 @@ class SignInFormRoute extends React.Component{
     
   }
     onSubmit=()=>{
+        event.preventDefault();
         let {userName,password,onClickSignUpButton,confirmPassword,mobileNumber}=this;
         if(userName.length===0 || password.length===0 || confirmPassword.length===0 || mobileNumber.length===0){
             this.displayError=true;

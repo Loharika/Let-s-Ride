@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import {Typo32DarkBlueGreyRubikRegular,Logo,LogoImageContainer,Typo14DarkBlueGreyHKGroteskRegular} from 
+import {Logo,LogoImageContainer,Typo14DarkBlueGreyHKGroteskRegular} from 
 '../../../Common/styleGuides/StyleGuides.js';
 
 const FormType=styled.form`
@@ -22,14 +22,6 @@ const FormDashBoard=styled.div`
   justify-content:center;
   align-items:center;
 `;
-const SignUpButton=styled.button`
-  width: 100%;
-  height: 40px;
-  border-radius: 4px;
-  background-color: #0b69ff;
-  color:white;
-  padding:2px 3px;
-`;
 const LogInPageLink=styled.a`
   color:blue;
 `;
@@ -39,7 +31,7 @@ const PasswordAlert=styled.span`
     font-size:13px;
 `;
 export {FormType,FormDashBoard,
-SignUpButton,LogoImageContainer,Logo,Typo14DarkBlueGreyHKGroteskRegular as LoginLink,LogInPageLink
+LogoImageContainer,Logo,Typo14DarkBlueGreyHKGroteskRegular as LoginLink,LogInPageLink
 ,PasswordAlert,
   
 };

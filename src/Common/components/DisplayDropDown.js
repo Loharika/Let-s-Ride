@@ -6,23 +6,20 @@ import {Label } from '../styleGuides/StyleGuides.js';
 import {Dropdown,DropdownList,DropdownListOption} from '../styledComponents/styleComponents.js';
 @observer
 class DisplayDropDown extends React.Component{
-   @observable isDropDown;
-    constructor(props){
-        super(props);
-        this.isDropDown=false;
-    }
     @action.bound
-    onChange(){
-        this.isDropDown=!this.isDropDown;
+    onChange(item){
+        const {onChange}=this.props;
+        onChange(item);
     }
     render(){
         const {data}=this.props;
+        const {onChange}=this;
     return (
         <Dropdown >
             <Label>{data.ListTitle}</Label>
-            <DropdownList onChange={this.onChange}>
+            <DropdownList onChange={()=>onChange(event.target.value)}>
             <DropdownListOption ></DropdownListOption>
-            {data.listItems.map(eachItem=><DropdownListOption key={eachItem} >{eachItem}</DropdownListOption>)}
+            {data.listItems.map(eachItem=><DropdownListOption key={eachItem} value={eachItem}>{eachItem}</DropdownListOption>)}
             </DropdownList>
         </Dropdown> 
             
@@ -30,6 +27,3 @@ class DisplayDropDown extends React.Component{
     }
 }
 export {DisplayDropDown};
-
-//<DropDownList isDropDown={this.isDropDown} >
-// </DropDownList>

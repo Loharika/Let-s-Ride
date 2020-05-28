@@ -20,14 +20,15 @@ class RiderRequestsInfo extends React.Component{
         this.isRequestsView=!this.isRequestsView;
     }
     render(){
+        const {navigatePageTo}=this.props;
         return (
         <RequestsDropdown>
           <RequestButton onClick={this.onClickRequest}>
-          <ButtonText>{strings.requests}</ButtonText>{this.isRequestsView?<FiChevronDown />:<FiChevronUp />}
+          <ButtonText>{strings.text.requests}</ButtonText>{this.isRequestsView?<FiChevronDown />:<FiChevronUp />}
           </RequestButton>
           <RiderRequestsView isRequestsView={this.isRequestsView}>
-            <RequestButton><Request>{strings.ride}</Request></RequestButton>
-            <RequestButton><Request>{strings.assetTranport}</Request></RequestButton>
+            <RequestButton onClick={()=>navigatePageTo('rideRequest')}><Request>{strings.text.ride}</Request></RequestButton>
+            <RequestButton onClick={()=>navigatePageTo('assetTranportRequest')}><Request>{strings.text.assetTranport}</Request></RequestButton>
           </RiderRequestsView>
         </RequestsDropdown> 
         )

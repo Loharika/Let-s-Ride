@@ -12,6 +12,7 @@ export const RequestsDropdown=styled.div`
         display: inline-block;
         flex-grow:none;
         padding:10px;
+        
 `;
 export const RequestButton=styled.button`
         display:flex;
