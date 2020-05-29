@@ -1,6 +1,7 @@
 import React from 'react';
 import {observer} from 'mobx-react';
 
+
 import {NoOfRequests,RequestHeader,FilterAndSort,Sort,Filter,RequestDetailsTable,TableCellLeftAligned,TableCellAlignedCenter,TableHeader,TableRow,
     PaginationBar,PreviousPage,NextPage,Button,TurnPages,PageNumber
 } from './styledComponents.js';
@@ -9,7 +10,7 @@ import {NoOfRequests,RequestHeader,FilterAndSort,Sort,Filter,RequestDetailsTable
 class ShowRideRequests extends React.Component{
     render(){
      
-        const {onChangePageNumber,onChangeFilter,onChangeSortBy,renderPageRideRequests,limit,pageNumber}=this.props;
+        const {onChangePageNumber,onChangeFilter,onChangeSortBy,renderPageRideRequests,limit,pageNumber,totalNumberOfPages}=this.props;
         const rideRequests=renderPageRideRequests();
         const headers=['FROM','TO','DATE AND TIME','NUMBER OF PEOPLE','LUGGAGE QUANTITY','ACCEPTED PERSON DETAILS','STATUS'];
         return (

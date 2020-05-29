@@ -20,11 +20,11 @@ class ShareRideRoute extends React.Component{
         this.displayError=false;
         this.from='';
         this.to='';
-        this.dateTime='';
-        this.startDateTime='';
-        this.endDateTime='';
-        this.seats=0;
-        this.luggages=0;
+        this.dateTime=new Date();
+        this.startDateTime=new Date();
+        this.endDateTime=new Date();
+        this.seats='';
+        this.luggages='';
     }
     onClickFlexibleTimings=()=>{
         this.isCheckedFlexibleTimings=!this.isCheckedFlexibleTimings;
@@ -54,13 +54,25 @@ class ShareRideRoute extends React.Component{
     }
     onSubmitRequest=()=>{
         this.displayError=!this.displayError;
-        console.log(this.from)
-        console.log(this.to)
-        console.log(this.dateTime)
-        console.log(this.startDateTime)
-        console.log(this.endDateTime)
-        console.log(this.seats)
-        console.log(this.luggages)
+        let formDetails=[this.from,this.to,this.dateTime,this.seats,this.luggages];
+        let count=0;
+        formDetails.forEach(eachDetail=>{
+            if(eachDetail.length===0){
+                count++;
+            }
+        });
+        if(!this.isCheckedFlexibleTimings){
+            if(count===0 && this.dateTime.length!==0){
+                alert("Submitted Succesfully");
+                this.displayError=false;
+            }
+        }
+        else{
+            if(count===0 && this.startDateTime.length!==0 && this.endDateTime.length!==0){
+                alert("Submitted Succesfully");
+                this.displayError=false;
+            }
+        }
     }
     render(){
         const {from,to,dateTime,startDateTime,endDateTime,

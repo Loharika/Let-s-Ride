@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {observable} from 'mobx';
 import { observer } from 'mobx-react'
-import {NoOfListItems,ListItemsDisplay,ListItemsCount,ChangeNoOfListItems} from '../styledComponents/styleComponents.js';
+import {NoOfListItems,ListItemsDisplay,ListItemsCount,ChangeNoOfListItems,Star} from '../styledComponents/styleComponents.js';
 import {Typo14SteelHKGroteSkRegular as Text,Label} from '../styleGuides/StyleGuides.js';
 import strings from '../i18n/strings.json';
 
@@ -40,11 +40,11 @@ class DisplayListOfElements extends Component {
       const {listData}=this.props;
     return (
       <NoOfListItems>
-        <Label>{listData.title}</Label>
+        <Label>{listData.title} <Star>*</Star></Label>
         <ListItemsDisplay>
-            <ChangeNoOfListItems onClick={this.handleIncrement}><Text>{strings.incrementSymbol}</Text></ChangeNoOfListItems>
+            <ChangeNoOfListItems onClick={this.handleIncrement}>{strings.incrementSymbol}</ChangeNoOfListItems>
             <ListItemsCount><Text>{this.count}</Text></ListItemsCount>
-            <ChangeNoOfListItems onClick={this.handleDecrement}><Text>{strings.decrementSymbol}</Text></ChangeNoOfListItems>
+            <ChangeNoOfListItems onClick={this.handleDecrement}>{strings.decrementSymbol}</ChangeNoOfListItems>
         </ListItemsDisplay>
       </NoOfListItems>
     )

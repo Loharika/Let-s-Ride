@@ -115,6 +115,7 @@ class ShowMyRequestsRoute extends React.Component{
     }
     render(){
         const {commuteStore:{allRequestData}}=this.props;
+        const totalNumberOfPages=(this.props.commuteStore.allRequestData.length)/this.limit;
         const {getRideRequests,getAssetRequests,onChangePageNumber,onChangeFilter,onChangeSortBy,renderPageRideRequests,limit,pageNumber}=this;
         return (
             <ShowMyRequests 
@@ -127,6 +128,7 @@ class ShowMyRequestsRoute extends React.Component{
             onChangeFilter={onChangeFilter}
             onChangeSortBy={onChangeSortBy}
             renderPageRideRequests={renderPageRideRequests}
+            totalNumberOfPages={totalNumberOfPages}
             />
             );
     }

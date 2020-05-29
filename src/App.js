@@ -24,7 +24,7 @@ class App extends React.Component{
       <Route exact path={AuthEndPoints.logInPage} component={LogInPageRoute}/>
       <Route exact path={AuthEndPoints.userProfile} component={UserProfile}/>
       <ProtectedRoute exact path={CommuteEndPoints.commuteDashBoard} component={DashBoardRoute}/>
-      <Route exact path="/" component={SignInFormRoute}/>
+      <Route exact path={AuthEndPoints.signInPage} component={SignInFormRoute}/>
       </Switch>
     </Router>
     </Provider>

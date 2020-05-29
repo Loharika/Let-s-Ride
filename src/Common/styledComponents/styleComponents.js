@@ -1,6 +1,10 @@
 
 import styled from '@emotion/styled';
 
+
+export const Star=styled.sup`
+  color:red;
+`;
 export const FormDashboard=styled.div`
     width:100vw;
     display:flex;
@@ -17,7 +21,7 @@ export const Form=styled.div`
     align-items:center;
     padding:20px 25px;
     box-shadow: 0 4px 40px 0 rgba(23, 31, 70, 0.16);
-    margin:2% 0%;
+    margin:5% 0%;
     border-radius:2px;
     background-color:white;
 `;
@@ -30,6 +34,7 @@ export const NoOfListItems=styled.div`
 `;
 export const ListItemsDisplay=styled.div`
         display:flex;
+        margin-left:15px;
 `;
 export const ListItemsCount=styled.div`
         border:1px solid lightgrey;
@@ -67,10 +72,12 @@ export const DataAndTimeDisplay=styled.div`
 
 export const Dropdown=styled.div`
         position: relative;
-        display: inline-block;
+        display: flex;
         flex-grow:none;
         padding:10px 0px;
         width:100%;
+        flex-direction:column;
+        
 `;
 export const DropdownList=styled.select`
 
@@ -116,6 +123,7 @@ export const InputTag=styled.input`
   width:100%;
    border-radius: 2px;
    padding:3px 2px ;
+   height:30px;
    margin-top:2px;
    flex-grow:1;
    border:${props=>props.isError?'1px solid red':'1px solid #d7dfe9'}

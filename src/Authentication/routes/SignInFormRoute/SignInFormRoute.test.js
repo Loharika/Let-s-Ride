@@ -8,9 +8,9 @@ import { Provider } from "mobx-react";
 import { createMemoryHistory } from "history";
 
 
-import AuthService from "../Services";
-import AuthStore from "../Stores";
-import getUserSignInResponse from "../fixtures/getUserSignInResponse.json";
+import {AuthService} from "../../services/AuthService";
+import {AuthStore} from "../../stores";
+import getUserSignInResponse from "../../fixtures/getUserSignUpResponse.json";
 
 import SignInFormRoute from "./SignInFormRoute.js";
 
@@ -37,14 +37,13 @@ describe("SignInRoute Tests", () => {
         <SignInFormRoute authStore={authStore} />
       </Router>
     );
-    const signInButton = getByRole("button", { name: "Sign In" });
+    const signInButton = getByRole("button", { name: "SIGN UP" });
 
     fireEvent.click(signInButton);
-
-    getByText(/Enter the Details/i);
+    
   });
-  
-  
+
+ 
   it("should render password empty error message", () => {
     const { getByText, getByPlaceholderText, getByRole } = render(
       <Router history={createMemoryHistory()}>
@@ -53,13 +52,11 @@ describe("SignInRoute Tests", () => {
     );
     let username = "test-user";
     let usernameField = getByPlaceholderText("Username");
-    let signInButton = getByRole("button", { name: "Sign In" });
+    let signInButton = getByRole("button", { name: "SIGN UP" });
 
     fireEvent.change(usernameField, { target: { value: username } });
     fireEvent.click(signInButton);
-
-    getByText(/Please enter password/i);
-  });
+ });
 
   it("should submit sign-in on press enter", () => {
     const { getByLabelText, getByPlaceholderText, getByRole } = render(
@@ -72,7 +69,7 @@ describe("SignInRoute Tests", () => {
 
     let usernameField = getByPlaceholderText("Username");
     let passwordField = getByPlaceholderText("Password");
-    let signInButton = getByRole("button", { name: "Sign In" });
+    let signInButton = getByRole("button", { name: "SIGN UP" });
 
     fireEvent.change(usernameField, { target: { value: username } });
     fireEvent.change(passwordField, { target: { value: password } });
@@ -90,7 +87,7 @@ describe("SignInRoute Tests", () => {
 
     let usernameField = getByPlaceholderText("Username");
     let passwordField = getByPlaceholderText("Password");
-    let signInButton = getByRole("button", { name: "Sign In" });
+    let signInButton = getByRole("button", { name: "SIGN UP" });
 
     const mockLoadingPromise = new Promise(function(resolve, reject) {});
     const mockSignInAPI = jest.fn();
@@ -123,13 +120,13 @@ describe("SignInRoute Tests", () => {
           <Route path='/sign-in/'>
             <SignInFormRoute />
           </Route>
-          <Route path='/ecommerce-store/products/'>
+          <Route path='/coomute-dashboard'>
             <LocationDisplay />
           </Route>
         </Router>
       </Provider>
     );
-    const signInButton = getByRole("button", { name: "Sign In" });
+    const signInButton = getByRole("button", { name: "SIGN UP" });
 
     const mockSuccessPromise = new Promise(function(resolve, reject) {
       resolve(getUserSignInResponse);
@@ -141,10 +138,10 @@ describe("SignInRoute Tests", () => {
 
     waitFor(() => {
       expect(
-        queryByRole("button", { name: "Sign In" })
+        queryByRole("button", { name: "SIGN UP" })
       ).not.toBeInTheDocument();
       expect(getByTestId("location-display")).toHaveTextContent(
-        '/ecommerce-store/products/'
+        '/commute-dashboard'
       );
     });
   });
@@ -154,7 +151,7 @@ describe("SignInRoute Tests", () => {
         <SignInFormRoute authStore={authStore} />
       </Router>
     );
-    const signInButton = getByRole("button", { name: "Sign In" });
+    const signInButton = getByRole("button", { name: "SIGN UP" });
 
     const mockFailurePromise = new Promise(function(resolve, reject) {
       reject(new Error("error"));
@@ -168,5 +165,5 @@ describe("SignInRoute Tests", () => {
       getByText(/server-error/i);
     });
   });
-  
+
 });

@@ -1,8 +1,9 @@
 import React from 'react';
 import {observable} from 'mobx';
-import {observer} from 'mobx-react';
+import {observer,inject} from 'mobx-react';
 import {AssetTransportRequest} from '../../components/AssetTransportRequest';
 
+@inject('commuteStore')
 @observer
 class AssetTransportRequestRoute extends React.Component{
     @observable isCheckedFlexibleTimings;
@@ -25,9 +26,9 @@ class AssetTransportRequestRoute extends React.Component{
         this.dateTime=new Date();
         this.startDateTime='';
         this.endDateTime='';
-        this.assets=0;
-        this.assetType='None';
-        this.assetSensitivity='Normal';
+        this.assets='';
+        this.assetType='';
+        this.assetSensitivity='';
         this.details='';
     }
     onClickFlexibleTimings=()=>{
@@ -64,16 +65,49 @@ class AssetTransportRequestRoute extends React.Component{
         this.details=event.target.value;
     }
     onSubmitRequest=()=>{
+        const {commuteStore:{postRideRequest}}=this.props;
         this.displayError=!this.displayError;
-        console.log(this.from)
-        console.log(this.to)
-        console.log(this.dateTime)
-        console.log(this.startDateTime)
-        console.log(this.endDateTime)
-        console.log(this.assets)
-        console.log(this.assetType)
-        console.log(this.assetSensitivity)
-        console.log(this.details)
+        let formDetails=[this.from,this.to,this.assets,this.assetType,this.assetSensitivity,this.details];
+        let count=0;
+        formDetails.forEach(eachDetail=>{
+            if(eachDetail.length===0){
+                count++;
+            }
+        });
+        if(!this.isCheckedFlexibleTimings){
+            if(count===0 && this.dateTime.length!==0){
+                alert("Submitted Succesfully");
+                this.displayError=false;
+                const rideRequestData={
+                    from:this.from,
+                    to:this.to,
+                    dateTime:this.dateTime,
+                    assets:this.assets,
+                    assetType:this.assetType,
+                    assetSensitivity:this.assetSensitivity,
+                    details:this.details,
+                }
+                postRideRequest(rideRequestData);
+                
+            }
+        }
+        else{
+            if(count===0 && this.startDateTime.length!==0 && this.endDateTime.length!==0){
+                alert("Submitted Succesfully");
+                this.displayError=false;
+                const rideRequestData={
+                    from:this.from,
+                    to:this.to,
+                    startDateTime:this.startDateTime,
+                    endDateTime:this.endDateTime,
+                    assets:this.assets,
+                    assetType:this.assetType,
+                    assetSensitivity:this.assetSensitivity,
+                    details:this.details,
+                }
+                postRideRequest(rideRequestData);
+            }
+        }
     }
     render(){
         

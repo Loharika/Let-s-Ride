@@ -1,8 +1,7 @@
 import {observable,action,computed} from 'mobx';
 import {bindPromiseWithOnSuccess} from '@ib/mobx-promise';
 import {API_INITIAL} from '@ib/api-constants';
-import rideRequestsData from '../../fixtures/rideRequests.fixture.json';
-import assetsRequestData from '../../fixtures/assetRequests.fixture.json';
+
 import allRequestData from '../../fixtures/allRequests.fixture.json';
 
 class CommuteStore {
@@ -13,24 +12,22 @@ class CommuteStore {
     commuteService
     constructor(commuteService){
         this.commuteService=commuteService;
-        this.rideRequests=rideRequestsData;
-        this.assetsRequests=assetsRequestData;
         this.allRequestData=allRequestData;
-        this.intialiseRequestAPI();
+        this.intialiseRequestAPI(commuteService);
     }
     @action.bound
-    intialiseRequestAPI(){
+    intialiseRequestAPI(commuteService){
         this.getRequestAPIStatus=API_INITIAL;
         this.getRequestAPIError=null;
-        this.getRequestAPIResponse='';
+        this.getRequestAPIResponse=commuteService;
     }
     @action.bound
-    postRideRequest(){
+    postRideRequest(rideRequest){
         
-        let rideRequestPromise=this.commuteService.postRideRequest({name:'rideRequest',id:'Ride'});
-        // return bindPromiseWithOnSuccess(rideRequestPromise).
-        // to(this.setGetRequestAPIStatus,this.setGetRequestAPIRResponse).
-        // catch(this.setGetRequestAPIError);
+        let rideRequestPromise=this.commuteService.postRideRequest(rideRequest);
+         return bindPromiseWithOnSuccess(rideRequestPromise).
+         to(this.setGetRequestAPIStatus,this.setGetRequestAPIRResponse).
+         catch(this.setGetRequestAPIError);
     }
     @action.bound
     postAssetTransportRequest(){
@@ -50,6 +47,7 @@ class CommuteStore {
     @action.bound
     setGetRequestAPIRResponse(apiResponse){
         this.getRequestAPIResponse=apiResponse;
+        
     }
     @action.bound
     clearRequestAPI(){

@@ -33,11 +33,41 @@ class AssetTransportRequest extends React.Component{
         }=this.props;
         const data={
             ListTitle:'ASSET TYPE',
-            listItems:['Parcel','Bags','Others']
+            listItems:['Parcel','Bags','Others'],
+            listItems2:[{
+                        key: 'Parcel',
+                        text: 'Parcel',
+                        value: 'Parcel',
+                      },
+                      {
+                        key: 'Bags',
+                        text: 'Bags',
+                        value: 'Bags',
+                      },
+                      {
+                        key: 'Others',
+                        text: 'Others',
+                        value: 'Others',
+                      },]
         };
         const data2={
             ListTitle:'ASSET SENSITIVITY',
-            listItems:['Normal','Sensitive','Very Sensitive']
+            listItems:['Normal','Sensitive','Very Sensitive'],
+            listItems2:[{
+                        key: 'Normal',
+                        text: 'Normal',
+                        value: 'Normal',
+                      },
+                      {
+                        key: 'Sensitive',
+                        text: 'Sensitive',
+                        value: 'Sensitive',
+                      },
+                      {
+                        key: 'Very Sensitive',
+                        text: 'Very Sensitive',
+                        value: 'Very Sensitive',
+                      },]
         };
         return (
             

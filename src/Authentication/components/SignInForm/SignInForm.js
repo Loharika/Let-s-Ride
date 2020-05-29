@@ -12,6 +12,7 @@ import strings from '../../i18n/strings.json';
 @observer
 class SignInForm extends React.Component{
     render(){
+        
         const {userName,
                 password,
                 confirmPassword,
@@ -24,7 +25,8 @@ class SignInForm extends React.Component{
                 onSubmit,
                 displayError}=this.props;
         return (
-            <FormDashBoard>
+            <FormDashBoard> 
+            
                 <FormType >
                     <LogoImageContainer>
                         <LogoImage />
@@ -43,3 +45,4 @@ class SignInForm extends React.Component{
     }
 }
 export default SignInForm;
+

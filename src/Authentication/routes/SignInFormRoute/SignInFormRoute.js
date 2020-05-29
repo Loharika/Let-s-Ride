@@ -10,12 +10,12 @@ import {endPoints} from '../../constants';
 @inject("authStore")
 @observer
 class SignInFormRoute extends React.Component{
-  @observable userName;
-  @observable password;
-  @observable mobileNumber;
-  @observable confirmPassword;
-  @observable displayError;
-  @observable choosePassword;
+  @observable userName='';
+  @observable password='';
+  @observable mobileNumber='';
+  @observable confirmPassword='';
+  @observable displayError='';
+  @observable choosePassword='';
   constructor(){
     super();
     this.init();
@@ -29,8 +29,9 @@ class SignInFormRoute extends React.Component{
     this.confirmPassword='';
     this.choosePassword='';
     
+    
   }
-    onSubmit=()=>{
+    onSubmit=(event)=>{
         event.preventDefault();
         let {userName,password,onClickSignUpButton,confirmPassword,mobileNumber}=this;
         if(userName.length===0 || password.length===0 || confirmPassword.length===0 || mobileNumber.length===0){
@@ -80,7 +81,8 @@ class SignInFormRoute extends React.Component{
     }
     
     render(){
-        const {userName,
+        const {
+            userName,
             password,
             confirmPassword,
             mobileNumber,
@@ -90,9 +92,12 @@ class SignInFormRoute extends React.Component{
             onChangeConfirmPassword,
             onChangeMobileNumber,
             onSubmit,
-            displayError}=this;
+            displayError,
+            
+        }=this;
         return (
-            <SignInForm userName={userName} 
+            <SignInForm 
+            userName={userName} 
             password={password} 
             confirmPassword={confirmPassword}
             onChangeUserName={onChangeUserName} 

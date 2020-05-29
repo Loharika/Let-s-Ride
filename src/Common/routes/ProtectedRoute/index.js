@@ -18,7 +18,7 @@ const ProtectedRoute = inject('authStore')(observer(({ component: Component,auth
       else{
            return <Redirect
       to={{
-      pathname: 'login-page',
+      pathname: '/sign-in/',
       }}
       />;
       }

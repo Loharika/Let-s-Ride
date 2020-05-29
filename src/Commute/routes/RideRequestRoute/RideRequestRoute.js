@@ -1,8 +1,10 @@
 import React from 'react';
 import {observable} from 'mobx';
-import {observer} from 'mobx-react';
+import {observer,inject} from 'mobx-react';
+
 import {RideRequest} from '../../components/RideRequest';
 
+@inject('commuteStore')
 @observer
 class RideRequestRoute extends React.Component{
     @observable isCheckedFlexibleTimings;
@@ -54,9 +56,9 @@ class RideRequestRoute extends React.Component{
             this.luggages=luggages;
     }
     onSubmitRequest=()=>{
+        const {commuteStore:{postRideRequest}}=this.props;
         this.displayError=!this.displayError;
         let formDetails=[this.from,this.to,this.dateTime,this.seats,this.luggages];
-        console.log(formDetails);
         let count=0;
         formDetails.forEach(eachDetail=>{
             if(eachDetail.length===0){
@@ -65,25 +67,35 @@ class RideRequestRoute extends React.Component{
         });
         if(!this.isCheckedFlexibleTimings){
             if(count===0 && this.dateTime.length!==0){
-                console.log(this.from)
-                console.log(this.to)
-                console.log(this.dateTime)
-                console.log(this.seats)
-                console.log(this.luggages)
+                alert("Submitted Succesfully");
                 this.displayError=false;
+                const rideRequestData={
+                    from:this.from,
+                    to:this.to,
+                    dateTime:this.dateTime,
+                    seats:this.seats,
+                    luggages:this.luggages
+                    
+                }
+                postRideRequest(rideRequestData);
+                
             }
         }
         else{
-            alert(count+"     "+this.startDateTime.length+"   "+this.endDateTime.length);
             if(count===0 && this.startDateTime.length!==0 && this.endDateTime.length!==0){
-                
-                console.log(this.from)
-                console.log(this.to)
-                console.log(this.startDateTime)
-                console.log(this.endDateTime)
-                console.log(this.seats)
-                console.log(this.luggages)
+                alert("Submitted Succesfully");
                 this.displayError=false;
+                const rideRequestData={
+                    from:this.from,
+                    to:this.to,
+                    dateTime:this.dateTime,
+                    startDateTime:this.startDateTime,
+                    endDateTime:this.endDateTime,
+                    seats:this.seats,
+                    luggages:this.luggages
+                    
+                }
+                postRideRequest(rideRequestData);
             }
         }
     }
@@ -123,4 +135,4 @@ class RideRequestRoute extends React.Component{
             )
     }
 }
-export {RideRequestRoute}
+export {RideRequestRoute};
