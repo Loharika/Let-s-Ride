@@ -20,10 +20,20 @@ class ShowMyRequests extends React.Component{
     }
     
     displayRequestPage=()=>{
-        const {getRideRequests,getAssetRequests}=this.props;
+        const {limit,getRideRequests,getAssetRequests,renderPageRideRequests,onChangePageNumber,onChangeFilter,onChangeSortBy,pageNumber}=this.props;
+    
         switch(this.displayRequestType){
             case 'ride':{
-                return <ShowRideRequests rideRequests={getRideRequests()}/>;
+                return <ShowRideRequests limit={limit}
+                pageNumber={pageNumber}
+                rideRequests={getRideRequests()}
+                renderPageRideRequests={renderPageRideRequests}
+                onChangePageNumber={onChangePageNumber}
+                onChangeFilter={onChangeFilter}
+                onChangeSortBy={onChangeSortBy}
+                renderPageRideRequests={renderPageRideRequests}
+                
+                />;
             }
             case 'asset':{
                 return <ShowAssetTransport assetRequests={getAssetRequests()}/>;
@@ -51,26 +61,5 @@ class ShowMyRequests extends React.Component{
     }
 }
 export {ShowMyRequests};
-/*
-{"id":"1",
-"from":"2020-05-28T05:31:01.185Z",
-"to":"Isabelle Steuber",
-"assetType":"Ball",
-"dateTime":1590681013,
-"assetSensitivity":"Practical",
-"whomToDeliver":"Chloe",
-"acceptedPerson":"Violette55",
-"status":"status 1",
-"noOfAssets":22}
 
-*/
-/*
-{"id":"10",
-"name":"Dr. Madelynn Lehner",
-"from":"Rollinfurt",
-"to":"North Linda",
-"noOfSeats":84,
-"mobileNumber":"(402) 512-5071","
-date":1590680579,
-"noOfLuggages":53}
-*/
+

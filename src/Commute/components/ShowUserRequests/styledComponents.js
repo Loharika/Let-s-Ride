@@ -16,7 +16,7 @@ export const MyRequestType=styled.button`
   text-align: center;
   padding: 10px 12px;
   text-decoration: none;
-  border:2px solid lightgrey;
+  border:1px solid #f2f2f2;
 `;
 export const MyRequestsTitle=styled.div`
     font-size:20px;
@@ -68,8 +68,32 @@ export const TableCellAlignedCenter=styled.td`
         border: 1px solid #dddddd;
   text-align: center;
   padding: 8px;
-  
 `; 
+export const PaginationBar=styled.div`
+    width:100%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin:5px 0px;
+    
+`;
+export const PreviousPage=styled.button`
+    padding:10px;
+`;
+export const NextPage=styled.button`
+    padding:10px;
+`;
+export const Button=styled.div`
+    padding:5px 10px;
+`;
+export const TurnPages=styled.div`
+    display:flex;
+    align-items:center;
+`;
+export const PageNumber=styled.div`
+    padding:5px 10px;
+`;
+
 /*
 export const Card=styled.div`
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);

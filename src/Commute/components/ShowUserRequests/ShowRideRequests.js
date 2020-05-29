@@ -1,26 +1,43 @@
 import React from 'react';
 import {observer} from 'mobx-react';
-import {NoOfRequests,RequestHeader,FilterAndSort,Sort,Filter,RequestDetailsTable,TableCellLeftAligned,TableCellAlignedCenter,TableHeader,TableRow} from './styledComponents.js';
+
+import {NoOfRequests,RequestHeader,FilterAndSort,Sort,Filter,RequestDetailsTable,TableCellLeftAligned,TableCellAlignedCenter,TableHeader,TableRow,
+    PaginationBar,PreviousPage,NextPage,Button,TurnPages,PageNumber
+} from './styledComponents.js';
+
 @observer
 class ShowRideRequests extends React.Component{
     render(){
-        // console.log(this.props.rideRequests[0]);
-        // console.log(Object.values(this.props.rideRequests));
-        const headers=['FROM','TO','DATE AND TIME','NUMBER OF PEOPLE','LUGGAGE QUANTITY','ACCEPTED PERSON DETAILS','STATUS']
+     
+        const {onChangePageNumber,onChangeFilter,onChangeSortBy,renderPageRideRequests,limit,pageNumber}=this.props;
+        const rideRequests=renderPageRideRequests();
+        const headers=['FROM','TO','DATE AND TIME','NUMBER OF PEOPLE','LUGGAGE QUANTITY','ACCEPTED PERSON DETAILS','STATUS'];
         return (
             <div>
                 <RequestHeader>
-                <NoOfRequests>{this.props.rideRequests.length}  Tasks</NoOfRequests>
+                <NoOfRequests>{limit} Tasks</NoOfRequests>
                 <FilterAndSort>
-                    <Sort>Sort</Sort>
-                    <Filter>Filter</Filter>
+                    <Sort>
+                        <select onChange={()=>onChangeFilter(event.target.value)}>
+                            <option value={'SELECT'}>All</option>
+                            <option value={'ACTIVE'}>Active</option>
+                            <option value={'EXPIRE'}>Expire</option>
+                        </select>
+                    </Sort>
+                    <Filter>
+                        <select onChange={()=>onChangeSortBy(event.target.value)}>
+                            <option value={'SELECT'}></option>
+                            <option value={'DATE'}>Date</option>
+                            <option value={'TIME'}>Time</option>
+                        </select>
+                    </Filter>
                 </FilterAndSort>
                 </RequestHeader>
                     <RequestDetailsTable>
                       <TableRow>
                       {headers.map(eachOne=>{return <TableHeader>{eachOne}</TableHeader>})}
                       </TableRow>
-                      {Object.values(this.props.rideRequests).map(request=>{
+                      {Object.values(rideRequests).map(request=>{
                       return <TableRow>
                                 <TableCellLeftAligned>{request.from}</TableCellLeftAligned>
                                 <TableCellLeftAligned>{request.to}</TableCellLeftAligned>
@@ -30,9 +47,24 @@ class ShowRideRequests extends React.Component{
                                 <TableCellLeftAligned>{request.acceptedPersonDetails}</TableCellLeftAligned>
                                 <TableCellLeftAligned>{request.status}</TableCellLeftAligned>
                               </TableRow>})}
-                      
-                      
                     </RequestDetailsTable>
+                <PaginationBar>
+                <Button>
+                Add Ride
+                </Button>
+                
+                <TurnPages>
+                    <PreviousPage onClick={()=>onChangePageNumber('previousPage')}>
+                    Previous
+                    </PreviousPage>
+                    <PageNumber>
+                    {pageNumber}
+                    </PageNumber>
+                    <NextPage onClick={()=>onChangePageNumber('nextPage')} >
+                    Next
+                    </NextPage>
+                </TurnPages>
+                </PaginationBar>
             </div>
             
             )

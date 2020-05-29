@@ -4,6 +4,7 @@ import {API_INITIAL} from '@ib/api-constants';
 import rideRequestsData from '../../fixtures/rideRequests.fixture.json';
 import assetsRequestData from '../../fixtures/assetRequests.fixture.json';
 import allRequestData from '../../fixtures/allRequests.fixture.json';
+
 class CommuteStore {
     @observable getRequestAPIStatus;
     @observable getRequestAPIError;
