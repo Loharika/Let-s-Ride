@@ -8,7 +8,7 @@ import {LogInPageRoute} from './Authentication/routes';
 import {SignInFormRoute} from './Authentication/routes';
 import DashBoardRoute from './Commute/routes/DashBoardRoute/DashBoardRoute.js';
 import {UserProfile} from './Authentication/components/UserProfile/UserProfile.js';
-
+import {ProtectedRoute} from './Common/routes/ProtectedRoute';
 import stores from './stores';
 
 import "./App.css";
@@ -23,7 +23,7 @@ class App extends React.Component{
       <Switch>
       <Route exact path={AuthEndPoints.logInPage} component={LogInPageRoute}/>
       <Route exact path={AuthEndPoints.userProfile} component={UserProfile}/>
-      <Route exact path={CommuteEndPoints.commuteDashBoard} component={DashBoardRoute}/>
+      <ProtectedRoute exact path={CommuteEndPoints.commuteDashBoard} component={DashBoardRoute}/>
       <Route exact path="/" component={SignInFormRoute}/>
       </Switch>
     </Router>

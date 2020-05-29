@@ -44,24 +44,6 @@ export const Logo=styled.img`
   width:60px;
   height:60px;
 `;
-export const ErrorStyle=styled.div`
-    width:100%;
-    color:${props=>props.isError?'red':'white'};
-    font-size:9px;
-    padding:0px;
-    margin:0px;
-`;
-export const InputTag=styled.input`
-  border:1px solid #d7dfe9;
-  width:100%;
-   border-radius: 2px;
-   padding:3px 2px ;
-   margin-top:2px;
-   
-`;
-export const InputFieldWithLabel=styled.div`
-  width:100%;
-  `;
 export const Typo18BrightBlueRobotoRegular=styled.span`
   font-family: Roboto;
   font-size: 18px;

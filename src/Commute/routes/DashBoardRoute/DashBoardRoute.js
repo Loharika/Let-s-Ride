@@ -6,15 +6,9 @@ import {withRouter} from 'react-router-dom';
 import {DashBoard} from '../../components/DashBoard.js';
 
 
-@inject('commuteStore')
+@inject('commuteStore','authStore')
 @observer
 class DashBoardRoute extends React.Component{
-    @observable navigateTo;
-    constructor(){
-        super();
-        this.navigateTo='homePage';
-        
-    }
     @action.bound
     doNetWorkCalls(){
         const {commuteStore:{postRideRequest}}=this.props;
@@ -24,10 +18,15 @@ class DashBoardRoute extends React.Component{
         const {doNetWorkCalls}=this;
         doNetWorkCalls();
     }
-   
+   @action.bound
+   onClickSignOutButton=()=>{
+       const {authStore:{userSignOut}}=this.props;
+       userSignOut();
+   }
     render(){
+        const {onClickSignOutButton}=this;
         return (
-            <DashBoard />
+            <DashBoard onClickSignOutButton={onClickSignOutButton}/>
             );
     }
 }

@@ -20,11 +20,11 @@ class RideRequestRoute extends React.Component{
         this.displayError=false;
         this.from='';
         this.to='';
-        this.dateTime='';
-        this.startDateTime='';
-        this.endDateTime='';
-        this.seats=0;
-        this.luggages=0;
+        this.dateTime=new Date();
+        this.startDateTime=new Date();
+        this.endDateTime=new Date();
+        this.seats='';
+        this.luggages='';
     }
     onClickFlexibleTimings=()=>{
         this.isCheckedFlexibleTimings=!this.isCheckedFlexibleTimings;
@@ -47,20 +47,45 @@ class RideRequestRoute extends React.Component{
         this.endDateTime=time;
     }
     onChangeNoOfSeats=(seats)=>{
-        this.seats=seats;
+            this.seats=seats;
+        
     }
     onChangeNoOfLuggages=(luggages)=>{
-        this.luggages=luggages;
+            this.luggages=luggages;
     }
     onSubmitRequest=()=>{
         this.displayError=!this.displayError;
-        console.log(this.from)
-        console.log(this.to)
-        console.log(this.dateTime)
-        console.log(this.startDateTime)
-        console.log(this.endDateTime)
-        console.log(this.seats)
-        console.log(this.luggages)
+        let formDetails=[this.from,this.to,this.dateTime,this.seats,this.luggages];
+        console.log(formDetails);
+        let count=0;
+        formDetails.forEach(eachDetail=>{
+            if(eachDetail.length===0){
+                count++;
+            }
+        });
+        if(!this.isCheckedFlexibleTimings){
+            if(count===0 && this.dateTime.length!==0){
+                console.log(this.from)
+                console.log(this.to)
+                console.log(this.dateTime)
+                console.log(this.seats)
+                console.log(this.luggages)
+                this.displayError=false;
+            }
+        }
+        else{
+            alert(count+"     "+this.startDateTime.length+"   "+this.endDateTime.length);
+            if(count===0 && this.startDateTime.length!==0 && this.endDateTime.length!==0){
+                
+                console.log(this.from)
+                console.log(this.to)
+                console.log(this.startDateTime)
+                console.log(this.endDateTime)
+                console.log(this.seats)
+                console.log(this.luggages)
+                this.displayError=false;
+            }
+        }
     }
     render(){
         const {from,to,dateTime,startDateTime,endDateTime,

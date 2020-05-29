@@ -32,15 +32,15 @@ export const ListItemsDisplay=styled.div`
         display:flex;
 `;
 export const ListItemsCount=styled.div`
-        border:2px solid lightgrey;
+        border:1px solid lightgrey;
         padding:8px 10px;
 `;
 export const ChangeNoOfSeats=styled.span`
         border:2px solid lightgrey;
         padding:8px 10px;
 `;
-export const ChangeNoOfListItems=styled.div`
-        border:2px solid lightgrey;
+export const ChangeNoOfListItems=styled.button`
+        border:1px solid lightgrey;
         padding:8px 10px;
 `;
 export const DateAndTimeStyle=styled.div`
@@ -109,4 +109,38 @@ export const FlexibleDateAndTimeStyle=styled.div`
     display:flex;
     justify-content:space-between;
    padding:10px 0px;
+`;
+
+export const InputTag=styled.input`
+  
+  width:100%;
+   border-radius: 2px;
+   padding:3px 2px ;
+   margin-top:2px;
+   flex-grow:1;
+   border:${props=>props.isError?'1px solid red':'1px solid #d7dfe9'}
+`;
+
+export const ErrorStyle=styled.div`
+    width:100%;
+    color:${props=>props.isError?'red':'white'};
+    font-size:9px;
+    padding:0px;
+    margin:0px;
+`;
+export const InputFieldWithLabel=styled.div`
+  width:100%;
+  `;
+export const ErrorSymbol=styled.span`
+color:red;
+    position:absolute;
+    right:10px;
+    top:10px;
+    display:${props=>props.isError?'flex':'none'}
+    
+`;
+export const InputFiledWithError=styled.div`
+    display:flex;
+    position:relative;
+    width:100%;
 `;

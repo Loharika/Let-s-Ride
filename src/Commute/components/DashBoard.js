@@ -27,7 +27,9 @@ class DashBoard extends React.Component{
         
     }
     onClick=()=>{
-        toast(
+        const {onClickSignOutButton}=this.props;
+        onClickSignOutButton();
+        /*toast(
             <UserProfile />
             , {
             className: css({
@@ -40,7 +42,7 @@ class DashBoard extends React.Component{
             closeButton: true,
             hideProgressBar: true,
             
-      });
+      });*/
     }
      @action.bound
     navigatePageTo(page){

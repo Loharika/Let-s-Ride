@@ -42,7 +42,7 @@ class UserProfile extends React.Component{
                     <UserDetail><UserDetailLabel>{strings.jobRole}:</UserDetailLabel><UserDetailElement value={userDetails.jobRole} type='text' onChange={()=>{}}/></UserDetail>
                     <UserDetail><UserDetailLabel>{strings.department}:</UserDetailLabel> <UserDetailElement value={userDetails.department} type='text' onChange={()=>{}}/></UserDetail>
                 </JobDepartment>
-
+                
                 </UserProfileView>
             </UserProfileDashboard>
             )

@@ -15,6 +15,7 @@ class LogInPageRoute extends React.Component{
   @observable displayError;
   @observable errorText;
   @observable isSignInClicked;
+  @observable userNameErrorText;
   constructor(){
     super();
     this.init();
@@ -32,11 +33,18 @@ class LogInPageRoute extends React.Component{
         const {authStore}=this.props;
         if(userName.length!==0 && password.length!==0){
             this.displayError=false;
-            if(authStore.userName===userName && authStore.password===password){
-                //console.log(this.userName,this.password);
-                this.onClickLogInButton(this.userName,this.password);
-            }
+             if(authStore.userName===userName){
+                 if(authStore.password!==password){
+                    this.displayError=true;
+                    this.password='';
+                    this.errorText='Incorrect password';
+                    }
+                    else{
+                        this.onClickLogInButton(this.userName,this.password);
+                    }
+                }
             else{
+                this.displayError=true;
                 this.errorText='Enter valid details';
             }
         }
@@ -48,23 +56,25 @@ class LogInPageRoute extends React.Component{
     onChangeUserName=(event)=>{
         this.userName=event.target.value;
         this.displayError=false;
+        this.errorText='';
     }
     onChangePassword=(event)=>{
         this.password=event.target.value;
         this.displayError=false;
+        this.errorText='';
     }
     
     @action.bound
     async onClickLogInButton(userName,password){
         this.init();
-        const {authStore:{userSignUp,userLogIn}}=this.props;
-        //console.log(userName,password);
+        const {authStore:{userLogIn}}=this.props;
         await userLogIn(userName,password);
         this.isSignInClicked=true;
         const {authStore:{authAPIService}}=this.props;
         
         if(authAPIService){
-           this.props.history.push(endPoints.userProfile);
+           this.props.history.push('/commute-dashboard');
+           //endPoints.userProfile
         }
         
     }

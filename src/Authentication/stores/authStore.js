@@ -46,15 +46,14 @@ class AuthStore{
     }
      @action.bound
     setUserSignInAPIResponse(signInResponse){
-        console.log("---------status----------");
-        console.log(signInResponse);
+        // console.log("---------status----------");
+        // console.log(signInResponse);
         const access_token=signInResponse[0].access_token;
         setAccessToken(access_token);
         this.authAPIService=getAccessToken();
     }
      @action.bound
     setGetUserSignInAPIError(apiError){
-        console.log('error   '+apiError);
         this.getUserSignInAPIError=apiError;
     }
      @action.bound

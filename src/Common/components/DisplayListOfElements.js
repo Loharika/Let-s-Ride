@@ -10,19 +10,30 @@ class DisplayListOfElements extends Component {
     @observable count;
   constructor(){
       super();
-      this.count=4;
+      this.count=0;
   }
 
   handleIncrement = () => {
     const {onChange}=this.props;
-    this.count++;
-    onChange(this.count);
+    
+    let intialCount=this.count;
+    intialCount++;
+    if(intialCount>=0){
+      this.count=intialCount;
+       onChange(intialCount);
+    }
+   
   }
 
   handleDecrement = () => {
     const {onChange}=this.props;
-    this.count--;
-    onChange(this.count);
+    let intialCount=this.count;
+    intialCount--;
+    if(intialCount>=0){
+      this.count=intialCount
+       onChange(intialCount);
+    }
+   
   }
 
   render() {

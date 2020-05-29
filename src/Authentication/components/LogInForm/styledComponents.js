@@ -28,6 +28,8 @@ const SignUpPageLink=styled.a`
     `;
 const LogInDetailsAlert=styled.span`
     color:red;
+    width:100%;
+    text-align:center;
     font-size:13px;
 `;
 export {FormType,FormDashBoard,Typo32DarkBlueGreyRubikRegular as FormHeading,LogoImageContainer,Logo,Typo14DarkBlueGreyHKGroteskRegular as LoginLink,LogInPageLink
