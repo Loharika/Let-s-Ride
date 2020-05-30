@@ -20,9 +20,9 @@ class ShareRideRoute extends React.Component{
         this.displayError=false;
         this.from='';
         this.to='';
-        this.dateTime=new Date();
-        this.startDateTime=new Date();
-        this.endDateTime=new Date();
+        this.dateTime='';
+        this.startDateTime='';
+        this.endDateTime='';
         this.seats='';
         this.luggages='';
     }
@@ -75,7 +75,7 @@ class ShareRideRoute extends React.Component{
         }
     }
     render(){
-        const {from,to,dateTime,startDateTime,endDateTime,
+        const {from,to,
             isCheckedFlexibleTimings,
             onClickFlexibleTimings,
             onSubmitRequest,
@@ -103,9 +103,6 @@ class ShareRideRoute extends React.Component{
             onChangeToTime={onChangeToTime}
             onChangeNoOfLuggages={onChangeNoOfLuggages}
             onChangeNoOfSeats={onChangeNoOfSeats}
-            dateTime={dateTime}
-            startDateTime={startDateTime}
-            endDateTime={endDateTime}
             />
             )
     }

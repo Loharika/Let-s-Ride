@@ -1,5 +1,6 @@
 import React from 'react';
 import {observer} from 'mobx-react';
+
 import {Typo20DarkBlueGreyHKGrotestBold as FormHeadingText} from '../../../Common/styleGuides/StyleGuides.js';
 import {Form,FormDashboard} from '../../../Common/styledComponents/styleComponents.js';
 import {InputField} from '../../../Common/components/InputField.js';
@@ -55,7 +56,7 @@ class ShareRide extends React.Component{
                   </FlexibleTimings>
                   <DisplayListOfElements listData={{title:strings.text.noOfSeatsAvailable}} onChange={onChangeNoOfSeats} />
                   <DisplayListOfElements listData={{title:strings.text.noOfLuggages}} onChange={onChangeNoOfLuggages} />
-                  <Button buttonText={strings.text.request} onClickFunction={onSubmitRequest}/>
+                  <Button buttonText={strings.text.shareText} onClickFunction={onSubmitRequest}/>
                 </Form>
             </FormDashboard>
             );

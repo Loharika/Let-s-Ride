@@ -19,6 +19,7 @@ export const Label=styled.label`
   color: var(--steel);
   margin:2px;
 `;
+
 export const Typo32DarkBlueGreyRubikRegular=styled.div`
   width:100% ;
   height: 40px;
@@ -30,6 +31,7 @@ export const Typo32DarkBlueGreyRubikRegular=styled.div`
   line-height: 1.25;
   letter-spacing: normal;
   color: var(--dark-blue-grey);
+ 
   display:flex;
   justify-content:center;
   margin:5px;

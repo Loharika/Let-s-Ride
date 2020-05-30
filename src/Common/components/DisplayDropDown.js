@@ -3,6 +3,7 @@ import {observable,action} from 'mobx';
 import {observer} from 'mobx-react';
 import {FiChevronDown,FiChevronUp} from 'react-icons/fi';
 import {Label } from '../styleGuides/StyleGuides.js';
+
 import {Dropdown as DropdownAs,DropdownList,DropdownListOption,Star} from '../styledComponents/styleComponents.js';
 import { Dropdown } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
@@ -13,19 +14,17 @@ class DisplayDropDown extends React.Component{
         const {onChange}=this.props;
         onChange(data.value);
     }
-    onChangeTo=(event,data)=>{
-        console.log(data.value);
-    }
     render(){
         const {data}=this.props;
-        const {onChange}=this;
-    return (
-        <DropdownAs >
-        <Label>{data.ListTitle}<Star>*</Star></Label>
+        return (
+            <DropdownAs >
+            {data.listTitle.length!==0?
+                <Label>{data.listTitle}<Star>*</Star></Label>:''
+            }
                 <Dropdown 
-                placeholder='Select Asset Type'
+                placeholder={data.placeholder}
                 selection
-                options={data.listItems2}
+                options={data.listItems}
                 onChange={this.onChange}
                     />
         </DropdownAs> 

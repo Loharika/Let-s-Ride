@@ -1,6 +1,6 @@
 import React from 'react';
 import {observer} from 'mobx-react';
-import {observable} from 'mobx';
+
 import {Typo20DarkBlueGreyHKGrotestBold as FormHeadingText} from '../../../Common/styleGuides/StyleGuides.js';
 import {Form,FormDashboard} from '../../../Common/styledComponents/styleComponents.js';
 import {InputField} from '../../../Common/components/InputField.js';
@@ -11,12 +11,11 @@ import {DisplayDropDown} from '../../../Common/components/DisplayDropDown.js';
 import {DisplayListOfElements} from '../../../Common/components/DisplayListOfElements.js';
 
 import {CheckBox,FlexibleTimings,FlexibleTimingsLabel} from '../RideRequest/styledComponents.js';
-
 import strings from '../../i18n/strings.json';
 @observer
 class AssetTransportRequest extends React.Component{
     render(){
-       const {from,to,details,dateTime,startDateTime,endDateTime,
+       const {from,to,details,
             isCheckedFlexibleTimings,
             onClickFlexibleTimings,
             onSubmitRequest,
@@ -29,46 +28,12 @@ class AssetTransportRequest extends React.Component{
             onChangeNoOfAssets,
             onChangeAssetType,
             onChangeAssetSensitivity,
-            onChangeWhomToDeliver
+            onChangeWhomToDeliver,
+            assetSensitivity={assetSensitivity},
+            assetType={assetType}
         }=this.props;
-        const data={
-            ListTitle:'ASSET TYPE',
-            listItems:['Parcel','Bags','Others'],
-            listItems2:[{
-                        key: 'Parcel',
-                        text: 'Parcel',
-                        value: 'Parcel',
-                      },
-                      {
-                        key: 'Bags',
-                        text: 'Bags',
-                        value: 'Bags',
-                      },
-                      {
-                        key: 'Others',
-                        text: 'Others',
-                        value: 'Others',
-                      },]
-        };
-        const data2={
-            ListTitle:'ASSET SENSITIVITY',
-            listItems:['Normal','Sensitive','Very Sensitive'],
-            listItems2:[{
-                        key: 'Normal',
-                        text: 'Normal',
-                        value: 'Normal',
-                      },
-                      {
-                        key: 'Sensitive',
-                        text: 'Sensitive',
-                        value: 'Sensitive',
-                      },
-                      {
-                        key: 'Very Sensitive',
-                        text: 'Very Sensitive',
-                        value: 'Very Sensitive',
-                      },]
-        };
+        
+        
         return (
             
             <FormDashboard>
@@ -89,17 +54,16 @@ class AssetTransportRequest extends React.Component{
                     
                     {isCheckedFlexibleTimings?<FlexibleDateTime
                                 onChangeFromTime={onChangeFromTime} 
-                                onChangeToTime={onChangeToTime} startDateTime={startDateTime} 
-                    endDateTime={endDateTime}/>:
-                        <DateAndTime label={strings.label.dateAndTime} onChangeTime={onChangeTime} dateAndTime={dateTime}/>}
+                                onChangeToTime={onChangeToTime} />:
+                        <DateAndTime label={strings.label.dateAndTime} onChangeTime={onChangeTime}/>}
                     <FlexibleTimings>
                       <CheckBox  type={strings.type.checkbox} 
                       onClick={onClickFlexibleTimings} />
                       <FlexibleTimingsLabel>{strings.label.flexibleTimings}</FlexibleTimingsLabel>
                     </FlexibleTimings>
                     <DisplayListOfElements listData={{title:strings.text.noOfAssets}} onChange={onChangeNoOfAssets} />
-                    <DisplayDropDown data={data} onChange={onChangeAssetType}/>
-                    <DisplayDropDown data={data2} onChange={onChangeAssetSensitivity}/>
+                    <DisplayDropDown data={assetType} onChange={onChangeAssetType}/>
+                    <DisplayDropDown data={assetSensitivity} onChange={onChangeAssetSensitivity}/>
                     <InputField placeholderText={strings.placeholderText.nameMobileNumber} 
                                 type={strings.type.text} 
                                 label={strings.label.whomToDeliver} 

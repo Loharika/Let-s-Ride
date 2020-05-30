@@ -1,8 +1,42 @@
 import {observable,action} from 'mobx';
 import {bindPromiseWithOnSuccess} from '@ib/mobx-promise';
 import {API_INITIAL} from '@ib/api-constants';
-
-import allRequestData from '../../fixtures/allRequests.fixture.json';
+const assetType={listTitle:'ASSET TYPE',
+            listItems:[{
+                        key: 'Parcel',
+                        text: 'Parcel',
+                        value: 'Parcel',
+                      },
+                      {
+                        key: 'Bags',
+                        text: 'Bags',
+                        value: 'Bags',
+                      },
+                      {
+                        key: 'Others',
+                        text: 'Others',
+                        value: 'Others',
+                      },],
+            placeholder:'Select Asset Type'
+        };
+        const assetSensitivity={listTitle:'ASSET SENSITIVITY',
+            listItems:[{
+                        key: 'Normal',
+                        text: 'Normal',
+                        value: 'Normal',
+                      },
+                      {
+                        key: 'Sensitive',
+                        text: 'Sensitive',
+                        value: 'Sensitive',
+                      },
+                      {
+                        key: 'Very Sensitive',
+                        text: 'Very Sensitive',
+                        value: 'Very Sensitive',
+                      },],
+            placeholder:'Select Asset Sensitivity',
+        };
 
 class CommuteStore {
     @observable getAPIStatus;
@@ -13,6 +47,8 @@ class CommuteStore {
     @observable allRequestData;
     commuteService
     constructor(commuteService){
+        this.assetType=assetType;
+        this.assetSensitivity=assetSensitivity;
         this.commuteService=commuteService;
         this.getMyRequestsAPIResponse='';
         this.allRequestData=[];
@@ -29,7 +65,7 @@ class CommuteStore {
     @action.bound
     postRideRequest(rideRequest){
         this.init();
-        // calling intit before going to post to clear API STATUS
+        // calling init before going to post to clear API STATUS
         let rideRequestPromise=this.commuteService.rideRequestAPI(rideRequest);
          return bindPromiseWithOnSuccess(rideRequestPromise).
          to(this.setGetAPIStatus,this.setGetRequestAPIRResponse).
@@ -38,7 +74,7 @@ class CommuteStore {
     @action.bound
     postAssetTransportRequest(rideRequest){
         this.init();
-        // calling intit before going to post to clear API STATUS
+        // calling init before going to post to clear API STATUS
         let assetRequestPromise=this.commuteService.assetTransportRequestAPI(rideRequest);
         return bindPromiseWithOnSuccess(assetRequestPromise).
         to(this.setGetAPIStatus,this.setGetRequestAPIRResponse).
@@ -47,7 +83,7 @@ class CommuteStore {
     @action.bound
     getMyRequests(details){
         this.init();
-        // calling intit before going to post to clear API STATUS
+        // calling init before going to post to clear API STATUS
         let assetRequestPromise=this.commuteService.myRequestsAPI(details);
         return bindPromiseWithOnSuccess(assetRequestPromise).
         to(this.setGetAPIStatus,this.setGetMyRequestAPIRResponse).

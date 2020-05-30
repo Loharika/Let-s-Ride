@@ -6,6 +6,7 @@ import {withRouter} from 'react-router-dom';
 
 import {ShowMyRequests} from '../../components/ShowUserRequests/ShowMyRequests.js';
 
+import strings from '../../i18n/strings.json';
 
 @inject('commuteStore')
 @observer
@@ -13,12 +14,14 @@ class ShowMyRequestsRoute extends React.Component{
     @observable pageNumber;
     @observable filter;
     @observable sortBy;
+    @observable displayRequestType;
     constructor(){
         super();
         this.limit=4;
         this.rideRequestTableHeaders=['FROM','TO','DATE AND TIME','NUMBER OF PEOPLE','LUGGAGE QUANTITY','ACCEPTED PERSON DETAILS','STATUS'];
         this.assetRequestTableHeaders=['FROM','TO','DATE AND TIME','NUMBER OF PEOPLE','ASSET TYPE','ASSET SENSITIVITY','ACCEPTED PERSON DETAILS','STATUS'];
         this.init();
+        this.displayRequestType=strings.requestType.ride;
     }
     @action.bound
     init(){
@@ -40,35 +43,25 @@ class ShowMyRequestsRoute extends React.Component{
        
         
     }
-    onChangePageNumber=(page)=>{
-        let intialPageNumber=this.pageNumber;
-        switch(page){
-            case 'previousPage':{
-                intialPageNumber--;
-                if(intialPageNumber>0){
-                 this.pageNumber=intialPageNumber;   
-                }
-                else{
-                    this.pageNumber=this.pageNumber
-                }
-                break;
-            }
-            case 'nextPage':{
-                intialPageNumber++;
-                
-                let totalNumberOfPages=((this.props.commuteStore.allRequestData.length)/this.limit);
-                if(intialPageNumber<=totalNumberOfPages){
-                    this.pageNumber=intialPageNumber;
-                }
-                else{
-                    this.pageNumber=this.pageNumber
-                }
-                break;
-            }
-        }
+     onClickRequestType=(requestType)=>{
+        const {init}=this;
+        init();
+        this.displayRequestType=requestType;
     }
-    onChangeSortBy=(sortBy)=>{this.sortBy=sortBy;}
-    onChangeFilter=(filter)=>{this.filter=filter;}
+    
+    onChangePageNumber=(event,data)=>{
+        this.pageNumber=data.activePage;
+    }
+
+    @action.bound
+    onChangeSortBy(event){
+        this.sortBy=event;
+        
+    }
+    @action.bound
+    onChangeFilter(event){
+        this.filter=event;
+    }
     filterRequests=(requests)=>{
         switch(this.filter){
             case 'SELECT':{
@@ -82,23 +75,59 @@ class ShowMyRequestsRoute extends React.Component{
             }
         }
     }
+    sortByTime=(requests)=>{
+                let date=new Date().toString().slice(0,16);
+                return (requests.slice().sort((a, b)=>{
+                    if(a.date!==undefined && b.date!==undefined){
+                        let aTime=a.date.slice(16,34);
+                        let bTime=b.date.slice(16,34);
+                        return new Date(date+aTime)-new Date(date+bTime);
+                    }
+                    else if(a.date===undefined && b.date===undefined){
+                        let aTime=a.startTime.slice(16,34);
+                        let bTime=b.startTime.slice(16,34);
+                        return new Date(date+aTime)-new Date(date+bTime);
+                    }
+                    else if(a.date===undefined && b.date!==undefined){
+                        let aTime=a.startTime.slice(16,34);
+                        let bTime=b.date.slice(16,34);
+                        return new Date(date+aTime)-new Date(date+bTime);
+                    }
+                    else{
+                        let aTime=a.date.slice(16,34);
+                        let bTime=b.startTime.slice(16,34);
+                        return new Date(date+aTime)-new Date(date+bTime);
+                    }
+                }));
+    }
+    sortByDate=(requests)=>{
+        return requests.slice().sort((a, b)=>{
+                     if(a.date!==undefined && b.date!==undefined){
+                        return new Date(a.date.slice(0,15))-new Date(b.date.slice(0,15));
+                     }
+                     else if(a.date===undefined && b.date===undefined){
+                        return new Date(a.startTime.slice(0,15))-new Date(b.startTime.slice(0,15));
+                     }
+                     else if(a.date===undefined && b.date!==undefined){
+                        return new Date(a.startTime.slice(0,15))-new Date(b.date.slice(0,15));
+                     }
+                     else{
+                         return new Date(a.date.slice(0,15))-new Date(b.startTime.slice(0,15));
+                     }
+                });
+    }
     sortedRequests=(requests)=>{
         switch(this.sortBy){
             case 'SELECT':{
                 return requests;
             }
             case 'DATE':{
-                 return requests.slice().sort((a, b)=>{
-                    return new Date(a.date.slice(0,15))-new Date(b.date.slice(0,15));
-                });
+                    return this.sortByDate(requests);
+                 
             }
             case 'TIME':{
-                let date=new Date().toString().slice(0,16);
-                return requests.slice().sort((a, b)=>{
-                    let aTime=a.date.slice(16,34);
-                    let bTime=b.date.slice(16,34);
-                    return new Date(date+aTime)-new Date(date+bTime);
-                });
+                return this.sortByTime(requests);
+                
             }
             
         }
@@ -111,13 +140,20 @@ class ShowMyRequestsRoute extends React.Component{
         let sortedRequests=this.sortedRequests(filteredRequests);
        return sortedRequests;
     }
+    @action.bound
+    addRequestButton(requestType){
+        const {navigatePageTo}=this.props;
+        navigatePageTo(requestType==='ride'?'rideRequest':'assetTranportRequest');
+    }
     render(){
         const {commuteStore:{allRequestData}}=this.props;
-        const totalNumberOfPages=(this.props.commuteStore.allRequestData.length)/this.limit;
         const {getRequests,onChangePageNumber,onChangeFilter,onChangeSortBy,renderPageRequests,
-        limit,pageNumber,rideRequestTableHeaders,assetRequestTableHeaders,init}=this;
+        limit,pageNumber,rideRequestTableHeaders,assetRequestTableHeaders,init,displayRequestType,onClickRequestType,
+            addRequestButton
+        }=this;
         return (
             <ShowMyRequests 
+            key={Math.random()+displayRequestType}
             limit={limit}
             init={init}
             rideRequestTableHeaders={rideRequestTableHeaders}
@@ -129,7 +165,9 @@ class ShowMyRequestsRoute extends React.Component{
             onChangeFilter={onChangeFilter}
             onChangeSortBy={onChangeSortBy}
             renderPageRequests={renderPageRequests}
-            totalNumberOfPages={totalNumberOfPages}
+            displayRequestType={displayRequestType}
+            onClickRequestType={onClickRequestType}
+            addRequestButton={addRequestButton}
             />
             );
     }

@@ -1,6 +1,7 @@
 {
     "text":{
         "ride":"Ride",
+        "asset":"Asset",
         "assetTranport":"Asset Transport",
         "requests":"Requests",
         "share":"Share",
@@ -14,7 +15,9 @@
         "noOfLuggages":"NO OF LUGGAGES  ",
         "noOfAssets":"NO OF ASSETS  ",
         "shareRide":"SHARE RIDE  ",
-        "noOfSeatsAvailable":"NO OF SEATS AVAILABLE  "
+        "noOfSeatsAvailable":"NO OF SEATS AVAILABLE  ",
+        "myRequests":"My Requests",
+        "shareText":"SHARE"
         
     },
     "type":{
@@ -32,5 +35,21 @@
     "placeholderText":{
         "ex":"Ex:",
         "nameMobileNumber":"Name-Mobile Number"
+    },
+    "navigatePageTo":{
+        "rideRequest":"rideRequest",
+        "assetTranportRequest":"assetTranportRequest",
+        "shareRide":"shareRide",
+        "shareTravelInfo":"shareTravelInfo",
+        "homePage":"homePage",
+        "userProfile":"userProfile"
+    },
+    "requestType":{
+        "ride":"ride",
+        "asset":"asset"
+    },
+    "shareType":{
+        "ride":"ride",
+        "travelInfo":"travelInfo"
     }
 }

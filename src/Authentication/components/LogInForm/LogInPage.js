@@ -30,7 +30,7 @@ class LogInForm extends React.Component{
                     placeholderText={'Password'}  displayError={displayError} label={'PASSWORD'}  />
                     {errorText.length!==0?<LogInDetailsAlert>{errorText}</LogInDetailsAlert>:''}
                     <Button buttonText={strings.logIn} onClickFunction={onSubmit}/>
-                    <SignUpLink>{strings.signUpLink}  &nbsp; <SignUpPageLink href='/'>  &nbsp;{strings.signUpLinkText}</SignUpPageLink></SignUpLink>
+                    <SignUpLink>{strings.signUpLink}  &nbsp; <SignUpPageLink href='/sign-in'>  &nbsp;{strings.signUpLinkText}</SignUpPageLink></SignUpLink>
                 </FormType>
             </FormDashBoard>
             );

@@ -73,8 +73,8 @@ class SignInFormRoute extends React.Component{
         this.init();
         const {authStore:{userSignUp}}=this.props;
         await userSignUp();
-        const {authStore:{authAPIService}}=this.props;
-        if(authAPIService){
+        const {authStore:{access_token}}=this.props;
+        if(access_token){
            this.props.history.push('/commute-dashboard');
         }
         

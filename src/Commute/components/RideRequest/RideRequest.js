@@ -17,7 +17,7 @@ import strings from '../../i18n/strings.json';
 class RideRequest extends React.Component{
     
     render(){
-        const {from,to,dateTime,startDateTime,endDateTime,
+        const {from,to,
             isCheckedFlexibleTimings,
             onClickFlexibleTimings,
             onSubmitRequest,
@@ -48,14 +48,14 @@ class RideRequest extends React.Component{
                       displayError={displayError}/>
                   {isCheckedFlexibleTimings?
                     <FlexibleDateTime onChangeFromTime={onChangeFromTime} 
-                    onChangeToTime={onChangeToTime} startDateTime={startDateTime} 
-                    endDateTime={endDateTime}/>:
-                        <DateAndTime label={strings.label.dateAndTime} onChangeTime={onChangeTime} dateAndTime={dateTime}/>}
+                    onChangeToTime={onChangeToTime} displayError={displayError}
+                    />:
+                    <DateAndTime label={strings.label.dateAndTime} onChangeTime={onChangeTime} displayError={displayError} />}
                   <FlexibleTimings>
                     <CheckBox type={strings.type.checkbox} onClick={onClickFlexibleTimings} /><FlexibleTimingsLabel >{strings.label.flexibleTimings}</FlexibleTimingsLabel>
                   </FlexibleTimings>
-                  <DisplayListOfElements listData={{title:strings.text.noOfSeats}} onChange={onChangeNoOfSeats} />
-                  <DisplayListOfElements listData={{title:strings.text.noOfLuggages}} onChange={onChangeNoOfLuggages} />
+                  <DisplayListOfElements listData={{title:strings.text.noOfSeats}} onChange={onChangeNoOfSeats} displayError={displayError}/>
+                  <DisplayListOfElements listData={{title:strings.text.noOfLuggages}} onChange={onChangeNoOfLuggages} displayError={displayError}/>
                   <Button buttonText={strings.text.request} onClickFunction={onSubmitRequest}/>
                 </Form>
             </FormDashboard>

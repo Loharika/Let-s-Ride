@@ -1,6 +1,7 @@
 import React from 'react';
 import {observable} from 'mobx';
 import {observer,inject} from 'mobx-react';
+
 import {AssetTransportRequest} from '../../components/AssetTransportRequest';
 
 @inject('commuteStore')
@@ -65,7 +66,7 @@ class AssetTransportRequestRoute extends React.Component{
         this.details=event.target.value;
     }
     onSubmitRequest=()=>{
-        const {commuteStore:{postRideRequest}}=this.props;
+        const {commuteStore:{postAssetTransportRequest}}=this.props;
         this.displayError=!this.displayError;
         let formDetails=[this.from,this.to,this.assets,this.assetType,this.assetSensitivity,this.details];
         let count=0;
@@ -78,7 +79,7 @@ class AssetTransportRequestRoute extends React.Component{
             if(count===0 && this.dateTime.length!==0){
                 alert("Submitted Succesfully");
                 this.displayError=false;
-                const rideRequestData={
+                const assetRequestData={
                     from:this.from,
                     to:this.to,
                     dateTime:this.dateTime,
@@ -87,7 +88,7 @@ class AssetTransportRequestRoute extends React.Component{
                     assetSensitivity:this.assetSensitivity,
                     details:this.details,
                 }
-                postRideRequest(rideRequestData);
+                postAssetTransportRequest(assetRequestData);
                 
             }
         }
@@ -95,7 +96,7 @@ class AssetTransportRequestRoute extends React.Component{
             if(count===0 && this.startDateTime.length!==0 && this.endDateTime.length!==0){
                 alert("Submitted Succesfully");
                 this.displayError=false;
-                const rideRequestData={
+                const assetRequestData={
                     from:this.from,
                     to:this.to,
                     startDateTime:this.startDateTime,
@@ -105,13 +106,14 @@ class AssetTransportRequestRoute extends React.Component{
                     assetSensitivity:this.assetSensitivity,
                     details:this.details,
                 }
-                postRideRequest(rideRequestData);
+                postAssetTransportRequest(assetRequestData);
             }
         }
     }
+   
     render(){
         
-        const {from,to,details,dateTime,startDateTime,endDateTime,
+        const {from,to,details,
             isCheckedFlexibleTimings,
             onClickFlexibleTimings,
             onSubmitRequest,
@@ -126,12 +128,15 @@ class AssetTransportRequestRoute extends React.Component{
             onChangeAssetSensitivity,
             onChangeWhomToDeliver
         }=this;
+        const {commuteStore:{assetSensitivity,assetType}}=this.props;
         return (
             <AssetTransportRequest
             from={from}
             to={to}
             details={details}
             displayError={displayError}
+            assetSensitivity={assetSensitivity}
+            assetType={assetType}
             isCheckedFlexibleTimings={isCheckedFlexibleTimings}
             onClickFlexibleTimings={onClickFlexibleTimings}
             onSubmitRequest={onSubmitRequest}
@@ -144,9 +149,6 @@ class AssetTransportRequestRoute extends React.Component{
             onChangeAssetType={onChangeAssetType}
             onChangeAssetSensitivity={onChangeAssetSensitivity}
             onChangeWhomToDeliver={onChangeWhomToDeliver}
-            dateTime={dateTime}
-            startDateTime={startDateTime}
-            endDateTime={endDateTime}
             />
             )
     }

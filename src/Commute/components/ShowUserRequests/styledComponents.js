@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-
+import {Typo32DarkBlueGreyRubikRegular} from '../../../Common/styleGuides/StyleGuides.js';
 export const MyRequestsHeader=styled.ul`
     list-style-type: none;
   margin: 0;
@@ -16,15 +16,18 @@ export const MyRequestType=styled.button`
   text-align: center;
   padding: 10px 12px;
   text-decoration: none;
-  border:1px solid #f2f2f2;
+  border-bottom:${props=>props.isSelected?'2px solid blue':'none'};
 `;
-export const MyRequestsTitle=styled.div`
+export const MyRequestsTitle=styled(Typo32DarkBlueGreyRubikRegular)`
     font-size:20px;
+    width:200px;
     `;
 export const MyRequestsDashboard=styled.div`
-    width:80%;
     
+    width:80%;
+    min-height:500px;
     align-self:center;
+    
 `;
 export const RequestHeader=styled.div`
         width:100%;
@@ -34,6 +37,7 @@ export const RequestHeader=styled.div`
 `;
 export const NoOfRequests=styled.span`
         padding:3px 4px;
+        align-self:center;
 `;
 export const FilterAndSort=styled.div`
     display:flex;
@@ -50,50 +54,57 @@ export const RequestDetailsTable=styled.table`
     font-family: arial, sans-serif;
   border-collapse: collapse;
   width: 100%;
+  height:350px;
 `;
 export const TableHeader=styled.th`
     border: 1px solid #dddddd;
   text-align: left;
   padding: 8px;
+
 `;
 export const TableCellLeftAligned=styled.td`
     border: 1px solid #dddddd;
   text-align: left;
   padding: 8px;
-  
+
+ 
+
 `;
 export const TableRow=styled.tr`
+    height:25px;
 `;
 export const TableCellAlignedCenter=styled.td`
         border: 1px solid #dddddd;
-  text-align: center;
-  padding: 8px;
+          text-align: center;
+          padding: 8px;
 `; 
-export const PaginationBar=styled.div`
+export const Footer=styled.div`
     width:100%;
     display:flex;
     justify-content:space-between;
     align-items:center;
-    margin:5px 0px;
-    
+     margin-bottom:auto;
 `;
-export const PreviousPage=styled.button`
-    padding:10px;
-`;
-export const NextPage=styled.button`
-    padding:10px;
-`;
-export const Button=styled.div`
-    padding:5px 10px;
-`;
-export const TurnPages=styled.div`
+export const AddRequestButton=styled.button`
     display:flex;
-    align-items:center;
-`;
-export const PageNumber=styled.div`
     padding:5px 10px;
 `;
 
+export const PageNumber=styled.div`
+    padding:5px 10px;
+`;
+export const StatusButton=styled.div`
+        background-color:${props=>props.status==='Confirmed'?'#2dca73':props.status==='Pending'?'#ffb800':'#d7dfe9'};
+        padding:3px 4px;
+        font-weight:700;
+        border-radius:20px;
+        text-align:center;
+        color:white;
+`;
+export const Pages=styled.div`
+
+
+`;
 /*
 export const Card=styled.div`
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);

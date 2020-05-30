@@ -1,56 +1,59 @@
 import React from 'react';
-import {action,observable} from 'mobx';
+import {observable,action} from 'mobx';
 import {observer} from 'mobx-react';
+import { Pagination,Icon } from 'semantic-ui-react';
+import 'semantic-ui-css/semantic.min.css';
+import {BsFilter} from 'react-icons/bs';
+import {RiAddLine} from 'react-icons/ri';
+
+import {MyRequestsHeader,MyRequestType,MyRequestsDashboard,RequestHeader,NoOfRequests,FilterAndSort,
+    Footer,AddRequestButton,Pages,MyRequestsTitle
+} from './styledComponents.js';
+
 import {ShowRideRequests} from './ShowRideRequests.js';
 import {ShowAssetTransport} from './ShowAssetTransport.js';
+import {DisplayDropDown} from '../../../Common/components/DisplayDropDown.js';
+import strings from '../../i18n/strings.json';
 
-import {MyRequestsHeader,MyRequestType,MyRequestsDashboard} from './styledComponents.js';
-import {Typo32DarkBlueGreyRubikRegular as MyRequestsTitle} from '../../../Common/styleGuides/StyleGuides.js';
 
 @observer
 class ShowMyRequests extends React.Component{
-    @observable displayRequestType;
-    constructor(){
-        super();
-        this.displayRequestType='ride'
-    }
-    onClickRequestType=(requestType)=>{
-        const {init}=this.props;
-        init();
-        this.displayRequestType=requestType;
-    }
-    
+   @observable totalNumberOfPages;
+   constructor(props){
+       super(props);
+       const { getRequests,displayRequestType,limit}=this.props;
+       this.totalNumberOfPages=Math.ceil((getRequests(displayRequestType).length)/limit);
+   }
+   @action.bound
+   onChangePage(event,data){
+       console.log(data.activePage);
+   }
     displayRequestPage=()=>{
-        const {limit,
+        
+        const {
         getRequests,
         renderPageRequests,
-        onChangePageNumber,
         onChangeFilter,
         onChangeSortBy,
         rideRequestTableHeaders,
         assetRequestTableHeaders,
-        pageNumber}=this.props;
-    
-        switch(this.displayRequestType){
-            case 'ride':{
+        displayRequestType
+        }=this.props;
+        
+        switch(displayRequestType){
+            case strings.requestType.ride:{
                 return <ShowRideRequests 
-                limit={limit}
-                pageNumber={pageNumber}
                 getRequests={getRequests}
                 renderPageRequests={renderPageRequests}
-                onChangePageNumber={onChangePageNumber}
                 onChangeFilter={onChangeFilter}
                 onChangeSortBy={onChangeSortBy}
                 tableHeaders={rideRequestTableHeaders}
                 />;
             }
-            case 'asset':{
+            case strings.requestType.asset:{
                 return <ShowAssetTransport 
-                limit={limit}
-                pageNumber={pageNumber}
                 getRequests={getRequests}
                 renderPageRequests={renderPageRequests}
-                onChangePageNumber={onChangePageNumber}
                 onChangeFilter={onChangeFilter}
                 onChangeSortBy={onChangeSortBy}
                 tableHeaders={assetRequestTableHeaders}
@@ -59,16 +62,64 @@ class ShowMyRequests extends React.Component{
         }
     }
     render(){
-        const {onClickRequestType}=this;
+        const {limit,onChangeFilter,onChangeSortBy,onChangePageNumber,pageNumber,displayRequestType}=this.props;
+        const {onClickRequestType,addRequestButton}=this.props;
+        const filterOptions={
+            listTitle:'',
+            listItems:[{key:'SELECT',text:'All',value:'SELECT'},{key:'ACTIVE',text:'Active',value:'ACTIVE'},
+            {key:'EXPIRE',text:'Expire',value:'EXPIRE'}],
+            placeholder:'Filter'
+        };
+        const sortOptions={
+            listTitle:'',
+            listItems:[{key:'SELECT',text:'All',value:'SELECT'},{key:'DATE',text:'Date',value:'DATE'},
+            {key:'TIME',text:'Time',value:'TIME'}],
+            placeholder:'Sort'
+        };
+            
         return (
-            <MyRequestsDashboard>
-            <MyRequestsTitle>My Requests</MyRequestsTitle>
+        <MyRequestsDashboard key={Math.random()+displayRequestType}>
+            <MyRequestsTitle>{strings.text.myRequests}</MyRequestsTitle>
              <MyRequestsHeader>
-              <MyRequestType onClick={()=>onClickRequestType('ride')} >Ride</MyRequestType>
-              <MyRequestType onClick={()=>onClickRequestType('asset')}>Asset</MyRequestType>
-            </MyRequestsHeader> 
+              <MyRequestType onClick={()=>onClickRequestType(strings.requestType.ride)} isSelected={displayRequestType==='ride'?true:false}>{strings.text.ride.toUpperCase()}</MyRequestType>
+              <MyRequestType onClick={()=>onClickRequestType(strings.requestType.asset)} isSelected={displayRequestType==='asset'?true:false}>{strings.text.asset.toUpperCase()}</MyRequestType>
+            </MyRequestsHeader>
+            <RequestHeader>
+                <NoOfRequests>{limit} Request(s)</NoOfRequests>
+                 
+                <FilterAndSort>
+                    
+                    <DisplayDropDown
+                      data={sortOptions}
+                      onChange={onChangeSortBy}
+                    />
+                    <DisplayDropDown
+                      data={filterOptions}
+                      onChange={onChangeFilter}
+                    /> 
+                </FilterAndSort>
+                </RequestHeader>
             {this.displayRequestPage()}
-            </MyRequestsDashboard>
+            <Footer>
+                <AddRequestButton onClick={()=>addRequestButton(displayRequestType)}>
+                <RiAddLine />  &nbsp;Add {displayRequestType}
+                </AddRequestButton>
+                <Pages>
+                1 to {this.totalNumberOfPages}
+                </Pages>
+                <Pagination
+                    boundaryRange={0}
+                    defaultActivePage={pageNumber}
+                    ellipsisItem={null}
+                    firstItem={null}
+                    lastItem={null}
+                    siblingRange={1}
+                    totalPages={this.totalNumberOfPages}
+                    onPageChange={onChangePageNumber}
+                  />
+                </Footer>
+                
+        </MyRequestsDashboard>
             );
     }
 }

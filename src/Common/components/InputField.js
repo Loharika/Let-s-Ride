@@ -20,7 +20,6 @@ class InputField extends React.Component{
             <Label htmlFor={label}>{label}<Star>*</Star></Label>
                 <InputFiledWithError>
                 <InputTag  id={label} value={value} isError={(value.length===0 && displayError)?true:false} onChange={onChange}  type={type} placeholder={placeholderText}/>
-                
                 <ErrorSymbol value={value} isError={(value.length===0 && displayError)?true:false}> 
                     <MdErrorOutline />
                 </ErrorSymbol>

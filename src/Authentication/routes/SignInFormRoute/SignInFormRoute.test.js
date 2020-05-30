@@ -41,6 +41,7 @@ describe("SignInRoute Tests", () => {
 
     fireEvent.click(signInButton);
     
+    
   });
 
  
@@ -74,6 +75,7 @@ describe("SignInRoute Tests", () => {
     fireEvent.change(usernameField, { target: { value: username } });
     fireEvent.change(passwordField, { target: { value: password } });
     fireEvent.keyPress(signInButton, { key: "Enter", code: "Enter" });
+    
   });
   
   it("should render signInRoute loading state", async () => {
@@ -98,8 +100,6 @@ describe("SignInRoute Tests", () => {
     fireEvent.change(passwordField, { target: { value: password } });
     fireEvent.click(signInButton);
   
-   
-    
     getByRole("button", { disabled: true });
   });
   

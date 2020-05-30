@@ -2,6 +2,7 @@
 import React from 'react';
 import {observable,action} from 'mobx';
 import {observer,inject} from 'mobx-react';
+
 import {withRouter,Redirect } from "react-router-dom";
 
 import {LogInForm} from '../../components/LogInForm';
@@ -70,9 +71,9 @@ class LogInPageRoute extends React.Component{
         const {authStore:{userLogIn}}=this.props;
         await userLogIn(userName,password);
         this.isSignInClicked=true;
-        const {authStore:{authAPIService}}=this.props;
+        const {authStore:{access_token}}=this.props;
         
-        if(authAPIService){
+        if(access_token){
            this.props.history.push('/commute-dashboard');
            //endPoints.userProfile
         }

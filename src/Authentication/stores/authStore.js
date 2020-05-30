@@ -6,27 +6,20 @@ import {getAccessToken,setAccessToken,clearUserSession} from "../../utils/Storag
 class AuthStore{
     @observable getUserSignInAPIStatus;
     @observable getUserSignInAPIError;
-    @observable authAPIService;
+    @observable access_token;
     authService
-    constructor(authService,userDetails){
+    constructor(authService){
         this.init();
         this.userName='siva';
         this.password='siva';
         this.authService=authService;
-        this.userDetails=userDetails;
     }
     @action.bound
     init(){
         this.getUserSignInAPIStatus=API_INITIAL;
         this.getUserSignInAPIError=null;
-        this.authAPIService=getAccessToken();
+        this.access_token=getAccessToken();
     }
-  
-    @action.bound
-    getUserDetails(){
-       return this.userDetails;
-    }
-         
     @action.bound
     userSignUp(){
         let signInPromise=this.authService.signInAPI();
@@ -50,7 +43,7 @@ class AuthStore{
         // console.log(signInResponse);
         const access_token=signInResponse[0].access_token;
         setAccessToken(access_token);
-        this.authAPIService=getAccessToken();
+        this.access_token=access_token;
     }
      @action.bound
     setGetUserSignInAPIError(apiError){
@@ -58,7 +51,7 @@ class AuthStore{
     }
      @action.bound
     setGetUserSignInAPIStatus(apiStatus){
-        console.log("status   "+apiStatus);
+        //console.log("status   "+apiStatus);
         this.getUserSignInAPIStatus=apiStatus;
     }
      @action.bound

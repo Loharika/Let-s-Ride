@@ -13,7 +13,7 @@ class AuthService {
         });
     }
     signInAPI=(userName,password)=>{
-        console.log(userName,password);
+        //console.log(userName,password);
         const object={
             "username":userName,
             "password":password

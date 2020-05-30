@@ -22,9 +22,9 @@ class RideRequestRoute extends React.Component{
         this.displayError=false;
         this.from='';
         this.to='';
-        this.dateTime=new Date();
-        this.startDateTime=new Date();
-        this.endDateTime=new Date();
+        this.dateTime='';
+        this.startDateTime='';
+        this.endDateTime='';
         this.seats='';
         this.luggages='';
     }
@@ -58,7 +58,7 @@ class RideRequestRoute extends React.Component{
     onSubmitRequest=()=>{
         const {commuteStore:{postRideRequest}}=this.props;
         this.displayError=!this.displayError;
-        let formDetails=[this.from,this.to,this.dateTime,this.seats,this.luggages];
+        let formDetails=[this.from,this.to,this.seats,this.luggages];
         let count=0;
         formDetails.forEach(eachDetail=>{
             if(eachDetail.length===0){
@@ -100,7 +100,7 @@ class RideRequestRoute extends React.Component{
         }
     }
     render(){
-        const {from,to,dateTime,startDateTime,endDateTime,
+        const {from,to,
             isCheckedFlexibleTimings,
             onClickFlexibleTimings,
             onSubmitRequest,
@@ -128,9 +128,6 @@ class RideRequestRoute extends React.Component{
             onChangeToTime={onChangeToTime}
             onChangeNoOfLuggages={onChangeNoOfLuggages}
             onChangeNoOfSeats={onChangeNoOfSeats}
-            dateTime={dateTime}
-            startDateTime={startDateTime}
-            endDateTime={endDateTime}
             />
             )
     }

@@ -3,7 +3,7 @@ import React from 'react';
 import {observable,action} from 'mobx';
 import {observer,inject} from 'mobx-react';
 import {withRouter} from 'react-router-dom';
-import {DashBoard} from '../../components/DashBoard.js';
+import {DashBoard} from '../../components/CommuteDashboard';
 
 
 @inject('commuteStore','authStore')
@@ -12,8 +12,8 @@ class DashBoardRoute extends React.Component{
     @action.bound
     async doNetWorkCalls(){
         const {commuteStore:{getMyRequests}}=this.props;
-        const {authStore:{authAPIService}}=this.props;
-        await getMyRequests(authAPIService);
+        const {authStore:{access_token}}=this.props;
+        await getMyRequests(access_token);
     }
     componentDidMount(){
         const {doNetWorkCalls}=this;
@@ -29,7 +29,8 @@ class DashBoardRoute extends React.Component{
         const {commuteStore:{getAPIError,getAPIStatus}}=this.props;
      
         return (
-            <DashBoard onClickSignOutButton={onClickSignOutButton}
+            <DashBoard 
+            onClickSignOutButton={onClickSignOutButton}
             doNetWorkCalls={doNetWorkCalls} 
             getAPIError={getAPIError} 
             getAPIStatus={getAPIStatus}/>
