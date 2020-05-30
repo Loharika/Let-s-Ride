@@ -15,38 +15,50 @@ class ShowMyRequests extends React.Component{
         this.displayRequestType='ride'
     }
     onClickRequestType=(requestType)=>{
-        
+        const {init}=this.props;
+        init();
         this.displayRequestType=requestType;
     }
     
     displayRequestPage=()=>{
-        const {limit,getRideRequests,getAssetRequests,renderPageRideRequests,onChangePageNumber,onChangeFilter,onChangeSortBy,pageNumber}=this.props;
+        const {limit,
+        getRequests,
+        renderPageRequests,
+        onChangePageNumber,
+        onChangeFilter,
+        onChangeSortBy,
+        rideRequestTableHeaders,
+        assetRequestTableHeaders,
+        pageNumber}=this.props;
     
         switch(this.displayRequestType){
             case 'ride':{
-                return <ShowRideRequests limit={limit}
+                return <ShowRideRequests 
+                limit={limit}
                 pageNumber={pageNumber}
-                rideRequests={getRideRequests()}
-                renderPageRideRequests={renderPageRideRequests}
+                getRequests={getRequests}
+                renderPageRequests={renderPageRequests}
                 onChangePageNumber={onChangePageNumber}
                 onChangeFilter={onChangeFilter}
                 onChangeSortBy={onChangeSortBy}
-                renderPageRideRequests={renderPageRideRequests}
-                
+                tableHeaders={rideRequestTableHeaders}
                 />;
             }
             case 'asset':{
-                return <ShowAssetTransport assetRequests={getAssetRequests()}/>;
+                return <ShowAssetTransport 
+                limit={limit}
+                pageNumber={pageNumber}
+                getRequests={getRequests}
+                renderPageRequests={renderPageRequests}
+                onChangePageNumber={onChangePageNumber}
+                onChangeFilter={onChangeFilter}
+                onChangeSortBy={onChangeSortBy}
+                tableHeaders={assetRequestTableHeaders}
+                />;
             }
         }
     }
-    @action.bound
-    getRequestData(){
-        const {requests}=this.props;
-        return requests;
-    }
     render(){
-        const requests=this.getRequestData();
         const {onClickRequestType}=this;
         return (
             <MyRequestsDashboard>

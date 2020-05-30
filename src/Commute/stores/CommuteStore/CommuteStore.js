@@ -1,57 +1,79 @@
-import {observable,action,computed} from 'mobx';
+import {observable,action} from 'mobx';
 import {bindPromiseWithOnSuccess} from '@ib/mobx-promise';
 import {API_INITIAL} from '@ib/api-constants';
 
 import allRequestData from '../../fixtures/allRequests.fixture.json';
 
 class CommuteStore {
-    @observable getRequestAPIStatus;
-    @observable getRequestAPIError;
-    @observable getRequestResponse;
+    @observable getAPIStatus;
+    @observable getAPIError;
+    @observable getRequestAPIResponse;
+    @observable getMyRequestsAPIResponse;
     @observable requests;
+    @observable allRequestData;
     commuteService
     constructor(commuteService){
         this.commuteService=commuteService;
-        this.allRequestData=allRequestData;
-        this.intialiseRequestAPI(commuteService);
+        this.getMyRequestsAPIResponse='';
+        this.allRequestData=[];
+        this.init(commuteService);
+        
     }
     @action.bound
-    intialiseRequestAPI(commuteService){
-        this.getRequestAPIStatus=API_INITIAL;
-        this.getRequestAPIError=null;
+    init(commuteService){
+        this.getAPIStatus=API_INITIAL;
+        this.getAPIError=null;
         this.getRequestAPIResponse=commuteService;
+        this.getMyRequestsAPIResponse=[];
     }
     @action.bound
     postRideRequest(rideRequest){
-        
-        let rideRequestPromise=this.commuteService.postRideRequest(rideRequest);
+        this.init();
+        // calling intit before going to post to clear API STATUS
+        let rideRequestPromise=this.commuteService.rideRequestAPI(rideRequest);
          return bindPromiseWithOnSuccess(rideRequestPromise).
-         to(this.setGetRequestAPIStatus,this.setGetRequestAPIRResponse).
-         catch(this.setGetRequestAPIError);
+         to(this.setGetAPIStatus,this.setGetRequestAPIRResponse).
+         catch(this.setGetAPIError);
     }
     @action.bound
-    postAssetTransportRequest(){
-        let assetRequestPromise=this.commuteService.postAssetTransportRequest({name:'assetRequest',id:'Asset'});
-        // return bindPromiseWithOnSuccess(assetRequestPromise).
-        // to(this.setGetRequestAPIStatus,this.setGetRequestAPIRResponse).
-        // catch(this.setGetRequestAPIError);
+    postAssetTransportRequest(rideRequest){
+        this.init();
+        // calling intit before going to post to clear API STATUS
+        let assetRequestPromise=this.commuteService.assetTransportRequestAPI(rideRequest);
+        return bindPromiseWithOnSuccess(assetRequestPromise).
+        to(this.setGetAPIStatus,this.setGetRequestAPIRResponse).
+        catch(this.setGetAPIError);
     }
     @action.bound
-    setGetRequestAPIStatus(apiStatus){
-        this.getRequestAPIStatus=apiStatus;
+    getMyRequests(details){
+        this.init();
+        // calling intit before going to post to clear API STATUS
+        let assetRequestPromise=this.commuteService.myRequestsAPI(details);
+        return bindPromiseWithOnSuccess(assetRequestPromise).
+        to(this.setGetAPIStatus,this.setGetMyRequestAPIRResponse).
+        catch(this.setGetAPIError);
     }
     @action.bound
-    setGetRequestAPIError(apiError){
-        this.getRequestAPIError=apiError;
+    setGetAPIStatus(apiStatus){
+        this.getAPIStatus=apiStatus;
+    }
+    @action.bound
+    setGetAPIError(apiError){
+        this.getAPIError=apiError;
     }
     @action.bound
     setGetRequestAPIRResponse(apiResponse){
         this.getRequestAPIResponse=apiResponse;
-        
+        console.log(apiResponse);
+    }
+    @action.bound
+    setGetMyRequestAPIRResponse(apiResponse){
+        this.getMyRequestsAPIResponse=apiResponse;
+        this.allRequestData=apiResponse;
     }
     @action.bound
     clearRequestAPI(){
-        this.intialiseRequestAPI();
+        this.init();
     }
 }
 export {CommuteStore};

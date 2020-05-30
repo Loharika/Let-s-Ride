@@ -11,12 +11,14 @@ import FailureView from './FailureView'
 @observer
 class LoadingWrapperWithFailure extends React.Component {
   render() {
+    
     const {
       apiStatus,
       renderSuccessUI: RenderSuccessUI,
       onRetryClick,
       apiError,
     } = this.props
+    
     const errorMessage = getUserDisplayableErrorMessage(apiError)
 
     switch (apiStatus) {

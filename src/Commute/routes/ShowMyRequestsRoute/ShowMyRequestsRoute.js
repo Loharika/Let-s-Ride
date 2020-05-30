@@ -15,32 +15,31 @@ class ShowMyRequestsRoute extends React.Component{
     @observable sortBy;
     constructor(){
         super();
-        this.pageNumber=1;
         this.limit=4;
+        this.rideRequestTableHeaders=['FROM','TO','DATE AND TIME','NUMBER OF PEOPLE','LUGGAGE QUANTITY','ACCEPTED PERSON DETAILS','STATUS'];
+        this.assetRequestTableHeaders=['FROM','TO','DATE AND TIME','NUMBER OF PEOPLE','ASSET TYPE','ASSET SENSITIVITY','ACCEPTED PERSON DETAILS','STATUS'];
+        this.init();
+    }
+    @action.bound
+    init(){
+        this.pageNumber=1;
         this.filter='SELECT'; //ACTIVE EXPIRED
         this.sortBy='SELECT'; //DATE TIME
     }
     @action.bound
-    doNetWorkCalls(){
-        const {commuteStore:{postRideRequest}}=this.props;
-        postRideRequest();
-    }
-    componentDidMount(){
-        const {doNetWorkCalls}=this;
-        doNetWorkCalls();
-    }
-    @action.bound
-    getRideRequests(){
+    getRequests(requestType){
         const {commuteStore:{allRequestData}}=this.props;
-    
-        return allRequestData.filter(request=>request.hasOwnProperty('noOfLuggages'));
+        switch(requestType){
+            case 'ride':{
+                return allRequestData.filter(request=>request.hasOwnProperty('noOfLuggages'));
+            }
+            case 'asset':{
+                return allRequestData.filter(request=>request.hasOwnProperty('assetType'));
+            }
+        }
+       
+        
     }
-    @action.bound
-    getAssetRequests(){
-        const {commuteStore:{allRequestData}}=this.props;
-        return allRequestData.filter(request=>request.hasOwnProperty('assetType'));
-    }
-    
     onChangePageNumber=(page)=>{
         let intialPageNumber=this.pageNumber;
         switch(page){
@@ -104,11 +103,10 @@ class ShowMyRequestsRoute extends React.Component{
             
         }
     }
-    renderPageRideRequests=()=>{
-        const {commuteStore:{allRequestData}}=this.props;
+    renderPageRequests=(requests)=>{
         let startIndex=(this.pageNumber-1)*this.limit;
         let lastIndex=(this.pageNumber*this.limit)-1;
-        let requestsInPage=allRequestData.filter((request,index)=>(index>=startIndex && index<=lastIndex));
+        let requestsInPage=requests.filter((request,index)=>(index>=startIndex && index<=lastIndex));
         let filteredRequests=this.filterRequests(requestsInPage);
         let sortedRequests=this.sortedRequests(filteredRequests);
        return sortedRequests;
@@ -116,18 +114,21 @@ class ShowMyRequestsRoute extends React.Component{
     render(){
         const {commuteStore:{allRequestData}}=this.props;
         const totalNumberOfPages=(this.props.commuteStore.allRequestData.length)/this.limit;
-        const {getRideRequests,getAssetRequests,onChangePageNumber,onChangeFilter,onChangeSortBy,renderPageRideRequests,limit,pageNumber}=this;
+        const {getRequests,onChangePageNumber,onChangeFilter,onChangeSortBy,renderPageRequests,
+        limit,pageNumber,rideRequestTableHeaders,assetRequestTableHeaders,init}=this;
         return (
             <ShowMyRequests 
             limit={limit}
+            init={init}
+            rideRequestTableHeaders={rideRequestTableHeaders}
+            assetRequestTableHeaders={assetRequestTableHeaders}
             pageNumber={pageNumber}
             requests={allRequestData} 
-            getRideRequests={getRideRequests}
-            getAssetRequests={getAssetRequests}
+            getRequests={getRequests}
             onChangePageNumber={onChangePageNumber}
             onChangeFilter={onChangeFilter}
             onChangeSortBy={onChangeSortBy}
-            renderPageRideRequests={renderPageRideRequests}
+            renderPageRequests={renderPageRequests}
             totalNumberOfPages={totalNumberOfPages}
             />
             );

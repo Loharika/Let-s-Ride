@@ -1,4 +1,5 @@
 export const endPoints={
     rideRequestApi:'__',
-    assetTransportRequestApi:'__'
+    assetTransportRequestApi:'__',
+    myRequestsApi:'__'
 }

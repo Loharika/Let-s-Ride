@@ -27,8 +27,8 @@ describe("ProductStore Tests", () => {
     commuteStore = new CommuteStore(commuteService);
   });
   it("should test initialising product store", () => {
-        expect(commuteStore.getRequestAPIStatus).toBe(API_INITIAL);
-        expect(commuteStore.getRequestAPIError).toBeNull();
+        expect(commuteStore.getAPIStatus).toBe(API_INITIAL);
+        expect(commuteStore.getAPIError).toBeNull();
         expect(commuteStore.getRequestAPIResponse).toBe(commuteService);
         expect(commuteStore.commuteService).toBe(commuteService);
   });
@@ -36,10 +36,10 @@ describe("ProductStore Tests", () => {
         const mockLoadingPromise = new Promise(function (resolve, reject) {});
         const mockPostRideRequest = jest.fn();
         mockPostRideRequest.mockReturnValue(mockLoadingPromise);
-        commuteService.postRideRequest = mockPostRideRequest;
+        commuteService.rideRequestAPI = mockPostRideRequest;
         commuteStore.postRideRequest();
-        expect(commuteStore.getRequestAPIStatus).toBe(API_FETCHING);
-        expect(commuteStore.getRequestAPIError).toBe(null);
+        expect(commuteStore.getAPIStatus).toBe(API_FETCHING);
+        expect(commuteStore.getAPIError).toBe(null);
     });
     
     it("it should test postRideRequest failure state", async () => {
@@ -48,10 +48,10 @@ describe("ProductStore Tests", () => {
         }).catch(() => {});
         const mockpostRideRequest = jest.fn();
         mockpostRideRequest.mockReturnValue(mockFailurePromise);
-        commuteService.postRideRequest = mockpostRideRequest;
+        commuteService.rideRequest = mockpostRideRequest;
         commuteStore.postRideRequest();
         mockFailurePromise.catch(e => {
-            expect(commuteStore.getRequestAPIError).toBe(API_FAILED);
+            expect(commuteStore.getAPIError).toBe(API_FAILED);
         });
     });
     
@@ -62,25 +62,25 @@ describe("ProductStore Tests", () => {
       const mockPostRideRequest = jest.fn();
 
       mockPostRideRequest.mockReturnValue(mockSuccessPromise);
-      commuteService.postRideRequest = mockPostRideRequest;
+      commuteService.rideRequestAPI = mockPostRideRequest;
   
       await commuteStore.postRideRequest();
 
-      expect(commuteStore.getRequestAPIStatus).toBe(API_SUCCESS);
-      expect(commuteStore.getRequestAPIError).toBe(null);
+      expect(commuteStore.getAPIStatus).toBe(API_SUCCESS);
+      expect(commuteStore.getAPIError).toBe(null);
   });
   it("it should check the function setGetRequestAPIStatus",()=>{
-    commuteStore.setGetRequestAPIStatus('success');
-    expect(commuteStore.getRequestAPIStatus).toBe('success');
+    commuteStore.setGetAPIStatus('success');
+    expect(commuteStore.getAPIStatus).toBe('success');
   });
   it("it should check the function setGetRequestAPIError",()=>{
-    commuteStore.setGetRequestAPIError('failure');
-    expect(commuteStore.getRequestAPIError).toBe('failure');
+    commuteStore.setGetAPIError('failure');
+    expect(commuteStore.getAPIError).toBe('failure');
   });
   it("it should check the function clearRequestAPI",()=>{
     commuteStore.clearRequestAPI();
-    expect(commuteStore.getRequestAPIStatus).toBe(API_INITIAL);
-    expect(commuteStore.getRequestAPIError).toBeNull();
+    expect(commuteStore.getAPIStatus).toBe(API_INITIAL);
+    expect(commuteStore.getAPIError).toBeNull();
   })
     
 });

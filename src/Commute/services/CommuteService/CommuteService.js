@@ -9,6 +9,7 @@ import {endPoints} from '../endPoints';
 class CommuteService{
     rideRequestApi;
     assetTransportRequestApi;
+    myRequestsApi;
     constructor(){
          this.rideRequestApi=create({
             baseURL:'https://9ba0cd3ggi.execute-api.ap-south-1.amazonaws.com/',
@@ -16,9 +17,12 @@ class CommuteService{
          this.assetTransportRequestApi=create({
             baseURL:'__',
          });
+        this.myRequestsApi=create({
+            baseURL:'__',
+         });    
     }
     @action
-    postRideRequest(requestData){
+    rideRequestAPI(requestData){
         console.log(requestData);
         
         //rideRequest
@@ -30,7 +34,7 @@ class CommuteService{
             );
     }
     @action.bound
-    postAssetTransportRequest(requestData){
+    assetTransportRequestAPI(requestData){
         console.log(requestData);
         //assetTransportRequest
         
@@ -39,6 +43,18 @@ class CommuteService{
             '__',
             {},
             apiMethods.post
+            );
+    }
+    @action.bound
+    myRequestsAPI(details){
+        console.log(details);
+        //myRequests
+        
+        return networkCallWithApisauce(
+            this.myRequestsApi,
+            '__',
+            {},
+            apiMethods.get
             );
     }
     

@@ -15,16 +15,13 @@ class DisplayListOfElements extends Component {
 
   handleIncrement = () => {
     const {onChange}=this.props;
-    
     let intialCount=this.count;
     intialCount++;
     if(intialCount>=0){
       this.count=intialCount;
        onChange(intialCount);
     }
-   
   }
-
   handleDecrement = () => {
     const {onChange}=this.props;
     let intialCount=this.count;
@@ -33,9 +30,7 @@ class DisplayListOfElements extends Component {
       this.count=intialCount
        onChange(intialCount);
     }
-   
   }
-
   render() {
       const {listData}=this.props;
     return (

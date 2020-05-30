@@ -10,9 +10,8 @@ import {NoOfRequests,RequestHeader,FilterAndSort,Sort,Filter,RequestDetailsTable
 class ShowRideRequests extends React.Component{
     render(){
      
-        const {onChangePageNumber,onChangeFilter,onChangeSortBy,renderPageRideRequests,limit,pageNumber,totalNumberOfPages}=this.props;
-        const rideRequests=renderPageRideRequests();
-        const headers=['FROM','TO','DATE AND TIME','NUMBER OF PEOPLE','LUGGAGE QUANTITY','ACCEPTED PERSON DETAILS','STATUS'];
+        const {onChangePageNumber,onChangeFilter,onChangeSortBy,renderPageRequests,limit,pageNumber,tableHeaders,getRequests}=this.props;
+        const rideRequests=renderPageRequests(getRequests('ride'));
         return (
             <div>
                 <RequestHeader>
@@ -36,7 +35,7 @@ class ShowRideRequests extends React.Component{
                 </RequestHeader>
                     <RequestDetailsTable>
                       <TableRow>
-                      {headers.map(eachOne=>{return <TableHeader>{eachOne}</TableHeader>})}
+                      {tableHeaders.map(eachOne=>{return <TableHeader>{eachOne}</TableHeader>})}
                       </TableRow>
                       {Object.values(rideRequests).map(request=>{
                       return <TableRow>

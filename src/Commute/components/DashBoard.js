@@ -10,9 +10,8 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import { toast } from 'react-toastify';
 import { css } from 'glamor';
-
+import LoadingWrapperWithFailure from '../../components/common/LoadingWrapperWithFailure';
 import {UserProfile} from '../../Authentication/components/UserProfile';
-
 import {ShowMyRequestsRoute} from '../routes/ShowMyRequestsRoute/ShowMyRequestsRoute.js';
 import {ShareRideRoute} from '../routes/ShareRideRoute/ShareRideRoute.js';
 
@@ -89,17 +88,26 @@ class DashBoard extends React.Component{
             }
         }
     }
-    render(){
-        return (
-            <div className='flex flex-col' key={Math.random()}>
+    @action.bound
+    renderDashBoardUI(){
+        return <div className='flex flex-col' key={Math.random()}>
                     <Header key={this.navigateTo} onClickUserProfile={this.onClick} 
                     navigatePageTo={this.navigatePageTo}/>
                     {this.renderPage()}
                     
             </div>
+    }
+    render(){
+        const {renderDashBoardUI}=this;
+        const {getAPIStatus,getAPIError,doNetworkCalls}=this.props;
+        
+        return (
+            <React.Fragment>
+            <LoadingWrapperWithFailure key={this.navigateTo} apiStatus={getAPIStatus} apiError={getAPIError} 
+                        onRetryClick={doNetworkCalls} renderSuccessUI={renderDashBoardUI} 
+                    />
+            </React.Fragment>
             );
     }
 }
 export {DashBoard};
-
-// <RideRequest />

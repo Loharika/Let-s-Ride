@@ -10,9 +10,10 @@ import {DashBoard} from '../../components/DashBoard.js';
 @observer
 class DashBoardRoute extends React.Component{
     @action.bound
-    doNetWorkCalls(){
-        const {commuteStore:{postRideRequest}}=this.props;
-        postRideRequest();
+    async doNetWorkCalls(){
+        const {commuteStore:{getMyRequests}}=this.props;
+        const {authStore:{authAPIService}}=this.props;
+        await getMyRequests(authAPIService);
     }
     componentDidMount(){
         const {doNetWorkCalls}=this;
@@ -24,9 +25,14 @@ class DashBoardRoute extends React.Component{
        userSignOut();
    }
     render(){
-        const {onClickSignOutButton}=this;
+        const {onClickSignOutButton,doNetWorkCalls}=this;
+        const {commuteStore:{getAPIError,getAPIStatus}}=this.props;
+     
         return (
-            <DashBoard onClickSignOutButton={onClickSignOutButton}/>
+            <DashBoard onClickSignOutButton={onClickSignOutButton}
+            doNetWorkCalls={doNetWorkCalls} 
+            getAPIError={getAPIError} 
+            getAPIStatus={getAPIStatus}/>
             );
     }
 }
