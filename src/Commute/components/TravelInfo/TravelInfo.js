@@ -1,3 +1,4 @@
+
 import React from 'react';
 import {observable,action} from 'mobx';
 import {observer} from 'mobx-react';
@@ -9,13 +10,14 @@ import {DateAndTime} from '../../../Common/components/DateTime.js';
 import {Button} from '../../../Common/components/Button.js';
 import {DisplayListOfElements} from '../../../Common/components/DisplayListOfElements.js';
 import {FlexibleDateTime} from '../../../Common/components/FlexibleDateTime.js';
-
+import {DisplayDropDown} from '../../../Common/components/DisplayDropDown.js';
 import {CheckBox,FlexibleTimings,FlexibleTimingsLabel} from './styledComponents.js';
+
 
 import strings from '../../i18n/strings.json';
 
 @observer
-class ShareRide extends React.Component{
+class TravelInfo extends React.Component{
     @observable isCheckedFlexibleTimings;
     @observable displayError;
     @observable from;
@@ -23,11 +25,11 @@ class ShareRide extends React.Component{
     @observable dateTime;
     @observable startDateTime;
     @observable endDateTime;
-    @observable seats;
-    @observable luggages;
-    constructor(){
-        super();
-        
+    @observable travelMedium;
+    @observable assetsQuantity;
+    constructor(props){
+        super(props);
+        this.init();
     }
     @action.bound
     init(){
@@ -38,21 +40,21 @@ class ShareRide extends React.Component{
         this.dateTime='';
         this.startDateTime='';
         this.endDateTime='';
-        this.seats='';
-        this.luggages='';   
+        this.travelMedium='';
+        this.assetsQuantity='';
     }
     onClickFlexibleTimings=()=>{
         this.isCheckedFlexibleTimings=!this.isCheckedFlexibleTimings;
     }
-    onChangeRequestFrom=(event)=>{
+    onChangeFrom=(event)=>{
         this.from=event.target.value;
         this.displayError=false;
     }
-    onChangeRequestTo=(event)=>{
+    onChangeTo=(event)=>{
         this.to=event.target.value;
         this.displayError=false;
     }
-    onChangeTime=(time)=>{
+    onChangeDateTime=(time)=>{
         this.dateTime=time;
     }
     onChangeFromTime=(time)=>{
@@ -61,15 +63,15 @@ class ShareRide extends React.Component{
     onChangeToTime=(time)=>{
         this.endDateTime=time;
     }
-    onChangeNoOfSeats=(seats)=>{
-        this.seats=seats;
+    onChangeAssetsQuantity=(assetsQuantity)=>{
+        this.assetsQuantity=assetsQuantity;
     }
-    onChangeNoOfLuggages=(luggages)=>{
-        this.luggages=luggages;
+    onChangeTravelMedium=(travelMedium)=>{
+        this.travelMedium=travelMedium;
     }
     onSubmitRequest=()=>{
-        this.displayError=!this.displayError;
-        let formDetails=[this.from,this.to,this.dateTime,this.seats,this.luggages];
+        this.displayError=true;
+        let formDetails=[this.from,this.to,this.dateTime,this.assetsQuantity,this.travelMedium];
         let count=0;
         formDetails.forEach(eachDetail=>{
             if(eachDetail.length===0){
@@ -80,79 +82,84 @@ class ShareRide extends React.Component{
             if(count===0 && this.dateTime.length!==0){
                 alert("Submitted Succesfully");
                 this.displayError=false;
-                const shareRideData={
+                const travelInfoData={
                     from:this.from,
                     to:this.to,
                     dateTime:this.dateTime,
-                    seats:this.seats,
-                    luggages:this.luggages,
+                    travelMedium:this.travelMedium,
+                    assetsQuantity:this.assetsQuantity,
                 }
                 this.init();
-                console.log(shareRideData);
+                console.log(travelInfoData)
             }
         }
         else{
             if(count===0 && this.startDateTime.length!==0 && this.endDateTime.length!==0){
                 alert("Submitted Succesfully");
                 this.displayError=false;
-                const shareRideData={
+                const travelInfoData={
                     from:this.from,
                     to:this.to,
                     startDateTime:this.startDateTime,
                     endDateTime:this.endDateTime,
-                    seats:this.seats,
-                    luggages:this.luggages,
+                    travelMedium:this.travelMedium,
+                    assetsQuantity:this.assetsQuantity,
                 }
                 this.init();
-                console.log(shareRideData)
+                console.log(travelInfoData)
             }
         }
-    }   
+    }
     render(){
-        const {from,to,dateTime,startDateTime,endDateTime,
-            isCheckedFlexibleTimings,
-            onClickFlexibleTimings,
-            onSubmitRequest,
-            onChangeRequestFrom,
-            onChangeRequestTo,
-            displayError,
-            onChangeTime,
-            onChangeFromTime,
-            onChangeToTime,
-            onChangeNoOfSeats,
-            onChangeNoOfLuggages
+        const travelMediums={
+            listTitle:'TRAVEL MEDIUM',
+            listItems:[{key:'BUS',text:'Bus',value:'Bus'},
+            {key:'Car',text:'Car',value:'Car'},{key:'Taxi',text:'Taxi',value:'Taxi'},],
+            placeholder:'Select Travel Medium'
+        };
+        const {from,to,displayError,isCheckedFlexibleTimings,
+        dateTime,
+        onChangeFrom,onChangeTo,
+        onChangeFromTime,
+        onChangeToTime,startDateTime,
+        endDateTime,onChangeDateTime,
+        onClickFlexibleTimings,
+        onChangeAssetsQuantity,
+        onSubmitRequest,
+        onChangeTravelMedium
         }=this;
-        return (
+        return(
             <FormDashboard>
                 <Form>
-                  <FormHeadingText>{strings.text.shareRide}</FormHeadingText>
+            <FormHeadingText>{strings.text.travelInfo}</FormHeadingText>
                   <InputField placeholderText={strings.placeholderText.ex} 
                             type={strings.type.text} 
                             label={strings.label.from} 
-                            onChange={onChangeRequestFrom} 
+                            onChange={onChangeFrom} 
                             value={from}
                             displayError={displayError}/>
                   <InputField placeholderText={strings.placeholderText.ex} 
                       type={strings.type.text} 
                       label={strings.label.to} 
-                      onChange={onChangeRequestTo} 
+                      onChange={onChangeTo} 
                       value={to}
                       displayError={displayError}/>
                   {isCheckedFlexibleTimings?
                     <FlexibleDateTime onChangeFromTime={onChangeFromTime} 
                     onChangeToTime={onChangeToTime} startDateTime={startDateTime} 
-                    endDateTime={endDateTime}  displayError={displayError}/>:
-                        <DateAndTime label={strings.label.dateAndTime} onChangeTime={onChangeTime} 
-                        dateAndTime={dateTime}  displayError={displayError}/>}
+                    endDateTime={endDateTime}  displayError={displayError} />:
+                    <DateAndTime label={strings.label.dateAndTime} onChangeTime={onChangeDateTime} 
+                    dateAndTime={dateTime}  displayError={displayError}/>}
                   <FlexibleTimings>
                     <CheckBox type={strings.type.checkbox} onClick={onClickFlexibleTimings} /><FlexibleTimingsLabel >{strings.label.flexibleTimings}</FlexibleTimingsLabel>
                   </FlexibleTimings>
-                  <DisplayListOfElements listData={{title:strings.text.noOfSeatsAvailable}} onChange={onChangeNoOfSeats} displayError={displayError}/>
-                  <DisplayListOfElements listData={{title:strings.text.noOfLuggages}} onChange={onChangeNoOfLuggages} displayError={displayError}/>
+                  <DisplayListOfElements listData={{title:strings.text.assetsQuantity}} onChange={onChangeAssetsQuantity} displayError={displayError}/>
+                  <DisplayDropDown data={travelMediums} onChange={onChangeTravelMedium} displayError={displayError} displayError={displayError}/>
                   <Button buttonText={strings.text.shareText} onClickFunction={onSubmitRequest}/>
-                </Form>
+           </Form>
             </FormDashboard>
+            
             );
     }
 }
-export {ShareRide};
+export {TravelInfo};

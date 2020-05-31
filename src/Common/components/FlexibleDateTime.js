@@ -10,13 +10,13 @@ class FlexibleDateTime extends React.Component{
         super();
     }
     render(){
-        const {onChangeFromTime,onChangeToTime
+        const {onChangeFromTime,onChangeToTime,displayError
             
         }=this.props;
         return (
             <FlexibleDateAndTimeStyle>
-                <DateAndTime label={strings.from} onChangeTime={onChangeFromTime} />
-                <DateAndTime label={strings.to} onChangeTime={onChangeToTime} />
+                <DateAndTime label={strings.from} onChangeTime={onChangeFromTime}  displayError={displayError} />
+                <DateAndTime label={strings.to} onChangeTime={onChangeToTime}  displayError={displayError} />
             </FlexibleDateAndTimeStyle>
             );
     }

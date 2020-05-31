@@ -1,16 +1,22 @@
 import React from 'react';
-import {observable,action} from 'mobx';
+import {action,observable} from 'mobx';
 import {observer} from 'mobx-react';
-import {FiChevronDown,FiChevronUp} from 'react-icons/fi';
-import {Label } from '../styleGuides/StyleGuides.js';
-
-import {Dropdown as DropdownAs,DropdownList,DropdownListOption,Star} from '../styledComponents/styleComponents.js';
 import { Dropdown } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
+
+import {Label } from '../styleGuides/StyleGuides.js';
+import {Dropdown as DropdownAs,Star,ErrorStyle} from '../styledComponents/styleComponents.js';
+
 @observer
 class DisplayDropDown extends React.Component{
+    @observable isClicked;
+    constructor(){
+        super();
+        this.isClicked=false;
+    }
     @action.bound
     onChange(event,data){
+        this.isClicked=true;
         const {onChange}=this.props;
         onChange(data.value);
     }
@@ -27,6 +33,7 @@ class DisplayDropDown extends React.Component{
                 options={data.listItems}
                 onChange={this.onChange}
                     />
+                <ErrorStyle isError={!this.isClicked && this.props.displayError}> Required</ErrorStyle>
         </DropdownAs> 
             
             );

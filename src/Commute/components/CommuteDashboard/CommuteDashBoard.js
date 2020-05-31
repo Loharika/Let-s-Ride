@@ -6,11 +6,12 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import LoadingWrapperWithFailure from '../../../components/common/LoadingWrapperWithFailure';
 import {UserProfile} from '../../../Authentication/components/UserProfile';
-import {AssetTransportRequestRoute} from '../../routes/AssetTransportRequestRoute/AssetTransportRequestRoute.js';
-import {ShowMyRequestsRoute} from '../../routes/ShowMyRequestsRoute/ShowMyRequestsRoute.js';
-import {ShareRideRoute} from '../../routes/ShareRideRoute/ShareRideRoute.js';
-import {RideRequestRoute} from '../../routes/RideRequestRoute/RideRequestRoute.js';
 
+import {ShowMyRequestsRoute} from '../../routes/ShowMyRequestsRoute/ShowMyRequestsRoute.js';
+import {RideRequest} from '../RideRequest';
+import {AssetTransportRequest} from '../AssetTransportRequest';
+import {ShareRide} from '../ShareRide';
+import {TravelInfo} from '../TravelInfo';
 import {Header} from '../Header/Header.js';
 import {CommuteDashboardDisplay} from './styledComponents.js';
 
@@ -80,35 +81,42 @@ class DashBoard extends React.Component{
         }
     }
     renderPage=()=>{
+        const {postAssetTransportRequest,postRideRequest,getAPIError,getAPIStatus,doNetworkCalls}=this.props;
         const {navigateTo}=this;
+       
         switch(navigateTo){
             case rideRequest:{
-                return <RideRequestRoute  />;
+                     return <RideRequest postRideRequest={postRideRequest}/>;
             }
             case assetTranportRequest:{
-                return <AssetTransportRequestRoute />;
+                return <AssetTransportRequest postAssetTransportRequest={postAssetTransportRequest}/>;
             }
             case userProfile:{
                 return <UserProfile />;
             }
             case homePage:{
-                return <ShowMyRequestsRoute navigatePageTo={this.navigatePageTo}/>;
+                return <ShowMyRequestsRoute 
+                navigatePageTo={this.navigatePageTo}
+                doNetWorkCalls={doNetworkCalls} 
+                getAPIError={getAPIError} 
+                getAPIStatus={getAPIStatus}
+                />;
             }
             case shareRide:{
-                return <ShareRideRoute />;
+                return <ShareRide />;
             }
             case shareTravelInfo:{
-                return <div>{shareTravelInfo}</div>;
+                return <TravelInfo />;
             }
         }
     }
     @action.bound
     renderDashBoardUI(){
-        return <CommuteDashboardDisplay key={Math.random()}>
+        return (<CommuteDashboardDisplay key={Math.random()}>
                     <Header key={this.navigateTo} onClickUserProfile={this.onClick} 
                     navigatePageTo={this.navigatePageTo}/>
                     {this.renderPage()}
-                </CommuteDashboardDisplay>;
+                </CommuteDashboardDisplay>);
     }
     render(){
         const {renderDashBoardUI}=this;
@@ -116,9 +124,14 @@ class DashBoard extends React.Component{
         
         return (
             <React.Fragment>
-                <LoadingWrapperWithFailure key={this.navigateTo} apiStatus={getAPIStatus} apiError={getAPIError} 
+            <CommuteDashboardDisplay key={Math.random()}>
+                    <Header key={this.navigateTo} onClickUserProfile={this.onClick} 
+                    navigatePageTo={this.navigatePageTo}/>
+                    {this.renderPage()}
+                </CommuteDashboardDisplay>
+                {/*<LoadingWrapperWithFailure key={this.navigateTo} apiStatus={getAPIStatus} apiError={getAPIError} 
                             onRetryClick={doNetworkCalls} renderSuccessUI={renderDashBoardUI} 
-                        />
+                        />*/}
             </React.Fragment>
             );
     }

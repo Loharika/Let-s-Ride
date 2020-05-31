@@ -26,14 +26,17 @@ class DashBoardRoute extends React.Component{
    }
     render(){
         const {onClickSignOutButton,doNetWorkCalls}=this;
-        const {commuteStore:{getAPIError,getAPIStatus}}=this.props;
+        const {commuteStore:{getAPIError,getAPIStatus,postRideRequest,postAssetTransportRequest}}=this.props;
      
         return (
             <DashBoard 
             onClickSignOutButton={onClickSignOutButton}
             doNetWorkCalls={doNetWorkCalls} 
             getAPIError={getAPIError} 
-            getAPIStatus={getAPIStatus}/>
+            getAPIStatus={getAPIStatus}
+            postAssetTransportRequest={postAssetTransportRequest}
+            postRideRequest={postRideRequest}
+            />
             );
     }
 }

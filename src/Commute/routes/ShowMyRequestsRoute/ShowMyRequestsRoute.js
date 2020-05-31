@@ -8,7 +8,7 @@ import {ShowMyRequests} from '../../components/ShowUserRequests/ShowMyRequests.j
 
 import strings from '../../i18n/strings.json';
 
-@inject('commuteStore')
+@inject('commuteStore','authStore')
 @observer
 class ShowMyRequestsRoute extends React.Component{
     @observable pageNumber;
@@ -31,7 +31,8 @@ class ShowMyRequestsRoute extends React.Component{
     }
     @action.bound
     getRequests(requestType){
-        const {commuteStore:{allRequestData}}=this.props;
+        const {commuteStore:{allRequestData}
+        }=this.props;
         switch(requestType){
             case 'ride':{
                 return allRequestData.filter(request=>request.hasOwnProperty('noOfLuggages'));
@@ -146,7 +147,7 @@ class ShowMyRequestsRoute extends React.Component{
         navigatePageTo(requestType==='ride'?'rideRequest':'assetTranportRequest');
     }
     render(){
-        const {commuteStore:{allRequestData}}=this.props;
+        const {commuteStore:{allRequestData},doNetWorkCalls,getAPIError,getAPIStatus}=this.props;
         const {getRequests,onChangePageNumber,onChangeFilter,onChangeSortBy,renderPageRequests,
         limit,pageNumber,rideRequestTableHeaders,assetRequestTableHeaders,init,displayRequestType,onClickRequestType,
             addRequestButton
@@ -168,6 +169,9 @@ class ShowMyRequestsRoute extends React.Component{
             displayRequestType={displayRequestType}
             onClickRequestType={onClickRequestType}
             addRequestButton={addRequestButton}
+            doNetWorkCalls={doNetWorkCalls} 
+            getAPIError={getAPIError} 
+            getAPIStatus={getAPIStatus}
             />
             );
     }

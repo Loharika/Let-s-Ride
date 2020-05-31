@@ -10,6 +10,9 @@ import {MyRequestsHeader,MyRequestType,MyRequestsDashboard,RequestHeader,NoOfReq
     Footer,AddRequestButton,Pages,MyRequestsTitle
 } from './styledComponents.js';
 
+import LoadingWrapperWithFailure from '../../../components/common/LoadingWrapperWithFailure';
+import {UserProfile} from '../../../Authentication/components/UserProfile';
+
 import {ShowRideRequests} from './ShowRideRequests.js';
 import {ShowAssetTransport} from './ShowAssetTransport.js';
 import {DisplayDropDown} from '../../../Common/components/DisplayDropDown.js';
@@ -23,10 +26,6 @@ class ShowMyRequests extends React.Component{
        super(props);
        const { getRequests,displayRequestType,limit}=this.props;
        this.totalNumberOfPages=Math.ceil((getRequests(displayRequestType).length)/limit);
-   }
-   @action.bound
-   onChangePage(event,data){
-       console.log(data.activePage);
    }
     displayRequestPage=()=>{
         
@@ -61,7 +60,8 @@ class ShowMyRequests extends React.Component{
             }
         }
     }
-    render(){
+    @action.bound
+    renderSuccessUI(){
         const {limit,onChangeFilter,onChangeSortBy,onChangePageNumber,pageNumber,displayRequestType}=this.props;
         const {onClickRequestType,addRequestButton}=this.props;
         const filterOptions={
@@ -120,6 +120,18 @@ class ShowMyRequests extends React.Component{
                 </Footer>
                 
         </MyRequestsDashboard>
+            );
+    }
+    render(){
+        const {renderSuccessUI}=this;
+        const {getAPIError,getAPIStatus,doNetworkCalls}=this.props;
+        return (
+            <React.Fragment>
+            <LoadingWrapperWithFailure key={this.navigateTo} apiStatus={getAPIStatus} apiError={getAPIError} 
+                            onRetryClick={doNetworkCalls} renderSuccessUI={renderSuccessUI} 
+                        />
+                        </React.Fragment>
+            
             );
     }
 }

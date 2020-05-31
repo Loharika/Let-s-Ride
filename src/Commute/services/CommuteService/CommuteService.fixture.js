@@ -30,7 +30,9 @@ class CommuteService{
         console.log(details);
         //myRequests
         return new Promise((resolve)=>{
-            resolve(allRequestData)
+            setTimeout(()=>{
+                resolve(allRequestData);
+            },3000);
         })
     }
     

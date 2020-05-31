@@ -17,13 +17,16 @@ import { Dropdown,  } from 'semantic-ui-react'
 
 @observer
 class DateAndTime extends React.Component {
+    @observable isChanged;
     @observable startDate;
       constructor(){
           super();
           this.startDate= new Date();
+          this.isChanged=false;
       }
     
       handleChange = date => {
+        this.isChanged=true;
         const {onChangeTime}=this.props;
         this.startDate=date;
         onChangeTime(date);
@@ -51,8 +54,6 @@ class DateAndTime extends React.Component {
   
     return (
         <DateAndTimeStyle>
-          {/*<Dropdown selection fluid options={dateTo} placeholder='Choose an option' />*/}
-          
           <Label>
           {this.props.label}<Star>*</Star>
           </Label>
@@ -68,7 +69,7 @@ class DateAndTime extends React.Component {
               dateFormat="MMMM d, yyyy h:mm aa"
             />
             </DataAndTimeDisplay>
-            <ErrorStyle isError={displayError}>Required</ErrorStyle>
+            <ErrorStyle isError={displayError && !this.isChanged}>Required</ErrorStyle>
         </DateAndTimeStyle >
     );
   }

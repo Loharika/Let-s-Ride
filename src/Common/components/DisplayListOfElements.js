@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {observable} from 'mobx';
 import { observer } from 'mobx-react'
-import {NoOfListItems,ListItemsDisplay,ListItemsCount,ChangeNoOfListItems,Star} from '../styledComponents/styleComponents.js';
+import {NoOfListItems,ListItemsDisplay,ListItemsCount,ChangeNoOfListItems,Star,ErrorStyle} from '../styledComponents/styleComponents.js';
 import {Typo14SteelHKGroteSkRegular as Text,Label} from '../styleGuides/StyleGuides.js';
 import strings from '../i18n/strings.json';
 
@@ -27,13 +27,14 @@ class DisplayListOfElements extends Component {
     let intialCount=this.count;
     intialCount--;
     if(intialCount>=0){
-      this.count=intialCount
+      this.count=intialCount;
        onChange(intialCount);
     }
   }
   render() {
-      const {listData}=this.props;
+      const {listData,displayError}=this.props;
     return (
+      <React.Fragment>
       <NoOfListItems>
         <Label>{listData.title} <Star>*</Star></Label>
         <ListItemsDisplay>
@@ -42,7 +43,9 @@ class DisplayListOfElements extends Component {
             <ChangeNoOfListItems onClick={this.handleDecrement}>{strings.decrementSymbol}</ChangeNoOfListItems>
         </ListItemsDisplay>
       </NoOfListItems>
-    )
+      <ErrorStyle isError={(displayError && this.count===0)?true:false}>Select number {listData.title.slice(6,).toLowerCase()}</ErrorStyle>
+      </React.Fragment>
+    );
   }
 }
 

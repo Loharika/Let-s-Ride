@@ -15,10 +15,12 @@
         "noOfLuggages":"NO OF LUGGAGES  ",
         "noOfAssets":"NO OF ASSETS  ",
         "shareRide":"SHARE RIDE  ",
-        "noOfSeatsAvailable":"NO OF SEATS AVAILABLE  ",
+        "noOfSeatsAvailable":"NO OF SEATS",
         "myRequests":"My Requests",
-        "shareText":"SHARE"
-        
+        "shareText":"SHARE",
+        "travelInfo":"Travel Info",
+        "assetsQuantity":"ASSETS QUANTITY",
+        "travelMedium":"TRAVEL MEDIUM"
     },
     "type":{
         "text":"text",
