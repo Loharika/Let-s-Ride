@@ -41,7 +41,7 @@ class TravelInfo extends React.Component{
         this.startDateTime='';
         this.endDateTime='';
         this.travelMedium='';
-        this.assetsQuantity='';
+        this.assetsQuantity=0;
     }
     onClickFlexibleTimings=()=>{
         this.isCheckedFlexibleTimings=!this.isCheckedFlexibleTimings;
@@ -71,10 +71,11 @@ class TravelInfo extends React.Component{
     }
     onSubmitRequest=()=>{
         this.displayError=true;
+        const {shareTravelInfo}=this.props;
         let formDetails=[this.from,this.to,this.dateTime,this.assetsQuantity,this.travelMedium];
         let count=0;
         formDetails.forEach(eachDetail=>{
-            if(eachDetail.length===0){
+            if(eachDetail.length===0 || eachDetail===0){
                 count++;
             }
         });
@@ -85,12 +86,14 @@ class TravelInfo extends React.Component{
                 const travelInfoData={
                     from:this.from,
                     to:this.to,
+                    isFlexible:false,
                     dateTime:this.dateTime,
                     travelMedium:this.travelMedium,
                     assetsQuantity:this.assetsQuantity,
-                }
+                };
+               
                 this.init();
-                console.log(travelInfoData)
+                shareTravelInfo(travelInfoData);
             }
         }
         else{
@@ -100,13 +103,14 @@ class TravelInfo extends React.Component{
                 const travelInfoData={
                     from:this.from,
                     to:this.to,
+                    isFlexible:true,
                     startDateTime:this.startDateTime,
                     endDateTime:this.endDateTime,
                     travelMedium:this.travelMedium,
                     assetsQuantity:this.assetsQuantity,
                 }
                 this.init();
-                console.log(travelInfoData)
+                shareTravelInfo(travelInfoData);
             }
         }
     }
@@ -118,7 +122,7 @@ class TravelInfo extends React.Component{
             placeholder:'Select Travel Medium'
         };
         const {from,to,displayError,isCheckedFlexibleTimings,
-        dateTime,
+        dateTime,assetsQuantity,
         onChangeFrom,onChangeTo,
         onChangeFromTime,
         onChangeToTime,startDateTime,
@@ -153,7 +157,8 @@ class TravelInfo extends React.Component{
                   <FlexibleTimings>
                     <CheckBox type={strings.type.checkbox} onClick={onClickFlexibleTimings} /><FlexibleTimingsLabel >{strings.label.flexibleTimings}</FlexibleTimingsLabel>
                   </FlexibleTimings>
-                  <DisplayListOfElements listData={{title:strings.text.assetsQuantity}} onChange={onChangeAssetsQuantity} displayError={displayError}/>
+                  <DisplayListOfElements listData={{title:strings.text.assetsQuantity}} onChange={onChangeAssetsQuantity}
+                  displayError={displayError} intial={assetsQuantity}/>
                   <DisplayDropDown data={travelMediums} onChange={onChangeTravelMedium} displayError={displayError} displayError={displayError}/>
                   <Button buttonText={strings.text.shareText} onClickFunction={onSubmitRequest}/>
            </Form>

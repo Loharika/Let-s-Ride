@@ -8,7 +8,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import {RiCalendarLine} from 'react-icons/ri';
 
-import {DateAndTimeStyle,DataAndTimeDisplay,Star,ErrorStyle} from '../styledComponents/styleComponents.js';
+import {DateAndTimeStyle,DataAndTimeDisplay,Star,ErrorStyle,Icon} from '../styledComponents/styleComponents.js';
 import {Label} from '../styleGuides/StyleGuides.js';
 
 import strings from '../i18n/strings.json';
@@ -58,7 +58,10 @@ class DateAndTime extends React.Component {
           {this.props.label}<Star>*</Star>
           </Label>
           <DataAndTimeDisplay>
-          <RiCalendarLine />
+          <Icon>
+            <RiCalendarLine />
+          </Icon>
+            
             <DatePicker
               selected={this.startDate}
               onChange={this.handleChange}

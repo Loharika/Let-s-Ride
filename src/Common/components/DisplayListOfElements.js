@@ -8,9 +8,9 @@ import strings from '../i18n/strings.json';
 @observer
 class DisplayListOfElements extends Component {
     @observable count;
-  constructor(){
-      super();
-      this.count=0;
+  constructor(props){
+      super(props);
+      this.count=this.props.intial;
   }
 
   handleIncrement = () => {
@@ -39,11 +39,11 @@ class DisplayListOfElements extends Component {
         <Label>{listData.title} <Star>*</Star></Label>
         <ListItemsDisplay>
             <ChangeNoOfListItems onClick={this.handleIncrement}>{strings.incrementSymbol}</ChangeNoOfListItems>
-            <ListItemsCount><Text>{this.count}</Text></ListItemsCount>
+            <ListItemsCount><Text>{this.props.intial}</Text></ListItemsCount>
             <ChangeNoOfListItems onClick={this.handleDecrement}>{strings.decrementSymbol}</ChangeNoOfListItems>
         </ListItemsDisplay>
       </NoOfListItems>
-      <ErrorStyle isError={(displayError && this.count===0)?true:false}>Select number {listData.title.slice(6,).toLowerCase()}</ErrorStyle>
+      <ErrorStyle isError={(displayError && this.props.intial===0)?true:false}>Select number {listData.title.slice(6,).toLowerCase()}</ErrorStyle>
       </React.Fragment>
     );
   }

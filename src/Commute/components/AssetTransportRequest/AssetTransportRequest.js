@@ -14,9 +14,9 @@ import {CheckBox,FlexibleTimings,FlexibleTimingsLabel} from '../RideRequest/styl
 import strings from '../../i18n/strings.json';
 const assetType={listTitle:'ASSET TYPE',
             listItems:[{
-                        key: 'Parcel',
-                        text: 'Parcel',
-                        value: 'Parcel',
+                        key: 'Electronics',
+                        text: 'Electronics',
+                        value: 'Electronics',
                       },
                       {
                         key: 'Bags',
@@ -42,9 +42,9 @@ const assetType={listTitle:'ASSET TYPE',
                         value: 'Sensitive',
                       },
                       {
-                        key: 'Very Sensitive',
-                        text: 'Very Sensitive',
-                        value: 'Very Sensitive',
+                        key: 'Highly Sensitive',
+                        text: 'Highly Sensitive',
+                        value: 'Highly Sensitive',
                       },],
             placeholder:'Select Asset Sensitivity',
         };
@@ -75,7 +75,7 @@ class AssetTransportRequest extends React.Component{
         this.dateTime=new Date();
         this.startDateTime='';
         this.endDateTime='';
-        this.assets='';
+        this.assets=0;
         this.assetType='';
         this.assetSensitivity='';
         this.details='';
@@ -119,7 +119,7 @@ class AssetTransportRequest extends React.Component{
         
         let count=0;
         formDetails.forEach(eachDetail=>{
-            if(eachDetail.length===0){
+            if(eachDetail.length===0 || eachDetail===0){
                 count++;
             }
         });
@@ -130,11 +130,13 @@ class AssetTransportRequest extends React.Component{
                 const assetRequestData={
                     from:this.from,
                     to:this.to,
+                    isFlexible:false,
                     dateTime:this.dateTime,
                     assets:this.assets,
                     assetType:this.assetType,
                     assetSensitivity:this.assetSensitivity,
                     details:this.details,
+                    
                 }
                 postAssetTransportRequest(assetRequestData);
                 console.log(assetRequestData);
@@ -149,12 +151,14 @@ class AssetTransportRequest extends React.Component{
                 const assetRequestData={
                     from:this.from,
                     to:this.to,
+                    isFlexible:true,
                     startDateTime:this.startDateTime,
                     endDateTime:this.endDateTime,
                     assets:this.assets,
                     assetType:this.assetType,
                     assetSensitivity:this.assetSensitivity,
                     details:this.details,
+                    
                 }
                 postAssetTransportRequest(assetRequestData);
                 console.log(assetRequestData);
@@ -165,7 +169,7 @@ class AssetTransportRequest extends React.Component{
         }
     }
     render(){
-       const {from,to,details,
+       const {from,to,details,assets,
             isCheckedFlexibleTimings,
             onClickFlexibleTimings,
             onSubmitRequest,
@@ -209,7 +213,10 @@ class AssetTransportRequest extends React.Component{
                       onClick={onClickFlexibleTimings} />
                       <FlexibleTimingsLabel>{strings.label.flexibleTimings}</FlexibleTimingsLabel>
                     </FlexibleTimings>
-                    <DisplayListOfElements listData={{title:strings.text.noOfAssets}} onChange={onChangeNoOfAssets}displayError={displayError} />
+                    <DisplayListOfElements listData={{title:strings.text.noOfAssets}} 
+                    onChange={onChangeNoOfAssets}displayError={displayError}
+                    intial={assets}
+                    />
                     <DisplayDropDown data={assetType} onChange={onChangeAssetType} displayError={displayError}/>
                     <DisplayDropDown data={assetSensitivity} onChange={onChangeAssetSensitivity} displayError={displayError}/>
                     <InputField placeholderText={strings.placeholderText.nameMobileNumber} 

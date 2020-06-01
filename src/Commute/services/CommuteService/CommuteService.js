@@ -9,7 +9,10 @@ import {endPoints} from '../endPoints';
 class CommuteService{
     rideRequestApi;
     assetTransportRequestApi;
-    myRequestsApi;
+    shareRideInfoApi;
+    shareTravelInfoApi;
+    myRideRequestsApi;
+    myAssetRequestsApi;
     constructor(){
          this.rideRequestApi=create({
             baseURL:'https://9ba0cd3ggi.execute-api.ap-south-1.amazonaws.com/',
@@ -17,9 +20,18 @@ class CommuteService{
          this.assetTransportRequestApi=create({
             baseURL:'__',
          });
-        this.myRequestsApi=create({
+        this.myRideRequestsApi=create({
             baseURL:'__',
-         });    
+         });
+         this.myAssetRequestsApi=create({
+            baseURL:'__',
+         }); 
+         this.shareRideInfoApi=create({
+            baseURL:'__',
+         });
+         this.shareTravelInfoApi=create({
+            baseURL:'__',
+         });
     }
     @action
     rideRequestAPI(requestData){
@@ -46,17 +58,47 @@ class CommuteService{
             );
     }
     @action.bound
-    myRequestsAPI(details){
+    shareRideInfoAPI(details){
         console.log(details);
-        //myRequests
-        
+        //shareRideInfo
         return networkCallWithApisauce(
-            this.myRequestsApi,
+            this.shareRideInfoApi,
+            '__',
+            {},
+            apiMethods.post
+            );
+    }
+    @action.bound
+    shareTravelInfoAPI(details){
+        console.log(details);
+        //shareTravelInfo
+        return networkCallWithApisauce(
+            this.shareTravelInfoApi,
+            '__',
+            {},
+            apiMethods.post
+            );
+        
+    }
+    @action.bound
+    myRideRequests(dataToGetRequests){
+        return networkCallWithApisauce(
+            this.myRideRequestsApi,
             '__',
             {},
             apiMethods.get
             );
     }
+    @action.bound
+    myAssetRequests(dataToGetRequests){
+        return networkCallWithApisauce(
+            this.myAssetRequestsApi,
+            '__',
+            {},
+            apiMethods.get
+            );
+    }
+    
     
 }
 export {CommuteService};

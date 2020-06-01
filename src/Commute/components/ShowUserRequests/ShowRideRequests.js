@@ -5,12 +5,14 @@ import strings from '../../i18n/strings.json';
 import {RequestDetailsTable,TableCellLeftAligned,TableCellAlignedCenter,TableHeader,TableRow,StatusButton
 } from './styledComponents.js';
 
+import LoadingWrapperWithFailure from '../../../components/common/LoadingWrapperWithFailure';
+
 
 @observer
 class ShowRideRequests extends React.Component{
-    render(){
+    renderSuccessUI=()=>{
         const {renderPageRequests,tableHeaders,getRequests}=this.props;
-        const rideRequests=renderPageRequests(getRequests(strings.text.ride.toLowerCase()));
+        const rideRequests=getRequests(strings.text.ride.toLowerCase());
         return (
             <React.Fragment>
                     <RequestDetailsTable>
@@ -37,6 +39,18 @@ class ShowRideRequests extends React.Component{
             </React.Fragment>
             
             )
+    }
+    render(){
+        const {renderSuccessUI}=this;
+        const {getAPIError,getAPIStatus,doNetworkCalls}=this.props;
+        return (
+            <React.Fragment>
+            <LoadingWrapperWithFailure key={this.navigateTo} apiStatus={getAPIStatus} apiError={getAPIError} 
+                            onRetryClick={doNetworkCalls} renderSuccessUI={renderSuccessUI} 
+                        />
+            
+            </React.Fragment>
+            );
     }
 }
 export {ShowRideRequests};

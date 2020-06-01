@@ -1,5 +1,8 @@
 export const endPoints={
     rideRequestApi:'__',
     assetTransportRequestApi:'__',
-    myRequestsApi:'__'
-}
+    myRideRequests:'__',
+    myAssetRequests:'__',
+    shareRideInfoApi:'__',
+    shareTravelInfoApi:'__',
+};

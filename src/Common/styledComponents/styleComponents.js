@@ -4,6 +4,7 @@ import styled from '@emotion/styled';
 
 export const Star=styled.sup`
   color:red;
+
 `;
 export const FormDashboard=styled.div`
     width:100vw;
@@ -14,12 +15,12 @@ export const FormDashboard=styled.div`
 `;
 
 export const Form=styled.div`
-    width:420px;
+    width:460px;
     min-height:420px;
     display:flex;
     flex-direction:column;
     align-items:center;
-    padding:20px 25px;
+    padding:20px 20px;
     box-shadow: 0 4px 40px 0 rgba(23, 31, 70, 0.16);
     margin:5% 0%;
     border-radius:2px;
@@ -52,10 +53,12 @@ export const DateAndTimeStyle=styled.div`
     display:flex;
     flex-direction:column;
     align-items:center;
+    justify-content:center;
     padding:10px 0px;
     width:100%;
     flex-grow:1;
     margin-right:auto;
+   
 `;
 export const DataAndTimeDisplay=styled.div`
     border:1px solid lightgrey;
@@ -64,7 +67,7 @@ export const DataAndTimeDisplay=styled.div`
     margin:8px 0px;
     min-width:100%;
     display:flex;
-    justify-content:start
+    justify-content:start;
     align-items:center;
     margin-right:auto;
     flex-shrink:1;
@@ -151,4 +154,7 @@ export const InputFiledWithError=styled.div`
     display:flex;
     position:relative;
     width:100%;
+`;
+export const Icon=styled.div`
+    margin-right:5px;
 `;

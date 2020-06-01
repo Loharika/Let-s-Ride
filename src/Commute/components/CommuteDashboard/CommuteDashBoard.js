@@ -1,19 +1,20 @@
 import React from 'react';
-import {observer} from 'mobx-react';
+import {observer,inject} from 'mobx-react';
 import {observable,action} from 'mobx';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import LoadingWrapperWithFailure from '../../../components/common/LoadingWrapperWithFailure';
 import {UserProfile} from '../../../Authentication/components/UserProfile';
 
-import {ShowMyRequestsRoute} from '../../routes/ShowMyRequestsRoute/ShowMyRequestsRoute.js';
+import {MatchingRequests} from '../MatchingRequests';
+import {ShowMyRequests} from '../ShowUserRequests';
 import {RideRequest} from '../RideRequest';
 import {AssetTransportRequest} from '../AssetTransportRequest';
 import {ShareRide} from '../ShareRide';
 import {TravelInfo} from '../TravelInfo';
 import {Header} from '../Header/Header.js';
-import {CommuteDashboardDisplay} from './styledComponents.js';
+import {CommuteDashboardDisplay,AllRequests} from './styledComponents.js';
+
 
 import strings from '../../i18n/strings.json';
 const homePage=strings.navigatePageTo.homePage;
@@ -25,6 +26,7 @@ const userProfile=strings.navigatePageTo.userProfile;
 
 toast.configure();
 
+@inject('commuteStore')
 @observer
 class DashBoard extends React.Component{
      @observable navigateTo;
@@ -51,7 +53,7 @@ class DashBoard extends React.Component{
             
       });*/
     }
-     @action.bound
+    /* @action.bound
     navigatePageTo(page){
         
         switch(page){
@@ -79,11 +81,12 @@ class DashBoard extends React.Component{
                 this.navigateTo=userProfile;
             }
         }
-    }
+    }*/
     renderPage=()=>{
-        const {postAssetTransportRequest,postRideRequest,getAPIError,getAPIStatus,doNetworkCalls}=this.props;
-        const {navigateTo}=this;
-       
+        const {limit,onChangeFilter,onChangeSortBy,onChangePageNumber,pageNumber,displayRequestType,
+        navigatePageTo,getRequests,totalNumberOfPages,doNetworkCalls,onChangeMatchingRequestsFilter,
+        onClickRequestType,addRequestButton,navigateTo,rideRequestTableHeaders,assetRequestTableHeaders}=this.props;
+        const {commuteStore:{getMyRequestAPIError,getMyRequestAPIStatus,postRideRequest,postAssetTransportRequest,shareRideInfo,shareTravelInfo:shareRideInfoDetails,}}=this.props;
         switch(navigateTo){
             case rideRequest:{
                      return <RideRequest postRideRequest={postRideRequest}/>;
@@ -91,42 +94,61 @@ class DashBoard extends React.Component{
             case assetTranportRequest:{
                 return <AssetTransportRequest postAssetTransportRequest={postAssetTransportRequest}/>;
             }
+            case shareRide:{
+                return <ShareRide shareRideInfo={shareRideInfo}/>;
+            }
+            case shareTravelInfo:{
+                return <TravelInfo shareTravelInfo={shareRideInfoDetails} />;
+            }
             case userProfile:{
                 return <UserProfile />;
             }
             case homePage:{
-                return <ShowMyRequestsRoute 
-                navigatePageTo={this.navigatePageTo}
-                doNetWorkCalls={doNetworkCalls} 
-                getAPIError={getAPIError} 
-                getAPIStatus={getAPIStatus}
-                />;
+                
+                return (
+                <AllRequests>
+                <MatchingRequests onChangeMatchingRequestsFilter={onChangeMatchingRequestsFilter} />
+                <ShowMyRequests 
+                        navigatePageTo={navigatePageTo}
+                        doNetWorkCalls={doNetworkCalls} 
+                        
+                        getAPIError={getMyRequestAPIError} 
+                        getAPIStatus={getMyRequestAPIStatus}
+                        getRequests={getRequests}
+                        totalNumberOfPages={totalNumberOfPages}
+                        onChangePageNumber={onChangePageNumber}
+                        onClickRequestType={onClickRequestType}
+                        onChangeSortBy={onChangeSortBy}
+                        onChangeFilter={onChangeFilter}
+                        
+                        limit={limit}
+                        pageNumber={pageNumber}
+                        displayRequestType={displayRequestType}
+                        rideRequestTableHeaders={rideRequestTableHeaders}
+                        assetRequestTableHeaders={assetRequestTableHeaders}
+                        addRequestButton={addRequestButton}/>
+
+                        </AllRequests>)
             }
-            case shareRide:{
-                return <ShareRide />;
-            }
-            case shareTravelInfo:{
-                return <TravelInfo />;
-            }
+            
         }
     }
     @action.bound
     renderDashBoardUI(){
+        const {navigatePageTo,navigateTo}=this.props;
         return (<CommuteDashboardDisplay key={Math.random()}>
-                    <Header key={this.navigateTo} onClickUserProfile={this.onClick} 
-                    navigatePageTo={this.navigatePageTo}/>
+                    <Header key={navigateTo} onClickUserProfile={this.onClick} 
+                    navigatePageTo={navigatePageTo}/>
                     {this.renderPage()}
                 </CommuteDashboardDisplay>);
     }
     render(){
-        const {renderDashBoardUI}=this;
-        const {getAPIStatus,getAPIError,doNetworkCalls}=this.props;
-        
+        const {navigatePageTo,navigateTo}=this.props;
         return (
             <React.Fragment>
             <CommuteDashboardDisplay key={Math.random()}>
-                    <Header key={this.navigateTo} onClickUserProfile={this.onClick} 
-                    navigatePageTo={this.navigatePageTo}/>
+                    <Header key={navigateTo} onClickUserProfile={this.onClick} 
+                    navigatePageTo={navigatePageTo}/>
                     {this.renderPage()}
                 </CommuteDashboardDisplay>
                 {/*<LoadingWrapperWithFailure key={this.navigateTo} apiStatus={getAPIStatus} apiError={getAPIError} 

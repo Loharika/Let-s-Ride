@@ -10,52 +10,53 @@ import {MyRequestsHeader,MyRequestType,MyRequestsDashboard,RequestHeader,NoOfReq
     Footer,AddRequestButton,Pages,MyRequestsTitle
 } from './styledComponents.js';
 
-import LoadingWrapperWithFailure from '../../../components/common/LoadingWrapperWithFailure';
-import {UserProfile} from '../../../Authentication/components/UserProfile';
-
-import {ShowRideRequests} from './ShowRideRequests.js';
-import {ShowAssetTransport} from './ShowAssetTransport.js';
 import {DisplayDropDown} from '../../../Common/components/DisplayDropDown.js';
 import strings from '../../i18n/strings.json';
-
+import {ShowRideRequests} from './ShowRideRequests.js';
+import {ShowAssetTransport} from './ShowAssetTransport.js';
 
 @observer
 class ShowMyRequests extends React.Component{
-   @observable totalNumberOfPages;
-   constructor(props){
-       super(props);
-       const { getRequests,displayRequestType,limit}=this.props;
-       this.totalNumberOfPages=Math.ceil((getRequests(displayRequestType).length)/limit);
-   }
     displayRequestPage=()=>{
-        
         const {
-        getRequests,
-        renderPageRequests,
-        onChangeFilter,
-        onChangeSortBy,
-        rideRequestTableHeaders,
-        assetRequestTableHeaders,
-        displayRequestType
+            getRequests,
+            renderPageRequests,
+            onChangeFilter,
+            onChangeSortBy,
+            rideRequestTableHeaders,
+            assetRequestTableHeaders,
+            displayRequestType,
+            getAPIError,
+            getAPIStatus,
+            doNetworkCalls
         }=this.props;
-        
         switch(displayRequestType){
             case strings.requestType.ride:{
                 return <ShowRideRequests 
-                getRequests={getRequests}
-                renderPageRequests={renderPageRequests}
-                onChangeFilter={onChangeFilter}
-                onChangeSortBy={onChangeSortBy}
-                tableHeaders={rideRequestTableHeaders}
+                    getRequests={getRequests}
+                    renderPageRequests={renderPageRequests}
+                    onChangeFilter={onChangeFilter}
+                    onChangeSortBy={onChangeSortBy}
+                    tableHeaders={rideRequestTableHeaders}
+                    
+                    doNetWorkCalls={doNetworkCalls} 
+                    getAPIError={getAPIError} 
+                    getAPIStatus={getAPIStatus}
+                
                 />;
             }
             case strings.requestType.asset:{
                 return <ShowAssetTransport 
-                getRequests={getRequests}
-                renderPageRequests={renderPageRequests}
-                onChangeFilter={onChangeFilter}
-                onChangeSortBy={onChangeSortBy}
-                tableHeaders={assetRequestTableHeaders}
+                    getRequests={getRequests}
+                    renderPageRequests={renderPageRequests}
+                    onChangeFilter={onChangeFilter}
+                    onChangeSortBy={onChangeSortBy}
+                    tableHeaders={assetRequestTableHeaders}
+                    
+                    doNetWorkCalls={doNetworkCalls} 
+                    getAPIError={getAPIError} 
+                    getAPIStatus={getAPIStatus}
+                
                 />;
             }
         }
@@ -63,7 +64,7 @@ class ShowMyRequests extends React.Component{
     @action.bound
     renderSuccessUI(){
         const {limit,onChangeFilter,onChangeSortBy,onChangePageNumber,pageNumber,displayRequestType}=this.props;
-        const {onClickRequestType,addRequestButton}=this.props;
+        const {onClickRequestType,addRequestButton,totalNumberOfPages}=this.props;
         const filterOptions={
             listTitle:'',
             listItems:[{key:'SELECT',text:'All',value:'SELECT'},{key:'ACTIVE',text:'Active',value:'ACTIVE'},
@@ -105,7 +106,7 @@ class ShowMyRequests extends React.Component{
                 <RiAddLine />  &nbsp;Add {displayRequestType}
                 </AddRequestButton>
                 <Pages>
-                1 to {this.totalNumberOfPages}
+                1 to {totalNumberOfPages}
                 </Pages>
                 <Pagination
                     boundaryRange={0}
@@ -114,7 +115,7 @@ class ShowMyRequests extends React.Component{
                     firstItem={null}
                     lastItem={null}
                     siblingRange={1}
-                    totalPages={this.totalNumberOfPages}
+                    totalPages={totalNumberOfPages}
                     onPageChange={onChangePageNumber}
                   />
                 </Footer>
@@ -123,14 +124,10 @@ class ShowMyRequests extends React.Component{
             );
     }
     render(){
-        const {renderSuccessUI}=this;
-        const {getAPIError,getAPIStatus,doNetworkCalls}=this.props;
         return (
             <React.Fragment>
-            <LoadingWrapperWithFailure key={this.navigateTo} apiStatus={getAPIStatus} apiError={getAPIError} 
-                            onRetryClick={doNetworkCalls} renderSuccessUI={renderSuccessUI} 
-                        />
-                        </React.Fragment>
+                        {this.renderSuccessUI()}
+            </React.Fragment>
             
             );
     }

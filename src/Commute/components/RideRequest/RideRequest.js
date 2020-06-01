@@ -37,8 +37,8 @@ class RideRequest extends React.Component{
         this.dateTime='';
         this.startDateTime='';
         this.endDateTime='';
-        this.seats='';
-        this.luggages='';
+        this.seats=0;
+        this.luggages=0;
     }
     onClickFlexibleTimings=()=>{
         this.isCheckedFlexibleTimings=!this.isCheckedFlexibleTimings;
@@ -73,7 +73,7 @@ class RideRequest extends React.Component{
         let formDetails=[this.from,this.to,this.seats,this.luggages];
         let count=0;
         formDetails.forEach(eachDetail=>{
-            if(eachDetail.length===0){
+            if(eachDetail.length===0 || eachDetail===0){
                 count++;
             }
         });
@@ -83,6 +83,7 @@ class RideRequest extends React.Component{
                 const rideRequestData={
                     from:this.from,
                     to:this.to,
+                    isFlexible:false,
                     dateTime:this.dateTime,
                     seats:this.seats,
                     luggages:this.luggages
@@ -99,7 +100,7 @@ class RideRequest extends React.Component{
                 const rideRequestData={
                     from:this.from,
                     to:this.to,
-                    dateTime:this.dateTime,
+                    isFlexible:true,
                     startDateTime:this.startDateTime,
                     endDateTime:this.endDateTime,
                     seats:this.seats,
@@ -114,7 +115,7 @@ class RideRequest extends React.Component{
         }
     }
     render(){
-        const {from,to,
+        const {from,to,seats,luggages,
             isCheckedFlexibleTimings,
             onClickFlexibleTimings,
             onSubmitRequest,
@@ -154,9 +155,13 @@ class RideRequest extends React.Component{
                     <CheckBox type={strings.type.checkbox} onClick={onClickFlexibleTimings} /><FlexibleTimingsLabel >{strings.label.flexibleTimings}</FlexibleTimingsLabel>
                   </FlexibleTimings>
                   <DisplayListOfElements listData={{title:strings.text.noOfSeats}} 
-                  onChange={onChangeNoOfSeats} displayError={displayError}/>
+                  onChange={onChangeNoOfSeats} displayError={displayError}
+                  intial={seats}
+                  />
                   <DisplayListOfElements listData={{title:strings.text.noOfLuggages}} 
-                  onChange={onChangeNoOfLuggages} displayError={displayError}/>
+                  onChange={onChangeNoOfLuggages} displayError={displayError}
+                  intial={luggages}
+                  />
                   <Button buttonText={strings.text.request} onClickFunction={onSubmitRequest}/>
                 </Form>
             </FormDashboard>

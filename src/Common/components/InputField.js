@@ -15,6 +15,7 @@ class InputField extends React.Component{
     
     render(){
     const {onChange,placeholderText,value,type,displayError,label}=this.props;
+
     return (
         <InputFieldWithLabel>
             <Label htmlFor={label}>{label}<Star>*</Star></Label>

@@ -1,6 +1,7 @@
 import React from 'react';
 import {observer} from 'mobx-react';
 
+import LoadingWrapperWithFailure from '../../../components/common/LoadingWrapperWithFailure';
 
 import {RequestDetailsTable,TableCellLeftAligned,TableCellAlignedCenter,TableHeader,TableRow,
     StatusButton
@@ -8,9 +9,9 @@ import {RequestDetailsTable,TableCellLeftAligned,TableCellAlignedCenter,TableHea
 
 @observer
 class ShowAssetTransport extends React.Component{
-    render(){
-        const {renderPageRequests,tableHeaders,getRequests}=this.props;
-        const rideRequests=renderPageRequests(getRequests('asset'));
+    renderSuccessUI=()=>{
+        const {tableHeaders,getRequests}=this.props;
+        const rideRequests=getRequests('asset');
         return (
                     <RequestDetailsTable>
                       <TableRow>
@@ -34,6 +35,21 @@ class ShowAssetTransport extends React.Component{
                               </TableRow>})}
                     </RequestDetailsTable>
             )
+    }
+    
+    render(){
+        const {renderSuccessUI}=this;
+        const {getAPIError,getAPIStatus,doNetworkCalls}=this.props;
+        return (
+            <React.Fragment>
+            <LoadingWrapperWithFailure key={this.navigateTo} apiStatus={getAPIStatus} apiError={getAPIError} 
+                            onRetryClick={doNetworkCalls} renderSuccessUI={renderSuccessUI} 
+                        />
+            
+            </React.Fragment>
+            )
+ 
+        
     }
 }
 export {ShowAssetTransport};

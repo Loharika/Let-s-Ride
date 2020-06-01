@@ -25,9 +25,9 @@ class ShareRide extends React.Component{
     @observable endDateTime;
     @observable seats;
     @observable luggages;
-    constructor(){
-        super();
-        
+    constructor(props){
+        super(props);
+        this.init();
     }
     @action.bound
     init(){
@@ -38,8 +38,8 @@ class ShareRide extends React.Component{
         this.dateTime='';
         this.startDateTime='';
         this.endDateTime='';
-        this.seats='';
-        this.luggages='';   
+        this.seats=0;
+        this.luggages=0;   
     }
     onClickFlexibleTimings=()=>{
         this.isCheckedFlexibleTimings=!this.isCheckedFlexibleTimings;
@@ -68,11 +68,12 @@ class ShareRide extends React.Component{
         this.luggages=luggages;
     }
     onSubmitRequest=()=>{
-        this.displayError=!this.displayError;
+        this.displayError=true;
+        const {shareRideInfo}=this.props;
         let formDetails=[this.from,this.to,this.dateTime,this.seats,this.luggages];
         let count=0;
         formDetails.forEach(eachDetail=>{
-            if(eachDetail.length===0){
+            if(eachDetail.length===0 && eachDetail===0){
                 count++;
             }
         });
@@ -83,12 +84,14 @@ class ShareRide extends React.Component{
                 const shareRideData={
                     from:this.from,
                     to:this.to,
+                    isFlexible:false,
                     dateTime:this.dateTime,
                     seats:this.seats,
                     luggages:this.luggages,
                 }
                 this.init();
-                console.log(shareRideData);
+                
+                shareRideInfo(shareRideData);
             }
         }
         else{
@@ -98,18 +101,19 @@ class ShareRide extends React.Component{
                 const shareRideData={
                     from:this.from,
                     to:this.to,
+                    isFlexible:true,
                     startDateTime:this.startDateTime,
                     endDateTime:this.endDateTime,
                     seats:this.seats,
                     luggages:this.luggages,
                 }
                 this.init();
-                console.log(shareRideData)
+                shareRideInfo(shareRideData);
             }
         }
     }   
     render(){
-        const {from,to,dateTime,startDateTime,endDateTime,
+        const {from,to,dateTime,startDateTime,endDateTime,seats,luggages,
             isCheckedFlexibleTimings,
             onClickFlexibleTimings,
             onSubmitRequest,
@@ -122,6 +126,7 @@ class ShareRide extends React.Component{
             onChangeNoOfSeats,
             onChangeNoOfLuggages
         }=this;
+        
         return (
             <FormDashboard>
                 <Form>
@@ -147,8 +152,14 @@ class ShareRide extends React.Component{
                   <FlexibleTimings>
                     <CheckBox type={strings.type.checkbox} onClick={onClickFlexibleTimings} /><FlexibleTimingsLabel >{strings.label.flexibleTimings}</FlexibleTimingsLabel>
                   </FlexibleTimings>
-                  <DisplayListOfElements listData={{title:strings.text.noOfSeatsAvailable}} onChange={onChangeNoOfSeats} displayError={displayError}/>
-                  <DisplayListOfElements listData={{title:strings.text.noOfLuggages}} onChange={onChangeNoOfLuggages} displayError={displayError}/>
+                  <DisplayListOfElements listData={{title:strings.text.noOfSeatsAvailable}} 
+                  onChange={onChangeNoOfSeats} displayError={displayError}
+                  intial={seats}
+                  />
+                  <DisplayListOfElements listData={{title:strings.text.noOfLuggages}} 
+                  onChange={onChangeNoOfLuggages} displayError={displayError}
+                  intial={luggages}
+                  />
                   <Button buttonText={strings.text.shareText} onClickFunction={onSubmitRequest}/>
                 </Form>
             </FormDashboard>
