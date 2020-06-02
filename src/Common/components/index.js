@@ -1,6 +1,5 @@
-import {InputField} from './InputField.js';
+import { InputField } from './InputField.js'
 
-import {LogoImage} from './LogoImage.js';
+import { LogoImage } from './LogoImage.js'
 
-
-export {InputField,LogoImage};
+export { InputField, LogoImage }

@@ -1,3 +1,3 @@
-import {LogInForm} from './LogInPage.js';
+import { LogInForm } from './LogInPage.js'
 
-export {LogInForm};
+export { LogInForm }

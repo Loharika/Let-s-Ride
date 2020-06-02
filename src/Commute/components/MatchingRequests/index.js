@@ -1,3 +1,3 @@
-import {MatchingRequests} from './MatchingRequests.js';
+import { MatchingRequests } from './MatchingRequests.js'
 
-export {MatchingRequests};
+export { MatchingRequests }

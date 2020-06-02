@@ -1,56 +1,53 @@
-import React from 'react';
-import {observable,action} from 'mobx';
+import React from 'react'
+import { observable, action } from 'mobx'
 
-class MatchingRideRequestCard{
-    @observable isAdded;
-    @observable showMoreDetails;
-    
-    constructor(props){
-        this.requestDetails=props.request
-        this.id=props.request.id;
-        this.typeOfRequest='RIDE';
-        this.name=props.request.name;
-        this.mobileNumber=props.request.mobileNumber;
-        this.from=props.request.from;
-        this.to=props.request.to;
-        this.noOfSeats=props.request.noOfSeats;
-        this.noOfLuggages=props.request.noOfLuggages;
-        this.isFlexible=props.request.hasOwnProperty('startTime');
-        this.isAdded=false;
-        this.showMoreDetails=false;
-        if(this.isFlexible){
-            this.initIsFlexible(props);
-        }
-        else{
-            this.initIsNotFlexible(props);
-        }
-        this.addButtonFunction=props.addButtonFunction;
-        this.onClickMoreButton=props.onClickMoreButton;
-    }
-    @action.bound
-    initIsFlexible(props){
-            this.startTime=props.request.startTime;
-            this.endTime=props.request.endTime;
-    }
-    @action.bound
-    initIsNotFlexible(props){
-           this.date=props.request.date;
-    }
-    @action.bound
-    onClickAddButton(){
-       
-        this.isAdded=true;
-      
-        this.addButtonFunction(this.name);
-    }
-    @action.bound
-    onClickShowMoreDetails(){
-        this.showMoreDetails=!this.showMoreDetails;
-         this.onClickMoreButton(this.requestDetails);
-    }
-    
+class MatchingRideRequestCard {
+   @observable isAdded
+   @observable showMoreDetails
+
+   constructor(props) {
+      this.requestDetails = props.request
+      this.id = props.request.id
+      this.typeOfRequest = 'RIDE'
+      this.name = props.request.name
+      this.mobileNumber = props.request.mobileNumber
+      this.from = props.request.from
+      this.to = props.request.to
+      this.noOfSeats = props.request.noOfSeats
+      this.noOfLuggages = props.request.noOfLuggages
+      this.isFlexible = props.request.hasOwnProperty('startTime')
+      this.isAdded = false
+      this.showMoreDetails = false
+      if (this.isFlexible) {
+         this.initIsFlexible(props)
+      } else {
+         this.initIsNotFlexible(props)
+      }
+      this.addButtonFunction = props.addButtonFunction
+      this.onClickMoreButton = props.onClickMoreButton
+   }
+   @action.bound
+   initIsFlexible(props) {
+      this.startTime = props.request.startTime
+      this.endTime = props.request.endTime
+   }
+   @action.bound
+   initIsNotFlexible(props) {
+      this.date = props.request.date
+   }
+   @action.bound
+   onClickAddButton() {
+      this.isAdded = true
+
+      this.addButtonFunction(this.name)
+   }
+   @action.bound
+   onClickShowMoreDetails() {
+      this.showMoreDetails = !this.showMoreDetails
+      this.onClickMoreButton(this.requestDetails)
+   }
 }
-export {MatchingRideRequestCard};
+export { MatchingRideRequestCard }
 
 // "id":"10",
 //             "name":"Dr. Madelynn Lehner",

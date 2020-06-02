@@ -1,2 +1,2 @@
-import {AuthStore} from './authStore.js';
-export {AuthStore};
+import { AuthStore } from './authStore.js'
+export { AuthStore }

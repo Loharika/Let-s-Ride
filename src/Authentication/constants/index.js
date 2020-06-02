@@ -1,7 +1,7 @@
 const endPoints = {
-  signInPage:'/sign-in/',
-  logInPage:'/login-page',
-  userProfile:'/user-profile',
-};
+   signInPage: '/sign-in/',
+   logInPage: '/login-page',
+   userProfile: '/user-profile'
+}
 
-export {endPoints};
+export { endPoints }

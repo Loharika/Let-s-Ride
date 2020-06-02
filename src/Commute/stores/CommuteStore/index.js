@@ -1,3 +1,3 @@
-import {CommuteStore} from './CommuteStore.js';
+import { CommuteStore } from './CommuteStore.js'
 
-export {CommuteStore}
+export { CommuteStore }

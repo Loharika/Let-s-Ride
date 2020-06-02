@@ -1,3 +1,3 @@
-import {DashBoard} from './CommuteDashBoard.js';
+import { DashBoard } from './CommuteDashBoard.js'
 
-export {DashBoard};
+export { DashBoard }

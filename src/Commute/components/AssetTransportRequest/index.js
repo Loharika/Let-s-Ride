@@ -1,3 +1,3 @@
-import {AssetTransportRequest} from './AssetTransportRequest.js';
+import { AssetTransportRequest } from './AssetTransportRequest.js'
 
-export {AssetTransportRequest};
+export { AssetTransportRequest }

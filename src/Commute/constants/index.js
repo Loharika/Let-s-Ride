@@ -1,5 +1,5 @@
 const endPoints = {
-  commuteDashBoard:'/commute-dashBoard'
-};
+   commuteDashBoard: '/commute-dashBoard'
+}
 
-export {endPoints};
+export { endPoints }

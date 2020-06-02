@@ -1,3 +1,3 @@
-import {CommuteService} from './CommuteService.js';
+import { CommuteService } from './CommuteService.js'
 
-export {CommuteService};
+export { CommuteService }

@@ -1,3 +1,3 @@
-import {ShowMyRequests} from './ShowMyRequests.js';
+import { ShowMyRequests } from './ShowMyRequests.js'
 
-export {ShowMyRequests};
+export { ShowMyRequests }
