@@ -12,11 +12,13 @@ export const FormDashboard=styled.div`
     justify-content:center;
     align-items:center;
     background-color:#fafafa;
+    min-height:420px;
 `;
 
 export const Form=styled.div`
     width:460px;
-    min-height:420px;
+
+    align-self:center;
     display:flex;
     flex-direction:column;
     align-items:center;
@@ -25,6 +27,8 @@ export const Form=styled.div`
     margin:5% 0%;
     border-radius:2px;
     background-color:white;
+    
+    
 `;
 export const NoOfListItems=styled.div`
   

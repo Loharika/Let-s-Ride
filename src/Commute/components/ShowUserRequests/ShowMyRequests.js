@@ -105,9 +105,9 @@ class ShowMyRequests extends React.Component{
                 <AddRequestButton onClick={()=>addRequestButton(displayRequestType)}>
                 <RiAddLine />  &nbsp;Add {displayRequestType}
                 </AddRequestButton>
-                <Pages>
-                1 to {totalNumberOfPages}
-                </Pages>
+                {totalNumberOfPages!==0?<Pages>
+                {pageNumber} to {totalNumberOfPages}
+                </Pages>:''}
                 <Pagination
                     boundaryRange={0}
                     defaultActivePage={pageNumber}

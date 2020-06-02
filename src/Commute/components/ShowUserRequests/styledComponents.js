@@ -5,8 +5,7 @@ export const MyRequestsHeader=styled.ul`
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background-color: #333;
- background-color: white;
+ 
  border-bottom:1px solid lightgrey;
 `;
 export const MyRequestType=styled.button`
@@ -50,7 +49,7 @@ export const Filter=styled.span`
     padding:10px 10px;
     
 `;
-export const RequestDetailsTable=styled.table`
+export const RequestDetailsTable=styled.tbody`
     font-family: arial, sans-serif;
   border-collapse: collapse;
   width: 100%;

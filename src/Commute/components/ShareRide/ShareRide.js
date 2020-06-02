@@ -128,7 +128,7 @@ class ShareRide extends React.Component{
         }=this;
         
         return (
-            <FormDashboard>
+            
                 <Form>
                   <FormHeadingText>{strings.text.shareRide}</FormHeadingText>
                   <InputField placeholderText={strings.placeholderText.ex} 
@@ -162,7 +162,7 @@ class ShareRide extends React.Component{
                   />
                   <Button buttonText={strings.text.shareText} onClickFunction={onSubmitRequest}/>
                 </Form>
-            </FormDashboard>
+            
             );
     }
 }

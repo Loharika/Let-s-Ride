@@ -41,11 +41,6 @@ class DashBoard extends React.Component{
         /*toast(
             <UserProfile />
             , {
-            className: css({
-            backgroundColor:'#d69e2e',
-            color:'red',
-            width:'auto'
-          }),
             position: toast.POSITION.TOP_CENTER,
             autoClose:5000,
             closeButton: true,
@@ -53,64 +48,55 @@ class DashBoard extends React.Component{
             
       });*/
     }
-    /* @action.bound
-    navigatePageTo(page){
-        
-        switch(page){
-            case homePage:{
-                this.navigateTo=homePage;
-                break;
-            }
-            case rideRequest:{
-                this.navigateTo=rideRequest;
-                break;
-            }
-            case assetTranportRequest:{
-                this.navigateTo=assetTranportRequest;
-                break;
-            }
-            case shareRide:{
-                this.navigateTo=shareRide;
-                break;
-            }
-            case shareTravelInfo:{
-                this.navigateTo=shareTravelInfo;
-                break;
-            }
-            case userProfile:{
-                this.navigateTo=userProfile;
-            }
-        }
-    }*/
     renderPage=()=>{
         const {limit,onChangeFilter,onChangeSortBy,onChangePageNumber,pageNumber,displayRequestType,
-        navigatePageTo,getRequests,totalNumberOfPages,doNetworkCalls,onChangeMatchingRequestsFilter,
-        onClickRequestType,addRequestButton,navigateTo,rideRequestTableHeaders,assetRequestTableHeaders}=this.props;
-        const {commuteStore:{getMyRequestAPIError,getMyRequestAPIStatus,postRideRequest,postAssetTransportRequest,shareRideInfo,shareTravelInfo:shareRideInfoDetails,}}=this.props;
+        navigatePageTo,getRequests,totalNumberOfPages,doNetWorkCallsForMyRequests,
+        onClickRequestType,addRequestButton,navigateTo,rideRequestTableHeaders,
+        assetRequestTableHeaders}=this.props;
+        
+        const {doNetWorkCallsForMatchingRequests,
+        onChangeMatchingRequestsFilter,
+        getMatchingRequests}=this.props;
+        
+        const {commuteStore:{getMyRequestAPIError,
+        getMyRequestAPIStatus,
+        getMatchingRequestAPIStatus,
+        getMatchingRequestAPIError}}=this.props;
         switch(navigateTo){
             case rideRequest:{
+                    const {commuteStore:{postRideRequest}}=this.props;
                      return <RideRequest postRideRequest={postRideRequest}/>;
             }
             case assetTranportRequest:{
+                const {commuteStore:{postAssetTransportRequest}}=this.props;
                 return <AssetTransportRequest postAssetTransportRequest={postAssetTransportRequest}/>;
             }
             case shareRide:{
-                return <ShareRide shareRideInfo={shareRideInfo}/>;
+                const {commuteStore:{shareRideInfo:shareRideInfoDetails}}=this.props;
+                return <ShareRide shareRideInfo={shareRideInfoDetails}/>;
             }
             case shareTravelInfo:{
-                return <TravelInfo shareTravelInfo={shareRideInfoDetails} />;
+                const {commuteStore:{shareTravelInfo:shareTravelInfoDetails}}=this.props;
+                return <TravelInfo shareTravelInfo={shareTravelInfoDetails} />;
             }
             case userProfile:{
+                
                 return <UserProfile />;
             }
             case homePage:{
                 
                 return (
                 <AllRequests>
-                <MatchingRequests onChangeMatchingRequestsFilter={onChangeMatchingRequestsFilter} />
+                <MatchingRequests 
+                getMatchingRequests={getMatchingRequests}
+                onChangeMatchingRequestsFilter={onChangeMatchingRequestsFilter}
+                getMatchingRequestAPIStatus={getMatchingRequestAPIStatus}
+                getMatchingRequestAPIError={getMatchingRequestAPIError}
+                doNetworkCalls={doNetWorkCallsForMatchingRequests}
+                />
                 <ShowMyRequests 
                         navigatePageTo={navigatePageTo}
-                        doNetWorkCalls={doNetworkCalls} 
+                        doNetWorkCalls={doNetWorkCallsForMyRequests} 
                         
                         getAPIError={getMyRequestAPIError} 
                         getAPIStatus={getMyRequestAPIStatus}
@@ -151,9 +137,6 @@ class DashBoard extends React.Component{
                     navigatePageTo={navigatePageTo}/>
                     {this.renderPage()}
                 </CommuteDashboardDisplay>
-                {/*<LoadingWrapperWithFailure key={this.navigateTo} apiStatus={getAPIStatus} apiError={getAPIError} 
-                            onRetryClick={doNetworkCalls} renderSuccessUI={renderDashBoardUI} 
-                        />*/}
             </React.Fragment>
             );
     }

@@ -5,4 +5,7 @@ export const endPoints={
     myAssetRequests:'__',
     shareRideInfoApi:'__',
     shareTravelInfoApi:'__',
+    matchingRideRequestsApi:'__',
+    matchingAssetRequestsApi:'__',
+    matchingAllRequestsApi:'__'
 };

@@ -57,6 +57,7 @@ class CommuteStore {
         this.commuteService=commuteService;
         this.init();
     }
+    //<--------------------INITIALISING ALL THE VARISBLES------------------->
     @action.bound
     init(){
         this.initPostAPI();
@@ -203,6 +204,7 @@ class CommuteStore {
     @action.bound
     setGetMatchingRequestAPIResponse(apiResponse){
         this.matchingRequests=apiResponse;
+        
     }
     
 }

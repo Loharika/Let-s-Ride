@@ -89,3 +89,24 @@ export const Typo12HKGroteskSemiBoldSteel=styled.span`
   color: #7e858e
 
 `;
+export const Typo12BrightBlueRubikRegular =styled.span`
+  
+  font-family: Rubik;
+  font-size: 12px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.33;
+  letter-spacing: normal;
+  color:#0b69ff;
+`;
+export const Typo12YellowOrangeRubikRegular=styled.span`
+  font-family: Rubik;
+  font-size: 12px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.33;
+  letter-spacing: normal;
+  color: #ffb800;
+`;

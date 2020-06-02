@@ -14,13 +14,13 @@ class ShowRideRequests extends React.Component{
         const {renderPageRequests,tableHeaders,getRequests}=this.props;
         const rideRequests=getRequests(strings.text.ride.toLowerCase());
         return (
-            <React.Fragment>
-                    <RequestDetailsTable>
-                      <TableRow>
-                      {tableHeaders.map(eachOne=>{return <TableHeader>{eachOne}</TableHeader>})}
+ 
+                    <RequestDetailsTable >
+                      <TableRow key={Math.random()}>
+                      {tableHeaders.map(eachOne=>{return <TableHeader key={Math.random()}>{eachOne}</TableHeader>})}
                       </TableRow>
                       {Object.values(rideRequests).map(request=>{
-                      return <TableRow>
+                      return <TableRow key={Math.random()+request.id}>
                                 <TableCellLeftAligned>{request.from}</TableCellLeftAligned>
                                 <TableCellLeftAligned>{request.to}</TableCellLeftAligned>
                                 <TableCellLeftAligned>
@@ -36,8 +36,7 @@ class ShowRideRequests extends React.Component{
                                 <TableCellLeftAligned><StatusButton status={request.status}>{request.status.toUpperCase()}</StatusButton></TableCellLeftAligned>
                               </TableRow>})}
                     </RequestDetailsTable>
-            </React.Fragment>
-            
+ 
             )
     }
     render(){

@@ -80,7 +80,7 @@ class DashBoardRoute extends React.Component{
         const dataToGetMatchingRequests={
             access_token:access_token,
             filter:matchingRequestsFilter
-        }
+        };
         switch(matchingRequestsFilter){
             case 'RIDE':{
                 await getMatchingRideRequests(dataToGetMatchingRequests);
@@ -100,8 +100,15 @@ class DashBoardRoute extends React.Component{
     getRequests(requestType){
         const {commuteStore:{requests,noOfRequests}
         }=this.props;
+
         this.totalNumberOfPages=Math.ceil(noOfRequests/this.limit);
         return requests;
+    }
+    @action.bound
+    getMatchingRequests(){
+        const {commuteStore:{matchingRequests}}=this.props;
+        
+        return matchingRequests;
     }
     @action.bound
     navigatePageTo(page){
@@ -180,34 +187,43 @@ class DashBoardRoute extends React.Component{
         rideRequestTableHeaders,
         assetRequestTableHeaders,
         totalNumberOfPages,
-        onChangeMatchingRequestsFilter,
+        
             onChangeSortBy,
             onChangeFilter,
             navigatePageTo,
             addRequestButton,
-            getRequests
+            getRequests,
+            doNetWorkCallsForMyRequests,
+            
+            getMatchingRequests,
+            doNetWorkCallsForMatchingRequests,
+            onChangeMatchingRequestsFilter
+            
         }=this;
         return (
             <DashBoard 
-            limit={limit}
-            pageNumber={pageNumber}
-            displayRequestType={displayRequestType}
-            navigateTo={navigateTo}
-            rideRequestTableHeaders={rideRequestTableHeaders}
-            assetRequestTableHeaders={assetRequestTableHeaders}
-            
-            onClickSignOutButton={onClickSignOutButton}
-            
-            getRequests={getRequests}
-            onChangePageNumber={onChangePageNumber}
-            onClickRequestType={onClickRequestType}
-            onChangeSortBy={onChangeSortBy}
-            onChangeFilter={onChangeFilter}
-            navigatePageTo={navigatePageTo}
-            addRequestButton={addRequestButton}
-            totalNumberOfPages={totalNumberOfPages}
-            
-            onChangeMatchingRequestsFilter={onChangeMatchingRequestsFilter}
+                limit={limit}
+                pageNumber={pageNumber}
+                displayRequestType={displayRequestType}
+                navigateTo={navigateTo}
+                rideRequestTableHeaders={rideRequestTableHeaders}
+                assetRequestTableHeaders={assetRequestTableHeaders}
+                
+                onClickSignOutButton={onClickSignOutButton}
+                
+                getRequests={getRequests}
+                onChangePageNumber={onChangePageNumber}
+                onClickRequestType={onClickRequestType}
+                onChangeSortBy={onChangeSortBy}
+                onChangeFilter={onChangeFilter}
+                navigatePageTo={navigatePageTo}
+                addRequestButton={addRequestButton}
+                totalNumberOfPages={totalNumberOfPages}
+                doNetWorkCallsForMyRequests={doNetWorkCallsForMyRequests}
+                
+                onChangeMatchingRequestsFilter={onChangeMatchingRequestsFilter}
+                getMatchingRequests={getMatchingRequests}
+                doNetWorkCallsForMatchingRequests={doNetWorkCallsForMatchingRequests}
             />
             );
     }

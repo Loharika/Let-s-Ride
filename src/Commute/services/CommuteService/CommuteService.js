@@ -13,6 +13,9 @@ class CommuteService{
     shareTravelInfoApi;
     myRideRequestsApi;
     myAssetRequestsApi;
+    matchingRideRequestsApi;
+    matchingAssetRequestsApi;
+    matchingAllRequestsApi;
     constructor(){
          this.rideRequestApi=create({
             baseURL:'https://9ba0cd3ggi.execute-api.ap-south-1.amazonaws.com/',
@@ -32,11 +35,20 @@ class CommuteService{
          this.shareTravelInfoApi=create({
             baseURL:'__',
          });
+         this.matchingRideRequestsApi=create({
+            baseURL:'__',
+         });
+         this.matchingAssetRequestsApi=create({
+            baseURL:'__',
+         });
+         this.matchingAllRequestsApi=create({
+            baseURL:'__',
+         });
+         
     }
     @action
     rideRequestAPI(requestData){
         console.log(requestData);
-        
         //rideRequest
         return networkCallWithApisauce(
             this.rideRequestApi,
@@ -93,6 +105,33 @@ class CommuteService{
     myAssetRequests(dataToGetRequests){
         return networkCallWithApisauce(
             this.myAssetRequestsApi,
+            '__',
+            {},
+            apiMethods.get
+            );
+    }
+    @action.bound
+    matchingRideRequestsAPI(dataToGetMatchingRequests){
+        return networkCallWithApisauce(
+            this.matchingRideRequestsApi,
+            '__',
+            {},
+            apiMethods.get
+            );
+    }
+    @action.bound
+    matchingAssetRequestsAPI(dataToGetMatchingRequests){
+        return networkCallWithApisauce(
+            this.matchingAssetRequestsApi,
+            '__',
+            {},
+            apiMethods.get
+            );
+    }
+    @action.bound
+    matchingAllRequestsAPI(dataToGetMatchingRequests){
+        return networkCallWithApisauce(
+            this.matchingAllRequestsApi,
             '__',
             {},
             apiMethods.get
