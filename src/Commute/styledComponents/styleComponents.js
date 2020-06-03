@@ -1,5 +1,6 @@
 import styled from '@emotion/styled'
 
+import colors from '../../Common/Theme/Colors';
 export const Star = styled.sup`
    color: red;
 `
@@ -8,7 +9,7 @@ export const FormDashboard = styled.div`
    display: flex;
    justify-content: center;
    align-items: center;
-   background-color: #fafafa;
+   background-color: ${colors.Gray98};
    min-height: 420px;
 `
 
@@ -20,10 +21,10 @@ export const Form = styled.div`
    flex-direction: column;
    align-items: center;
    padding: 20px 20px;
-   box-shadow: 0 4px 40px 0 rgba(23, 31, 70, 0.16);
+   box-shadow: 0 4px 40px 0 ${colors.darkBlueGreyOpacity};
    margin: 5% 0%;
    border-radius: 2px;
-   background-color: white;
+   background-color: ${colors.white};
 `
 export const NoOfListItems = styled.div`
    display: flex;
@@ -36,15 +37,15 @@ export const ListItemsDisplay = styled.div`
    margin-left: 15px;
 `
 export const ListItemsCount = styled.div`
-   border: 1px solid lightgrey;
+   border: 1px solid ${colors.lightgrey};
    padding: 8px 10px;
 `
 export const ChangeNoOfSeats = styled.span`
-   border: 2px solid lightgrey;
+   border: 2px solid ${colors.lightgrey};
    padding: 8px 10px;
 `
 export const ChangeNoOfListItems = styled.button`
-   border: 1px solid lightgrey;
+   border: 1px solid ${colors.lightgrey};
    padding: 8px 10px;
 `
 export const DateAndTimeStyle = styled.div`
@@ -58,7 +59,7 @@ export const DateAndTimeStyle = styled.div`
    margin-right: auto;
 `
 export const DataAndTimeDisplay = styled.div`
-   border: 1px solid lightgrey;
+   border: 1px solid ${colors.lightgrey};
    padding: 2px;
    font-size: 13px;
    margin: 8px 0px;
@@ -102,7 +103,7 @@ export const ButtonStyle = styled.button`
    width: 100%;
    height: 40px;
    border-radius: 4px;
-   background-color: #0b69ff;
+   background-color:${colors.brightBlue};
    color: white;
    margin: 3px;
    padding: 3px;
@@ -121,12 +122,12 @@ export const InputTag = styled.input`
    height: 30px;
    margin-top: 2px;
    flex-grow: 1;
-   border: ${props => (props.isError ? '1px solid red' : '1px solid #d7dfe9')};
+   border: ${props => (props.isError ? `1px solid ${colors.neonRed}` : `1px solid ${colors.lightBlueGrey}`)};
 `
 
 export const ErrorStyle = styled.div`
    width: 100%;
-   color: ${props => (props.isError ? 'red' : 'white')};
+   color: ${props => (props.isError ? colors.neonRed : colors.white)};
    font-size: 9px;
    padding: 0px;
    margin: 0px;
@@ -135,7 +136,7 @@ export const InputFieldWithLabel = styled.div`
    width: 100%;
 `
 export const ErrorSymbol = styled.span`
-   color: red;
+   color:${colors.white};
    position: absolute;
    right: 10px;
    top: 10px;

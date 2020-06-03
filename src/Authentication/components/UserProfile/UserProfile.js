@@ -11,7 +11,7 @@ import {
    UserDetail,
    UserDetailElement
 } from './styledComponents.js'
-import { Label as UserDetailLabel } from '../../../Common/styleGuides/StyleGuides.js'
+import { Label as UserDetailLabel } from '../../styleGuides/StyleGuides.js'
 
 //@inject('authStore')
 @observer

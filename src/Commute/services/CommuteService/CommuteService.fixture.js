@@ -14,7 +14,7 @@ class CommuteService {
          resolve('rideRequest')
       })
    }
-   @action.bound
+   @action
    assetTransportRequestAPI(requestData) {
       console.log(requestData)
       //assetTransportRequest
@@ -22,21 +22,21 @@ class CommuteService {
          resolve('assetTransportRequest')
       })
    }
-   @action.bound
+   @action
    shareRideInfoAPI(details) {
       console.log(details)
       return new Promise(resolve => {
          resolve('shareRide')
       })
    }
-   @action.bound
+   @action
    shareTravelInfoAPI(details) {
       console.log(details)
       return new Promise(resolve => {
          resolve('shareTravelInfo')
       })
    }
-   @action.bound
+   @action
    myRideRequestsAPI(dataToGetRequests) {
       let requests = {
          requests: rideRequestData.requests.filter(
@@ -52,7 +52,7 @@ class CommuteService {
          }, 1000)
       })
    }
-   @action.bound
+   @action
    myAssetRequestsAPI(dataToGetRequests) {
       let requests = {
          requests: assetRequestData.requests.filter(
@@ -68,23 +68,7 @@ class CommuteService {
          }, 1000)
       })
    }
-   @action.bound
-   matchingRideRequestsAPI(dataToGetMatchingRequests) {
-      return new Promise(resolve => {
-         setTimeout(() => {
-            resolve(allRequestsData.rideRequests)
-         }, 1000)
-      })
-   }
-   @action.bound
-   matchingAssetRequestsAPI(dataToGetMatchingRequests) {
-      return new Promise(resolve => {
-         setTimeout(() => {
-            resolve(allRequestsData.assetRequests)
-         }, 1000)
-      })
-   }
-   @action.bound
+   @action
    matchingAllRequestsAPI(dataToGetMatchingRequests) {
       return new Promise(resolve => {
          setTimeout(() => {

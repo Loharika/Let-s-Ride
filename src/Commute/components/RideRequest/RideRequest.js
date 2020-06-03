@@ -1,17 +1,21 @@
 import React from 'react'
-import { observer } from 'mobx-react'
+import { observer,inject } from 'mobx-react'
 import { observable, action } from 'mobx'
 
-import { Typo20DarkBlueGreyHKGrotestBold as FormHeadingText } from '../../../Common/styleGuides/StyleGuides.js'
+import { Typo20DarkBlueGreyHKGrotestBold as FormHeadingText } from '../../styleGuides/StyleGuides.js'
 import {
    Form,
    FormDashboard
-} from '../../../Common/styledComponents/styleComponents.js'
-import { InputField } from '../../../Common/components/InputField.js'
-import { DateAndTime } from '../../../Common/components/DateTime.js'
-import { Button } from '../../../Common/components/Button.js'
-import { DisplayListOfElements } from '../../../Common/components/DisplayListOfElements.js'
-import { FlexibleDateTime } from '../../../Common/components/FlexibleDateTime.js'
+} from '../../styledComponents/styleComponents.js';
+
+import { withRouter } from 'react-router-dom'
+import {withHeader} from '../../Hocs/withHeader';
+
+import { InputField } from '../Common/components/InputField.js'
+import { DateAndTime } from '../Common/components/DateTime.js'
+import { Button } from '../Common/components/Button.js'
+import { DisplayListOfElements } from '../Common/components/DisplayListOfElements.js'
+import { FlexibleDateTime } from '../Common/components/FlexibleDateTime.js'
 
 import {
    CheckBox,
@@ -20,6 +24,7 @@ import {
 } from './styledComponents.js'
 
 import strings from '../../i18n/strings.json'
+@inject('commuteStore')
 @observer
 class RideRequest extends React.Component {
    @observable isCheckedFlexibleTimings
@@ -75,7 +80,7 @@ class RideRequest extends React.Component {
    }
    onSubmitRequest = () => {
       this.displayError = true
-      const { postRideRequest } = this.props
+      const {commuteStore:{ postRideRequest }} = this.props
       let formDetails = [this.from, this.to, this.seats, this.luggages]
       let count = 0
       formDetails.forEach(eachDetail => {
@@ -95,7 +100,7 @@ class RideRequest extends React.Component {
                luggages: this.luggages
             }
             postRideRequest(rideRequestData)
-            console.log(rideRequestData)
+            
             this.init()
             this.displayError = false
          }
@@ -116,7 +121,7 @@ class RideRequest extends React.Component {
                luggages: this.luggages
             }
             postRideRequest(rideRequestData)
-            console.log(rideRequestData)
+            
             this.init()
             this.displayError = false
          }
@@ -203,4 +208,4 @@ class RideRequest extends React.Component {
       )
    }
 }
-export { RideRequest }
+export default withRouter(withHeader(RideRequest));

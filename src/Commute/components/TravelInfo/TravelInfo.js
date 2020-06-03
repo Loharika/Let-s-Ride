@@ -1,18 +1,23 @@
 import React from 'react'
 import { observable, action } from 'mobx'
-import { observer } from 'mobx-react'
+import { observer,inject } from 'mobx-react'
 
-import { Typo20DarkBlueGreyHKGrotestBold as FormHeadingText } from '../../../Common/styleGuides/StyleGuides.js'
+import { Typo20DarkBlueGreyHKGrotestBold as FormHeadingText } from '../../styleGuides/StyleGuides.js'
 import {
    Form,
    FormDashboard
-} from '../../../Common/styledComponents/styleComponents.js'
-import { InputField } from '../../../Common/components/InputField.js'
-import { DateAndTime } from '../../../Common/components/DateTime.js'
-import { Button } from '../../../Common/components/Button.js'
-import { DisplayListOfElements } from '../../../Common/components/DisplayListOfElements.js'
-import { FlexibleDateTime } from '../../../Common/components/FlexibleDateTime.js'
-import { DisplayDropDown } from '../../../Common/components/DisplayDropDown.js'
+} from '../../styledComponents/styleComponents.js'
+
+import { withRouter } from 'react-router-dom'
+import {withHeader} from '../../Hocs/withHeader';
+
+
+import { InputField } from '../Common/components/InputField.js'
+import { DateAndTime } from '../Common/components/DateTime.js'
+import { Button } from '../Common/components/Button.js'
+import { DisplayListOfElements } from '../Common/components/DisplayListOfElements.js'
+import { FlexibleDateTime } from '../Common/components/FlexibleDateTime.js'
+import { DisplayDropDown } from '../Common/components/DisplayDropDown.js'
 import {
    CheckBox,
    FlexibleTimings,
@@ -20,7 +25,7 @@ import {
 } from './styledComponents.js'
 
 import strings from '../../i18n/strings.json'
-
+@inject('commuteStore')
 @observer
 class TravelInfo extends React.Component {
    @observable isCheckedFlexibleTimings
@@ -76,7 +81,7 @@ class TravelInfo extends React.Component {
    }
    onSubmitRequest = () => {
       this.displayError = true
-      const { shareTravelInfo } = this.props
+      const { commuteStore:{shareTravelInfo }} = this.props
       let formDetails = [
          this.from,
          this.to,
@@ -223,4 +228,4 @@ class TravelInfo extends React.Component {
       )
    }
 }
-export { TravelInfo }
+export default withRouter(withHeader(TravelInfo));

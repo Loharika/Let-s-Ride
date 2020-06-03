@@ -1,6 +1,6 @@
 import React from 'react'
 import { observer } from 'mobx-react'
-import { ButtonStyle } from '../styledComponents/styleComponents.js'
+import { ButtonStyle } from '../../../styledComponents/styleComponents.js'
 
 @observer
 class Button extends React.Component {

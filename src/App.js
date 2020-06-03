@@ -9,8 +9,12 @@ import { SignInFormRoute } from './Authentication/routes'
 import DashBoardRoute from './Commute/routes/DashBoardRoute/DashBoardRoute.js'
 import { UserProfile } from './Authentication/components/UserProfile/UserProfile.js'
 import { ProtectedRoute } from './Common/routes/ProtectedRoute'
-import stores from './stores'
+import stores from './Common/stores'
 
+import { AssetTransportRequest } from './Commute/components/AssetTransportRequest'
+import { RideRequest } from './Commute/components/RideRequest'
+import { ShareRide } from './Commute/components/ShareRide'
+import { TravelInfo } from './Commute/components/TravelInfo'
 import './App.css'
 
 @observer
@@ -20,25 +24,41 @@ class App extends React.Component {
          <Provider {...stores}>
             <Router basename={process.env.PUBLIC_URL}>
                <Switch>
+                  <Route exact path='/login-page' component={LogInPageRoute} />
                   <Route
                      exact
-                     path={AuthEndPoints.logInPage}
-                     component={LogInPageRoute}
-                  />
-                  <Route
-                     exact
-                     path={AuthEndPoints.userProfile}
+                     path={'/commute-dashboard/user-profile'}
                      component={UserProfile}
                   />
                   <ProtectedRoute
                      exact
-                     path={CommuteEndPoints.commuteDashBoard}
+                     path='/commute-dashboard/home-page'
                      component={DashBoardRoute}
                   />
-                  <Route
+                  <ProtectedRoute
                      exact
                      path={AuthEndPoints.signInPage}
                      component={SignInFormRoute}
+                  />
+                  <ProtectedRoute
+                     exact
+                     path='/commute-dashboard/asset-transport-request'
+                     component={AssetTransportRequest}
+                  />
+                  <ProtectedRoute
+                     exact
+                     path='/commute-dashboard/ride-request'
+                     component={RideRequest}
+                  />
+                  <ProtectedRoute
+                     exact
+                     path='/commute-dashboard/share-ride'
+                     component={ShareRide}
+                  />
+                  <ProtectedRoute
+                     exact
+                     path='/commute-dashboard/share-travelInfo'
+                     component={TravelInfo}
                   />
                </Switch>
             </Router>

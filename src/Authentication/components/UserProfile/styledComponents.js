@@ -1,4 +1,5 @@
 import styled from '@emotion/styled'
+import colors from '../../../Common/Theme/Colors.json';
 
 export const UserImage = styled.img`
    width: 150px;
@@ -16,7 +17,7 @@ export const UserProfileDashboard = styled.div`
 export const UserProfileView = styled.div`
    width: auto;
    height: auto;
-   border: 1px solid lightgrey;
+   border: 1px solid ${colors.lightgrey};
    display: flex;
    justify-content: center;
    flex-wrap: wrap;
@@ -36,7 +37,7 @@ export const UserDetail = styled.div`
    margin: 10px;
 `
 export const UserDetailElement = styled.input`
-   border: 1px solid lightgrey;
+   border: 1px solid  ${colors.lightgrey};;
    padding: 2px;
    color: grey;
 `

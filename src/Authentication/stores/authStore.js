@@ -5,7 +5,7 @@ import {
    getAccessToken,
    setAccessToken,
    clearUserSession
-} from '../../utils/StorageUtils'
+} from '../../Common/utils/StorageUtils'
 
 class AuthStore {
    @observable getUserSignInAPIStatus

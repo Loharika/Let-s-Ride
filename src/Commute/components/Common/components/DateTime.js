@@ -12,12 +12,10 @@ import {
    Star,
    ErrorStyle,
    Icon
-} from '../styledComponents/styleComponents.js'
-import { Label } from '../styleGuides/StyleGuides.js'
+} from '../../../styledComponents/styleComponents.js'
+import { Label } from '../../../styleGuides/StyleGuides.js'
 
-import strings from '../i18n/strings.json'
 
-import { Dropdown } from 'semantic-ui-react'
 
 @observer
 class DateAndTime extends React.Component {

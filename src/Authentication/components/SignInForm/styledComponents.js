@@ -3,14 +3,16 @@ import {
    Logo,
    LogoImageContainer,
    Typo14DarkBlueGreyHKGroteskRegular
-} from '../../../Common/styleGuides/StyleGuides.js'
+} from '../../styleGuides/StyleGuides.js'
+
+import colors from '../../../Common/Theme/Colors.json';
 
 const FormType = styled.form`
    width: 350px;
 
    height: 500px;
    border-radius: 8px;
-   background-color: var(--white);
+   background-color:${colors.white}; 
    display: flex;
    flex-direction: column;
    justify-content: space-around;
@@ -21,19 +23,19 @@ const FormType = styled.form`
 const FormDashBoard = styled.div`
    width: 100vw;
    height: 100vh;
-   background-color: ice-blue;
+   background-color: ${colors['ice blue']};
    display: flex;
    flex-wrap: wrap;
    justify-content: center;
    align-items: center;
-   background-color: #fafafa;
+   background-color: ${colors.Gray98};
 `
 const LogInPageLink = styled.a`
-   color: blue;
+   color:${colors.brightBlue};
 `
 
 const PasswordAlert = styled.span`
-   color: red;
+   color:  ${colors.neonRed};
    font-size: 13px;
 `
 export {

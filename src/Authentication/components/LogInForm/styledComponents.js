@@ -1,15 +1,16 @@
 import styled from '@emotion/styled'
+import colors from '../../../Common/Theme/Colors.json';
 import {
    Typo32DarkBlueGreyRubikRegular,
    Typo14DarkBlueGreyHKGroteskRegular,
    Logo,
    LogoImageContainer
-} from '../../../Common/styleGuides/StyleGuides.js'
+} from '../../styleGuides/StyleGuides.js'
 const FormType = styled.form`
    width: 350px;
    height: 400px;
    border-radius: 8px;
-   background-color: var(--white);
+   background-color: ${colors.white};
    display: flex;
    flex-direction: column;
    justify-content: space-around;
@@ -20,21 +21,21 @@ const FormType = styled.form`
 const FormDashBoard = styled.div`
    width: 100vw;
    height: 100vh;
-   background-color: ice-blue;
+   background-color: ${colors['ice blue']};
    display: flex;
    flex-wrap: wrap;
    justify-content: center;
    align-items: center;
-   background-color: #fafafa;
+   background-color: ${colors.Gray98};
 `
 const LogInPageLink = styled.a`
-   color: blue;
+   color: ${colors.brightBlue};
 `
 const SignUpPageLink = styled.a`
-   color: blue;
+   color: ${colors.brightBlue};
 `
 const LogInDetailsAlert = styled.span`
-   color: red;
+   color: ${colors.neonRed};
    width: 100%;
    text-align: center;
    font-size: 13px;

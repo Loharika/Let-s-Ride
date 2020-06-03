@@ -1,3 +1,3 @@
-import { RideRequest } from './RideRequest.js'
+import  RideRequest  from './RideRequest.js'
 
 export { RideRequest }

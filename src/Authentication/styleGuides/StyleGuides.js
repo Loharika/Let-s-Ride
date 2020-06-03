@@ -1,9 +1,10 @@
 import styled from '@emotion/styled'
+import colors from '../../Common/Theme/Colors.json';
 
 export const Typo14DarkBlueGreyHKGroteskRegular = styled.span`
    font-family: HKGrotesk;
    font-size: 14px;
-   color: var(--dark-blue-grey);
+   color: ${colors.darkBlueGrey};
 `
 
 export const Label = styled.label`
@@ -14,7 +15,7 @@ export const Label = styled.label`
    font-stretch: normal;
    font-style: normal;
    letter-spacing: 0.12px;
-   color: var(--steel);
+   color:${colors.steel};
    margin: 2px;
 `
 
@@ -28,7 +29,7 @@ export const Typo32DarkBlueGreyRubikRegular = styled.div`
    font-style: normal;
    line-height: 1.25;
    letter-spacing: normal;
-   color: var(--dark-blue-grey);
+   color: ${colors.darkBlueGrey};
 
    display: flex;
    justify-content: center;
@@ -52,7 +53,7 @@ export const Typo18BrightBlueRobotoRegular = styled.span`
    font-style: normal;
    line-height: 1.33;
    letter-spacing: normal;
-   color: #0b69ff;
+   color:  ${colors.brightBlue}; 
 `
 export const Typo14SteelHKGroteSkRegular = styled.span`
    font-family: HKGrotesk;
@@ -62,7 +63,7 @@ export const Typo14SteelHKGroteSkRegular = styled.span`
    font-style: normal;
    line-height: 1.71;
    letter-spacing: normal;
-   color: #7e858e;
+   color:${colors.steel};
    padding: 2px;
    margin: 2px;
 `
@@ -74,7 +75,8 @@ export const Typo20DarkBlueGreyHKGrotestBold = styled.span`
    font-style: normal;
    line-height: 1.6;
    letter-spacing: normal;
-   color: #171f46;
+   color: ${colors.darkBlueGrey};;
+   
 `
 export const Typo12HKGroteskSemiBoldSteel = styled.span`
    font-family: HKGrotesk;
@@ -84,7 +86,7 @@ export const Typo12HKGroteskSemiBoldSteel = styled.span`
    font-style: normal;
    line-height: 1.33;
    letter-spacing: 0.12px;
-   color: #7e858e;
+   color:${colors.steel};
 `
 export const Typo12BrightBlueRubikRegular = styled.span`
    font-family: Rubik;
@@ -94,7 +96,7 @@ export const Typo12BrightBlueRubikRegular = styled.span`
    font-style: normal;
    line-height: 1.33;
    letter-spacing: normal;
-   color: #0b69ff;
+   color: ${colors.brightBlue};
 `
 export const Typo12YellowOrangeRubikRegular = styled.span`
    font-family: Rubik;
@@ -104,5 +106,5 @@ export const Typo12YellowOrangeRubikRegular = styled.span`
    font-style: normal;
    line-height: 1.33;
    letter-spacing: normal;
-   color: #ffb800;
+   color:${colors.yellowOrange};
 `

@@ -1,133 +1,88 @@
 import React from 'react'
 import { observer, inject } from 'mobx-react'
 import { observable, action } from 'mobx'
-import { toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
 
-import { UserProfile } from '../../../Authentication/components/UserProfile'
 
-import { MatchingRequests } from '../MatchingRequests'
-import { ShowMyRequests } from '../ShowUserRequests'
-import { RideRequest } from '../RideRequest'
-import { AssetTransportRequest } from '../AssetTransportRequest'
-import { ShareRide } from '../ShareRide'
-import { TravelInfo } from '../TravelInfo'
-import { Header } from '../Header/Header.js'
-import { CommuteDashboardDisplay, AllRequests } from './styledComponents.js'
+
+import { CommuteDashboardDisplay, AllRequests,
+    
+    MatchingResultsSelector,
+    MyRequestsSelector,
+    SharedDetailsSelector,
+    Selectors,
+    
+} from './styledComponents.js'
+
+import {MyRequests} from '../MyRequests';
+import {MatchingResults} from '../MatchingResults';
 
 import strings from '../../i18n/strings.json'
-const homePage = strings.navigatePageTo.homePage
-const rideRequest = strings.navigatePageTo.rideRequest
-const assetTranportRequest = strings.navigatePageTo.assetTranportRequest
-const shareRide = strings.navigatePageTo.shareRide
-const shareTravelInfo = strings.navigatePageTo.shareTravelInfo
-const userProfile = strings.navigatePageTo.userProfile
 
-toast.configure()
-
-@inject('commuteStore')
+@inject('commuteStore','authStore')
 @observer
 class DashBoard extends React.Component {
-   @observable navigateTo
-   constructor() {
-      super()
-      this.navigateTo = strings.navigatePageTo.homePage
+    @observable selector;
+   constructor(){
+       super();
+       this.selector='matchingResults';
    }
-   onClick = () => {
-      const { onClickSignOutButton } = this.props
-      onClickSignOutButton()
-      /*toast(
-            <UserProfile />
-            , {
-            position: toast.POSITION.TOP_CENTER,
-            autoClose:5000,
-            closeButton: true,
-            hideProgressBar: true,
-            
-      });*/
+   
+   @action.bound
+   onClickSelector(selector){
+       const {doNetWorkCallsForMatchingRequests,doNetWorkCallsForMyRequests}=this.props;
+       this.selector=selector;
+       switch(this.selector){
+           case 'myRequests':{
+               doNetWorkCallsForMyRequests();
+               return ;
+           }
+           case 'matchingResults':{
+               doNetWorkCallsForMatchingRequests();
+               return ;
+           }
+           case 'sharedDetails':{
+               
+           }
+       }
    }
    renderPage = () => {
-      const {
-         limit,
-         onChangeFilter,
-         onChangeSortBy,
-         onChangePageNumber,
-         pageNumber,
-         displayRequestType,
-         navigatePageTo,
-         getRequests,
-         totalNumberOfPages,
-         doNetWorkCallsForMyRequests,
-         onClickRequestType,
-         addRequestButton,
-         navigateTo,
-         rideRequestTableHeaders,
-         assetRequestTableHeaders
-      } = this.props
+              const {
+                 limit,
+                 onChangeFilter,
+                 onChangeSortBy,
+                 onChangePageNumber,
+                 pageNumber,
+                 displayRequestType,
+                 getRequests,
+                 totalNumberOfPages,
+                 doNetWorkCallsForMyRequests,
+                 onClickRequestType,
+                 addRequestButton,
+                 rideRequestTableHeaders,
+                 assetRequestTableHeaders
+              } = this.props
 
-      const {
-         doNetWorkCallsForMatchingRequests,
-         onChangeMatchingRequestsFilter,
-         getMatchingRequests
-      } = this.props
+              const {
+                 doNetWorkCallsForMatchingRequests,
+                 onChangeMatchingRequestsFilter,
+                 getMatchingRequests
+              } = this.props
 
-      const {
-         commuteStore: {
-            getMyRequestAPIError,
-            getMyRequestAPIStatus,
-            getMatchingRequestAPIStatus,
-            getMatchingRequestAPIError
-         }
-      } = this.props
-      switch (navigateTo) {
-         case rideRequest: {
-            const {
-               commuteStore: { postRideRequest }
-            } = this.props
-            return <RideRequest postRideRequest={postRideRequest} />
-         }
-         case assetTranportRequest: {
-            const {
-               commuteStore: { postAssetTransportRequest }
-            } = this.props
-            return (
-               <AssetTransportRequest
-                  postAssetTransportRequest={postAssetTransportRequest}
-               />
-            )
-         }
-         case shareRide: {
-            const {
-               commuteStore: { shareRideInfo: shareRideInfoDetails }
-            } = this.props
-            return <ShareRide shareRideInfo={shareRideInfoDetails} />
-         }
-         case shareTravelInfo: {
-            const {
-               commuteStore: { shareTravelInfo: shareTravelInfoDetails }
-            } = this.props
-            return <TravelInfo shareTravelInfo={shareTravelInfoDetails} />
-         }
-         case userProfile: {
-            return <UserProfile />
-         }
-         case homePage: {
-            return (
-               <AllRequests>
-                  <MatchingRequests
-                     getMatchingRequests={getMatchingRequests}
-                     onChangeMatchingRequestsFilter={
-                        onChangeMatchingRequestsFilter
-                     }
-                     getMatchingRequestAPIStatus={getMatchingRequestAPIStatus}
-                     getMatchingRequestAPIError={getMatchingRequestAPIError}
-                     doNetworkCalls={doNetWorkCallsForMatchingRequests}
-                  />
-                  <ShowMyRequests
-                     navigatePageTo={navigatePageTo}
-                     doNetWorkCalls={doNetWorkCallsForMyRequests}
-                     getAPIError={getMyRequestAPIError}
-                     getAPIStatus={getMyRequestAPIStatus}
+            const {commuteStore: {getMatchingRequestAPIStatus,getMatchingRequestAPIError}} = this.props
+             const {commuteStore:{getMyRideRequestAPIStatus,getMyRideRequestAPIError,getMyAssetRequestAPIStatus,getMyAssetRequestAPIError}}=this.props;
+            
+            switch(this.selector){
+                case 'myRequests':{
+                    return (
+                  <MyRequests
+                    
+                     doNetWorkCallsForMyRequests={doNetWorkCallsForMyRequests}
+                     
+                     getMyRideRequestAPIStatus={getMyRideRequestAPIStatus}
+                     getMyRideRequestAPIError={getMyRideRequestAPIError}
+                     getMyAssetRequestAPIStatus={getMyAssetRequestAPIStatus}
+                     getMyAssetRequestAPIError={getMyAssetRequestAPIError}
+                     
                      getRequests={getRequests}
                      totalNumberOfPages={totalNumberOfPages}
                      onChangePageNumber={onChangePageNumber}
@@ -141,39 +96,55 @@ class DashBoard extends React.Component {
                      assetRequestTableHeaders={assetRequestTableHeaders}
                      addRequestButton={addRequestButton}
                   />
-               </AllRequests>
-            )
+                  )}
+                  case 'matchingResults':{
+                      return <MatchingResults
+                       
+                      doNetWorkCallsForMatchingRequests={doNetWorkCallsForMatchingRequests}
+                      
+                      
+                      />;
+                  }
+                  case 'sharedDetails':{
+                      return <div>Shared Details</div>;
+                  }
+                  
+            }
+            
          }
-      }
-   }
-   @action.bound
-   renderDashBoardUI() {
-      const { navigatePageTo, navigateTo } = this.props
-      return (
-         <CommuteDashboardDisplay key={Math.random()}>
-            <Header
-               key={navigateTo}
-               onClickUserProfile={this.onClick}
-               navigatePageTo={navigatePageTo}
-            />
-            {this.renderPage()}
-         </CommuteDashboardDisplay>
-      )
-   }
+   
    render() {
-      const { navigatePageTo, navigateTo } = this.props
+     
       return (
-         <React.Fragment>
+
             <CommuteDashboardDisplay key={Math.random()}>
-               <Header
-                  key={navigateTo}
-                  onClickUserProfile={this.onClick}
-                  navigatePageTo={navigatePageTo}
-               />
+                <Selectors>
+                
+                    <MatchingResultsSelector onClick={()=>this.onClickSelector('matchingResults')} isSelected={this.selector==='matchingResults'?true:false}>
+                        Matching Results
+                    </MatchingResultsSelector >
+                    <MyRequestsSelector onClick={()=>this.onClickSelector('myRequests')} isSelected={this.selector==='myRequests'?true:false}>
+                        My  Requests
+                    </MyRequestsSelector>
+                    <SharedDetailsSelector onClick={()=>this.onClickSelector('sharedDetails')} isSelected={this.selector==='sharedDetails'?true:false}>
+                        Shared Details
+                    </SharedDetailsSelector>
+                </Selectors>
                {this.renderPage()}
             </CommuteDashboardDisplay>
-         </React.Fragment>
       )
    }
 }
-export { DashBoard }
+export {DashBoard};
+
+//<AllRequests>
+                  /*<MatchingRequests
+                     getMatchingRequests={getMatchingRequests}
+                     onChangeMatchingRequestsFilter={
+                    onChangeMatchingRequestsFilter
+                     }
+                     getMatchingRequestAPIStatus={getMatchingRequestAPIStatus}
+                     getMatchingRequestAPIError={getMatchingRequestAPIError}
+                     doNetworkCalls={doNetWorkCallsForMatchingRequests}
+                  />*/
+                  

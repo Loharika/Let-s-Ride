@@ -1,8 +1,9 @@
 import React from 'react'
 import { observer } from 'mobx-react'
-import { InputField, LogoImage } from '../../../Common/components'
+import { InputField } from '../Common/InputField.js';
+import {  LogoImage } from '../Common/LogoImage.js';
 import strings from '../../i18n/strings.json'
-import { Button } from '../../../Common/components/Button.js'
+import { Button } from '../Common/Button.js'
 import {
    FormType,
    FormDashBoard,

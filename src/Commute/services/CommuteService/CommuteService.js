@@ -1,138 +1,99 @@
 import { action } from 'mobx'
 import { create } from 'apisauce'
 
-import { networkCallWithApisauce } from '../../../utils/APIUtils'
-import { apiMethods } from '../../../constants/APIConstants'
+import { networkCallWithApisauce } from '../../../Common/utils/APIUtils';
+import { apiMethods } from '../../../Common/constants/APIConstants';
 
 import { endPoints } from '../endPoints'
 
 class CommuteService {
-   rideRequestApi
-   assetTransportRequestApi
-   shareRideInfoApi
-   shareTravelInfoApi
-   myRideRequestsApi
-   myAssetRequestsApi
-   matchingRideRequestsApi
-   matchingAssetRequestsApi
-   matchingAllRequestsApi
+   baseApi
    constructor() {
-      this.rideRequestApi = create({
+      this.baseApi = create({
          baseURL: 'https://9ba0cd3ggi.execute-api.ap-south-1.amazonaws.com/'
       })
-      this.assetTransportRequestApi = create({
-         baseURL: '__'
-      })
-      this.myRideRequestsApi = create({
-         baseURL: '__'
-      })
-      this.myAssetRequestsApi = create({
-         baseURL: '__'
-      })
-      this.shareRideInfoApi = create({
-         baseURL: '__'
-      })
-      this.shareTravelInfoApi = create({
-         baseURL: '__'
-      })
-      this.matchingRideRequestsApi = create({
-         baseURL: '__'
-      })
-      this.matchingAssetRequestsApi = create({
-         baseURL: '__'
-      })
-      this.matchingAllRequestsApi = create({
-         baseURL: '__'
-      })
+      
    }
    @action
    rideRequestAPI(requestData) {
       console.log(requestData)
       //rideRequest
       return networkCallWithApisauce(
-         this.rideRequestApi,
+         this.baseApi,
          'v1/rideRequest/',
          {},
          apiMethods.post
       )
    }
-   @action.bound
+   @action
    assetTransportRequestAPI(requestData) {
       console.log(requestData)
       //assetTransportRequest
 
       return networkCallWithApisauce(
-         this.assetTransportRequestApi,
+         this.baseApi,
          '__',
          {},
          apiMethods.post
       )
    }
-   @action.bound
+   @action
    shareRideInfoAPI(details) {
       console.log(details)
       //shareRideInfo
       return networkCallWithApisauce(
-         this.shareRideInfoApi,
+         this.baseApi,
          '__',
          {},
          apiMethods.post
       )
    }
-   @action.bound
+   @action
    shareTravelInfoAPI(details) {
       console.log(details)
       //shareTravelInfo
       return networkCallWithApisauce(
-         this.shareTravelInfoApi,
+         this.baseApi,
          '__',
          {},
          apiMethods.post
       )
    }
-   @action.bound
-   myRideRequests(dataToGetRequests) {
+   @action
+   myRideRequestsAPI(dataToGetRequests) {
       return networkCallWithApisauce(
-         this.myRideRequestsApi,
+         this.baseApi,
          '__',
          {},
          apiMethods.get
       )
    }
-   @action.bound
-   myAssetRequests(dataToGetRequests) {
+   @action
+   myAssetRequestsAPI(dataToGetRequests) {
       return networkCallWithApisauce(
-         this.myAssetRequestsApi,
+         this.baseApi,
          '__',
          {},
          apiMethods.get
       )
    }
-   @action.bound
-   matchingRideRequestsAPI(dataToGetMatchingRequests) {
-      return networkCallWithApisauce(
-         this.matchingRideRequestsApi,
-         '__',
-         {},
-         apiMethods.get
-      )
-   }
-   @action.bound
-   matchingAssetRequestsAPI(dataToGetMatchingRequests) {
-      return networkCallWithApisauce(
-         this.matchingAssetRequestsApi,
-         '__',
-         {},
-         apiMethods.get
-      )
-   }
-   @action.bound
+   
+   @action
    matchingAllRequestsAPI(dataToGetMatchingRequests) {
       return networkCallWithApisauce(
-         this.matchingAllRequestsApi,
+         this.baseApi,
          '__',
          {},
          apiMethods.get
+      )
+   }
+   @action
+   acceptRideTransportRequest(){
+      return networkCallWithApisauce(
+         this.baseApi,
+         '__',
+         {},
+         apiMethods.put
       )
    }
 }

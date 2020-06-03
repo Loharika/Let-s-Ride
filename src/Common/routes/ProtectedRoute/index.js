@@ -6,7 +6,7 @@ const ProtectedRoute = inject('authStore')(
    observer(
       ({ component: Component, authStore, SIGN_IN_PATH, path, ...rest }) => {
          let accessToken = authStore.access_token
-         window.localStorage.setItem('path', path)
+         //window.localStorage.setItem('path', path)
          return (
             <Route
                {...rest}
@@ -17,7 +17,7 @@ const ProtectedRoute = inject('authStore')(
                      return (
                         <Redirect
                            to={{
-                              pathname: '/sign-in/'
+                              pathname: '/login-page'
                            }}
                         />
                      )

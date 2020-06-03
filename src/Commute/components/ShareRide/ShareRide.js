@@ -1,17 +1,22 @@
 import React from 'react'
 import { observable, action } from 'mobx'
-import { observer } from 'mobx-react'
+import { observer ,inject} from 'mobx-react'
 
-import { Typo20DarkBlueGreyHKGrotestBold as FormHeadingText } from '../../../Common/styleGuides/StyleGuides.js'
+import { Typo20DarkBlueGreyHKGrotestBold as FormHeadingText } from '../../styleGuides/StyleGuides.js'
 import {
    Form,
    FormDashboard
-} from '../../../Common/styledComponents/styleComponents.js'
-import { InputField } from '../../../Common/components/InputField.js'
-import { DateAndTime } from '../../../Common/components/DateTime.js'
-import { Button } from '../../../Common/components/Button.js'
-import { DisplayListOfElements } from '../../../Common/components/DisplayListOfElements.js'
-import { FlexibleDateTime } from '../../../Common/components/FlexibleDateTime.js'
+} from '../../styledComponents/styleComponents.js';
+
+
+import { withRouter } from 'react-router-dom'
+import {withHeader} from '../../Hocs/withHeader';
+
+import { InputField } from '../Common/components/InputField.js'
+import { DateAndTime } from '../Common/components/DateTime.js'
+import { Button } from '../Common/components/Button.js'
+import { DisplayListOfElements } from '../Common/components/DisplayListOfElements.js'
+import { FlexibleDateTime } from '../Common/components/FlexibleDateTime.js'
 
 import {
    CheckBox,
@@ -20,7 +25,7 @@ import {
 } from './styledComponents.js'
 
 import strings from '../../i18n/strings.json'
-
+@inject('commuteStore')
 @observer
 class ShareRide extends React.Component {
    @observable isCheckedFlexibleTimings
@@ -76,7 +81,7 @@ class ShareRide extends React.Component {
    }
    onSubmitRequest = () => {
       this.displayError = true
-      const { shareRideInfo } = this.props
+      const { commuteStore:{shareRideInfo} } = this.props
       let formDetails = [
          this.from,
          this.to,
@@ -86,7 +91,7 @@ class ShareRide extends React.Component {
       ]
       let count = 0
       formDetails.forEach(eachDetail => {
-         if (eachDetail.length === 0 && eachDetail === 0) {
+         if (eachDetail.length === 0 || eachDetail === 0) {
             count++
          }
       })
@@ -151,6 +156,7 @@ class ShareRide extends React.Component {
       } = this
 
       return (
+         <FormDashboard>
          <Form>
             <FormHeadingText>{strings.text.shareRide}</FormHeadingText>
             <InputField
@@ -211,7 +217,8 @@ class ShareRide extends React.Component {
                onClickFunction={onSubmitRequest}
             />
          </Form>
+         </FormDashboard>
       )
    }
 }
-export { ShareRide }
+export default withRouter(withHeader(ShareRide));

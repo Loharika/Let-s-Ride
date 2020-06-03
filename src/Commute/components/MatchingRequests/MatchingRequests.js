@@ -4,7 +4,7 @@ import { observer, inject } from 'mobx-react'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
-import { DisplayDropDown } from '../../../Common/components/DisplayDropDown.js'
+import { DisplayDropDown } from '../Common/components/DisplayDropDown.js'
 import {
    Header,
    Title,
@@ -12,7 +12,8 @@ import {
    MatchingRequestsDisplay,
    CardsDisplay
 } from './styledComponents.js'
-import LoadingWrapperWithFailure from '../../../components/common/LoadingWrapperWithFailure'
+
+import LoadingWrapperWithFailure from '../../../Common/components/common/LoadingWrapperWithFailure'
 
 import {
    MatchingRideRequestCard,
@@ -26,6 +27,7 @@ toast.configure()
 
 @observer
 class MatchingRequests extends React.Component {
+  
    @action.bound
    getMatchingRequests() {
       const { getMatchingRequests } = this.props

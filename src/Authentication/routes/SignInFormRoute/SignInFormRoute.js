@@ -88,7 +88,7 @@ class SignInFormRoute extends React.Component {
          authStore: { access_token }
       } = this.props
       if (access_token) {
-         this.props.history.push('/commute-dashboard')
+         this.props.history.push('/commute-dashboard/home-page')
       }
    }
 

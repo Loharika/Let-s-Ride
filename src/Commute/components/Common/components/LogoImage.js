@@ -1,5 +1,5 @@
 import React from 'react'
-import { Logo } from '../styleGuides/StyleGuides.js'
+import { Logo } from '../../../styleGuides/StyleGuides.js'
 function LogoImage() {
    return (
       <Logo

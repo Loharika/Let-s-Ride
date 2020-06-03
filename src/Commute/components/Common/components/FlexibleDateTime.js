@@ -1,8 +1,8 @@
 import React from 'react'
 import { observer } from 'mobx-react'
 import { DateAndTime } from './DateTime.js'
-import { FlexibleDateAndTimeStyle } from '../styledComponents/styleComponents.js'
-import strings from '../i18n/strings.json'
+import { FlexibleDateAndTimeStyle } from '../../../styledComponents/styleComponents.js'
+
 
 @observer
 class FlexibleDateTime extends React.Component {
@@ -14,12 +14,12 @@ class FlexibleDateTime extends React.Component {
       return (
          <FlexibleDateAndTimeStyle>
             <DateAndTime
-               label={strings.from}
+               label={'FROM'}
                onChangeTime={onChangeFromTime}
                displayError={displayError}
             />
             <DateAndTime
-               label={strings.to}
+               label={'TO'}
                onChangeTime={onChangeToTime}
                displayError={displayError}
             />

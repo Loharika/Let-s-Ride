@@ -1,17 +1,20 @@
 import React from 'react'
-import { observer } from 'mobx-react'
-import { observable, action } from 'mobx'
-import { Typo20DarkBlueGreyHKGrotestBold as FormHeadingText } from '../../../Common/styleGuides/StyleGuides.js'
+import { observer ,inject} from 'mobx-react'
+import { observable, action } from 'mobx';
+
+import { Typo20DarkBlueGreyHKGrotestBold as FormHeadingText } from '../../styleGuides/StyleGuides.js'
 import {
    Form,
    FormDashboard
-} from '../../../Common/styledComponents/styleComponents.js'
-import { InputField } from '../../../Common/components/InputField.js'
-import { DateAndTime } from '../../../Common/components/DateTime.js'
-import { FlexibleDateTime } from '../../../Common/components/FlexibleDateTime.js'
-import { Button } from '../../../Common/components/Button.js'
-import { DisplayDropDown } from '../../../Common/components/DisplayDropDown.js'
-import { DisplayListOfElements } from '../../../Common/components/DisplayListOfElements.js'
+} from '../../styledComponents/styleComponents.js';
+import { withRouter } from 'react-router-dom'
+import {withHeader} from '../../Hocs/withHeader';
+import { InputField } from '../Common/components/InputField.js'
+import { DateAndTime } from '../Common/components/DateTime.js'
+import { FlexibleDateTime } from '../Common/components/FlexibleDateTime.js'
+import { Button } from '../Common/components/Button.js'
+import { DisplayDropDown } from '../Common/components/DisplayDropDown.js'
+import { DisplayListOfElements } from '../Common/components/DisplayListOfElements.js'
 
 import {
    CheckBox,
@@ -62,6 +65,7 @@ const assetSensitivity = {
    placeholder: 'Select Asset Sensitivity'
 }
 
+@inject('commuteStore')
 @observer
 class AssetTransportRequest extends React.Component {
    @observable isCheckedFlexibleTimings
@@ -127,7 +131,7 @@ class AssetTransportRequest extends React.Component {
    }
    onSubmitRequest = () => {
       this.displayError = true
-      const { postAssetTransportRequest } = this.props
+      const { commuteStore:{postAssetTransportRequest} } = this.props
       let formDetails = [
          this.from,
          this.to,
@@ -158,7 +162,7 @@ class AssetTransportRequest extends React.Component {
                details: this.details
             }
             postAssetTransportRequest(assetRequestData)
-            console.log(assetRequestData)
+            
             this.init()
             this.displayError = false
          }
@@ -182,7 +186,7 @@ class AssetTransportRequest extends React.Component {
                details: this.details
             }
             postAssetTransportRequest(assetRequestData)
-            console.log(assetRequestData)
+            
             this.init()
             this.displayError = false
          }
@@ -287,4 +291,4 @@ class AssetTransportRequest extends React.Component {
       )
    }
 }
-export { AssetTransportRequest }
+export default withRouter(withHeader(AssetTransportRequest));

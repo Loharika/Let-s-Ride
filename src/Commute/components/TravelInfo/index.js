@@ -1,3 +1,3 @@
-import { TravelInfo } from './TravelInfo.js'
+import  TravelInfo  from './TravelInfo.js'
 
 export { TravelInfo }

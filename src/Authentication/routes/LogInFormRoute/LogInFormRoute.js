@@ -73,8 +73,7 @@ class LogInPageRoute extends React.Component {
       } = this.props
 
       if (access_token) {
-         this.props.history.push('/commute-dashboard')
-         //endPoints.userProfile
+         this.props.history.push('/commute-dashboard/home-page')
       }
    }
 

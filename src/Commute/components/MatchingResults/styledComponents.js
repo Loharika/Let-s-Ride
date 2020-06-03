@@ -1,5 +1,7 @@
 import styled from '@emotion/styled'
-import { Typo32DarkBlueGreyRubikRegular } from '../../../Common/styleGuides/StyleGuides.js'
+import { Typo32DarkBlueGreyRubikRegular } from '../../styleGuides/StyleGuides.js'
+import colors from '../../../Common/Theme/Colors';
+
 export const MyRequestsHeader = styled.ul`
    list-style-type: none;
    margin: 0;
@@ -11,11 +13,12 @@ export const MyRequestsHeader = styled.ul`
 export const MyRequestType = styled.button`
    float: left;
    display: block;
-   color: black;
+   color: ${colors.black};
    text-align: center;
    padding: 10px 12px;
    text-decoration: none;
-   border-bottom: ${props => (props.isSelected ? '2px solid blue' : 'none')};
+   border-bottom:2px solid  ${props => (props.isSelected===true ? colors.brightBlue: 'none')};
+  
 `
 export const MyRequestsTitle = styled(Typo32DarkBlueGreyRubikRegular)`
    font-size: 20px;
@@ -86,15 +89,15 @@ export const PageNumber = styled.div`
 export const StatusButton = styled.div`
    background-color: ${props =>
       props.status === 'Confirmed'
-         ? '#2dca73'
-         : props.status === 'Pending'
-         ? '#ffb800'
-         : '#d7dfe9'};
+         ? colors.greenishTeal
+         : props.status === 'Pending' 
+         ? colors.yellowOrange
+         : colors.lightBlueGrey};
    padding: 3px 4px;
    font-weight: 700;
    border-radius: 20px;
    text-align: center;
-   color: white;
+   color: ${colors.white};
 `
 export const Pages = styled.div``
 /*

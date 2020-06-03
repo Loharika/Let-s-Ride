@@ -2,16 +2,11 @@ import React from 'react'
 import { observable, action } from 'mobx'
 import { observer, inject } from 'mobx-react'
 import { withRouter } from 'react-router-dom'
+
 import { DashBoard } from '../../components/CommuteDashboard'
 
+import {withHeader} from '../../Hocs/withHeader';
 import strings from '../../i18n/strings.json'
-
-const homePage = strings.navigatePageTo.homePage
-const rideRequest = strings.navigatePageTo.rideRequest
-const assetTranportRequest = strings.navigatePageTo.assetTranportRequest
-const shareRide = strings.navigatePageTo.shareRide
-const shareTravelInfo = strings.navigatePageTo.shareTravelInfo
-const userProfile = strings.navigatePageTo.userProfile
 
 @inject('commuteStore', 'authStore')
 @observer
@@ -21,12 +16,12 @@ class DashBoardRoute extends React.Component {
    @observable sortBy
    @observable pageNumber
    @observable totalNumberOfPages
-   @observable navigateTo
-
+   @observable sortByOrder;
    @observable matchingRequestsFilter
 
    constructor() {
-      super()
+      super();
+      
       this.limit = 4
       this.rideRequestTableHeaders = [
          'FROM',
@@ -47,7 +42,7 @@ class DashBoardRoute extends React.Component {
          'ACCEPTED PERSON DETAILS',
          'STATUS'
       ]
-      this.navigateTo = strings.navigatePageTo.homePage
+      
       this.init()
    }
    @action.bound
@@ -56,19 +51,23 @@ class DashBoardRoute extends React.Component {
       this.filter = 'SELECT'
       this.sortBy = 'SELECT'
       this.pageNumber = 1
-      this.totalNumberOfPages = 0
+      this.totalNumberOfPages = 0;
+      this.sortByOrder='ASC';
       this.matchingRequestsFilter = 'RIDE' //ALL RIDE ASSET
+      
    }
    componentDidMount() {
+      
       const {
-         doNetWorkCallsForMyRequests,
          doNetWorkCallsForMatchingRequests
       } = this
-      doNetWorkCallsForMyRequests()
-      doNetWorkCallsForMatchingRequests()
+      doNetWorkCallsForMatchingRequests();
+      
    }
    @action.bound
    async doNetWorkCallsForMyRequests() {
+      console.log("my requests")
+      
       const {
          commuteStore: { getMyRideRequests, getMyAssetRequests }
       } = this.props
@@ -82,7 +81,8 @@ class DashBoardRoute extends React.Component {
          filterBy: filter,
          sortBy: sortBy,
          offset: offset,
-         limit: limit
+         limit: limit,
+         sortByOrder:this.sortByOrder,
       }
       switch (displayRequestType) {
          case 'ride': {
@@ -97,80 +97,64 @@ class DashBoardRoute extends React.Component {
    }
    @action.bound
    async doNetWorkCallsForMatchingRequests() {
+      console.log("matching resuts")
       const {
          commuteStore: {
-            getMatchingRideRequests,
-            getMatchingAssetRequests,
             getAllMatchingRequests
          }
       } = this.props
       const {
          authStore: { access_token }
       } = this.props
-      const { matchingRequestsFilter } = this
+     
       const dataToGetMatchingRequests = {
          access_token: access_token,
-         filter: matchingRequestsFilter
       }
-      switch (matchingRequestsFilter) {
-         case 'RIDE': {
-            await getMatchingRideRequests(dataToGetMatchingRequests)
-            break
-         }
-         case 'ASSETS': {
-            await getMatchingAssetRequests(dataToGetMatchingRequests)
-            break
-         }
-         case 'ALL': {
-            await getAllMatchingRequests(dataToGetMatchingRequests)
-            break
-         }
-      }
+      await getAllMatchingRequests(dataToGetMatchingRequests)
+      
+      
    }
    @action.bound
    getRequests(requestType) {
-      const {
-         commuteStore: { requests, noOfRequests }
-      } = this.props
-
-      this.totalNumberOfPages = Math.ceil(noOfRequests / this.limit)
-      return requests
+      const {commuteStore: { rideRequests, noOfRideRequests,assetRequests,noOfAssetRequests }} = this.props
+      switch(requestType){
+         case 'ride' :{
+            this.totalNumberOfPages = Math.ceil(noOfRideRequests / this.limit)
+            return rideRequests
+         }
+         case 'asset' :{
+            this.totalNumberOfPages = Math.ceil(noOfAssetRequests / this.limit)
+            return assetRequests
+         }
+         
+      }
    }
    @action.bound
    getMatchingRequests() {
       const {
          commuteStore: { matchingRequests }
       } = this.props
-
-      return matchingRequests
-   }
-   @action.bound
-   navigatePageTo(page) {
-      switch (page) {
-         case homePage: {
-            this.navigateTo = homePage
-            break
+       const { matchingRequestsFilter } = this
+      switch (matchingRequestsFilter) {
+         case 'RIDE': {
+            return matchingRequests.filter(request=>{
+               if(!request.hasOwnProperty('assetType')){
+                  return request;
+               }
+            })
          }
-         case rideRequest: {
-            this.navigateTo = rideRequest
-            break
+         case 'ASSETS': {
+            return matchingRequests.filter(request=>{
+               if(request.hasOwnProperty('assetType')){
+                  return request;
+               }
+            })
          }
-         case assetTranportRequest: {
-            this.navigateTo = assetTranportRequest
-            break
-         }
-         case shareRide: {
-            this.navigateTo = shareRide
-            break
-         }
-         case shareTravelInfo: {
-            this.navigateTo = shareTravelInfo
-            break
-         }
-         case userProfile: {
-            this.navigateTo = userProfile
+         case 'ALL': {
+            return matchingRequests;
          }
       }
+      return matchingRequests
    }
    onChangePageNumber = (event, data) => {
       this.pageNumber = data.activePage
@@ -198,10 +182,17 @@ class DashBoardRoute extends React.Component {
    }
    @action.bound
    addRequestButton(requestType) {
-      const { navigatePageTo } = this
-      navigatePageTo(
-         requestType === 'ride' ? 'rideRequest' : 'assetTranportRequest'
-      )
+      const {history}=this.props;
+     switch(requestType){
+        case 'ride':{
+           history.push('/commute-dashboard/ride-request');
+           return ;
+        }
+        case 'asset':{
+           history.push('/commute-dashboard/asset-transport-request');
+           return ;
+        }
+     }
    }
    @action.bound
    onChangeMatchingRequestsFilter(filterBy) {
@@ -221,7 +212,6 @@ class DashBoardRoute extends React.Component {
          onClickSignOutButton,
          limit,
          pageNumber,
-         navigateTo,
          displayRequestType,
          onChangePageNumber,
          onClickRequestType,
@@ -231,7 +221,6 @@ class DashBoardRoute extends React.Component {
 
          onChangeSortBy,
          onChangeFilter,
-         navigatePageTo,
          addRequestButton,
          getRequests,
          doNetWorkCallsForMyRequests,
@@ -240,31 +229,34 @@ class DashBoardRoute extends React.Component {
          doNetWorkCallsForMatchingRequests,
          onChangeMatchingRequestsFilter
       } = this
+      
       return (
+         
          <DashBoard
+            history={this.props.history}
             limit={limit}
             pageNumber={pageNumber}
             displayRequestType={displayRequestType}
-            navigateTo={navigateTo}
             rideRequestTableHeaders={rideRequestTableHeaders}
             assetRequestTableHeaders={assetRequestTableHeaders}
+            
             onClickSignOutButton={onClickSignOutButton}
+            
             getRequests={getRequests}
             onChangePageNumber={onChangePageNumber}
             onClickRequestType={onClickRequestType}
             onChangeSortBy={onChangeSortBy}
             onChangeFilter={onChangeFilter}
-            navigatePageTo={navigatePageTo}
+            
             addRequestButton={addRequestButton}
             totalNumberOfPages={totalNumberOfPages}
+            
             doNetWorkCallsForMyRequests={doNetWorkCallsForMyRequests}
             onChangeMatchingRequestsFilter={onChangeMatchingRequestsFilter}
             getMatchingRequests={getMatchingRequests}
-            doNetWorkCallsForMatchingRequests={
-               doNetWorkCallsForMatchingRequests
-            }
+            doNetWorkCallsForMatchingRequests={doNetWorkCallsForMatchingRequests}
          />
       )
    }
 }
-export default withRouter(DashBoardRoute)
+export default withRouter(withHeader(DashBoardRoute))

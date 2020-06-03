@@ -8,12 +8,12 @@ import {
    ChangeNoOfListItems,
    Star,
    ErrorStyle
-} from '../styledComponents/styleComponents.js'
+} from '../../../styledComponents/styleComponents.js'
 import {
    Typo14SteelHKGroteSkRegular as Text,
    Label
-} from '../styleGuides/StyleGuides.js'
-import strings from '../i18n/strings.json'
+} from '../../../styleGuides/StyleGuides.js'
+
 
 @observer
 class DisplayListOfElements extends Component {
@@ -51,13 +51,13 @@ class DisplayListOfElements extends Component {
                </Label>
                <ListItemsDisplay>
                   <ChangeNoOfListItems onClick={this.handleIncrement}>
-                     {strings.incrementSymbol}
+                     +
                   </ChangeNoOfListItems>
                   <ListItemsCount>
                      <Text>{this.props.intial}</Text>
                   </ListItemsCount>
                   <ChangeNoOfListItems onClick={this.handleDecrement}>
-                     {strings.decrementSymbol}
+                     -
                   </ChangeNoOfListItems>
                </ListItemsDisplay>
             </NoOfListItems>

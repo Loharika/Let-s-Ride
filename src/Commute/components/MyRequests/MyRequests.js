@@ -19,13 +19,14 @@ import {
    MyRequestsTitle
 } from './styledComponents.js'
 
-import { DisplayDropDown } from '../../../Common/components/DisplayDropDown.js'
+import { DisplayDropDown } from '../Common/components/DisplayDropDown.js'
 import strings from '../../i18n/strings.json'
 import { ShowRideRequests } from './ShowRideRequests.js'
 import { ShowAssetTransport } from './ShowAssetTransport.js'
 
 @observer
-class ShowMyRequests extends React.Component {
+class MyRequests extends React.Component {
+   
    displayRequestPage = () => {
       const {
          getRequests,
@@ -35,22 +36,26 @@ class ShowMyRequests extends React.Component {
          rideRequestTableHeaders,
          assetRequestTableHeaders,
          displayRequestType,
-         getAPIError,
-         getAPIStatus,
+         getMyAssetRequestAPIStatus,
+         getMyAssetRequestAPIError,
+         getMyRideRequestAPIStatus,
+         getMyRideRequestAPIError,
          doNetworkCalls
       } = this.props
+     
       switch (displayRequestType) {
          case strings.requestType.ride: {
             return (
                <ShowRideRequests
+               
                   getRequests={getRequests}
                   renderPageRequests={renderPageRequests}
                   onChangeFilter={onChangeFilter}
                   onChangeSortBy={onChangeSortBy}
                   tableHeaders={rideRequestTableHeaders}
                   doNetWorkCalls={doNetworkCalls}
-                  getAPIError={getAPIError}
-                  getAPIStatus={getAPIStatus}
+                  getMyRideRequestAPIStatus={getMyRideRequestAPIStatus}
+                  getMyRideRequestAPIError={getMyRideRequestAPIError}
                />
             )
          }
@@ -63,8 +68,8 @@ class ShowMyRequests extends React.Component {
                   onChangeSortBy={onChangeSortBy}
                   tableHeaders={assetRequestTableHeaders}
                   doNetWorkCalls={doNetworkCalls}
-                  getAPIError={getAPIError}
-                  getAPIStatus={getAPIStatus}
+                  getMyAssetRequestAPIStatus={getMyAssetRequestAPIStatus}
+                     getMyAssetRequestAPIError={getMyAssetRequestAPIError}
                />
             )
          }
@@ -103,7 +108,7 @@ class ShowMyRequests extends React.Component {
          ],
          placeholder: 'Sort'
       }
-
+      
       return (
          <MyRequestsDashboard key={Math.random() + displayRequestType}>
             <MyRequestsTitle>{strings.text.myRequests}</MyRequestsTitle>
@@ -167,4 +172,4 @@ class ShowMyRequests extends React.Component {
       return <React.Fragment>{this.renderSuccessUI()}</React.Fragment>
    }
 }
-export { ShowMyRequests }
+export { MyRequests }
