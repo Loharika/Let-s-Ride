@@ -1,14 +1,9 @@
-
 import React from 'react'
-import { observer,inject } from 'mobx-react'
+import { observer, inject } from 'mobx-react'
 import { Dropdown } from 'semantic-ui-react'
-import 'semantic-ui-css/semantic.min.css';
-import {FaUserCircle} from 'react-icons/fa';
+import 'semantic-ui-css/semantic.min.css'
+
 import { LogoImage } from '../Common/components'
-
-import { Button } from '../Common/components/Button.js'
-
-import { UserProfileIcon } from './UserProfileIcon.js'
 
 import {
    HeaderStyle,
@@ -16,47 +11,53 @@ import {
    LogoImageContainer,
    Shares,
    Requests,
-   SignOutButton,
    ProfileAndSignOut,
-   UserProfile
+   UserProfile,
+   HomePage
 } from './styledComponents.js'
 
 @inject('authStore')
 @observer
 class Header extends React.Component {
    onClickRide = (event, data) => {
-      const {history}=this.props;
-      history.push('/commute-dashboard/ride-request');
+      const { history } = this.props
+      history.push('/commute-dashboard/ride-request')
    }
    onClickAssetRequest = (event, data) => {
-      const {history}=this.props;
-      history.push('/commute-dashboard/asset-transport-request');
+      const { history } = this.props
+      history.push('/commute-dashboard/asset-transport-request')
    }
    onClickShareRide = (event, data) => {
-      const {history}=this.props;
-      history.push('/commute-dashboard/share-ride');
+      const { history } = this.props
+      history.push('/commute-dashboard/share-ride')
    }
    onClickTravelInfo = (event, data) => {
-      const {history}=this.props;
-      history.push('/commute-dashboard/share-travelInfo');
+      const { history } = this.props
+      history.push('/commute-dashboard/share-travelInfo')
    }
-   onClickUserProfile=()=>{
-      
-      const {history}=this.props;
-      history.push('/commute-dashboard/user-profile');
+   onClickUserProfile = () => {
+      const { history } = this.props
+      history.push('/commute-dashboard/user-profile')
    }
-   onClickSignOut=()=>{
-      const {authStore:{userSignOut}}=this.props;
-      userSignOut();
+   onClickSignOut = () => {
+      const {
+         authStore: { userSignOut }
+      } = this.props
+      userSignOut()
+   }
+   onClickHomeButton=()=>{
+       const { history } = this.props
+      history.push('/commute-dashboard/home-page');
    }
    render() {
-      const {onClickSignOut,onClickUserProfile}=this;
+      const { onClickSignOut, onClickUserProfile,onClickHomeButton } = this
       return (
          <HeaderStyle>
             <LogoImageContainer>
                <LogoImage />
             </LogoImageContainer>
             <RiderInfo>
+               <HomePage onClick={onClickHomeButton}>Home</HomePage>
                <Requests>
                   <Dropdown text='Requests' closeOnEscape={true}>
                      <Dropdown.Menu>
@@ -90,14 +91,21 @@ class Header extends React.Component {
                   </Dropdown>
                </Shares>
                <ProfileAndSignOut>
-               
-               
-               <Dropdown closeOnEscape={true} icon={<UserProfile src='https://www.logolynx.com/images/logolynx/b4/b4ef8b89b08d503b37f526bca624c19a.jpeg' alt={'userImage'}/>}>
+                  <Dropdown
+                     closeOnEscape={true}
+                     icon={
+                        <UserProfile
+                           src='https://www.logolynx.com/images/logolynx/b4/b4ef8b89b08d503b37f526bca624c19a.jpeg'
+                           alt={'userImage'}
+                        />
+                     }
+                  >
                      <Dropdown.Menu>
                         <Dropdown.Item
                            text='Edit Profile'
                            value={'editProfile'}
-                           onClick={onClickUserProfile}/>
+                           onClick={onClickUserProfile}
+                        />
                         <Dropdown.Item
                            text='Sign Out'
                            value={'signOut'}
@@ -112,7 +120,3 @@ class Header extends React.Component {
    }
 }
 export { Header }
-
-//<FaUserCircle />
-
-//

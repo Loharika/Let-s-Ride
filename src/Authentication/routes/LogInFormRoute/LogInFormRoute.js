@@ -29,23 +29,12 @@ class LogInPageRoute extends React.Component {
    }
    onSubmit = () => {
       event.preventDefault()
-      let { userName, password } = this
-      const { authStore } = this.props
+      let { userName, password } = this;
       if (userName.length !== 0 && password.length !== 0) {
-         this.displayError = false
-         if (authStore.userName === userName) {
-            if (authStore.password !== password) {
-               this.displayError = true
-               this.password = ''
-               this.errorText = 'Incorrect password'
-            } else {
+               this.displayError = false
                this.onClickLogInButton(this.userName, this.password)
-            }
-         } else {
-            this.displayError = true
-            this.errorText = 'Enter valid details'
-         }
-      } else {
+         } 
+       else {
          this.displayError = true
       }
    }
@@ -71,7 +60,7 @@ class LogInPageRoute extends React.Component {
       const {
          authStore: { access_token }
       } = this.props
-
+      console.log(access_token);    
       if (access_token) {
          this.props.history.push('/commute-dashboard/home-page')
       }

@@ -15,8 +15,6 @@ import {
 } from '../../../styledComponents/styleComponents.js'
 import { Label } from '../../../styleGuides/StyleGuides.js'
 
-
-
 @observer
 class DateAndTime extends React.Component {
    @observable isChanged

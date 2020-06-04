@@ -1,7 +1,7 @@
 import React from 'react'
 import { observer } from 'mobx-react'
-import { InputField } from '../Common/InputField.js';
-import {  LogoImage } from '../Common/LogoImage.js';
+import { InputField } from '../Common/InputField.js'
+import { LogoImage } from '../Common/LogoImage.js'
 import strings from '../../i18n/strings.json'
 import { Button } from '../Common/Button.js'
 import {

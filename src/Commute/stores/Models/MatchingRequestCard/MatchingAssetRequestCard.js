@@ -30,7 +30,6 @@ class MatchingAssetRequestCard {
          this.initIsNotFlexible(props)
       }
       this.addButtonFunction = props.addButtonFunction
-      this.onClickMoreButton = props.onClickMoreButton
    }
    @action.bound
    initIsFlexible(props) {
@@ -46,11 +45,7 @@ class MatchingAssetRequestCard {
       this.isAdded = true
       this.addButtonFunction(this.name)
    }
-   @action.bound
-   onClickShowMoreDetails() {
-      this.showMoreDetails = !this.showMoreDetails
-      this.onClickMoreButton(this.requestDetails)
-   }
+   
 }
 export { MatchingAssetRequestCard }
 

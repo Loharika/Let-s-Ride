@@ -69,16 +69,42 @@ class CommuteService {
       })
    }
    @action
-   matchingAllRequestsAPI(dataToGetMatchingRequests) {
-      return new Promise(resolve => {
+   matchingAllRequestsAPI(matchingRequestsFilter,dataToGetRequests) {
+      
+      switch(matchingRequestsFilter){
+         case 'RIDE':{
+            let requests = {
+                  requests: rideRequestData.requests.filter(
+                  (request, index) =>
+                  index >= dataToGetRequests.offset &&
+                  index < dataToGetRequests.offset + dataToGetRequests.limit
+                  ),
+                  noOfRequests: rideRequestData.noOfRequests
+               }
+            
+            return new Promise(resolve => {
          setTimeout(() => {
-            resolve(
-               allRequestsData.assetRequests.concat(
-                  allRequestsData.rideRequests
-               )
-            )
+            resolve(requests)
+               }, 1000)
+            })
+         }
+         case 'ASSET':{
+            let requests = {
+                  requests: assetRequestData.requests.filter(
+                  (request, index) =>
+                  index >= dataToGetRequests.offset &&
+                  index < dataToGetRequests.offset + dataToGetRequests.limit
+                  ),
+                  noOfRequests: assetRequestData.noOfRequests
+               }
+            return new Promise(resolve => {
+         setTimeout(() => {
+            resolve(requests)
          }, 1000)
       })
+         }
+      }
+      
    }
 }
 export { CommuteService }

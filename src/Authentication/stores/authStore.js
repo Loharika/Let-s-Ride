@@ -14,47 +14,44 @@ class AuthStore {
    authService
    constructor(authService) {
       this.init()
-      this.userName = 'siva'
-      this.password = 'siva'
       this.authService = authService
    }
    @action.bound
    init() {
       this.getUserSignInAPIStatus = API_INITIAL
       this.getUserSignInAPIError = null
-      this.access_token = getAccessToken()
+      this.access_token = getAccessToken();
    }
-   @action.bound
-   userSignUp() {
-      let signInPromise = this.authService.signInAPI()
-      return bindPromiseWithOnSuccess(signInPromise)
-         .to(this.setGetUserSignInAPIStatus, this.setUserSignInAPIResponse)
-         .catch(this.setGetUserSignInAPIError)
-   }
+   // @action.bound
+   // userSignUp() {
+   //    let signInPromise = this.authService.signInAPI()
+   //    return bindPromiseWithOnSuccess(signInPromise)
+   //       .to(this.setGetUserSignInAPIStatus, this.setUserSignInAPIResponse)
+   //       .catch(this.setGetUserSignInAPIError)
+   // }
    @action.bound
    userLogIn(userName, password) {
-      //console.log("--------input---------");
-      //console.log(userName+password);
-      let signInPromise = this.authService.signInAPI(userName, password)
+      let signInPromise = this.authService.signInAPI(userName, password);
       return bindPromiseWithOnSuccess(signInPromise)
          .to(this.setGetUserSignInAPIStatus, this.setUserSignInAPIResponse)
          .catch(this.setGetUserSignInAPIError)
    }
    @action.bound
    setUserSignInAPIResponse(signInResponse) {
-      // console.log("---------status----------");
-      // console.log(signInResponse);
-      const access_token = signInResponse[0].access_token
+      console.log("234567o9876543")
+      console.log(signInResponse);
+      const access_token = signInResponse.access_token
       setAccessToken(access_token)
       this.access_token = access_token
    }
    @action.bound
    setGetUserSignInAPIError(apiError) {
+      console.log("status   "+apiError);
       this.getUserSignInAPIError = apiError
    }
    @action.bound
    setGetUserSignInAPIStatus(apiStatus) {
-      //console.log("status   "+apiStatus);
+      console.log("status   "+apiStatus);
       this.getUserSignInAPIStatus = apiStatus
    }
    @action.bound

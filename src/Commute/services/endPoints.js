@@ -6,4 +6,4 @@ export const endPoints = {
    shareRideInfoApi: '/user/share/ride/v1/',
    shareTravelInfoApi: '/user/share/travel/info/v1/',
    matchingAllRequestsApi: '__'
-};
+}

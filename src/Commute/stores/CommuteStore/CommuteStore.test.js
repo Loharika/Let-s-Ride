@@ -53,7 +53,6 @@ describe('Commute Store Tests', () => {
       expect(commuteStore.getMatchingRequestAPIStatus).toBe(API_INITIAL)
       expect(commuteStore.getMatchingRequestAPIError).toBeNull()
       expect(commuteStore.matchingRequests).toEqual(expect.any(Array))
-      
    })
    it('should test postRideRequest fetching state', () => {
       const mockLoadingPromise = new Promise(function(resolve, reject) {})
@@ -211,7 +210,6 @@ describe('Commute Store Tests', () => {
       commuteStore.getMyRideRequests()
       expect(commuteStore.getMyRideRequestAPIStatus).toBe(API_FETCHING)
       expect(commuteStore.getMyRideRequestAPIError).toBe(null)
-      
    })
 
    it('it should test  MyRide Requests  failure state', async () => {
@@ -240,9 +238,10 @@ describe('Commute Store Tests', () => {
 
       expect(commuteStore.getMyRideRequestAPIStatus).toBe(API_SUCCESS)
       expect(commuteStore.getMyRideRequestAPIError).toBe(null)
-      expect(commuteStore.rideRequests).toStrictEqual(rideRequestData.requests);
-      expect(commuteStore.noOfRideRequests).toStrictEqual(rideRequestData.requests.length);
-      
+      expect(commuteStore.rideRequests).toStrictEqual(rideRequestData.requests)
+      expect(commuteStore.noOfRideRequests).toStrictEqual(
+         rideRequestData.requests.length
+      )
    })
    it('should test get My Asset Requests fetching state', () => {
       const mockLoadingPromise = new Promise(function(resolve, reject) {})
@@ -252,7 +251,6 @@ describe('Commute Store Tests', () => {
       commuteStore.getMyAssetRequests()
       expect(commuteStore.getMyAssetRequestAPIStatus).toBe(API_FETCHING)
       expect(commuteStore.getMyAssetRequestAPIError).toBe(null)
-      
    })
 
    it('it should test  My Asset Requests  failure state', async () => {
@@ -281,10 +279,8 @@ describe('Commute Store Tests', () => {
 
       expect(commuteStore.getMyAssetRequestAPIStatus).toBe(API_SUCCESS)
       expect(commuteStore.getMyAssetRequestAPIError).toBe(null)
-      expect(commuteStore.assetRequests).toEqual(assetRequestData.requests);
-      expect(commuteStore.noOfAssetRequests).toBe(assetRequestData.noOfRequests);
-      
-      
+      expect(commuteStore.assetRequests).toEqual(assetRequestData.requests)
+      expect(commuteStore.noOfAssetRequests).toBe(assetRequestData.noOfRequests)
    })
    it('should test get Matching Requests fetching state', () => {
       const mockLoadingPromise = new Promise(function(resolve, reject) {})
@@ -294,7 +290,6 @@ describe('Commute Store Tests', () => {
       commuteStore.getAllMatchingRequests()
       expect(commuteStore.getMatchingRequestAPIStatus).toBe(API_FETCHING)
       expect(commuteStore.getMatchingRequestAPIError).toBe(null)
-      
    })
 
    it('it should test   get Matching Requests  failure state', async () => {
@@ -324,9 +319,8 @@ describe('Commute Store Tests', () => {
       expect(commuteStore.getMatchingRequestAPIStatus).toBe(API_SUCCESS)
       expect(commuteStore.getMatchingRequestAPIError).toBe(null)
       expect(commuteStore.matchingRequests).toEqual(allRequestsData)
-      
    })
-   
+
    it('it should check the function setGetRideRequestAPIStatus', () => {
       commuteStore.setGetRideRequestAPIStatus('success')
       expect(commuteStore.getRideRequestAPIStatus).toBe('success')
@@ -368,7 +362,7 @@ describe('Commute Store Tests', () => {
       expect(commuteStore.getMyRideRequestAPIError).toBe('failure')
    })
    it('it should check the function setGetMyRideRequestAPIResponse', () => {
-      const response={requests:[],noOfRequests:0};
+      const response = { requests: [], noOfRequests: 0 }
       commuteStore.setGetMyRideRequestAPIResponse(response)
       expect(commuteStore.rideRequests).toStrictEqual(response.requests)
       expect(commuteStore.noOfRideRequests).toBe(response.noOfRequests)
@@ -382,7 +376,7 @@ describe('Commute Store Tests', () => {
       expect(commuteStore.getMyAssetRequestAPIError).toBe('failure')
    })
    it('it should check the function setGetMyRideRequestAPIResponse', () => {
-      const response={requests:[],noOfRequests:0};
+      const response = { requests: [], noOfRequests: 0 }
       commuteStore.setGetMyRideRequestAPIResponse(response)
       expect(commuteStore.assetRequests).toStrictEqual(response.requests)
       expect(commuteStore.noOfAssetRequests).toBe(response.noOfRequests)
@@ -396,9 +390,8 @@ describe('Commute Store Tests', () => {
       expect(commuteStore.getMatchingRequestAPIError).toBe('failure')
    })
    it('it should check the function setGetMatchingRequestAPIResponse', () => {
-      const response={requests:[],noOfRequests:0};
+      const response = { requests: [], noOfRequests: 0 }
       commuteStore.setGetMatchingRequestAPIResponse(response)
       expect(commuteStore.matchingRequests).toStrictEqual(response)
    })
-   
 })

@@ -3,7 +3,7 @@ import {observer,inject} from 'mobx-react';
 import {action} from 'mobx';
 import { Pagination } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css'
-
+import { RiAddLine } from 'react-icons/ri'
 import { DisplayDropDown } from '../Common/components/DisplayDropDown.js'
 
 import { ShowRideRequests } from './ShowRideRequests.js'
@@ -18,6 +18,7 @@ import {
    FilterAndSort,
    Footer,
    Pages,
+   AddRequestButton
 } from './styledComponents.js'
 
 import {
@@ -47,7 +48,7 @@ const filterOptions = {
 
 @inject('commuteStore')
 @observer
-class MatchingResults extends React.Component{
+class Requests extends React.Component{
     constructor(){
         super();
       this.rideRequestTableHeaders = [
@@ -73,30 +74,30 @@ class MatchingResults extends React.Component{
       
       onChangePageNumber = (event, data) => {
             const {commuteStore:{onChangePageNumber}}=this.props;
-            onChangePageNumber('matchingResults',data.activePage);
-            const {doNetWorkCallsForMatchingRequests}=this.props;
-            doNetWorkCallsForMatchingRequests();
+            onChangePageNumber('myRequests',data.activePage);
+            const {doNetWorkCallsForRequests}=this.props;
+            doNetWorkCallsForRequests();
             
       }
       onClickRequestType = requestType => {
          const {commuteStore:{onChangeRequestType}}=this.props;
-         onChangeRequestType('matchingResults',requestType);
-         const {doNetWorkCallsForMatchingRequests}=this.props;
-            doNetWorkCallsForMatchingRequests();
+         onChangeRequestType('myRequests',requestType);
+         const {doNetWorkCallsForRequests}=this.props;
+            doNetWorkCallsForRequests();
       }
       @action.bound
       onChangeSortBy(sortBy) {
          const {commuteStore:{onChangeSortBy}}=this.props;
-         onChangeSortBy('matchingResults',sortBy);
-         const {doNetWorkCallsForMatchingRequests}=this.props;
-            doNetWorkCallsForMatchingRequests();
+         onChangeSortBy('myRequests',sortBy);
+         const {doNetWorkCallsForRequests}=this.props;
+            doNetWorkCallsForRequests();
       }
       @action.bound
       onChangeFilter(filterBy) {
          const {commuteStore:{onChangeFilter}}=this.props;
-         onChangeFilter('matchingResults',filterBy);
-         const {doNetWorkCallsForMatchingRequests}=this.props;
-            doNetWorkCallsForMatchingRequests();
+         onChangeFilter('myRequests',filterBy);
+         const {doNetWorkCallsForRequests}=this.props;
+            doNetWorkCallsForRequests();
          
       }
       @action.bound
@@ -107,12 +108,12 @@ class MatchingResults extends React.Component{
       @action.bound
       getMatchingResults(){
          const {commuteStore:{displayData}}=this.props;
-         switch(displayData.matchingResults.requestType){
+         switch(displayData.myRequests.requestType){
             case 'RIDE':{
-               return displayData.matchingResults.rideRequests
+               return displayData.myRequests.rideRequests
             }
             case 'ASSET':{
-               return displayData.matchingResults.assetRequests
+               return displayData.myRequests.assetRequests
             }
          }
       }
@@ -138,41 +139,41 @@ class MatchingResults extends React.Component{
    }
    @action.bound
    renderSuccessUI(){
-      const {commuteStore:{displayData,getMatchingRequestAPIStatus,getMatchingRequestAPIError}}=this.props;
-      const {doNetWorkCallsForMatchingRequests}=this.props;
-        let requestType=displayData.matchingResults.requestType;
-        const {getMatchingRequestsAsModels,rideRequestTableHeaders,assetRequestTableHeaders}=this;
+      const {commuteStore:{displayData,getMyRideRequestAPIStatus,getMyRideRequestAPIError,getMyAssetRequestAPIStatus,getMyAssetRequestAPIError}}=this.props;
+      const {doNetWorkCallsForRequests}=this.props;
+        let requestType=displayData.myRequests.requestType;
+        const {rideRequestTableHeaders,assetRequestTableHeaders,getMatchingResults}=this;
       
       switch(requestType){
          case 'RIDE':{
             return (
                <ShowRideRequests
-                  getRequests={getMatchingRequestsAsModels}
+                  getRequests={getMatchingResults}
                   tableHeaders={rideRequestTableHeaders}
-                  doNetWorkCalls={doNetWorkCallsForMatchingRequests}
-                  getMatchingRequestAPIStatus={getMatchingRequestAPIStatus}
-                  getMatchingRequestAPIError={getMatchingRequestAPIError}
+                  doNetWorkCalls={doNetWorkCallsForRequests}
+                  getMyRideRequestAPIStatus={getMyRideRequestAPIStatus}
+                  getMyRideRequestAPIError={getMyRideRequestAPIError}
                />)
          }
          case 'ASSET':{
             return (
                <ShowAssetTransport
-                  getRequests={getMatchingRequestsAsModels}
+                  getRequests={getMatchingResults}
                   tableHeaders={assetRequestTableHeaders}
-                  doNetWorkCalls={doNetWorkCallsForMatchingRequests}
-                  getMatchingRequestAPIStatus={getMatchingRequestAPIStatus}
-                  getMatchingRequestAPIError={getMatchingRequestAPIError}
+                  doNetWorkCalls={doNetWorkCallsForRequests}
+                  getMyAssetRequestAPIStatus={getMyAssetRequestAPIStatus}
+                  getMyAssetRequestAPIError={getMyAssetRequestAPIError}
                />)
          }
       }
    }
     render(){
         const {onClickRequestType,onChangeSortBy,onChangeFilter,onChangePageNumber}=this;
-        const {commuteStore:{displayData,limit}}=this.props;
-        let requestType=displayData.matchingResults.requestType;
-        const noOfRequests=requestType==='RIDE'?displayData.matchingResults.noOfRideRequests:displayData.matchingResults.noOfAssetRequests;
+        const {commuteStore:{displayData,limit},addRequestButton}=this.props;
+        let requestType=displayData.myRequests.requestType;
+        const noOfRequests=requestType==='RIDE'?displayData.myRequests.noOfRideRequests:displayData.myRequests.noOfAssetRequests;
         const totalNumberOfPages=Math.ceil(noOfRequests/limit);
-        const pageNumber=requestType==='RIDE'?displayData.matchingResults.rideRequestPageNumber:displayData.matchingResults.assetRequestPageNumber;
+        const pageNumber=requestType==='RIDE'?displayData.myRequests.rideRequestPageNumber:displayData.myRequests.assetRequestPageNumber;
         return (
            <MyRequestsDashboard key={Math.random() + requestType}>
             <MyRequestsHeader>
@@ -206,7 +207,11 @@ class MatchingResults extends React.Component{
             </RequestHeader>
             {this.renderSuccessUI()}
             <Footer>
-               
+               <AddRequestButton
+                  onClick={() => addRequestButton(requestType)}
+               >
+                  <RiAddLine /> &nbsp;Add {requestType}
+               </AddRequestButton>
                {totalNumberOfPages !== 0 ? (
                   <Pages>
                      {pageNumber} to {totalNumberOfPages}
@@ -229,4 +234,4 @@ class MatchingResults extends React.Component{
             );
     }
 }
-export {MatchingResults}
+export {Requests}

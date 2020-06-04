@@ -3,7 +3,6 @@ import { observer } from 'mobx-react'
 import { DateAndTime } from './DateTime.js'
 import { FlexibleDateAndTimeStyle } from '../../../styledComponents/styleComponents.js'
 
-
 @observer
 class FlexibleDateTime extends React.Component {
    constructor() {

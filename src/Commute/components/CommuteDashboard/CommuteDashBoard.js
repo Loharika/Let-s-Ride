@@ -2,21 +2,16 @@ import React from 'react'
 import { observer, inject } from 'mobx-react'
 import { observable, action } from 'mobx'
 
-
-
-import { CommuteDashboardDisplay, AllRequests,
-    
+import { CommuteDashboardDisplay,
     MatchingResultsSelector,
     MyRequestsSelector,
     SharedDetailsSelector,
     Selectors,
-    
-} from './styledComponents.js'
+} from './styledComponents.js';
 
-import {MyRequests} from '../MyRequests';
 import {MatchingResults} from '../MatchingResults';
+import {Requests} from '../Requests';
 
-import strings from '../../i18n/strings.json'
 
 @inject('commuteStore','authStore')
 @observer
@@ -29,11 +24,11 @@ class DashBoard extends React.Component {
    
    @action.bound
    onClickSelector(selector){
-       const {doNetWorkCallsForMatchingRequests,doNetWorkCallsForMyRequests}=this.props;
+       const {doNetWorkCallsForMatchingRequests,doNetWorkCallsForRequests}=this.props;
        this.selector=selector;
        switch(this.selector){
            case 'myRequests':{
-               doNetWorkCallsForMyRequests();
+               doNetWorkCallsForRequests();
                return ;
            }
            case 'matchingResults':{
@@ -46,63 +41,23 @@ class DashBoard extends React.Component {
        }
    }
    renderPage = () => {
-              const {
-                 limit,
-                 onChangeFilter,
-                 onChangeSortBy,
-                 onChangePageNumber,
-                 pageNumber,
-                 displayRequestType,
-                 getRequests,
-                 totalNumberOfPages,
-                 doNetWorkCallsForMyRequests,
-                 onClickRequestType,
-                 addRequestButton,
-                 rideRequestTableHeaders,
-                 assetRequestTableHeaders
-              } = this.props
-
-              const {
+              const {addRequestButton,
                  doNetWorkCallsForMatchingRequests,
-                 onChangeMatchingRequestsFilter,
-                 getMatchingRequests
+                 doNetWorkCallsForRequests
               } = this.props
-
-            const {commuteStore: {getMatchingRequestAPIStatus,getMatchingRequestAPIError}} = this.props
-             const {commuteStore:{getMyRideRequestAPIStatus,getMyRideRequestAPIError,getMyAssetRequestAPIStatus,getMyAssetRequestAPIError}}=this.props;
-            
+                
+            const {commuteStore: {getMatchingRequestAPIStatus,getMatchingRequestAPIError,noOfAssetRequests}} = this.props
+             const {commuteStore:{getMyRideRequestAPIStatus,getMyRideRequestAPIError,
+             getMyAssetRequestAPIStatus,getMyAssetRequestAPIError}}=this.props;
+             
             switch(this.selector){
                 case 'myRequests':{
-                    return (
-                  <MyRequests
-                    
-                     doNetWorkCallsForMyRequests={doNetWorkCallsForMyRequests}
-                     
-                     getMyRideRequestAPIStatus={getMyRideRequestAPIStatus}
-                     getMyRideRequestAPIError={getMyRideRequestAPIError}
-                     getMyAssetRequestAPIStatus={getMyAssetRequestAPIStatus}
-                     getMyAssetRequestAPIError={getMyAssetRequestAPIError}
-                     
-                     getRequests={getRequests}
-                     totalNumberOfPages={totalNumberOfPages}
-                     onChangePageNumber={onChangePageNumber}
-                     onClickRequestType={onClickRequestType}
-                     onChangeSortBy={onChangeSortBy}
-                     onChangeFilter={onChangeFilter}
-                     limit={limit}
-                     pageNumber={pageNumber}
-                     displayRequestType={displayRequestType}
-                     rideRequestTableHeaders={rideRequestTableHeaders}
-                     assetRequestTableHeaders={assetRequestTableHeaders}
-                     addRequestButton={addRequestButton}
-                  />
-                  )}
+                  return <Requests key={Math.random()+'myrequests'}doNetWorkCallsForRequests={doNetWorkCallsForRequests}
+                      addRequestButton={addRequestButton}/>;
+                }
                   case 'matchingResults':{
-                      return <MatchingResults
-                       
+                      return <MatchingResults key={Math.random()+'matchingrequests'}
                       doNetWorkCallsForMatchingRequests={doNetWorkCallsForMatchingRequests}
-                      
-                      
                       />;
                   }
                   case 'sharedDetails':{
@@ -132,19 +87,7 @@ class DashBoard extends React.Component {
                 </Selectors>
                {this.renderPage()}
             </CommuteDashboardDisplay>
-      )
+      );
    }
 }
 export {DashBoard};
-
-//<AllRequests>
-                  /*<MatchingRequests
-                     getMatchingRequests={getMatchingRequests}
-                     onChangeMatchingRequestsFilter={
-                    onChangeMatchingRequestsFilter
-                     }
-                     getMatchingRequestAPIStatus={getMatchingRequestAPIStatus}
-                     getMatchingRequestAPIError={getMatchingRequestAPIError}
-                     doNetworkCalls={doNetWorkCallsForMatchingRequests}
-                  />*/
-                  

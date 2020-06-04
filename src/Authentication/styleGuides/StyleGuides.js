@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import colors from '../../Common/Theme/Colors.json';
+import colors from '../../Common/Theme/Colors.json'
 
 export const Typo14DarkBlueGreyHKGroteskRegular = styled.span`
    font-family: HKGrotesk;
@@ -15,7 +15,7 @@ export const Label = styled.label`
    font-stretch: normal;
    font-style: normal;
    letter-spacing: 0.12px;
-   color:${colors.steel};
+   color: ${colors.steel};
    margin: 2px;
 `
 
@@ -53,7 +53,7 @@ export const Typo18BrightBlueRobotoRegular = styled.span`
    font-style: normal;
    line-height: 1.33;
    letter-spacing: normal;
-   color:  ${colors.brightBlue}; 
+   color: ${colors.brightBlue};
 `
 export const Typo14SteelHKGroteSkRegular = styled.span`
    font-family: HKGrotesk;
@@ -63,7 +63,7 @@ export const Typo14SteelHKGroteSkRegular = styled.span`
    font-style: normal;
    line-height: 1.71;
    letter-spacing: normal;
-   color:${colors.steel};
+   color: ${colors.steel};
    padding: 2px;
    margin: 2px;
 `
@@ -75,8 +75,7 @@ export const Typo20DarkBlueGreyHKGrotestBold = styled.span`
    font-style: normal;
    line-height: 1.6;
    letter-spacing: normal;
-   color: ${colors.darkBlueGrey};;
-   
+   color: ${colors.darkBlueGrey};
 `
 export const Typo12HKGroteskSemiBoldSteel = styled.span`
    font-family: HKGrotesk;
@@ -86,7 +85,7 @@ export const Typo12HKGroteskSemiBoldSteel = styled.span`
    font-style: normal;
    line-height: 1.33;
    letter-spacing: 0.12px;
-   color:${colors.steel};
+   color: ${colors.steel};
 `
 export const Typo12BrightBlueRubikRegular = styled.span`
    font-family: Rubik;
@@ -106,5 +105,5 @@ export const Typo12YellowOrangeRubikRegular = styled.span`
    font-style: normal;
    line-height: 1.33;
    letter-spacing: normal;
-   color:${colors.yellowOrange};
+   color: ${colors.yellowOrange};
 `

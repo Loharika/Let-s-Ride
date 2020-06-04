@@ -2,8 +2,8 @@ import React from 'react'
 import { observable, action } from 'mobx'
 
 class MatchingRideRequestCard {
-   @observable isAdded
-   @observable showMoreDetails
+   @observable isAdded;
+   @observable showMoreDetails;
 
    constructor(props) {
       this.requestDetails = props.request
@@ -15,6 +15,7 @@ class MatchingRideRequestCard {
       this.to = props.request.to
       this.noOfSeats = props.request.noOfSeats
       this.noOfLuggages = props.request.noOfLuggages
+      this.acceptedPersonDetails=props.request.acceptedPersonDetails;
       this.isFlexible = props.request.hasOwnProperty('startTime')
       this.isAdded = false
       this.showMoreDetails = false
@@ -24,7 +25,6 @@ class MatchingRideRequestCard {
          this.initIsNotFlexible(props)
       }
       this.addButtonFunction = props.addButtonFunction
-      this.onClickMoreButton = props.onClickMoreButton
    }
    @action.bound
    initIsFlexible(props) {
@@ -40,11 +40,6 @@ class MatchingRideRequestCard {
       this.isAdded = true
 
       this.addButtonFunction(this.name)
-   }
-   @action.bound
-   onClickShowMoreDetails() {
-      this.showMoreDetails = !this.showMoreDetails
-      this.onClickMoreButton(this.requestDetails)
    }
 }
 export { MatchingRideRequestCard }

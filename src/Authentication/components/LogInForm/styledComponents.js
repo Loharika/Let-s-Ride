@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import colors from '../../../Common/Theme/Colors.json';
+import colors from '../../../Common/Theme/Colors.json'
 import {
    Typo32DarkBlueGreyRubikRegular,
    Typo14DarkBlueGreyHKGroteskRegular,

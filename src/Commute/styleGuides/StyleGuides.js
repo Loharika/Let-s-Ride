@@ -1,9 +1,9 @@
 import styled from '@emotion/styled'
-import colors from '../../Common/Theme/Colors';
+import colors from '../../Common/Theme/Colors'
 export const Typo14DarkBlueGreyHKGroteskRegular = styled.span`
    font-family: HKGrotesk;
    font-size: 14px;
-   color:${colors.darkBlueGrey};
+   color: ${colors.darkBlueGrey};
 `
 
 export const Label = styled.label`

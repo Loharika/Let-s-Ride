@@ -1,5 +1,5 @@
-import styled from '@emotion/styled';
-import colors from '../../../Common/Theme/Colors';
+import styled from '@emotion/styled'
+import colors from '../../../Common/Theme/Colors'
 import {
    Typo32DarkBlueGreyRubikRegular,
    Typo12BrightBlueRubikRegular,
@@ -15,7 +15,7 @@ export const Title = styled(Typo32DarkBlueGreyRubikRegular)`
    width: 200px;
 `
 export const DropDown = styled.div`
-   border: 2p solid  ${colors.black};
+   border: 2p solid ${colors.black};
 `
 export const MatchingRequestsDisplay = styled.div`
    width: 70%;
@@ -36,7 +36,7 @@ export const Card = styled.div`
    justify-content: start;
    align-items: center;
    border: 2px solid ${colors.whiteSmoke};
-   background-color:${colors.white};
+   background-color: ${colors.white};
 `
 //box-shadow: 0 4px 40px 0 rgba(23, 31, 70, 0.16);
 export const RequestTypeRide = styled(Typo12BrightBlueRubikRegular)`
@@ -47,7 +47,7 @@ export const RequestTypeRide = styled(Typo12BrightBlueRubikRegular)`
 export const RequestTypeAsset = styled(Typo12YellowOrangeRubikRegular)`
    padding: 3px 4px;
    align-self: start;
-   background-color:${colors.yellowOrange2}; 
+   background-color: ${colors.yellowOrange2};
 `
 export const ProfileIcon = styled.div`
    display: flex;
@@ -55,7 +55,7 @@ export const ProfileIcon = styled.div`
    align-items: center;
 `
 export const AddButton = styled.button`
-   border: 2px solid ${colors.lightgrey}; 
+   border: 2px solid ${colors.lightgrey};
    text-align: center;
    width: 100%;
    margin: auto;

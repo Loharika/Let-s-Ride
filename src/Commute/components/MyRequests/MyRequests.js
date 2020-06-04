@@ -1,6 +1,6 @@
 import React from 'react'
 import { observable, action } from 'mobx'
-import { observer } from 'mobx-react'
+import { observer,inject } from 'mobx-react'
 import { Pagination, Icon } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css'
 import { BsFilter } from 'react-icons/bs'
@@ -15,8 +15,7 @@ import {
    FilterAndSort,
    Footer,
    AddRequestButton,
-   Pages,
-   MyRequestsTitle
+   Pages
 } from './styledComponents.js'
 
 import { DisplayDropDown } from '../Common/components/DisplayDropDown.js'
@@ -24,6 +23,7 @@ import strings from '../../i18n/strings.json'
 import { ShowRideRequests } from './ShowRideRequests.js'
 import { ShowAssetTransport } from './ShowAssetTransport.js'
 
+@inject('commuteStore')
 @observer
 class MyRequests extends React.Component {
    
@@ -36,13 +36,13 @@ class MyRequests extends React.Component {
          rideRequestTableHeaders,
          assetRequestTableHeaders,
          displayRequestType,
-         getMyAssetRequestAPIStatus,
+         
+         doNetWorkCallsForMyRequests:doNetworkCalls
+      } = this.props
+     const {commuteStore:{getMyAssetRequestAPIStatus,
          getMyAssetRequestAPIError,
          getMyRideRequestAPIStatus,
-         getMyRideRequestAPIError,
-         doNetworkCalls
-      } = this.props
-     
+         getMyRideRequestAPIError,}}=this.props;
       switch (displayRequestType) {
          case strings.requestType.ride: {
             return (
@@ -78,7 +78,7 @@ class MyRequests extends React.Component {
    @action.bound
    renderSuccessUI() {
       const {
-         limit,
+      limit,
          onChangeFilter,
          onChangeSortBy,
          onChangePageNumber,
@@ -111,7 +111,6 @@ class MyRequests extends React.Component {
       
       return (
          <MyRequestsDashboard key={Math.random() + displayRequestType}>
-            <MyRequestsTitle>{strings.text.myRequests}</MyRequestsTitle>
             <MyRequestsHeader>
                <MyRequestType
                   onClick={() => onClickRequestType(strings.requestType.ride)}

@@ -1,3 +1,3 @@
-import withHeader from './withHeader.js';
+import withHeader from './withHeader.js'
 
-export {withHeader};
+export { withHeader }

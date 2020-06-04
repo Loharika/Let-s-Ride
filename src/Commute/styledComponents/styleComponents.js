@@ -1,6 +1,6 @@
 import styled from '@emotion/styled'
 
-import colors from '../../Common/Theme/Colors';
+import colors from '../../Common/Theme/Colors'
 export const Star = styled.sup`
    color: red;
 `
@@ -103,7 +103,7 @@ export const ButtonStyle = styled.button`
    width: 100%;
    height: 40px;
    border-radius: 4px;
-   background-color:${colors.brightBlue};
+   background-color: ${colors.brightBlue};
    color: white;
    margin: 3px;
    padding: 3px;
@@ -122,7 +122,10 @@ export const InputTag = styled.input`
    height: 30px;
    margin-top: 2px;
    flex-grow: 1;
-   border: ${props => (props.isError ? `1px solid ${colors.neonRed}` : `1px solid ${colors.lightBlueGrey}`)};
+   border: ${props =>
+      props.isError
+         ? `1px solid ${colors.neonRed}`
+         : `1px solid ${colors.lightBlueGrey}`};
 `
 
 export const ErrorStyle = styled.div`
@@ -136,7 +139,7 @@ export const InputFieldWithLabel = styled.div`
    width: 100%;
 `
 export const ErrorSymbol = styled.span`
-   color:${colors.white};
+   color: ${colors.white};
    position: absolute;
    right: 10px;
    top: 10px;

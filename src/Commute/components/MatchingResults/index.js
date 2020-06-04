@@ -1,3 +1,3 @@
-import {MatchingResults}  from './MatchingResults.js';
+import { MatchingResults } from './MatchingResults.js'
 
-export {MatchingResults};
+export { MatchingResults }

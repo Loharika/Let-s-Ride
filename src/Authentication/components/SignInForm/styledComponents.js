@@ -5,14 +5,14 @@ import {
    Typo14DarkBlueGreyHKGroteskRegular
 } from '../../styleGuides/StyleGuides.js'
 
-import colors from '../../../Common/Theme/Colors.json';
+import colors from '../../../Common/Theme/Colors.json'
 
 const FormType = styled.form`
    width: 350px;
 
    height: 500px;
    border-radius: 8px;
-   background-color:${colors.white}; 
+   background-color: ${colors.white};
    display: flex;
    flex-direction: column;
    justify-content: space-around;
@@ -31,11 +31,11 @@ const FormDashBoard = styled.div`
    background-color: ${colors.Gray98};
 `
 const LogInPageLink = styled.a`
-   color:${colors.brightBlue};
+   color: ${colors.brightBlue};
 `
 
 const PasswordAlert = styled.span`
-   color:  ${colors.neonRed};
+   color: ${colors.neonRed};
    font-size: 13px;
 `
 export {

@@ -1,16 +1,12 @@
 import React from 'react'
 import { observable, action } from 'mobx'
-import { observer ,inject} from 'mobx-react'
+import { observer, inject } from 'mobx-react'
 
 import { Typo20DarkBlueGreyHKGrotestBold as FormHeadingText } from '../../styleGuides/StyleGuides.js'
-import {
-   Form,
-   FormDashboard
-} from '../../styledComponents/styleComponents.js';
-
+import { Form, FormDashboard } from '../../styledComponents/styleComponents.js'
 
 import { withRouter } from 'react-router-dom'
-import {withHeader} from '../../Hocs/withHeader';
+import { withHeader } from '../../Hocs/withHeader'
 
 import { InputField } from '../Common/components/InputField.js'
 import { DateAndTime } from '../Common/components/DateTime.js'
@@ -81,7 +77,9 @@ class ShareRide extends React.Component {
    }
    onSubmitRequest = () => {
       this.displayError = true
-      const { commuteStore:{shareRideInfo} } = this.props
+      const {
+         commuteStore: { shareRideInfo }
+      } = this.props
       let formDetails = [
          this.from,
          this.to,
@@ -157,68 +155,68 @@ class ShareRide extends React.Component {
 
       return (
          <FormDashboard>
-         <Form>
-            <FormHeadingText>{strings.text.shareRide}</FormHeadingText>
-            <InputField
-               placeholderText={strings.placeholderText.ex}
-               type={strings.type.text}
-               label={strings.label.from}
-               onChange={onChangeRequestFrom}
-               value={from}
-               displayError={displayError}
-            />
-            <InputField
-               placeholderText={strings.placeholderText.ex}
-               type={strings.type.text}
-               label={strings.label.to}
-               onChange={onChangeRequestTo}
-               value={to}
-               displayError={displayError}
-            />
-            {isCheckedFlexibleTimings ? (
-               <FlexibleDateTime
-                  onChangeFromTime={onChangeFromTime}
-                  onChangeToTime={onChangeToTime}
-                  startDateTime={startDateTime}
-                  endDateTime={endDateTime}
+            <Form>
+               <FormHeadingText>{strings.text.shareRide}</FormHeadingText>
+               <InputField
+                  placeholderText={strings.placeholderText.ex}
+                  type={strings.type.text}
+                  label={strings.label.from}
+                  onChange={onChangeRequestFrom}
+                  value={from}
                   displayError={displayError}
                />
-            ) : (
-               <DateAndTime
-                  label={strings.label.dateAndTime}
-                  onChangeTime={onChangeTime}
-                  dateAndTime={dateTime}
+               <InputField
+                  placeholderText={strings.placeholderText.ex}
+                  type={strings.type.text}
+                  label={strings.label.to}
+                  onChange={onChangeRequestTo}
+                  value={to}
                   displayError={displayError}
                />
-            )}
-            <FlexibleTimings>
-               <CheckBox
-                  type={strings.type.checkbox}
-                  onClick={onClickFlexibleTimings}
+               {isCheckedFlexibleTimings ? (
+                  <FlexibleDateTime
+                     onChangeFromTime={onChangeFromTime}
+                     onChangeToTime={onChangeToTime}
+                     startDateTime={startDateTime}
+                     endDateTime={endDateTime}
+                     displayError={displayError}
+                  />
+               ) : (
+                  <DateAndTime
+                     label={strings.label.dateAndTime}
+                     onChangeTime={onChangeTime}
+                     dateAndTime={dateTime}
+                     displayError={displayError}
+                  />
+               )}
+               <FlexibleTimings>
+                  <CheckBox
+                     type={strings.type.checkbox}
+                     onClick={onClickFlexibleTimings}
+                  />
+                  <FlexibleTimingsLabel>
+                     {strings.label.flexibleTimings}
+                  </FlexibleTimingsLabel>
+               </FlexibleTimings>
+               <DisplayListOfElements
+                  listData={{ title: strings.text.noOfSeatsAvailable }}
+                  onChange={onChangeNoOfSeats}
+                  displayError={displayError}
+                  intial={seats}
                />
-               <FlexibleTimingsLabel>
-                  {strings.label.flexibleTimings}
-               </FlexibleTimingsLabel>
-            </FlexibleTimings>
-            <DisplayListOfElements
-               listData={{ title: strings.text.noOfSeatsAvailable }}
-               onChange={onChangeNoOfSeats}
-               displayError={displayError}
-               intial={seats}
-            />
-            <DisplayListOfElements
-               listData={{ title: strings.text.noOfLuggages }}
-               onChange={onChangeNoOfLuggages}
-               displayError={displayError}
-               intial={luggages}
-            />
-            <Button
-               buttonText={strings.text.shareText}
-               onClickFunction={onSubmitRequest}
-            />
-         </Form>
+               <DisplayListOfElements
+                  listData={{ title: strings.text.noOfLuggages }}
+                  onChange={onChangeNoOfLuggages}
+                  displayError={displayError}
+                  intial={luggages}
+               />
+               <Button
+                  buttonText={strings.text.shareText}
+                  onClickFunction={onSubmitRequest}
+               />
+            </Form>
          </FormDashboard>
       )
    }
 }
-export default withRouter(withHeader(ShareRide));
+export default withRouter(withHeader(ShareRide))

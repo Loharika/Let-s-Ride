@@ -27,7 +27,6 @@ toast.configure()
 
 @observer
 class MatchingRequests extends React.Component {
-  
    @action.bound
    getMatchingRequests() {
       const { getMatchingRequests } = this.props

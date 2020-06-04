@@ -14,7 +14,6 @@ import {
    Label
 } from '../../../styleGuides/StyleGuides.js'
 
-
 @observer
 class DisplayListOfElements extends Component {
    @observable count

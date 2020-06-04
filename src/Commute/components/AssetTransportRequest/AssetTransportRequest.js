@@ -1,14 +1,11 @@
 import React from 'react'
-import { observer ,inject} from 'mobx-react'
-import { observable, action } from 'mobx';
+import { observer, inject } from 'mobx-react'
+import { observable, action } from 'mobx'
 
 import { Typo20DarkBlueGreyHKGrotestBold as FormHeadingText } from '../../styleGuides/StyleGuides.js'
-import {
-   Form,
-   FormDashboard
-} from '../../styledComponents/styleComponents.js';
+import { Form, FormDashboard } from '../../styledComponents/styleComponents.js'
 import { withRouter } from 'react-router-dom'
-import {withHeader} from '../../Hocs/withHeader';
+import { withHeader } from '../../Hocs/withHeader'
 import { InputField } from '../Common/components/InputField.js'
 import { DateAndTime } from '../Common/components/DateTime.js'
 import { FlexibleDateTime } from '../Common/components/FlexibleDateTime.js'
@@ -131,7 +128,9 @@ class AssetTransportRequest extends React.Component {
    }
    onSubmitRequest = () => {
       this.displayError = true
-      const { commuteStore:{postAssetTransportRequest} } = this.props
+      const {
+         commuteStore: { postAssetTransportRequest }
+      } = this.props
       let formDetails = [
          this.from,
          this.to,
@@ -162,7 +161,7 @@ class AssetTransportRequest extends React.Component {
                details: this.details
             }
             postAssetTransportRequest(assetRequestData)
-            
+
             this.init()
             this.displayError = false
          }
@@ -186,7 +185,7 @@ class AssetTransportRequest extends React.Component {
                details: this.details
             }
             postAssetTransportRequest(assetRequestData)
-            
+
             this.init()
             this.displayError = false
          }
@@ -291,4 +290,4 @@ class AssetTransportRequest extends React.Component {
       )
    }
 }
-export default withRouter(withHeader(AssetTransportRequest));
+export default withRouter(withHeader(AssetTransportRequest))

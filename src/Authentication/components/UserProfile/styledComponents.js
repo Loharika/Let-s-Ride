@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import colors from '../../../Common/Theme/Colors.json';
+import colors from '../../../Common/Theme/Colors.json'
 
 export const UserImage = styled.img`
    width: 150px;
@@ -37,7 +37,7 @@ export const UserDetail = styled.div`
    margin: 10px;
 `
 export const UserDetailElement = styled.input`
-   border: 1px solid  ${colors.lightgrey};;
+   border: 1px solid ${colors.lightgrey};
    padding: 2px;
    color: grey;
 `

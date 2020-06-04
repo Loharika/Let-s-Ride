@@ -1,7 +1,7 @@
 import React from 'react'
 import { observer } from 'mobx-react'
 
-import LoadingWrapperWithFailure from '../../../Common/components/common/LoadingWrapperWithFailure'
+import strings from '../../i18n/strings.json'
 import {
    RequestDetailsTable,
    TableCellLeftAligned,
@@ -11,21 +11,29 @@ import {
    StatusButton
 } from './styledComponents.js'
 
+import LoadingWrapperWithFailure from '../../../Common/components/common/LoadingWrapperWithFailure'
+
 @observer
-class ShowAssetTransport extends React.Component {
+class ShowRideRequests extends React.Component {
    renderSuccessUI = () => {
       const { tableHeaders, getRequests } = this.props
-      const rideRequests = getRequests('asset')
+      const rideRequests = getRequests();
+
       return (
          <RequestDetailsTable>
-            <TableRow>
+            <TableRow key={Math.random()}>
                {tableHeaders.map(eachOne => {
-                  return <TableHeader>{eachOne}</TableHeader>
+                  return (
+                     <TableHeader key={Math.random()}>{eachOne}</TableHeader>
+                  )
                })}
             </TableRow>
             {Object.values(rideRequests).map(request => {
                return (
-                  <TableRow>
+                  <TableRow key={Math.random() + request.id}>
+                     <TableCellLeftAligned>
+                          { request.acceptedPersonDetails}
+                     </TableCellLeftAligned>
                      <TableCellLeftAligned>{request.from}</TableCellLeftAligned>
                      <TableCellLeftAligned>{request.to}</TableCellLeftAligned>
                      <TableCellLeftAligned>
@@ -42,22 +50,11 @@ class ShowAssetTransport extends React.Component {
                         {request.noOfSeats}
                      </TableCellAlignedCenter>
                      <TableCellAlignedCenter>
-                        {request.assetType}
+                        {request.noOfLuggages}
                      </TableCellAlignedCenter>
-                     <TableCellAlignedCenter>
-                        {request.assetSentivity}
-                     </TableCellAlignedCenter>
+                     
                      <TableCellLeftAligned>
-                        {request.status === 'Confirmed'
-                           ? request.acceptedPersonDetails
-                           : request.status === 'Pending'
-                           ? 'Not Confirmed'
-                           : 'Expired'}
-                     </TableCellLeftAligned>
-                     <TableCellLeftAligned>
-                        <StatusButton status={request.status}>
-                           {request.status.toUpperCase()}
-                        </StatusButton>
+                        <StatusButton>+</StatusButton>
                      </TableCellLeftAligned>
                   </TableRow>
                )
@@ -65,20 +62,20 @@ class ShowAssetTransport extends React.Component {
          </RequestDetailsTable>
       )
    }
-
    render() {
+     
       const { renderSuccessUI } = this
       const {
-         getMyAssetRequestAPIStatus,
-         getMyAssetRequestAPIError,
+         getMatchingRequestAPIStatus,
+         getMatchingRequestAPIError,
          doNetworkCalls
-      } = this.props
+      } = this.props;
       return (
          <React.Fragment>
             <LoadingWrapperWithFailure
                key={this.navigateTo}
-               apiStatus={getMyAssetRequestAPIStatus}
-               apiError={getMyAssetRequestAPIError}
+               apiStatus={getMatchingRequestAPIStatus}
+               apiError={getMatchingRequestAPIError}
                onRetryClick={doNetworkCalls}
                renderSuccessUI={renderSuccessUI}
             />
@@ -86,4 +83,4 @@ class ShowAssetTransport extends React.Component {
       )
    }
 }
-export { ShowAssetTransport }
+export { ShowRideRequests }

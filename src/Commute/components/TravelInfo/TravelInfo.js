@@ -1,16 +1,12 @@
 import React from 'react'
 import { observable, action } from 'mobx'
-import { observer,inject } from 'mobx-react'
+import { observer, inject } from 'mobx-react'
 
 import { Typo20DarkBlueGreyHKGrotestBold as FormHeadingText } from '../../styleGuides/StyleGuides.js'
-import {
-   Form,
-   FormDashboard
-} from '../../styledComponents/styleComponents.js'
+import { Form, FormDashboard } from '../../styledComponents/styleComponents.js'
 
 import { withRouter } from 'react-router-dom'
-import {withHeader} from '../../Hocs/withHeader';
-
+import { withHeader } from '../../Hocs/withHeader'
 
 import { InputField } from '../Common/components/InputField.js'
 import { DateAndTime } from '../Common/components/DateTime.js'
@@ -81,7 +77,9 @@ class TravelInfo extends React.Component {
    }
    onSubmitRequest = () => {
       this.displayError = true
-      const { commuteStore:{shareTravelInfo }} = this.props
+      const {
+         commuteStore: { shareTravelInfo }
+      } = this.props
       let formDetails = [
          this.from,
          this.to,
@@ -228,4 +226,4 @@ class TravelInfo extends React.Component {
       )
    }
 }
-export default withRouter(withHeader(TravelInfo));
+export default withRouter(withHeader(TravelInfo))

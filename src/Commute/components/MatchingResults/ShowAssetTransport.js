@@ -15,7 +15,7 @@ import {
 class ShowAssetTransport extends React.Component {
    renderSuccessUI = () => {
       const { tableHeaders, getRequests } = this.props
-      const rideRequests = getRequests('asset')
+      const assetRequests = getRequests();
       return (
          <RequestDetailsTable>
             <TableRow>
@@ -23,9 +23,12 @@ class ShowAssetTransport extends React.Component {
                   return <TableHeader>{eachOne}</TableHeader>
                })}
             </TableRow>
-            {Object.values(rideRequests).map(request => {
+            {Object.values(assetRequests).map(request => {
                return (
                   <TableRow>
+                     <TableCellLeftAligned>
+                              { request.acceptedPersonDetails}
+                        </TableCellLeftAligned>
                      <TableCellLeftAligned>{request.from}</TableCellLeftAligned>
                      <TableCellLeftAligned>{request.to}</TableCellLeftAligned>
                      <TableCellLeftAligned>
@@ -47,16 +50,10 @@ class ShowAssetTransport extends React.Component {
                      <TableCellAlignedCenter>
                         {request.assetSentivity}
                      </TableCellAlignedCenter>
+                     
                      <TableCellLeftAligned>
-                        {request.status === 'Confirmed'
-                           ? request.acceptedPersonDetails
-                           : request.status === 'Pending'
-                           ? 'Not Confirmed'
-                           : 'Expired'}
-                     </TableCellLeftAligned>
-                     <TableCellLeftAligned>
-                        <StatusButton status={request.status}>
-                           {request.status.toUpperCase()}
+                        <StatusButton >
+                           +
                         </StatusButton>
                      </TableCellLeftAligned>
                   </TableRow>
@@ -69,16 +66,16 @@ class ShowAssetTransport extends React.Component {
    render() {
       const { renderSuccessUI } = this
       const {
-         getMyAssetRequestAPIStatus,
-         getMyAssetRequestAPIError,
+         getMatchingRequestAPIError,
+         getMatchingRequestAPIStatus,
          doNetworkCalls
       } = this.props
       return (
          <React.Fragment>
             <LoadingWrapperWithFailure
-               key={this.navigateTo}
-               apiStatus={getMyAssetRequestAPIStatus}
-               apiError={getMyAssetRequestAPIError}
+               key={Math.random()}
+               apiStatus={getMatchingRequestAPIStatus}
+               apiError={getMatchingRequestAPIError}
                onRetryClick={doNetworkCalls}
                renderSuccessUI={renderSuccessUI}
             />

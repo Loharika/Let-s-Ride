@@ -11,9 +11,9 @@ import {
 } from './styledComponents.js'
 import { FormHeading } from '../../styledComponents'
 
-import { InputField } from '../Common/InputField.js';
+import { InputField } from '../Common/InputField.js'
 
-import {  LogoImage } from '../Common/LogoImage.js';
+import { LogoImage } from '../Common/LogoImage.js'
 import { Button } from '../Common/Button.js'
 import strings from '../../i18n/strings.json'
 
