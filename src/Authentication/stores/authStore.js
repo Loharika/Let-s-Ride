@@ -38,15 +38,13 @@ class AuthStore {
    }
    @action.bound
    setUserSignInAPIResponse(signInResponse) {
-      console.log("234567o9876543")
-      console.log(signInResponse);
       const access_token = signInResponse.access_token
       setAccessToken(access_token)
       this.access_token = access_token
    }
    @action.bound
    setGetUserSignInAPIError(apiError) {
-      console.log("status   "+apiError);
+      console.log('apiError   '+apiError);
       this.getUserSignInAPIError = apiError
    }
    @action.bound

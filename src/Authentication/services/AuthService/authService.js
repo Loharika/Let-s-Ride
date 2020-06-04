@@ -10,21 +10,24 @@ class AuthService {
    api
    constructor() {
       this.api = create({
-         //baseURL: 'https://f6e5ec5fa37d.ngrok.io'
-         baseURL:'https://4015ee346b19.ngrok.io/'
+         //baseURL: 'https://4015ee346b19.ngrok.io'
+          baseURL:'https://6b227f8028a0.ngrok.io'
       })
    }
    signInAPI = (userName, password) => {
-      //console.log(userName,password);
-      console.log(userName,password);
-      const object = {
-         username: userName,
+      const kavya = {
+         mobile_number: userName,
          password: password
+      }
+      const siva={
+         username:userName,
+         password:password
       }
       return networkCallWithApisauce(
          this.api,
-         'api/lets_ride/LogIn/v1/',
-         object,
+         //'/api/lets_ride/LogIn/v1/',
+         '/api/lets_ride/user/login/v1/',
+         siva,
          apiMethods.post
       )
    }

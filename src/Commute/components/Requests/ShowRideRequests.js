@@ -15,9 +15,13 @@ import LoadingWrapperWithFailure from '../../../Common/components/common/Loading
 
 @observer
 class ShowRideRequests extends React.Component {
+   contructor(){
+      this.tableHeaders=['FROM','TO','DATE AND TIME','NO OF PEOPLE','LUGGAGE QUANTITY','ACCEPTED PERSON DETAILS','STATUS'];
+   }
    renderSuccessUI = () => {
-      const { tableHeaders, getRequests } = this.props
-      const rideRequests = getRequests(strings.text.ride.toLowerCase())
+      const {tableHeaders}=this;
+      const {  getRequests } = this.props
+      const rideRequests = getRequests();
       return (
          <RequestDetailsTable>
             <TableRow key={Math.random()}>
@@ -30,28 +34,28 @@ class ShowRideRequests extends React.Component {
             {Object.values(rideRequests).map(request => {
                return (
                   <TableRow key={Math.random() + request.id}>
-                     <TableCellLeftAligned>{request.from}</TableCellLeftAligned>
-                     <TableCellLeftAligned>{request.to}</TableCellLeftAligned>
-                     <TableCellLeftAligned>
-                        {request['startTime'] !== undefined ? (
+                     <TableCellLeftAligned>{request.origin}</TableCellLeftAligned>
+                     <TableCellLeftAligned>{request.destination}</TableCellLeftAligned>
+                     <TableCellLeftAligned>                                                     
+                        {request.flexible_with_time ? (
                            <span>
-                              From:{request.startTime.slice(0, 21)} <br />
-                              To:{request.endTime.slice(0, 21)}
+                              From:{request.start_datetime.slice(0, 21)} <br />
+                              To:{request.end_datetime.slice(0, 21)}
                            </span>
                         ) : (
-                           request.date.slice(0, 21)
+                           request.datetime.slice(0, 21)
                         )}
                      </TableCellLeftAligned>
                      <TableCellAlignedCenter>
-                        {request.noOfSeats}
+                        {request.no_of_seats}
                      </TableCellAlignedCenter>
                      <TableCellAlignedCenter>
-                        {request.noOfLuggages}
+                        {request.luggage_quantity}
                      </TableCellAlignedCenter>
                      <TableCellLeftAligned>
-                        {request.status === 'Confirmed'
-                           ? request.acceptedPersonDetails
-                           : request.status === 'Pending'
+                        {request.status === 'CONFIRM'
+                           ? <span>{request.accepted_person.name}<br/>{request.accepted_person.mobile_number}</span>
+                           : request.status === 'PENDING'
                            ? 'Not Confirmed'
                            : 'Expired'}
                      </TableCellLeftAligned>
@@ -87,3 +91,21 @@ class ShowRideRequests extends React.Component {
    }
 }
 export { ShowRideRequests }
+
+// "ride_requests" : [ {
+//     "origin" : "string",
+//     "destination" : "string",
+//     "datetime" : "string",
+//     "flexible_with_time" : true,
+//     "start_datetime" : "string",
+//     "end_datetime" : "string",
+//     "no_of_seats" : 0,
+//     "luggage_quantity" : 0,
+//     "accepted_person" : {
+//       "name" : "string",
+//       "mobile_number" : "string"
+//     },
+//     "status" : "CONFIRM"
+//  } ],
+//  "total_ride_requests_count" : 0
+// }

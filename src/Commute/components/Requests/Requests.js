@@ -51,25 +51,6 @@ const filterOptions = {
 class Requests extends React.Component{
     constructor(){
         super();
-      this.rideRequestTableHeaders = [
-         'ACCEPTED PERSON DETAILS',
-         'FROM',
-         'TO',
-         'DATE AND TIME',
-         'NUMBER OF PEOPLE',
-         'LUGGAGE QUANTITY',
-         'STATUS'
-      ]
-      this.assetRequestTableHeaders = [
-         'ACCEPTED PERSON DETAILS',
-         'FROM',
-         'TO',
-         'DATE AND TIME',
-         'NUMBER OF PEOPLE',
-         'ASSET TYPE',
-         'ASSET SENSITIVITY',
-         'STATUS'
-      ]
     }
       
       onChangePageNumber = (event, data) => {
@@ -106,7 +87,7 @@ class Requests extends React.Component{
       }
       
       @action.bound
-      getMatchingResults(){
+      getRequests(){
          const {commuteStore:{displayData}}=this.props;
          switch(displayData.myRequests.requestType){
             case 'RIDE':{
@@ -142,14 +123,13 @@ class Requests extends React.Component{
       const {commuteStore:{displayData,getMyRideRequestAPIStatus,getMyRideRequestAPIError,getMyAssetRequestAPIStatus,getMyAssetRequestAPIError}}=this.props;
       const {doNetWorkCallsForRequests}=this.props;
         let requestType=displayData.myRequests.requestType;
-        const {rideRequestTableHeaders,assetRequestTableHeaders,getMatchingResults}=this;
+        const {getRequests}=this;
       
       switch(requestType){
          case 'RIDE':{
             return (
                <ShowRideRequests
-                  getRequests={getMatchingResults}
-                  tableHeaders={rideRequestTableHeaders}
+                  getRequests={getRequests}
                   doNetWorkCalls={doNetWorkCallsForRequests}
                   getMyRideRequestAPIStatus={getMyRideRequestAPIStatus}
                   getMyRideRequestAPIError={getMyRideRequestAPIError}
@@ -158,8 +138,7 @@ class Requests extends React.Component{
          case 'ASSET':{
             return (
                <ShowAssetTransport
-                  getRequests={getMatchingResults}
-                  tableHeaders={assetRequestTableHeaders}
+                  getRequests={getRequests}
                   doNetWorkCalls={doNetWorkCallsForRequests}
                   getMyAssetRequestAPIStatus={getMyAssetRequestAPIStatus}
                   getMyAssetRequestAPIError={getMyAssetRequestAPIError}

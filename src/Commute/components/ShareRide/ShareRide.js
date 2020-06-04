@@ -32,7 +32,7 @@ class ShareRide extends React.Component {
    @observable startDateTime
    @observable endDateTime
    @observable seats
-   @observable luggages
+   @observable assetsQuantity
    constructor(props) {
       super(props)
       this.init()
@@ -47,7 +47,7 @@ class ShareRide extends React.Component {
       this.startDateTime = ''
       this.endDateTime = ''
       this.seats = 0
-      this.luggages = 0
+      this.assetsQuantity = 0
    }
    onClickFlexibleTimings = () => {
       this.isCheckedFlexibleTimings = !this.isCheckedFlexibleTimings
@@ -72,8 +72,8 @@ class ShareRide extends React.Component {
    onChangeNoOfSeats = seats => {
       this.seats = seats
    }
-   onChangeNoOfLuggages = luggages => {
-      this.luggages = luggages
+   onChangeNoOfAssetsQuantity = assetsQuantity => {
+      this.assetsQuantity = assetsQuantity
    }
    onSubmitRequest = () => {
       this.displayError = true
@@ -98,12 +98,14 @@ class ShareRide extends React.Component {
             alert('Submitted Succesfully')
             this.displayError = false
             const shareRideData = {
-               from: this.from,
-               to: this.to,
-               isFlexible: false,
-               dateTime: this.dateTime,
-               seats: this.seats,
-               luggages: this.luggages
+               origin: this.from,
+               destination: this.to,
+               flexible_with_time: false,
+               start_datetime:null,
+               end_datetime:null,
+               datetime: this.dateTime,
+               no_of_seats: this.seats,
+               assets_quantity: this.assetsQuantity
             }
             this.init()
 
@@ -118,13 +120,14 @@ class ShareRide extends React.Component {
             alert('Submitted Succesfully')
             this.displayError = false
             const shareRideData = {
-               from: this.from,
-               to: this.to,
-               isFlexible: true,
-               startDateTime: this.startDateTime,
-               endDateTime: this.endDateTime,
-               seats: this.seats,
-               luggages: this.luggages
+               origin: this.from,
+               destination: this.to,
+               flexible_with_time: true,
+               datetime:null,
+               start_datetime: this.startDateTime,
+               end_datetime: this.endDateTime,
+               no_of_seats: this.seats,
+               assets_quantity: this.assetsQuantity
             }
             this.init()
             shareRideInfo(shareRideData)
@@ -150,7 +153,7 @@ class ShareRide extends React.Component {
          onChangeFromTime,
          onChangeToTime,
          onChangeNoOfSeats,
-         onChangeNoOfLuggages
+         onChangeNoOfAssetsQuantity
       } = this
 
       return (
@@ -205,8 +208,8 @@ class ShareRide extends React.Component {
                   intial={seats}
                />
                <DisplayListOfElements
-                  listData={{ title: strings.text.noOfLuggages }}
-                  onChange={onChangeNoOfLuggages}
+                  listData={{ title: strings.text.assetsQuantity }}
+                  onChange={onChangeNoOfAssetsQuantity}
                   displayError={displayError}
                   intial={luggages}
                />
@@ -220,3 +223,13 @@ class ShareRide extends React.Component {
    }
 }
 export default withRouter(withHeader(ShareRide))
+
+
+//  "origin": "string",
+//  "destination": "string",
+//  "datetime": "string",
+//  "flexible_with_time": true,
+//  "start_datetime": "string",
+//  "end_datetime": "string",
+//  "no_of_seats": 0,
+//  "assets_quantity": 0

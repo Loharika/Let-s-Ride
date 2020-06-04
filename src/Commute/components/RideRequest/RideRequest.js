@@ -91,19 +91,23 @@ class RideRequest extends React.Component {
          if (count === 0 && this.dateTime.length !== 0) {
             alert('Submitted Succesfully')
             const rideRequestData = {
-               from: this.from,
-               to: this.to,
-               isFlexible: false,
+               origin: this.from,
+               destination: this.to,
+               flexible_with_time: false,
                dateTime: this.dateTime,
-               seats: this.seats,
-               luggages: this.luggages
+               no_of_seats: this.seats,
+               luggage_quantity: this.luggages,
+               start_datetime:null,
+               end_datetime:null
+               
             }
             postRideRequest(rideRequestData)
 
             this.init()
             this.displayError = false
          }
-      } else {
+      } 
+      else {
          if (
             count === 0 &&
             this.startDateTime.length !== 0 &&
@@ -111,13 +115,14 @@ class RideRequest extends React.Component {
          ) {
             alert('Submitted Succesfully')
             const rideRequestData = {
-               from: this.from,
-               to: this.to,
-               isFlexible: true,
-               startDateTime: this.startDateTime,
-               endDateTime: this.endDateTime,
-               seats: this.seats,
-               luggages: this.luggages
+               origin: this.from,
+               destination: this.to,
+               datetime:null,
+               flexible_with_time: true,
+               start_datetime: this.startDateTime,
+               end_datetime: this.endDateTime,
+               no_of_seats: this.seats,
+               luggage_quantity: this.luggages
             }
             postRideRequest(rideRequestData)
 

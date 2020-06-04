@@ -151,14 +151,16 @@ class AssetTransportRequest extends React.Component {
             alert('Submitted Succesfully')
 
             const assetRequestData = {
-               from: this.from,
-               to: this.to,
-               isFlexible: false,
-               dateTime: this.dateTime,
-               assets: this.assets,
-               assetType: this.assetType,
-               assetSensitivity: this.assetSensitivity,
-               details: this.details
+               origin: this.from,
+               destination: this.to,
+               flexible_with_time: false,
+               datetime: this.dateTime,
+               start_datetime:null,
+               end_datetime:null,
+               no_of_assets: this.assets,
+               asset_type: this.assetType,
+               asset_sensitivity: this.assetSensitivity,
+               whom_to_deliver: this.details
             }
             postAssetTransportRequest(assetRequestData)
 
@@ -174,15 +176,16 @@ class AssetTransportRequest extends React.Component {
             alert('Submitted Succesfully')
 
             const assetRequestData = {
-               from: this.from,
-               to: this.to,
-               isFlexible: true,
-               startDateTime: this.startDateTime,
-               endDateTime: this.endDateTime,
-               assets: this.assets,
-               assetType: this.assetType,
-               assetSensitivity: this.assetSensitivity,
-               details: this.details
+               origin: this.from,
+               destination: this.to,
+               flexible_with_time: true,
+               datetime:null,
+               start_datetime: this.startDateTime,
+               end_datetime: this.endDateTime,
+               no_of_assets: this.assets,
+               asset_type: this.assetType,
+               asset_sensitivity: this.assetSensitivity,
+               whom_to_deliver: this.details
             }
             postAssetTransportRequest(assetRequestData)
 
@@ -291,3 +294,15 @@ class AssetTransportRequest extends React.Component {
    }
 }
 export default withRouter(withHeader(AssetTransportRequest))
+
+// "origin": "string",
+//  "destination": "string",
+//  "datetime": "string",
+//  "flexible_with_time": true,
+//  "start_datetime": "string",
+//  "end_datetime": "string",
+//  "no_of_assets": 0,
+//  "asset_type": "BAGS",
+//  "asset_sensitivity": "HIGHLY_SENSITIVE",
+//  "assets_quantity": 0,
+//  "whom_to_deliver": "string"

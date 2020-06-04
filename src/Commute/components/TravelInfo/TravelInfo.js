@@ -98,12 +98,14 @@ class TravelInfo extends React.Component {
             alert('Submitted Succesfully')
             this.displayError = false
             const travelInfoData = {
-               from: this.from,
-               to: this.to,
-               isFlexible: false,
-               dateTime: this.dateTime,
-               travelMedium: this.travelMedium,
-               assetsQuantity: this.assetsQuantity
+               origin: this.from,
+               destination: this.to,
+               flexible_with_time: false,
+               datetime: this.dateTime,
+               start_datetime:null,
+               end_datetime:null,
+               transport_medium: this.travelMedium,
+               assets_quantity: this.assetsQuantity
             }
 
             this.init()
@@ -118,13 +120,14 @@ class TravelInfo extends React.Component {
             alert('Submitted Succesfully')
             this.displayError = false
             const travelInfoData = {
-               from: this.from,
-               to: this.to,
-               isFlexible: true,
-               startDateTime: this.startDateTime,
-               endDateTime: this.endDateTime,
-               travelMedium: this.travelMedium,
-               assetsQuantity: this.assetsQuantity
+               origin: this.from,
+               destination: this.to,
+               flexible_with_time: true,
+               datetime:null,
+               start_datetime: this.startDateTime,
+               end_datetime: this.endDateTime,
+               transport_medium: this.travelMedium,
+               assets_quantity: this.assetsQuantity
             }
             this.init()
             shareTravelInfo(travelInfoData)
@@ -227,3 +230,12 @@ class TravelInfo extends React.Component {
    }
 }
 export default withRouter(withHeader(TravelInfo))
+
+// "origin": "string",
+//  "destination": "string",
+//  "datetime": "string",
+//  "flexible_with_time": true,
+//  "start_datetime": "string",
+//  "end_datetime": "string",
+//  "transport_medium": "BUS",
+//  "assets_quantity": 0

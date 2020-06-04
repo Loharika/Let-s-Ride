@@ -23,7 +23,7 @@ class DashBoardRoute extends React.Component {
       
       switch(requestType){
          case 'RIDE':{
-            const filter=displayData.myRequests.filterBy;
+            const filter=displayData.myRequests.filter;
             const pageNumber=displayData.myRequests.rideRequestPageNumber;
             const sortBy=displayData.myRequests.sortBy;
             const sortByOrder=displayData.myRequests.sortBy;
@@ -38,7 +38,7 @@ class DashBoardRoute extends React.Component {
             await getMyRideRequests(dataToGetRequests);
          }
          case 'ASSET':{
-            const filter=displayData.myRequests.filterBy;
+            const filter=displayData.myRequests.filter;
             const pageNumber=displayData.myRequests.assetRequestPageNumber;
             const sortBy=displayData.myRequests.sortBy;
             const sortByOrder=displayData.myRequests.sortBy;

@@ -59,10 +59,10 @@ class CommuteStore {
                assetRequests:[],
                noOfAssetRequests:0,
                requestType:'RIDE', //ASSET
-               filter:'SELECT',   //CONFIRMED PENDING EXPIRE
-               sortBy:'SELECT',   //DATE TIME
+               filter:'',   //CONFIRMED PENDING EXPIRE
+               sortBy:'',   //DATE TIME
                pageNumber:1,
-               sortByOrder:'ASC', //ASC DEC
+               sortByOrder:'', //ASC DEC
                rideRequestPageNumber:1,
                assetRequestPageNumber:1,
          },
@@ -289,18 +289,20 @@ class CommuteStore {
 
    @action.bound
    setGetMyRideRequestAPIStatus(apiStatus) {
+      console.log(apiStatus);
       this.getMyRideRequestAPIStatus = apiStatus
    }
    @action.bound
    setGetMyRideRequestAPIError(apiError) {
+      console.log(apiError);
       this.getMyRideRequestAPIError = apiError
    }
    @action.bound
    setGetMyRideRequestAPIResponse(apiResponse) {
-      this.rideRequests = apiResponse.requests
-      this.noOfRideRequests = apiResponse.noOfRequests
-      this.displayData['myRequests'].rideRequests=apiResponse.requests;
-      this.displayData['myRequests'].noOfRideRequests=apiResponse.noOfRequests; 
+      this.rideRequests = apiResponse.ride_requests;
+      this.noOfRideRequests = apiResponse.total_ride_requests_count;
+      this.displayData['myRequests'].rideRequests=apiResponse.ride_requests;
+      this.displayData['myRequests'].noOfRideRequests=apiResponse.total_ride_requests_count; 
    }
    //<-------------------------------------GET MY ASSET REQUESTS ----------------------------------------------------->
 
