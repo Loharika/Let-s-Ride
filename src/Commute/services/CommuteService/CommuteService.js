@@ -14,7 +14,7 @@ class CommuteService {
    baseApi
    constructor() {
       this.baseApi = create({
-          baseURL:'https://e314ab9799b5.ngrok.io'
+          baseURL:'https://1d2c1582fff8.ngrok.io'
       })
    }
    @action
@@ -104,35 +104,48 @@ class CommuteService {
    
    @action 
    sharedRideAPI(details){
-      let rides = {
-         shared_rides: sharedRides.shared_rides.filter(
-            (request, index) =>
-               index >= details.offset &&
-               index < details.offset + details.limit
-         ),
-         noOfRides: sharedRides.no_of_shared_rides
-      }
-      return new Promise(resolve => {
-         setTimeout(() => {
-            resolve(rides)
-         }, 1000)
-      })
+      console.log(details)
+      // let rides = {
+      //    shared_rides: sharedRides.shared_rides.filter(
+      //       (request, index) =>
+      //          index >= details.offset &&
+      //          index < details.offset + details.limit
+      //    ),
+      //    noOfRides: sharedRides.no_of_shared_rides
+      // }
+      // return new Promise(resolve => {
+      //    setTimeout(() => {
+      //       resolve(rides)
+      //    }, 1000)
+      // })
+      return networkCallWithApisauce(
+         this.baseApi, 
+      '/api/lets_ride/shared/rides/v1/', 
+        {}, 
+      apiMethods.get);
    }
    @action
    travelInfoAPI(details){
-      let travel_info = {
-         travel_info: travelInfo.travel_info.filter(
-            (request, index) =>
-               index >= details.offset &&
-               index < details.offset + details.limit
-         ),
-         noOfRides: travelInfo.no_of_travel_info
-      }
-      return new Promise(resolve => {
-         setTimeout(() => {
-            resolve(travel_info)
-         }, 1000)
-      })
+      console.log(details)
+      // let travel_info = {
+      //    travel_info: travelInfo.travel_info.filter(
+      //       (request, index) =>
+      //          index >= details.offset &&
+      //          index < details.offset + details.limit
+      //    ),
+      //    noOfRides: travelInfo.no_of_travel_info
+      // }
+      // return new Promise(resolve => {
+      //    setTimeout(() => {
+      //       resolve(travel_info)
+      //    }, 1000)
+      // })
+      return networkCallWithApisauce(
+         this.baseApi, 
+      '/api/lets_ride/shared/travel/infos/v1/', 
+        {}, 
+      apiMethods.get);
    }
+  
 }
 export { CommuteService }

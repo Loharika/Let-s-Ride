@@ -1,6 +1,9 @@
 import React from 'react'
 import { inject, observer } from 'mobx-react'
 
+import { withRouter } from 'react-router-dom'
+import {withHeader} from '../../../Commute/Hocs/withHeader';
+
 import strings from '../../i18n/strings.json'
 import {
    UserImage,
@@ -13,21 +16,24 @@ import {
 } from './styledComponents.js'
 import { Label as UserDetailLabel } from '../../styleGuides/StyleGuides.js'
 
-//@inject('authStore')
+
+
+@inject('authStore')
 @observer
 class UserProfile extends React.Component {
    constructor() {
       super()
    }
-   /*doNetworkCalls(){
-        const {authStore:{getUserDetails}}=this.props;   
-        getUserDetails();
+   async doNetworkCalls(){
+        const {authStore:{getUserProfileDetails}}=this.props;   
+        await getUserProfileDetails();
     }
     componentDidMount(){
         this.doNetworkCalls();
-    }*/
+    }
    render() {
-      //const {authStore:{userDetails}}=this.props;
+      const {authStore:{getUserProfileDetailsResponse}}=this.props;
+      console.log(getUserProfileDetailsResponse);
       const userDetails = {
          name: 'Loharika',
          email: 'loharikapatnam74@gmail.com',
@@ -91,4 +97,4 @@ class UserProfile extends React.Component {
       )
    }
 }
-export { UserProfile }
+export default withRouter(withHeader(UserProfile));

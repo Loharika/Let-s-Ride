@@ -6,9 +6,9 @@ class TravelInfo{
         
         this.flexibleWithTime=rideDetails.flexible_with_time;
         
-        this.travelMedium=rideDetails.travel_medium;
+        this.travelMedium=rideDetails.transport_medium;
         this.assetsQuantity=rideDetails.assets_quantity;
-        this.status=rideDetails.status;
+        this.status='None';
         if (rideDetails.flexible_with_time) {
          this.initIsFlexible(rideDetails)
       } else {

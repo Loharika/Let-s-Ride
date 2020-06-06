@@ -19,9 +19,10 @@ import { Label } from '../../../styleGuides/StyleGuides.js'
 class DateAndTime extends React.Component {
    @observable isChanged
    @observable startDate
-   constructor() {
-      super()
-      this.startDate = new Date()
+   constructor(props) {
+      super(props)
+      const {startDate}=this.props;
+      this.startDate = startDate
       this.isChanged = false
    }
 
@@ -34,25 +35,6 @@ class DateAndTime extends React.Component {
 
    render() {
       const { displayError } = this.props
-      const dateTo = [
-         {
-            key: 'date and time',
-            text: 'Select Date and Time',
-            value: 'date ans time',
-            content: (
-               <DatePicker
-                  selected={this.startDate}
-                  onChange={this.handleChange}
-                  showTimeSelect
-                  timeFormat='HH:mm'
-                  timeIntervals={1}
-                  timeCaption='time'
-                  dateFormat='MMMM d, yyyy h:mm aa'
-               />
-            )
-         }
-      ]
-
       return (
          <DateAndTimeStyle>
             <Label>
@@ -65,6 +47,7 @@ class DateAndTime extends React.Component {
                </Icon>
 
                <DatePicker
+                  placeholderText='Select the date'
                   selected={this.startDate}
                   onChange={this.handleChange}
                   showTimeSelect
@@ -72,6 +55,7 @@ class DateAndTime extends React.Component {
                   timeIntervals={1}
                   timeCaption='time'
                   dateFormat='MMMM d, yyyy h:mm aa'
+                  minDate={new Date()}
                />
             </DataAndTimeDisplay>
             <ErrorStyle isError={displayError && !this.isChanged}>

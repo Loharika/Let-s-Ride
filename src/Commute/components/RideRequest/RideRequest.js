@@ -190,6 +190,7 @@ class RideRequest extends React.Component {
                      label={strings.label.dateAndTime}
                      onChangeTime={onChangeTime}
                      displayError={displayError}
+                     startData={new Date()}
                   />
                )}
                <FlexibleTimings>

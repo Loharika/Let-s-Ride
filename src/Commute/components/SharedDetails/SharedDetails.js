@@ -78,8 +78,9 @@ class SharedDetails extends React.Component{
     @action.bound
     getSharedDetailsAsModels(){
         const {getSharedDetails}=this;
+        
         let modelsForSharedDetails = getSharedDetails().map(share => {
-            if (!share.hasOwnProperty('travel_medium')) {
+            if (!share.hasOwnProperty('transport_medium')) {
                return new SharedRides(share)
             } else {
                return new TravelInfo(share)
@@ -89,6 +90,7 @@ class SharedDetails extends React.Component{
          return modelsForSharedDetails;
         
     }
+    
     renderSuccessUI(){
         const {commuteStore:{displayData,getSharedRidesStatus,getSharedRidesError,getTravelInfoAPIStatus,getTravelInfoAPIError}}=this.props;
       const {doNetWorkCallsForSharedDetails}=this.props;

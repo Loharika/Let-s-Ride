@@ -37,7 +37,7 @@ class CommuteStore {
    
    @observable getTravelInfoAPIStatus;
    @observable getTravelInfoAPIError;
-   
+  
    @observable displayData;
 
    commuteService
@@ -139,8 +139,6 @@ class CommuteStore {
       onChangeSharedDetailsShareType(shareType){
          this.displayData['sharedDetails'].shareType=shareType;
       }
-      
-      
    
    //<--------------------INITIALISING ALL THE VARIABLES------------------->
    @action.bound
@@ -153,7 +151,10 @@ class CommuteStore {
       this.initMyAssetRequestAPI()
       this.initMatchingRequestsAPI()
       this.initAcceptingMatchedRequestsAPI();
+      
    }
+      
+   
    //<-----------------------------------INIATILISE REQUESTS API-------------------->
 
    @action.bound
@@ -226,8 +227,6 @@ class CommuteStore {
       this.getTravelInfoAPIStatus=API_INITIAL;
       this.getTravelInfoAPIError=null;
    }
-   
-   
    
    //<----------------------------------POST RIDE REQUEST-------------------->
    @action.bound
@@ -485,8 +484,9 @@ class CommuteStore {
    }
    @action.bound
    setGetSharedRidesResponse(apiResponse) {
-      this.displayData['sharedDetails'].sharedRides=apiResponse.shared_rides;
-      this.displayData['sharedDetails'].noOfSharedRides=apiResponse.noOfRides; 
+     
+      this.displayData['sharedDetails'].sharedRides=apiResponse.ride_shares;
+      this.displayData['sharedDetails'].noOfSharedRides=apiResponse.count_of_ride_shares; 
    }
    
    //<--------------------------------------------GET SHARE TRAVEL INFO---------------------------------------------->
@@ -507,18 +507,37 @@ class CommuteStore {
 
    @action.bound
    setGetTravelInfoAPIStatus(apiStatus) {
+      console.log(apiStatus+"      apiStatus")
       this.getTravelInfoAPIStatus = apiStatus
    }
    @action.bound
    setGetTravelInfoAPIError(apiError) {
+      console.log(apiError+"      apiError")
       this.getTravelInfoAPIError = apiError
    }
    @action.bound
    setGetTravelInfoAPIResponse(apiResponse) {
-      this.displayData['sharedDetails'].travelInfo=apiResponse.travel_info;
-      this.displayData['sharedDetails'].noOfSharedTravelInfo=apiResponse.no_of_travel_info; 
+      console.log(apiResponse);
+      this.displayData['sharedDetails'].travelInfo=apiResponse.shared_travels;
+      this.displayData['sharedDetails'].noOfSharedTravelInfo=apiResponse.total_travel_infos_shared; 
       
    }
    
 }
 export { CommuteStore }
+
+
+// shared_travels": [
+//     {
+//       "origin": "string",
+//       "destination": "string",
+//       "datetime": "string",
+//       "flexible_with_time": true,
+//       "start_datetime": "string",
+//       "end_datetime": "string",
+//       "transport_medium": "BUS",
+//       "assets_quantity": 0
+//     }
+//  ],
+//  "total_travel_infos_shared": 0
+// }

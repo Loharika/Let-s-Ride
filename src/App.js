@@ -7,7 +7,7 @@ import { endPoints as CommuteEndPoints } from './Commute/constants'
 import { LogInPageRoute } from './Authentication/routes'
 import { SignInFormRoute } from './Authentication/routes'
 import DashBoardRoute from './Commute/routes/DashBoardRoute/DashBoardRoute.js'
-import { UserProfile } from './Authentication/components/UserProfile/UserProfile.js'
+import UserProfile from './Authentication/components/UserProfile/UserProfile.js'
 import { ProtectedRoute } from './Common/routes/ProtectedRoute'
 import stores from './Common/stores'
 
@@ -37,7 +37,7 @@ class App extends React.Component {
                   />
                   <ProtectedRoute
                      exact
-                     path={AuthEndPoints.signInPage}
+                     path={'/sign-in'}
                      component={SignInFormRoute}
                   />
                   <ProtectedRoute

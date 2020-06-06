@@ -1,5 +1,5 @@
 {
-    "shared_rides":
+    "ride_shares":
     [
         {
         "origin":"Nellore",
@@ -57,5 +57,5 @@
         "status":"ACTIVE"
     }
     ],
-    "no_of_shared_rides":5
+    "count_of_ride_shares":5
 }

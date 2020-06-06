@@ -1,6 +1,7 @@
 import { observable, action } from 'mobx'
 import { bindPromiseWithOnSuccess } from '@ib/mobx-promise'
-import { API_INITIAL } from '@ib/api-constants'
+import { API_INITIAL } from '@ib/api-constants';
+
 import {
    getAccessToken,
    setAccessToken,
@@ -11,9 +12,16 @@ class AuthStore {
    @observable getUserSignInAPIStatus
    @observable getUserSignInAPIError
    @observable access_token
+    
+   @observable getUserProfileDetailsStatus;
+   @observable getUserProfileDetailsError;
+   @observable getUserProfileDetailsResponse;
+   
+   
    authService
    constructor(authService) {
-      this.init()
+      this.init();
+      this.initUserProfileDetailsAPI();
       this.authService = authService
    }
    @action.bound
@@ -22,6 +30,14 @@ class AuthStore {
       this.getUserSignInAPIError = null
       this.access_token = getAccessToken();
    }
+   //<--------------------------------INTIALISING THE USERPROFILE DETAILS API--------------------------------------------------->
+   @action.bound
+   initUserProfileDetailsAPI(){
+      this.getUserProfileDetailsStatus=API_INITIAL;
+      this.getUserProfileDetailsError=null;
+      this.getUserProfileDetailsResponse='';
+   }
+   
    // @action.bound
    // userSignUp() {
    //    let signInPromise = this.authService.signInAPI()
@@ -32,7 +48,7 @@ class AuthStore {
    @action.bound
    userLogIn(userName, password) {
       let signInPromise = this.authService.signInAPI(userName, password);
-      console.log(signInPromise);
+      
       return bindPromiseWithOnSuccess(signInPromise)
          .to(this.setGetUserSignInAPIStatus, this.setUserSignInAPIResponse)
          .catch(this.setGetUserSignInAPIError)
@@ -45,14 +61,42 @@ class AuthStore {
    }
    @action.bound
    setGetUserSignInAPIError(apiError) {
-      console.log('apiError   '+apiError);
+      
       this.getUserSignInAPIError = apiError
    }
    @action.bound
    setGetUserSignInAPIStatus(apiStatus) {
-      console.log("status   "+apiStatus);
+      
       this.getUserSignInAPIStatus = apiStatus
    }
+   //<----------------------------------GET USER PROFILE DETAILS REQUEST--------------------->
+   @action.bound
+   getUserProfileDetails(){
+      this.initUserProfileDetailsAPI()
+      let userDetailsRequestPromise = this.authService.getProfileDetailsAPI()
+      return bindPromiseWithOnSuccess(userDetailsRequestPromise)
+         .to(this.setGetUserProfileDetailsStatus, this.setGetUserProfileDetailsResponse)
+         .catch(this.setGetUserProfileDetailsError)
+   }
+   @action.bound
+   setGetUserProfileDetailsStatus(apiStatus) {
+      console.log(apiStatus)
+      this.getUserProfileDetailsStatus=apiStatus;
+      
+      
+   }
+   @action.bound
+   setGetUserProfileDetailsError(apiError) {
+      console.log("apiErrorr--->  "+apiError);
+      this.getUserProfileDetailsError=apiError;
+   }
+   @action.bound
+   setGetUserProfileDetailsResponse(apiResponse) {
+      console.log("response    "+apiResponse)
+      console.log("12367890762123456789009623567890")
+      this.getUserProfileDetailsResponse=apiResponse;
+   }
+   
    @action.bound
    userSignOut() {
       clearUserSession()

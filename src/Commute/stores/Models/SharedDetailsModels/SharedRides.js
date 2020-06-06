@@ -8,7 +8,8 @@ class SharedRides{
         
         this.noOfSeats=rideDetails.no_of_seats;
         this.assetsQuantity=rideDetails.assets_quantity;
-        this.status=rideDetails.status;
+        //this.status=rideDetails.status;
+        this.status='None'
         if (rideDetails.flexible_with_time) {
          this.initIsFlexible(rideDetails)
       } else {
