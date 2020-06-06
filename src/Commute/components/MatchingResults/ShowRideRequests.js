@@ -10,28 +10,18 @@ import {
    TableCellAlignedCenter,
    TableHeader,
    TableRow,
-   StatusButton
+   StatusButton,
+   NoDataFound
 } from './styledComponents.js'
 
-import LoadingWrapperWithFailure from '../../../Common/components/common/LoadingWrapperWithFailure'
-  // "origin": "string",
-//       "destination": "string",
-//       "datetime": "string",
-//       "flexible_with_time": true,
-//       "start_datetime": "string",
-//       "end_datetime": "string",
-//       "no_of_seats": 0,
-//       "luggage_quantity": 0,
-//       "accepted_person": {
-//        "name": "string",
-//        "mobile_number": "string"
-      
+import LoadingWrapperWithFailure from '../../../Common/components/common/LoadingWrapperWithFailure';
 @observer
 class ShowRideRequests extends React.Component {
    renderSuccessUI = () => {
       const { tableHeaders, getRequests,getAcceptingMatchedRequestAPIStatus } = this.props
       const rideRequests = getRequests();
-      return (
+      if(rideRequests.length!==0){
+         return (
          <RequestDetailsTable>
             <TableRow key={Math.random()}>
                {tableHeaders.map(eachOne => {
@@ -74,8 +64,16 @@ class ShowRideRequests extends React.Component {
                   </TableRow>
                )
             })}
-         </RequestDetailsTable>
-      )
+         </RequestDetailsTable>)
+      }
+      else{
+         return (
+            
+            <NoDataFound> No Data Found</NoDataFound>
+            )
+      }
+      
+         
    }
    render() {
      
@@ -85,6 +83,7 @@ class ShowRideRequests extends React.Component {
          getMatchingRequestAPIError,
          doNetworkCalls
       } = this.props;
+      
       return (
          <React.Fragment>
             <LoadingWrapperWithFailure

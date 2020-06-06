@@ -64,7 +64,6 @@ class DashBoard extends React.Component {
                   }
                   case 'sharedDetails':{
                       const {commuteStore:{displayData}}=this.props;
-                      console.log(displayData.sharedDetails.sharedRides);
                       return <SharedDetails 
                       doNetWorkCallsForSharedDetails={doNetWorkCallsForSharedDetails}
                       key={Math.random()+'sharedDetails'}

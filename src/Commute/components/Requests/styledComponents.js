@@ -102,52 +102,13 @@ export const StatusButton = styled.button`
 export const Pages = styled.div`
         text-align:center;
 `;
-/*
-export const Card=styled.div`
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  max-width: 300px;
-  margin: auto;
-  text-align: center;
-  font-family: arial;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  padding:20px;
-    `;
-export const ProfileImage=styled.img`
-    border-radius:50%;
-    
-`;
-export const Name=styled.div`
-    width: 100%;
-  font-size: 16px;
-  font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
-  letter-spacing: 0.12px;
-  color: var(--steel);
-  margin:2px;
-`;
-export const MobileNumber=styled.div`
-    color:grey;
-`;
-export const FlexibleTimings=styled.div`
+
+export const NoDataFound=styled.div`
+    width:100%;
+    margin-top:100px;
+    font-weight:bold;
+    font-size:30px;
     display:flex;
     justify-content:center;
     align-items:center;
-    align-self:start;
-`;
-export const DateAndTime=styled.div`
-  font-size: 13px;
-  font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
- display:flex;
-    justify-content:center;
-    align-items:center;
-    align-self:start;
-`;
-export const NoOfSeats=styled.div`
-    color:grey;
-`;
-*/
+    `;

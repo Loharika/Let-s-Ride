@@ -8,7 +8,8 @@ import {
    TableCellAlignedCenter,
    TableHeader,
    TableRow,
-   StatusButton
+   StatusButton,
+   NoDataFound
 } from './styledComponents.js'
 
 import LoadingWrapperWithFailure from '../../../Common/components/common/LoadingWrapperWithFailure'
@@ -23,6 +24,8 @@ class ShowRideRequests extends React.Component {
       const {tableHeaders}=this;
       const {  getRequests } = this.props
       const rideRequests = getRequests();
+      if(rideRequests.length!==0){
+         
       return (
          <RequestDetailsTable>
             <TableRow key={Math.random()}>
@@ -70,6 +73,12 @@ class ShowRideRequests extends React.Component {
             })}
          </RequestDetailsTable>
       )
+      }
+      else{
+         return (
+            <NoDataFound> No Data Found</NoDataFound>);
+         
+      }
    }
    render() {
       const { renderSuccessUI } = this

@@ -85,7 +85,7 @@ class SharedDetails extends React.Component{
                return new TravelInfo(share)
             }
          });
-         console.log(modelsForSharedDetails)
+         
          return modelsForSharedDetails;
         
     }
@@ -136,8 +136,6 @@ class SharedDetails extends React.Component{
         
         const totalNumberOfPages=Math.ceil(noOfShareDetails/limit);
         const pageNumber=shareType==='RIDE'?displayData.sharedDetails.sharedRidePageNumber:displayData.sharedDetails.sharedTravelInfoPageNumber;
-        console.log("noOfShareDetails   "+noOfShareDetails)
-        console.log("totalNumberOfPages   "+totalNumberOfPages);
         return (
             <MyRequestsDashboard key={Math.random() + shareType}>
             <MyRequestsHeader>

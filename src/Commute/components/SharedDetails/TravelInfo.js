@@ -23,7 +23,7 @@ class TravelInfoTable extends React.Component {
    renderSuccessUI = () => {
       const {  getTravelDetails } = this.props
       const travelInfo = getTravelDetails();
-      console.log(travelInfo);
+      
       return (
          <RequestDetailsTable>
             <TableRow key={Math.random()}>

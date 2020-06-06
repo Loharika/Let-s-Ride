@@ -14,12 +14,11 @@ class CommuteService {
    baseApi
    constructor() {
       this.baseApi = create({
-          baseURL:'https://e7371cdb684d.ngrok.io'
+          baseURL:'https://e314ab9799b5.ngrok.io'
       })
    }
    @action
    rideRequestAPI(requestData) {
-      console.log(requestData)
       return networkCallWithApisauce(
          this.baseApi,
          '/api/lets_ride/ride/request/v1/',
@@ -95,8 +94,12 @@ class CommuteService {
    @action
    acceptTheMatchedRequestAPI(requestId) {
       return networkCallWithApisauce(this.baseApi, 
-      '__', {}, 
-      apiMethods.put)
+      '/api/lets_ride/request4/update/accepted/person/v1/', 
+         {
+        "share_type": "ride",
+        "share_id": 2
+      }, 
+      apiMethods.put);
    }
    
    @action 

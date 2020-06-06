@@ -134,7 +134,7 @@ class Requests extends React.Component{
       }
    }
     render(){
-        const {onClickRequestType,onChangeSortField,onChangeFilter,onChangePageNumber}=this;
+        const {onClickRequestType,onChangeSortField,onChangeFilter,onChangePageNumber,getRequests}=this;
         const {commuteStore:{displayData,limit},addRequestButton}=this.props;
         let requestType=displayData.myRequests.requestType;
         const noOfRequests=requestType==='RIDE'?displayData.myRequests.noOfRideRequests:displayData.myRequests.noOfAssetRequests;
@@ -158,9 +158,8 @@ class Requests extends React.Component{
                   {strings.text.asset.toUpperCase()}
                </MyRequestType>
             </MyRequestsHeader>
-            
             <RequestHeader>
-               <NoOfRequests>{noOfRequests} Request(s)</NoOfRequests>
+               {getRequests().length!==0?<NoOfRequests>{noOfRequests} Request(s)</NoOfRequests>:''}
 
                <FilterAndSort>
                   <DisplayDropDown
@@ -173,8 +172,10 @@ class Requests extends React.Component{
                   />
                </FilterAndSort>
             </RequestHeader>
+            
             {this.renderSuccessUI()}
-            <Footer>
+            
+            {getRequests().length!==0?<Footer>
                <AddRequestButton
                   onClick={() => addRequestButton(requestType)}
                >
@@ -197,7 +198,8 @@ class Requests extends React.Component{
                   totalPages={totalNumberOfPages}
                   onPageChange={onChangePageNumber}
                />
-            </Footer>
+            </Footer>:''}
+            
             </MyRequestsDashboard>
             );
     }

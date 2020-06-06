@@ -5,8 +5,8 @@ import { ButtonStyle } from '../../styledComponents'
 @observer
 class Button extends React.Component {
    render() {
-      const { onClickFunction, buttonText } = this.props
-      return <ButtonStyle onClick={onClickFunction}>{buttonText}</ButtonStyle>
+      const { onClickFunction, buttonText, } = this.props
+      return <ButtonStyle  onClick={onClickFunction}>{buttonText}</ButtonStyle>
    }
 }
 export { Button }

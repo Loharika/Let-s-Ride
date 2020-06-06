@@ -256,7 +256,6 @@ class CommuteStore {
    //<----------------------------------POST ASSET TRANSPORT REQUEST DEATAILS-------------------->
    @action.bound
    postAssetTransportRequest(assetRequest) {
-      console.log(assetRequest)
       this.initAssetTransportRequestAPI()
       let assetRequestPromise = this.commuteService.assetTransportRequestAPI(
          assetRequest
@@ -390,7 +389,6 @@ class CommuteStore {
    }
    @action.bound
    setGetMyAssetRequestAPIResponse(apiResponse) {
-      console.log(apiResponse)
       
       this.displayData['myRequests'].assetRequests=apiResponse.asset_requests;
       
@@ -441,22 +439,21 @@ class CommuteStore {
    
    @action.bound
    acceptTheMatchedRequest(requestId){
-      console.log("store"+requestId);
-      /*this.initAcceptingMatchedRequestsAPI()
-      let matchedRequestPromise = this.commuteService.acceptTheMatchedRequestAPI(requestId)
+      this.initAcceptingMatchedRequestsAPI()
+      let matchedRequestPromise = this.commuteService.acceptTheMatchedRequestAPI(requestId);
       return bindPromiseWithOnSuccess(matchedRequestPromise)
          .to(
             this.setGetAcceptingMatchedRequestAPIStatus,
-            this.setGetMatchingRequestAPIResponse
+            this.setGetAcceptingMatchedRequestAPIResponse
          )
-         .catch(this.setGetAcceptingMatchedRequestAPIError)*/
+         .catch(this.setGetAcceptingMatchedRequestAPIError)
    }
    @action.bound
    setGetAcceptingMatchedRequestAPIStatus(apiStatus) {
-      this.getAcceptingMatchedRequestAPIStatus = apiStatus
+      this.getAcceptingMatchedRequestAPIStatus = apiStatus;
    }
    @action.bound
-   setGetAcceptingMatchedRequestAPIStatus(apiError) {
+   setGetAcceptingMatchedRequestAPIError(apiError) {
       this.getAcceptingMatchedRequestAPIError = apiError
    }
    @action.bound

@@ -8,7 +8,8 @@ import {
    TableCellAlignedCenter,
    TableHeader,
    TableRow,
-   StatusButton
+   StatusButton,
+   NoDataFound
 } from './styledComponents.js'
 
 @observer
@@ -21,6 +22,8 @@ class ShowAssetTransport extends React.Component {
       const {tableHeaders}=this;
       const { getRequests } = this.props
       const assetRequests = getRequests()
+      if(assetRequests.length!==0){
+      
       return (
          <RequestDetailsTable>
             <TableRow>
@@ -71,8 +74,14 @@ class ShowAssetTransport extends React.Component {
                   </TableRow>
                )
             })}
-         </RequestDetailsTable>
-      )
+         </RequestDetailsTable>)
+      }
+      else{
+         return (
+            <NoDataFound> No Data Found</NoDataFound>
+            )
+         
+      }
    }
 
    render() {

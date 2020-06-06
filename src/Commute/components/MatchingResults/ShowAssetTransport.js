@@ -11,33 +11,17 @@ import {
    TableCellAlignedCenter,
    TableHeader,
    TableRow,
-   StatusButton
+   StatusButton,
+   NoDataFound
 } from './styledComponents.js'
-
-
-//  {
-//       "origin": "string",
-//       "destination": "string",
-//       "datetime": "string",
-//       "flexible_with_time": true,
-//       "start_datetime": "string",
-//       "end_datetime": "string",
-//       "no_of_assets": 0,
-//       "asset_type": "BAGS",
-//       "asset_sensitivity": "HIGHLY_SENSITIVE",
-//       "luggage_quantity": 0,
-//       "asset_to_be_delivered_to": "string",
-//       "accepted_person": {
-//        "name": "string",
-//        "mobile_number": "string"
-//       }
-//     }
 
 @observer
 class ShowAssetTransport extends React.Component {
    renderSuccessUI = () => {
       const { tableHeaders, getRequests,getAcceptingMatchedRequestAPIStatus } = this.props
       const assetRequests = getRequests();
+      if(assetRequests.length!==0){
+        
       return (
          <RequestDetailsTable>
             <TableRow>
@@ -77,7 +61,7 @@ class ShowAssetTransport extends React.Component {
                      </TableCellAlignedCenter>
                      <TableCellLeftAligned>
                         <StatusButton onClick={request.onClickAddButton}>
-                           {getAcceptingMatchedRequestAPIStatus===API_SUCCESS?<FcCheckmark />:<FiPlus />}
+                           {request.isAdded?<FcCheckmark />:<FiPlus />}
                         </StatusButton>
                      </TableCellLeftAligned>
                   </TableRow>
@@ -85,6 +69,14 @@ class ShowAssetTransport extends React.Component {
             })}
          </RequestDetailsTable>
       )
+   }
+      else{
+         return (
+            
+            <NoDataFound> No Data Found</NoDataFound>
+            )
+      }
+      
    }
 
    render() {

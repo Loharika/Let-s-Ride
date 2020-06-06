@@ -18,6 +18,7 @@ import {
    FilterAndSort,
    Footer,
    Pages,
+   NoDataFound
 } from './styledComponents.js'
 
 import {
@@ -150,7 +151,9 @@ class MatchingResults extends React.Component{
                   getMatchingRequestAPIStatus={getMatchingRequestAPIStatus}
                   getMatchingRequestAPIError={getMatchingRequestAPIError}
                   getAcceptingMatchedRequestAPIStatus={getAcceptingMatchedRequestAPIStatus}
-               />)
+               />);
+            
+            
          }
          case 'ASSET':{
             return (
@@ -167,13 +170,12 @@ class MatchingResults extends React.Component{
    }
    @action.bound
       onClickAddButtonInRequest(requestId) {
-         console.log("matching Results"+requestId);
          const {commuteStore:{acceptTheMatchedRequest}}=this.props;
          acceptTheMatchedRequest(requestId);
          
       }
     render(){
-        const {onClickRequestType,onChangeSortBy,onChangeFilter,onChangePageNumber}=this;
+        const {onClickRequestType,onChangeSortBy,onChangeFilter,onChangePageNumber,getMatchingRequestsAsModels}=this;
         const {commuteStore:{displayData,limit}}=this.props;
         let requestType=displayData.matchingResults.requestType;
         const noOfRequests=requestType==='RIDE'?displayData.matchingResults.noOfRideRequests:displayData.matchingResults.noOfAssetRequests;
@@ -195,9 +197,8 @@ class MatchingResults extends React.Component{
                   {strings.text.asset.toUpperCase()}
                </MyRequestType>
             </MyRequestsHeader>
-            
             <RequestHeader>
-               <NoOfRequests>{noOfRequests} Request(s)</NoOfRequests>
+               {getMatchingRequestsAsModels().length!==0?<NoOfRequests>{noOfRequests} Request(s)</NoOfRequests>:''}
 
                <FilterAndSort>
                   <DisplayDropDown
@@ -210,7 +211,9 @@ class MatchingResults extends React.Component{
                   />
                </FilterAndSort>
             </RequestHeader>
+            
             {this.renderSuccessUI()}
+            {getMatchingRequestsAsModels().length!==0?
             <Footer>
                
                {totalNumberOfPages !== 0 ? (
@@ -230,7 +233,7 @@ class MatchingResults extends React.Component{
                   totalPages={totalNumberOfPages}
                   onPageChange={onChangePageNumber}
                />
-            </Footer>
+            </Footer>:''}
             </MyRequestsDashboard>
             );
     }

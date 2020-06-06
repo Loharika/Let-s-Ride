@@ -1,7 +1,7 @@
 import React from 'react'
 import { observable, action } from 'mobx'
 import { observer, inject } from 'mobx-react'
-
+import moment from 'moment';
 import { Typo20DarkBlueGreyHKGrotestBold as FormHeadingText } from '../../styleGuides/StyleGuides.js'
 import { Form, FormDashboard } from '../../styledComponents/styleComponents.js'
 
@@ -61,13 +61,13 @@ class TravelInfo extends React.Component {
       this.displayError = false
    }
    onChangeDateTime = time => {
-      this.dateTime = time
+      this.dateTime = moment(time).format('YYYY-MM-DD HH:mm:ss');
    }
    onChangeFromTime = time => {
-      this.startDateTime = time
+      this.startDateTime = moment(time).format('YYYY-MM-DD HH:mm:ss');
    }
    onChangeToTime = time => {
-      this.endDateTime = time
+      this.endDateTime = moment(time).format('YYYY-MM-DD HH:mm:ss');
    }
    onChangeAssetsQuantity = assetsQuantity => {
       this.assetsQuantity = assetsQuantity
@@ -77,9 +77,7 @@ class TravelInfo extends React.Component {
    }
    onSubmitRequest = () => {
       this.displayError = true
-      const {
-         commuteStore: { shareTravelInfo }
-      } = this.props
+     
       let formDetails = [
          this.from,
          this.to,
@@ -95,7 +93,6 @@ class TravelInfo extends React.Component {
       })
       if (!this.isCheckedFlexibleTimings) {
          if (count === 0 && this.dateTime.length !== 0) {
-            alert('Submitted Succesfully')
             this.displayError = false
             const travelInfoData = {
                origin: this.from,
@@ -107,9 +104,7 @@ class TravelInfo extends React.Component {
                transport_medium: this.travelMedium,
                assets_quantity: this.assetsQuantity
             }
-
-            this.init()
-            shareTravelInfo(travelInfoData)
+            this.shareTravelInfo(travelInfoData)
          }
       } else {
          if (
@@ -117,7 +112,7 @@ class TravelInfo extends React.Component {
             this.startDateTime.length !== 0 &&
             this.endDateTime.length !== 0
          ) {
-            alert('Submitted Succesfully')
+            
             this.displayError = false
             const travelInfoData = {
                origin: this.from,
@@ -129,10 +124,18 @@ class TravelInfo extends React.Component {
                transport_medium: this.travelMedium,
                assets_quantity: this.assetsQuantity
             }
-            this.init()
-            shareTravelInfo(travelInfoData)
+            this.shareTravelInfo(travelInfoData)
          }
       }
+   }
+   async shareTravelInfo(travelInfoData){
+       const {
+         commuteStore: { shareTravelInfo }
+      } = this.props
+      shareTravelInfo(travelInfoData);
+      alert('Submitted Succesfully');
+      this.init()
+      this.displayError = false;
    }
    render() {
       const travelMediums = {

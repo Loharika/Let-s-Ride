@@ -1,6 +1,8 @@
 import React from 'react'
 import { observer, inject } from 'mobx-react'
-import { observable, action } from 'mobx'
+import { observable, action } from 'mobx';
+
+import moment from 'moment';
 
 import { Typo20DarkBlueGreyHKGrotestBold as FormHeadingText } from '../../styleGuides/StyleGuides.js'
 import { Form, FormDashboard } from '../../styledComponents/styleComponents.js'
@@ -56,7 +58,7 @@ const assetSensitivity = {
       {
          key: 'Highly Sensitive',
          text: 'Highly Sensitive',
-         value: 'Highly Sensitive'
+         value: 'Highly_Sensitive'
       }
    ],
    placeholder: 'Select Asset Sensitivity'
@@ -106,13 +108,13 @@ class AssetTransportRequest extends React.Component {
       this.displayError = false
    }
    onChangeTime = time => {
-      this.dateTime = time
+      this.dateTime =moment(time).format('YYYY-MM-DD HH:mm:ss');
    }
    onChangeFromTime = time => {
-      this.startDateTime = time
+      this.startDateTime = moment(time).format('YYYY-MM-DD HH:mm:ss');
    }
    onChangeToTime = time => {
-      this.endDateTime = time
+      this.endDateTime = moment(time).format('YYYY-MM-DD HH:mm:ss');
    }
    onChangeNoOfAssets = assets => {
       this.assets = assets
@@ -128,9 +130,7 @@ class AssetTransportRequest extends React.Component {
    }
    onSubmitRequest = () => {
       this.displayError = true
-      const {
-         commuteStore: { postAssetTransportRequest }
-      } = this.props
+      
       let formDetails = [
          this.from,
          this.to,
@@ -148,8 +148,6 @@ class AssetTransportRequest extends React.Component {
       })
       if (!this.isCheckedFlexibleTimings) {
          if (count === 0 && this.dateTime.length !== 0) {
-            alert('Submitted Succesfully')
-
             const assetRequestData = {
                origin: this.from,
                destination: this.to,
@@ -162,10 +160,7 @@ class AssetTransportRequest extends React.Component {
                asset_sensitivity: this.assetSensitivity.toUpperCase(),
                whom_to_deliver: this.details
             }
-            postAssetTransportRequest(assetRequestData)
-
-            this.init()
-            this.displayError = false
+            this.postAssetTransportRequest(assetRequestData)
          }
       } else {
          if (
@@ -173,8 +168,7 @@ class AssetTransportRequest extends React.Component {
             this.startDateTime.length !== 0 &&
             this.endDateTime.length !== 0
          ) {
-            alert('Submitted Succesfully')
-
+            
             const assetRequestData = {
                origin: this.from,
                destination: this.to,
@@ -187,12 +181,19 @@ class AssetTransportRequest extends React.Component {
                asset_sensitivity: this.assetSensitivity.toUpperCase(),
                whom_to_deliver: this.details
             }
-            postAssetTransportRequest(assetRequestData)
+            this.postAssetTransportRequest(assetRequestData)
 
-            this.init()
-            this.displayError = false
          }
       }
+   }
+   async postAssetTransportRequest(assetRequestData){
+      const {
+         commuteStore: { postAssetTransportRequest }
+      } = this.props
+      await postAssetTransportRequest(assetRequestData);
+      alert('Submitted Succesfully')
+      this.init()
+      this.displayError = false
    }
    render() {
       const {

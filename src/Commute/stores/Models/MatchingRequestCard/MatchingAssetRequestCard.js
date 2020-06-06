@@ -1,8 +1,13 @@
 import React from 'react'
 import { observable, action } from 'mobx'
+import 'react-toastify/dist/ReactToastify.css';
+
+import { toast } from 'react-toastify';
+
+toast.configure();
 
 class MatchingAssetRequestCard {
-
+   @observable isAdded;
    constructor(props) {
       this.origin=props.request.origin;
       this.destination=props.request.destination;
@@ -15,6 +20,7 @@ class MatchingAssetRequestCard {
       this.asset_request_id=props.request.asset_request_id;
       this.flexible_with_time=props.request.flexible_with_time;
       this.whom_to_deliver=props.request.whom_to_deliver;
+       this.isAdded=false;
       if (props.request.flexible_with_time) {
          this.initIsFlexible(props)
       } else {
@@ -35,9 +41,18 @@ class MatchingAssetRequestCard {
    onClickAddButton() {
       this.postTheRequestId();
    }
+   displayToaster=()=> {
+      toast(<div className='text-black font-bold'>Accepted</div>, {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose:3000,
+            closeButton: false,
+            hideProgressBar: true,
+            
+      });
+    }
    async postTheRequestId(){
       await this.addButtonFunction(this.asset_request_id);
-      
+       this.displayToaster();
    }
    
 }
