@@ -157,9 +157,9 @@ class AssetTransportRequest extends React.Component {
                datetime: this.dateTime,
                start_datetime:null,
                end_datetime:null,
-               no_of_assets: this.assets,
-               asset_type: this.assetType,
-               asset_sensitivity: this.assetSensitivity,
+               assets_quantity: this.assets,
+               asset_type: this.assetType.toUpperCase(),
+               asset_sensitivity: this.assetSensitivity.toUpperCase(),
                whom_to_deliver: this.details
             }
             postAssetTransportRequest(assetRequestData)
@@ -182,9 +182,9 @@ class AssetTransportRequest extends React.Component {
                datetime:null,
                start_datetime: this.startDateTime,
                end_datetime: this.endDateTime,
-               no_of_assets: this.assets,
-               asset_type: this.assetType,
-               asset_sensitivity: this.assetSensitivity,
+               assets_quantity: this.assets,
+               asset_type: this.assetType.toUpperCase(),
+               asset_sensitivity: this.assetSensitivity.toUpperCase(),
                whom_to_deliver: this.details
             }
             postAssetTransportRequest(assetRequestData)

@@ -52,6 +52,7 @@ export const RequestDetailsTable = styled.tbody`
    border-collapse: collapse;
    width: 100%;
    height: 350px;
+   align-self:center;
 `
 export const TableHeader = styled.th`
    border: 1px solid #dddddd;
@@ -87,14 +88,17 @@ export const PageNumber = styled.div`
    padding: 5px 10px;
 `
 export const StatusButton = styled.button`
+    background-color: ${props =>
+      props.status === 'Confirmed'
+         ? colors.greenishTeal
+         : props.status === 'Pending'
+         ? colors.yellowOrange
+         : colors.lightBlueGrey};
    padding: 3px 4px;
-   font-weight: bold;
-   font-size:20px;
-   border-radius: 50%;
+   font-weight: 700;
+   border-radius: 20px;
    text-align: center;
-   border:1px solid lightgrey;
-   
-   color: ${colors.black};
+   color: ${colors.white};
 `
 export const Pages = styled.div`
         text-align:center;

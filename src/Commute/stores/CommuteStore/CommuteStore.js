@@ -21,17 +21,22 @@ class CommuteStore {
 
    @observable getMyRideRequestAPIStatus
    @observable getMyRideRequestAPIError
-   @observable rideRequests
-   @observable noOfRideRequests
 
    @observable getMyAssetRequestAPIStatus
    @observable getMyAssetRequestAPIError
-   @observable assetRequests
-   @observable noOfassetRequests
 
    @observable getMatchingRequestAPIStatus
    @observable getMatchingRequestAPIError
-  
+   
+   @observable getAcceptingMatchedRequestAPIStatus;
+   @observable getAcceptingMatchedRequestAPIError;
+   @observable getAcceptingMatchedRequestAPIResponse;
+   
+   @observable getSharedRidesStatus;
+   @observable getSharedRidesError;
+   
+   @observable getTravelInfoAPIStatus;
+   @observable getTravelInfoAPIError;
    
    @observable displayData;
 
@@ -59,21 +64,25 @@ class CommuteStore {
                assetRequests:[],
                noOfAssetRequests:0,
                requestType:'RIDE', //ASSET
-               filter:'',   //CONFIRMED PENDING EXPIRE
-               sortBy:'',   //DATE TIME
+               filter:'PENDING',   //CONFIRMED PENDING EXPIRE
+               sortBy:'DESC',   //ASC DESC 
                pageNumber:1,
-               sortByOrder:'', //ASC DEC
+               sortByField:'datetime', //datetime no_of_seats
                rideRequestPageNumber:1,
                assetRequestPageNumber:1,
          },
-        sharedRequests:{
-             shareRide:[],
+        sharedDetails:{
+             sharedRides:[],
+             noOfSharedRides:0,
             travelInfo:[],
-            requestType:'RIDE', //ASSET
-              filter:'SELECT',   //CONFIRMED PENDING EXPIRE
-              sortBy:'SELECT',   //DATE TIME
+            noOfSharedTravelInfo:0,
+            shareType:'RIDE', //TRAVEL INFO
+              filter:'ACTIVE',   //ACTIVE EXPIRED
+              sortBy:'ASC',   //ASC DESC
               pageNumber:1,
-              sortByOrder:'ASC' //ASC DEC
+              sortByOrder:'datetime',  //datetime no_of_seats
+              sharedRidePageNumber:1,
+               sharedTravelInfoPageNumber:1,
         }
             };
       }
@@ -83,12 +92,11 @@ class CommuteStore {
       }
       @action.bound
       onChangeFilter(selectorTabType,filterBy){
-       
-            this.displayData[selectorTabType].filterBy=filterBy;
+            this.displayData[selectorTabType].filter=filterBy;
             }
       @action.bound
-      onChangeSortOrder(selectorTabType,sortByOrder){
-            this.displayData[selectorTabType].sortByOrder=sortByOrder;
+      onChangeSortField(selectorTabType,sortByField){
+            this.displayData[selectorTabType].sortByField=sortByField;
       }
       @action.bound
       onChangeSortBy(selectorTabType,sortBy){
@@ -108,11 +116,33 @@ class CommuteStore {
                }
             }
       }
-      
+      @action.bound
+      onChangeSharedDetailsPageNumber(pageNumber){
+         
+         let shareType=this.displayData['sharedDetails'].shareType;
+            switch(shareType){
+               case 'RIDE':{
+                  this.displayData['sharedDetails'].sharedRidePageNumber=pageNumber;
+                  break;
+               }
+               case 'ASSET':{
+                  this.displayData['sharedDetails'].sharedTravelInfoPageNumber=pageNumber;
+                  break;
+               }
+            }
+      }
+      @action.bound
+      onChangeSharedDetailsFilter(filterBy){
+            this.displayData['sharedDetails'].filter=filterBy;
+      }
+      @action.bound
+      onChangeSharedDetailsShareType(shareType){
+         this.displayData['sharedDetails'].shareType=shareType;
+      }
       
       
    
-   //<--------------------INITIALISING ALL THE VARISBLES------------------->
+   //<--------------------INITIALISING ALL THE VARIABLES------------------->
    @action.bound
    init() {
       this.initRideRequestAPI()
@@ -122,6 +152,7 @@ class CommuteStore {
       this.initMyRideRequestAPI()
       this.initMyAssetRequestAPI()
       this.initMatchingRequestsAPI()
+      this.initAcceptingMatchedRequestsAPI();
    }
    //<-----------------------------------INIATILISE REQUESTS API-------------------->
 
@@ -171,10 +202,33 @@ class CommuteStore {
    //<-----------------------------------INIATILISE MATCHING REQUESTS API-------------------->
 
    @action.bound
-   initMatchingRequestsAPI() {
-      this.getMatchingRequestAPIStatus = API_INITIAL
-      this.getMatchingRequestAPIError = null
+   initMatchingRequestsAPI(){
+      this.getMatchingRequestAPIStatus = API_INITIAL;
+      this.getMatchingRequestAPIError = null;
    }
+   //<-------------------------------------INIATILISE ACCEPTED MATCHED REQUEST API--------------------------->
+
+   @action.bound
+   initAcceptingMatchedRequestsAPI() {
+      this.getAcceptingMatchedRequestAPIStatus = API_INITIAL
+      this.getAcceptingMatchedRequestAPIError = null;
+      this.getAcceptingMatchedRequestAPIResponse='';
+   }
+   //<-------------------------------------INIATILISE SHARED DETAILS--------------------------->
+   
+   @action.bound
+   initSharedRidesAPI(){
+      this.getSharedRidesStatus=API_INITIAL;
+      this.getSharedRidesError=null;
+   }
+   @action.bound
+   initSharedTravelInfoAPI(){
+      this.getTravelInfoAPIStatus=API_INITIAL;
+      this.getTravelInfoAPIError=null;
+   }
+   
+   
+   
    //<----------------------------------POST RIDE REQUEST-------------------->
    @action.bound
    postRideRequest(rideRequest) {
@@ -187,10 +241,12 @@ class CommuteStore {
 
    @action.bound
    setGetRideRequestAPIStatus(apiStatus) {
+      
       this.getRideRequestAPIStatus = apiStatus
    }
    @action.bound
    setGetRideRequestAPIError(apiError) {
+      
       this.getRideRequestAPIError = apiError
    }
    @action.bound
@@ -199,10 +255,11 @@ class CommuteStore {
    }
    //<----------------------------------POST ASSET TRANSPORT REQUEST DEATAILS-------------------->
    @action.bound
-   postAssetTransportRequest(rideRequest) {
+   postAssetTransportRequest(assetRequest) {
+      console.log(assetRequest)
       this.initAssetTransportRequestAPI()
       let assetRequestPromise = this.commuteService.assetTransportRequestAPI(
-         rideRequest
+         assetRequest
       )
       return bindPromiseWithOnSuccess(assetRequestPromise)
          .to(
@@ -213,10 +270,12 @@ class CommuteStore {
    }
    @action.bound
    setGetAssetTrasportRequestAPIStatus(apiStatus) {
+      
       this.getAssetTrasportRequestAPIStatus = apiStatus
    }
    @action.bound
    setGetAssetTrasportRequestAPIError(apiError) {
+      
       this.getAssetTrasportRequestAPIError = apiError
    }
    @action.bound
@@ -235,10 +294,12 @@ class CommuteStore {
    }
    @action.bound
    setGetShareRideAPIStatus(apiStatus) {
+      
       this.getShareRideAPIStatus = apiStatus
    }
    @action.bound
    setGetShareRideAPIError(apiError) {
+      
       this.getShareRideAPIError = apiError
    }
    @action.bound
@@ -289,18 +350,17 @@ class CommuteStore {
 
    @action.bound
    setGetMyRideRequestAPIStatus(apiStatus) {
-      console.log(apiStatus);
+     
       this.getMyRideRequestAPIStatus = apiStatus
    }
    @action.bound
    setGetMyRideRequestAPIError(apiError) {
-      console.log(apiError);
+      
       this.getMyRideRequestAPIError = apiError
    }
    @action.bound
    setGetMyRideRequestAPIResponse(apiResponse) {
-      this.rideRequests = apiResponse.ride_requests;
-      this.noOfRideRequests = apiResponse.total_ride_requests_count;
+     
       this.displayData['myRequests'].rideRequests=apiResponse.ride_requests;
       this.displayData['myRequests'].noOfRideRequests=apiResponse.total_ride_requests_count; 
    }
@@ -330,10 +390,11 @@ class CommuteStore {
    }
    @action.bound
    setGetMyAssetRequestAPIResponse(apiResponse) {
-      this.assetRequests = apiResponse.requests
-      this.noOfAssetRequests = apiResponse.noOfRequests
-      this.displayData['myRequests'].assetRequests=apiResponse.requests;
-      this.displayData['myRequests'].noOfAssetRequests=apiResponse.noOfRequests; 
+      console.log(apiResponse)
+      
+      this.displayData['myRequests'].assetRequests=apiResponse.asset_requests;
+      
+      this.displayData['myRequests'].noOfAssetRequests=apiResponse.total_asset_tansport_count; 
    }
    //<---------------------------------GET MATCHING REQUESTS----------------------------->
    @action.bound
@@ -352,6 +413,7 @@ class CommuteStore {
 
    @action.bound
    setGetMatchingRequestAPIStatus(apiStatus) {
+     
       this.getMatchingRequestAPIStatus = apiStatus
    }
    @action.bound
@@ -362,21 +424,104 @@ class CommuteStore {
    setGetMatchingRequestAPIResponse(apiResponse) {
       switch(this.displayData['matchingResults'].requestType){
          case 'RIDE':{
-            this.displayData['matchingResults'].rideRequests=apiResponse.requests;
-            this.displayData['matchingResults'].noOfRideRequests=apiResponse.noOfRequests; 
-            // console.log(this.displayData['matchingResults'].rideRequests);
-            // console.log(this.displayData['matchingResults'].noOfRideRequests);
+            this.displayData['matchingResults'].rideRequests=apiResponse.ride_requests;
+            this.displayData['matchingResults'].noOfRideRequests=apiResponse.ride_requests_matches_count; 
             break;
          }
          case 'ASSET':{
-            this.displayData['matchingResults'].assetRequests=apiResponse.requests;
-            this.displayData['matchingResults'].noOfAssetRequests=apiResponse.noOfRequests;  
-            // console.log(this.displayData['matchingResults'].assetRequests);
-            // console.log(this.displayData['matchingResults'].noOfAssetRequests);
+            this.displayData['matchingResults'].assetRequests=apiResponse.asset_requests;
+            this.displayData['matchingResults'].noOfAssetRequests=apiResponse.assets_matches_count;  
             break;
          }
       }
       
    }
+   
+   //<---------------------------------------------ACCEPTING MATCHING REQUEST---------------------------------------->
+   
+   @action.bound
+   acceptTheMatchedRequest(requestId){
+      console.log("store"+requestId);
+      /*this.initAcceptingMatchedRequestsAPI()
+      let matchedRequestPromise = this.commuteService.acceptTheMatchedRequestAPI(requestId)
+      return bindPromiseWithOnSuccess(matchedRequestPromise)
+         .to(
+            this.setGetAcceptingMatchedRequestAPIStatus,
+            this.setGetMatchingRequestAPIResponse
+         )
+         .catch(this.setGetAcceptingMatchedRequestAPIError)*/
+   }
+   @action.bound
+   setGetAcceptingMatchedRequestAPIStatus(apiStatus) {
+      this.getAcceptingMatchedRequestAPIStatus = apiStatus
+   }
+   @action.bound
+   setGetAcceptingMatchedRequestAPIStatus(apiError) {
+      this.getAcceptingMatchedRequestAPIError = apiError
+   }
+   @action.bound
+   setGetAcceptingMatchedRequestAPIResponse(apiResponse){
+      this.getAcceptingMatchedRequestAPIResponse=apiResponse;
+   }
+   //<------------------------------------------------ GET SHARED RIDES--------------------------------------------------->
+   @action.bound
+   getSharedRides(dataToGetSharedRides) {
+      this.initSharedRidesAPI()
+      let shareRidePromise = this.commuteService.sharedRideAPI(
+         dataToGetSharedRides
+      )
+      return bindPromiseWithOnSuccess(shareRidePromise)
+         .to(
+            this.setGetSharedRidesStatus,
+            this.setGetSharedRidesResponse
+         )
+         .catch(this.setGetSharedRidesError)
+   }
+
+   @action.bound
+   setGetSharedRidesStatus(apiStatus) {
+      this.getSharedRidesStatus = apiStatus
+   }
+   @action.bound
+   setGetSharedRidesError(apiError) {
+      this.getSharedRidesError = apiError
+   }
+   @action.bound
+   setGetSharedRidesResponse(apiResponse) {
+      this.displayData['sharedDetails'].sharedRides=apiResponse.shared_rides;
+      this.displayData['sharedDetails'].noOfSharedRides=apiResponse.noOfRides; 
+   }
+   
+   //<--------------------------------------------GET SHARE TRAVEL INFO---------------------------------------------->
+   
+   @action.bound
+   getSharedTravelInfo(dataToGetSharedTravelInfo) {
+      this.initSharedTravelInfoAPI()
+      let sharedTravelInfoPromise = this.commuteService.travelInfoAPI(
+         dataToGetSharedTravelInfo
+      )
+      return bindPromiseWithOnSuccess(sharedTravelInfoPromise)
+         .to(
+            this.setGetTravelInfoAPIStatus,
+            this.setGetTravelInfoAPIResponse
+         )
+         .catch(this.setGetTravelInfoAPIError)
+   }
+
+   @action.bound
+   setGetTravelInfoAPIStatus(apiStatus) {
+      this.getTravelInfoAPIStatus = apiStatus
+   }
+   @action.bound
+   setGetTravelInfoAPIError(apiError) {
+      this.getTravelInfoAPIError = apiError
+   }
+   @action.bound
+   setGetTravelInfoAPIResponse(apiResponse) {
+      this.displayData['sharedDetails'].travelInfo=apiResponse.travel_info;
+      this.displayData['sharedDetails'].noOfSharedTravelInfo=apiResponse.no_of_travel_info; 
+      
+   }
+   
 }
 export { CommuteStore }

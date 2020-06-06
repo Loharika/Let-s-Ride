@@ -29,8 +29,8 @@ import strings from '../../i18n/strings.json'
 const filterOptions = {
          listTitle: '',
          listItems: [
-            { key: 'SELECT', text: 'All', value: 'SELECT' },
-            { key: 'ACTIVE', text: 'Active', value: 'ACTIVE' },
+             { key: 'PENDING', text: 'Pending', value: 'PENDING' },
+            { key: 'CONFIRMED', text: 'Confirmed', value: 'CONFIRMED' },
             { key: 'EXPIRE', text: 'Expire', value: 'EXPIRE' }
          ],
          placeholder: 'Filter'
@@ -38,9 +38,8 @@ const filterOptions = {
       const sortOptions = {
          listTitle: '',
          listItems: [
-            { key: 'SELECT', text: 'All', value: 'SELECT' },
-            { key: 'DATE', text: 'Date', value: 'DATE' },
-            { key: 'TIME', text: 'Time', value: 'TIME' }
+            { key: 'datetime', text: 'dateTime', value: 'datetime' },
+            { key: 'Seats', text: 'Seats', value: 'no_of_seats' }
          ],
          placeholder: 'Sort'
       }
@@ -51,7 +50,7 @@ class MatchingResults extends React.Component{
     constructor(){
         super();
       this.rideRequestTableHeaders = [
-         'ACCEPTED PERSON DETAILS',
+         'REQUESTED PERSON DETAILS',
          'FROM',
          'TO',
          'DATE AND TIME',
@@ -60,13 +59,14 @@ class MatchingResults extends React.Component{
          'STATUS'
       ]
       this.assetRequestTableHeaders = [
-         'ACCEPTED PERSON DETAILS',
+         'REQUESTED PERSON DETAILS',
          'FROM',
          'TO',
          'DATE AND TIME',
          'NUMBER OF PEOPLE',
          'ASSET TYPE',
          'ASSET SENSITIVITY',
+         'WHOM TO DELIVER',
          'STATUS'
       ]
     }
@@ -99,10 +99,6 @@ class MatchingResults extends React.Component{
             doNetWorkCallsForMatchingRequests();
          
       }
-      @action.bound
-      onClickAddButtonInRequest(userDetails) {
-         
-      }
       
       @action.bound
       getMatchingResults(){
@@ -116,11 +112,12 @@ class MatchingResults extends React.Component{
             }
          }
       }
+      
        @action.bound
       getMatchingRequestsAsModels() {
          const { getMatchingResults } = this;
          let modelsForMatchingRequests = getMatchingResults().map(request => {
-            if (request.hasOwnProperty('assetType')) {
+            if (request.hasOwnProperty('asset_type')) {
                const requestData = {
                   request: request,
                   addButtonFunction: this.onClickAddButtonInRequest,
@@ -138,11 +135,11 @@ class MatchingResults extends React.Component{
    }
    @action.bound
    renderSuccessUI(){
-      const {commuteStore:{displayData,getMatchingRequestAPIStatus,getMatchingRequestAPIError}}=this.props;
+      const {commuteStore:{displayData,getMatchingRequestAPIStatus,getMatchingRequestAPIError,getAcceptingMatchedRequestAPIStatus}}=this.props;
       const {doNetWorkCallsForMatchingRequests}=this.props;
         let requestType=displayData.matchingResults.requestType;
         const {getMatchingRequestsAsModels,rideRequestTableHeaders,assetRequestTableHeaders}=this;
-      
+
       switch(requestType){
          case 'RIDE':{
             return (
@@ -152,6 +149,7 @@ class MatchingResults extends React.Component{
                   doNetWorkCalls={doNetWorkCallsForMatchingRequests}
                   getMatchingRequestAPIStatus={getMatchingRequestAPIStatus}
                   getMatchingRequestAPIError={getMatchingRequestAPIError}
+                  getAcceptingMatchedRequestAPIStatus={getAcceptingMatchedRequestAPIStatus}
                />)
          }
          case 'ASSET':{
@@ -162,10 +160,18 @@ class MatchingResults extends React.Component{
                   doNetWorkCalls={doNetWorkCallsForMatchingRequests}
                   getMatchingRequestAPIStatus={getMatchingRequestAPIStatus}
                   getMatchingRequestAPIError={getMatchingRequestAPIError}
+                  getAcceptingMatchedRequestAPIStatus={getAcceptingMatchedRequestAPIStatus}
                />)
          }
       }
    }
+   @action.bound
+      onClickAddButtonInRequest(requestId) {
+         console.log("matching Results"+requestId);
+         const {commuteStore:{acceptTheMatchedRequest}}=this.props;
+         acceptTheMatchedRequest(requestId);
+         
+      }
     render(){
         const {onClickRequestType,onChangeSortBy,onChangeFilter,onChangePageNumber}=this;
         const {commuteStore:{displayData,limit}}=this.props;

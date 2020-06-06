@@ -1,9 +1,6 @@
 import { action } from 'mobx'
 import { create } from 'apisauce'
 
-import { networkCallWithApisauce } from '../../../Common/utils/APIUtils'
-import { apiMethods } from '../../../Common/constants/APIConstants'
-
 import allRequestsData from '../../fixtures/allRequests.fixture.json'
 import assetRequestData from '../../fixtures/assetRequests.fixture.json'
 import rideRequestData from '../../fixtures/rideRequests.fixture.json'
@@ -48,7 +45,7 @@ class CommuteService {
    @action
    myRideRequestsAPI(dataToGetRequests) {
       console.log(dataToGetRequests);
-      /*let requests = {
+      let requests = {
          requests: rideRequestData.requests.filter(
             (request, index) =>
                index >= dataToGetRequests.offset &&
@@ -60,18 +57,8 @@ class CommuteService {
          setTimeout(() => {
             resolve(requests)
          }, 1000)
-      })*/
-      let offset=dataToGetRequests.offset;
-      let limit=dataToGetRequests.limit;
-      let sort_by_field=dataToGetRequests.sortBy;
-      let sortBy=dataToGetRequests.sortByOrder;
-      let filterby=dataToGetRequests.filterBy;
-      return networkCallWithApisauce(
-         this.baseApi,
-         `/api/lets_ride/user/requests/rides/v1/?offset=${offset}&limit=${limit}&sort_by_field=${sort_by_field}&sortby=${sortBy}&filterby=${filterby}`,
-         {},
-         apiMethods.get
-      )
+      })
+      
    }
    @action
    myAssetRequestsAPI(dataToGetRequests) {
@@ -88,6 +75,17 @@ class CommuteService {
             resolve(requests)
          }, 1000)
       })
+      // let offset=dataToGetRequests.offset;
+      // let limit=dataToGetRequests.limit;
+      // let sort_by_field=dataToGetRequests.sortBy;
+      // let sortBy=dataToGetRequests.sortByOrder;
+      // let filterby=dataToGetRequests.filterBy;
+      // return networkCallWithApisauce(
+      //    this.baseApi,
+      //    `/api/lets_ride/user/assets/rides/v1/?offset=${offset}&limit=${limit}&sort_by_field=${sort_by_field}&sortby=${sortBy}&filterby=${filterby}`,
+      //    {},
+      //    apiMethods.get
+      // )
    }
    @action
    matchingAllRequestsAPI(matchingRequestsFilter,dataToGetRequests) {

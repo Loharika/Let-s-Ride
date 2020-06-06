@@ -26,31 +26,33 @@ class DashBoardRoute extends React.Component {
             const filter=displayData.myRequests.filter;
             const pageNumber=displayData.myRequests.rideRequestPageNumber;
             const sortBy=displayData.myRequests.sortBy;
-            const sortByOrder=displayData.myRequests.sortBy;
+            const sortByField=displayData.myRequests.sortByField;
             let offset = (pageNumber - 1) * limit;
             const dataToGetRequests = {
                filterBy: filter,
                sortBy: sortBy,
-               sortByOrder:sortByOrder,
+               sortByField:sortByField,
                offset: offset,
                limit: limit,
             };
             await getMyRideRequests(dataToGetRequests);
+            break;
          }
          case 'ASSET':{
             const filter=displayData.myRequests.filter;
             const pageNumber=displayData.myRequests.assetRequestPageNumber;
             const sortBy=displayData.myRequests.sortBy;
-            const sortByOrder=displayData.myRequests.sortBy;
+            const sortByField=displayData.myRequests.sortByField;
             let offset = (pageNumber - 1) * limit;
             const dataToGetRequests = {
                filterBy: filter,
                sortBy: sortBy,
-               sortByOrder:sortByOrder,
+               sortByField:sortByField,
                offset: offset,
                limit: limit,
             };
             await getMyAssetRequests(dataToGetRequests);
+            break;
          }
       }
    }
@@ -62,14 +64,20 @@ class DashBoardRoute extends React.Component {
       const pageNumber=requestType==='RIDE'?displayData.matchingResults.rideRequestPageNumber:displayData.matchingResults.assetRequestPageNumber;
       const sortBy=displayData.matchingResults.sortBy;
       const sortByOrder=displayData.matchingResults.sortBy;
+      
       let offset = (pageNumber - 1) * limit;
-      const dataToGetRequests = {
+      /*const dataToGetRequests = {
          filterBy: filter,
          sortBy: sortBy,
          sortByOrder:sortByOrder,
          offset: offset,
          limit: limit,
       };
+      await getAllMatchingRequests(requestType,dataToGetRequests);*/
+      const dataToGetRequests={
+         limit:limit,
+         offset:offset,
+      }
       await getAllMatchingRequests(requestType,dataToGetRequests);
    }
    @action.bound
@@ -86,19 +94,53 @@ class DashBoardRoute extends React.Component {
         }
      }
    }
+   @action.bound
+   async doNetWorkCallsForSharedDetails(){
+       const {commuteStore:{displayData,limit,getSharedRides,getSharedTravelInfo}}=this.props;
+      const shareType=displayData.sharedDetails.shareType;
+            switch(shareType){
+         case 'RIDE':{
+            const filter=displayData.sharedDetails.filter;
+            const pageNumber=displayData.sharedDetails.sharedRidePageNumber;
+            let offset = (pageNumber - 1) * limit;
+            const details={
+               filter:filter,
+               limit:limit,
+               offset:offset
+            }
+            await getSharedRides(details)
+            break
+         }
+         case 'TRAVEL INFO':{
+            const filter=displayData.sharedDetails.filter;
+            const pageNumber=displayData.sharedDetails.sharedTravelInfoPageNumber;
+            let offset = (pageNumber - 1) * limit;
+            const details={
+               filter:filter,
+               limit:limit,
+               offset:offset
+            }
+            await getSharedTravelInfo(details)
+            break
+         }
+            }
+   }
    render() {
       const {
          doNetWorkCallsForMatchingRequests,
          doNetWorkCallsForRequests,
+         doNetWorkCallsForSharedDetails,
          addRequestButton
       } = this;
-      
+//
+//
       return (
          
          <DashBoard
             history={this.props.history}
             doNetWorkCallsForMatchingRequests={doNetWorkCallsForMatchingRequests}
             doNetWorkCallsForRequests={doNetWorkCallsForRequests}
+            doNetWorkCallsForSharedDetails={doNetWorkCallsForSharedDetails}
             addRequestButton={addRequestButton}
          />
       );

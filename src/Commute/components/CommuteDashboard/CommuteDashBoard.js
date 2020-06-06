@@ -11,7 +11,7 @@ import { CommuteDashboardDisplay,
 
 import {MatchingResults} from '../MatchingResults';
 import {Requests} from '../Requests';
-
+import {SharedDetails} from '../SharedDetails';
 
 @inject('commuteStore','authStore')
 @observer
@@ -24,7 +24,7 @@ class DashBoard extends React.Component {
    
    @action.bound
    onClickSelector(selector){
-       const {doNetWorkCallsForMatchingRequests,doNetWorkCallsForRequests}=this.props;
+       const {doNetWorkCallsForMatchingRequests,doNetWorkCallsForRequests,doNetWorkCallsForSharedDetails}=this.props;
        this.selector=selector;
        switch(this.selector){
            case 'myRequests':{
@@ -36,14 +36,16 @@ class DashBoard extends React.Component {
                return ;
            }
            case 'sharedDetails':{
-               
+               doNetWorkCallsForSharedDetails();
+               return ;
            }
        }
    }
    renderPage = () => {
               const {addRequestButton,
                  doNetWorkCallsForMatchingRequests,
-                 doNetWorkCallsForRequests
+                 doNetWorkCallsForRequests,
+                 doNetWorkCallsForSharedDetails
               } = this.props
                 
             const {commuteStore: {getMatchingRequestAPIStatus,getMatchingRequestAPIError,noOfAssetRequests}} = this.props
@@ -61,7 +63,13 @@ class DashBoard extends React.Component {
                       />;
                   }
                   case 'sharedDetails':{
-                      return <div>Shared Details</div>;
+                      const {commuteStore:{displayData}}=this.props;
+                      console.log(displayData.sharedDetails.sharedRides);
+                      return <SharedDetails 
+                      doNetWorkCallsForSharedDetails={doNetWorkCallsForSharedDetails}
+                      key={Math.random()+'sharedDetails'}
+                      />
+                    //return <div>SharedDetails</div>
                   }
                   
             }

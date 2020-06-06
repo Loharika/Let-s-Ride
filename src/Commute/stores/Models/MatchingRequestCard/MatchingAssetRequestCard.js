@@ -2,29 +2,20 @@ import React from 'react'
 import { observable, action } from 'mobx'
 
 class MatchingAssetRequestCard {
-   @observable isAdded
-   @observable showMoreDetails
 
    constructor(props) {
-      this.requestDetails = props.request
-      this.id = props.request.id
-      this.typeOfRequest = 'ASSET'
-      this.name = props.request.name
-      this.mobileNumber = props.request.mobileNumber
-      this.from = props.request.from
-      this.to = props.request.to
-      this.mobileNumber = props.request.mobileNumber
-      this.noOfSeats = props.request.noOfSeats
-      this.assetType = props.request.assetType
-      this.assetSentivity = props.request.assetSentivity
-      this.acceptedPersonDetails = props.request.acceptedPersonDetails
-      this.status = props.request.status
-
-      this.isFlexible = props.request.hasOwnProperty('startTime')
-      this.isAdded = false
-      this.showMoreDetails = false
-
-      if (this.isFlexible) {
+      this.origin=props.request.origin;
+      this.destination=props.request.destination;
+      this.no_of_assets=props.request.assets_quantity;
+      this.asset_type=props.request.asset_type;
+      this.asset_sensitivity=props.request.asset_sensitivity;
+      this.luggage_quantity=props.request.luggage_quantity;
+      this.asset_to_be_delivered_to=props.request.asset_to_be_delivered_to;
+      this.requested_by=props.request.requested_by;
+      this.asset_request_id=props.request.asset_request_id;
+      this.flexible_with_time=props.request.flexible_with_time;
+      this.whom_to_deliver=props.request.whom_to_deliver;
+      if (props.request.flexible_with_time) {
          this.initIsFlexible(props)
       } else {
          this.initIsNotFlexible(props)
@@ -33,31 +24,36 @@ class MatchingAssetRequestCard {
    }
    @action.bound
    initIsFlexible(props) {
-      this.startTime = props.request.startTime
-      this.endTime = props.request.endTime
+      this.start_datetime = props.request.start_datetime
+      this.end_datetime = props.request.end_datetime
    }
    @action.bound
    initIsNotFlexible(props) {
-      this.date = props.request.date
+      this.datetime = props.request.datetime
    }
    @action.bound
    onClickAddButton() {
-      this.isAdded = true
-      this.addButtonFunction(this.name)
+      this.postTheRequestId();
+   }
+   async postTheRequestId(){
+      await this.addButtonFunction(this.asset_request_id);
+      
    }
    
 }
 export { MatchingAssetRequestCard }
-
-// "id":"18",
-//             "name":"Hello",
-//             "from":"Harayan",
-//             "to":"Kurnool",
-//             "noOfSeats":6,
-//             "mobileNumber":"23547687686",
-//             "startTime":"Thu Apr 31 2017 21:46:04 GMT+0530 (India Standard Time)",
-//             "endTime":"Thu Feb 31 2019 21:46:04 GMT+0530 (India Standard Time)",
-//             "assetType":"gadgets",
-//             "assetSentivity":"very sensitive",
-//             "acceptedPersonDetails":"raani-1234560987",
-//             "status":"Expire"
+// "origin": "string",
+//       "destination": "string",
+//       "datetime": "string",
+//       "flexible_with_time": true,
+//       "start_datetime": "string",
+//       "end_datetime": "string",
+//       "no_of_assets": 0,
+//       "asset_type": "BAGS",
+//       "asset_sensitivity": "HIGHLY_SENSITIVE",
+//       "luggage_quantity": 0,
+//       "asset_to_be_delivered_to": "string",
+//       "accepted_person": {
+//        "name": "string",
+//        "mobile_number": "string"
+//       }

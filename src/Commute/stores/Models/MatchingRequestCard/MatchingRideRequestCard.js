@@ -6,20 +6,14 @@ class MatchingRideRequestCard {
    @observable showMoreDetails;
 
    constructor(props) {
-      this.requestDetails = props.request
-      this.id = props.request.id
-      this.typeOfRequest = 'RIDE'
-      this.name = props.request.name
-      this.mobileNumber = props.request.mobileNumber
-      this.from = props.request.from
-      this.to = props.request.to
-      this.noOfSeats = props.request.noOfSeats
-      this.noOfLuggages = props.request.noOfLuggages
-      this.acceptedPersonDetails=props.request.acceptedPersonDetails;
-      this.isFlexible = props.request.hasOwnProperty('startTime')
-      this.isAdded = false
-      this.showMoreDetails = false
-      if (this.isFlexible) {
+      this.origin=props.request.origin;
+      this.destination=props.request.destination;
+      this.flexible_with_time=props.request.flexible_with_time;
+      this.no_of_seats=props.request.no_of_seats;
+      this.luggage_quantity=props.request.luggage_quantity;
+      this.requested_by=props.request.requested_by;
+      this.ride_request_id=props.request.ride_request_id;
+      if (props.request.flexible_with_time) {
          this.initIsFlexible(props)
       } else {
          this.initIsNotFlexible(props)
@@ -28,30 +22,31 @@ class MatchingRideRequestCard {
    }
    @action.bound
    initIsFlexible(props) {
-      this.startTime = props.request.startTime
-      this.endTime = props.request.endTime
+      this.start_datetime=props.request.start_datetime;
+      this.end_datetime=props.request.end_datetime;
    }
    @action.bound
    initIsNotFlexible(props) {
-      this.date = props.request.date
+      this.datetime = props.request.datetime
    }
    @action.bound
    onClickAddButton() {
-      this.isAdded = true
-
-      this.addButtonFunction(this.name)
+      this.postTheRequestId();
+   }
+   async postTheRequestId(){
+      await this.addButtonFunction(this.ride_request_id);
+      
    }
 }
 export { MatchingRideRequestCard }
-
-// "id":"10",
-//             "name":"Dr. Madelynn Lehner",
-//             "from":"Hyderabad",
-//             "to":"Kurnool",
-//             "noOfSeats":6,
-//             "mobileNumber":"9628354224",
-//             "startTime":"Thu Jan 04 2019 10:36:04 GMT+0530 (India Standard Time)",
-//             "endTime":"Sat Jan 04 2019 23:36:04 GMT+0530 (India Standard Time)",
-//             "noOfLuggages":3,
-//             "acceptedPersonDetails":"kavya-1234567890",
-//             "status":"Expire"
+// "origin": "string",
+//       "destination": "string",
+//       "datetime": "string",
+//       "flexible_with_time": true,
+//       "start_datetime": "string",
+//       "end_datetime": "string",
+//       "no_of_seats": 0,
+//       "luggage_quantity": 0,
+//       "accepted_person": {
+//        "name": "string",
+//        "mobile_number": "string"

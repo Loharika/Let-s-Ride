@@ -30,18 +30,25 @@ import strings from '../../i18n/strings.json'
 const filterOptions = {
          listTitle: '',
          listItems: [
-            { key: 'SELECT', text: 'All', value: 'SELECT' },
-            { key: 'ACTIVE', text: 'Active', value: 'ACTIVE' },
-            { key: 'EXPIRE', text: 'Expire', value: 'EXPIRE' }
+            { key: 'PENDING', text: 'Pending', value: 'PENDING' },
+            { key: 'CONFIRMED', text: 'Confirmed', value: 'CONFIRM' },
+            { key: 'EXPIRE', text: 'Expire', value: 'EXPIRED' }
          ],
          placeholder: 'Filter'
       }
-      const sortOptions = {
+      const sortOptionsForRides = {
          listTitle: '',
          listItems: [
-            { key: 'SELECT', text: 'All', value: 'SELECT' },
-            { key: 'DATE', text: 'Date', value: 'DATE' },
-            { key: 'TIME', text: 'Time', value: 'TIME' }
+            { key: 'datetime', text: 'dateTime', value: 'datetime' },
+            { key: 'Seats', text: 'Seats', value: 'no_of_seats' }
+         ],
+         placeholder: 'Sort'
+      }
+      const sortOptionsForAssets = {
+         listTitle: '',
+         listItems: [
+            { key: 'datetime', text: 'Date Time', value: 'datetime' },
+            { key: 'Assets Quantity', text: 'Assets Quantity', value: 'assets_quantity' }
          ],
          placeholder: 'Sort'
       }
@@ -67,9 +74,9 @@ class Requests extends React.Component{
             doNetWorkCallsForRequests();
       }
       @action.bound
-      onChangeSortBy(sortBy) {
-         const {commuteStore:{onChangeSortBy}}=this.props;
-         onChangeSortBy('myRequests',sortBy);
+      onChangeSortField(sortBy) {
+         const {commuteStore:{onChangeSortField}}=this.props;
+         onChangeSortField('myRequests',sortBy);
          const {doNetWorkCallsForRequests}=this.props;
             doNetWorkCallsForRequests();
       }
@@ -91,33 +98,13 @@ class Requests extends React.Component{
          const {commuteStore:{displayData}}=this.props;
          switch(displayData.myRequests.requestType){
             case 'RIDE':{
-               return displayData.myRequests.rideRequests
+               return displayData.myRequests.rideRequests;
             }
             case 'ASSET':{
-               return displayData.myRequests.assetRequests
+               return displayData.myRequests.assetRequests;
             }
          }
       }
-       @action.bound
-      getMatchingRequestsAsModels() {
-         const { getMatchingResults } = this;
-         let modelsForMatchingRequests = getMatchingResults().map(request => {
-            if (request.hasOwnProperty('assetType')) {
-               const requestData = {
-                  request: request,
-                  addButtonFunction: this.onClickAddButtonInRequest,
-               }
-               return new MatchingAssetRequestCard(requestData)
-            } else {
-               const requestData = {
-                  request: request,
-                  addButtonFunction: this.onClickAddButtonInRequest,
-               }
-               return new MatchingRideRequestCard(requestData)
-            }
-         })
-         return modelsForMatchingRequests
-   }
    @action.bound
    renderSuccessUI(){
       const {commuteStore:{displayData,getMyRideRequestAPIStatus,getMyRideRequestAPIError,getMyAssetRequestAPIStatus,getMyAssetRequestAPIError}}=this.props;
@@ -147,12 +134,14 @@ class Requests extends React.Component{
       }
    }
     render(){
-        const {onClickRequestType,onChangeSortBy,onChangeFilter,onChangePageNumber}=this;
+        const {onClickRequestType,onChangeSortField,onChangeFilter,onChangePageNumber}=this;
         const {commuteStore:{displayData,limit},addRequestButton}=this.props;
         let requestType=displayData.myRequests.requestType;
         const noOfRequests=requestType==='RIDE'?displayData.myRequests.noOfRideRequests:displayData.myRequests.noOfAssetRequests;
-        const totalNumberOfPages=Math.ceil(noOfRequests/limit);
+        
+        const totalNumberOfPages =Math.ceil(noOfRequests/limit);
         const pageNumber=requestType==='RIDE'?displayData.myRequests.rideRequestPageNumber:displayData.myRequests.assetRequestPageNumber;
+       
         return (
            <MyRequestsDashboard key={Math.random() + requestType}>
             <MyRequestsHeader>
@@ -175,8 +164,8 @@ class Requests extends React.Component{
 
                <FilterAndSort>
                   <DisplayDropDown
-                     data={sortOptions}
-                     onChange={onChangeSortBy}
+                     data={requestType==='RIDE'?sortOptionsForRides:sortOptionsForAssets}
+                     onChange={onChangeSortField}
                   />
                   <DisplayDropDown
                      data={filterOptions}

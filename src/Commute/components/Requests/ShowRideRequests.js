@@ -15,7 +15,8 @@ import LoadingWrapperWithFailure from '../../../Common/components/common/Loading
 
 @observer
 class ShowRideRequests extends React.Component {
-   contructor(){
+   constructor(){
+      super();
       this.tableHeaders=['FROM','TO','DATE AND TIME','NO OF PEOPLE','LUGGAGE QUANTITY','ACCEPTED PERSON DETAILS','STATUS'];
    }
    renderSuccessUI = () => {
@@ -25,7 +26,7 @@ class ShowRideRequests extends React.Component {
       return (
          <RequestDetailsTable>
             <TableRow key={Math.random()}>
-               {tableHeaders.map(eachOne => {
+               {this.tableHeaders.map(eachOne => {
                   return (
                      <TableHeader key={Math.random()}>{eachOne}</TableHeader>
                   )
@@ -56,7 +57,7 @@ class ShowRideRequests extends React.Component {
                         {request.status === 'CONFIRM'
                            ? <span>{request.accepted_person.name}<br/>{request.accepted_person.mobile_number}</span>
                            : request.status === 'PENDING'
-                           ? 'Not Confirmed'
+                           ? 'Pending'
                            : 'Expired'}
                      </TableCellLeftAligned>
                      <TableCellLeftAligned>

@@ -32,6 +32,7 @@ class AuthStore {
    @action.bound
    userLogIn(userName, password) {
       let signInPromise = this.authService.signInAPI(userName, password);
+      console.log(signInPromise);
       return bindPromiseWithOnSuccess(signInPromise)
          .to(this.setGetUserSignInAPIStatus, this.setUserSignInAPIResponse)
          .catch(this.setGetUserSignInAPIError)

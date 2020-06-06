@@ -138,9 +138,9 @@ class TravelInfo extends React.Component {
       const travelMediums = {
          listTitle: 'TRAVEL MEDIUM',
          listItems: [
-            { key: 'BUS', text: 'Bus', value: 'Bus' },
-            { key: 'Car', text: 'Car', value: 'Car' },
-            { key: 'Taxi', text: 'Taxi', value: 'Taxi' }
+            { key: 'BUS', text: 'Bus', value: 'BUS' },
+            { key: 'TRAIN', text: 'Train', value: 'TRAIN' },
+            { key: 'FLIGHT', text: 'Flight', value: 'FLIGHT' }
          ],
          placeholder: 'Select Travel Medium'
       }

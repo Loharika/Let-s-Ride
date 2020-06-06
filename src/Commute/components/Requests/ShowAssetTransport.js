@@ -14,6 +14,7 @@ import {
 @observer
 class ShowAssetTransport extends React.Component {
    constructor(){
+      super();
       this.tableHeaders=['FROM','TO','DATE AND TIME','NO OF PEOPLE','ASSET TYPE','ASSET SENSITIVITY','WHOM TO DELIVER','ACCEPTED PERSON DETAILS','STATUS'];
    }
    renderSuccessUI = () => {
@@ -43,7 +44,7 @@ class ShowAssetTransport extends React.Component {
                         )}
                      </TableCellLeftAligned>
                      <TableCellAlignedCenter>
-                        {request.no_of_assets}
+                        {request.no_of_seats}
                      </TableCellAlignedCenter>
                      <TableCellAlignedCenter>
                         {request.asset_type}
@@ -52,14 +53,14 @@ class ShowAssetTransport extends React.Component {
                         {request.asset_sensitivity}
                      </TableCellAlignedCenter>
                      <TableCellLeftAligned>
-                     {request.asset_to_be_delivered_to}
+                     {request.whom_to_deliver}
                      </TableCellLeftAligned>
                      <TableCellLeftAligned>
-                        {request.status === 'Confirmed'
+                        {request.status === 'CONFIRM'
                            ? <span>{request.accepted_person.name}<br/>{request.accepted_person.mobile_number}</span>
-                           : request.status === 'Pending'
+                           : request.status === 'PENDING'
                            ? 'Not Confirmed'
-                           : 'Expired'}
+                           : 'EXPIRE'}
                      </TableCellLeftAligned>
                      
                      <TableCellLeftAligned>
@@ -75,6 +76,7 @@ class ShowAssetTransport extends React.Component {
    }
 
    render() {
+      
       const { renderSuccessUI } = this
       const {
          getMyAssetRequestAPIStatus,

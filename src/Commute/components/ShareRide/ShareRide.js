@@ -73,6 +73,7 @@ class ShareRide extends React.Component {
       this.seats = seats
    }
    onChangeNoOfAssetsQuantity = assetsQuantity => {
+      console.log(assetsQuantity);
       this.assetsQuantity = assetsQuantity
    }
    onSubmitRequest = () => {
@@ -85,7 +86,7 @@ class ShareRide extends React.Component {
          this.to,
          this.dateTime,
          this.seats,
-         this.luggages
+         this.assetsQuantity
       ]
       let count = 0
       formDetails.forEach(eachDetail => {
@@ -142,7 +143,7 @@ class ShareRide extends React.Component {
          startDateTime,
          endDateTime,
          seats,
-         luggages,
+         assetsQuantity,
          isCheckedFlexibleTimings,
          onClickFlexibleTimings,
          onSubmitRequest,
@@ -211,7 +212,7 @@ class ShareRide extends React.Component {
                   listData={{ title: strings.text.assetsQuantity }}
                   onChange={onChangeNoOfAssetsQuantity}
                   displayError={displayError}
-                  intial={luggages}
+                  intial={assetsQuantity}
                />
                <Button
                   buttonText={strings.text.shareText}
