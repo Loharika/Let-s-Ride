@@ -7,9 +7,8 @@ import { withRouter, Redirect } from 'react-router-dom'
 import { LogInForm } from '../../components/LogInForm'
 import { endPoints } from '../../constants'
 
-
-import {COMMUTE_DASHBOARD_HOME_PAGE} from '../../constants/NavigationalConstants.js';
-import {goToDashboardHomePage} from '../../utils/NavigationalUtils.js';
+import { COMMUTE_DASHBOARD_HOME_PAGE } from '../../constants/NavigationalConstants.js'
+import { goToDashboardHomePage } from '../../utils/NavigationalUtils.js'
 
 @inject('authStore')
 @observer
@@ -64,8 +63,8 @@ class LogInPageRoute extends React.Component {
          authStore: { access_token }
       } = this.props
       if (access_token) {
-         const {history}=this.props;
-         goToDashboardHomePage(history);
+         const { history } = this.props
+         goToDashboardHomePage(history)
       }
    }
 

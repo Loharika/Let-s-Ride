@@ -16,11 +16,9 @@ import {
 
 import LoadingWrapperWithFailure from '../../../Common/components/common/LoadingWrapperWithFailure'
 
-
 @observer
 class ShowRideRequests extends React.Component {
    renderSuccessUI = () => {
-      
       const {
          tableHeaders,
          getRequests,
@@ -38,7 +36,6 @@ class ShowRideRequests extends React.Component {
                   })}
                </TableRow>
                {Object.values(rideRequests).map(request => {
-               
                   return (
                      <TableRow key={Math.random()}>
                         <TableCellLeftAligned>
@@ -72,12 +69,7 @@ class ShowRideRequests extends React.Component {
 
                         <TableCellLeftAligned>
                            <StatusButton onClick={request.onClickAddButton}>
-                           
-                              {request.isAdded ? (
-                                 <FcCheckmark />
-                              ) : (
-                                 <FiPlus />
-                              )}
+                              {request.isAdded ? <FcCheckmark /> : <FiPlus />}
                            </StatusButton>
                         </TableCellLeftAligned>
                      </TableRow>

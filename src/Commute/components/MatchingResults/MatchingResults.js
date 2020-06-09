@@ -128,14 +128,12 @@ class MatchingResults extends React.Component {
       let modelsForMatchingRequests = getMatchingResults().map(request => {
          if (request.hasOwnProperty('asset_type')) {
             const requestData = {
-               request: request,
-               
+               request: request
             }
             return new MatchingAssetRequestCard(requestData)
          } else {
             const requestData = {
-               request: request,
-               
+               request: request
             }
             return new MatchingRideRequestCard(requestData)
          }
@@ -169,7 +167,6 @@ class MatchingResults extends React.Component {
                   doNetWorkCalls={doNetWorkCallsForMatchingRequests}
                   getMatchingRequestAPIStatus={getMatchingRequestAPIStatus}
                   getMatchingRequestAPIError={getMatchingRequestAPIError}
-                 
                />
             )
          }
@@ -181,13 +178,12 @@ class MatchingResults extends React.Component {
                   doNetWorkCalls={doNetWorkCallsForMatchingRequests}
                   getMatchingRequestAPIStatus={getMatchingRequestAPIStatus}
                   getMatchingRequestAPIError={getMatchingRequestAPIError}
-                  
                />
             )
          }
       }
    }
-   
+
    render() {
       const {
          onClickRequestType,

@@ -4,7 +4,7 @@ import { observer, inject } from 'mobx-react'
 import { withRouter } from 'react-router-dom'
 
 import SignInForm from '../../components/SignInForm/SignInForm.js'
-import {COMMUTE_DASHBOARD_HOME_PAGE} from '../../constants/NavigationalConstants.js';
+import { COMMUTE_DASHBOARD_HOME_PAGE } from '../../constants/NavigationalConstants.js'
 @inject('authStore')
 @observer
 class SignInFormRoute extends React.Component {

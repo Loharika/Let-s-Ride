@@ -9,8 +9,8 @@ toast.configure()
 
 class MatchingRideRequestCard {
    @observable isAdded
-   @observable getAcceptingMatchedRequestAPIStatus;
-   @observable getAcceptingMatchedRequestAPIError;
+   @observable getAcceptingMatchedRequestAPIStatus
+   @observable getAcceptingMatchedRequestAPIError
 
    constructor(props) {
       this.origin = props.request.origin
@@ -26,11 +26,11 @@ class MatchingRideRequestCard {
       } else {
          this.initIsNotFlexible(props)
       }
-      
-      this.initAcceptingMatchedRequestsAPI();
+
+      this.initAcceptingMatchedRequestsAPI()
    }
-   
-         @action.bound
+
+   @action.bound
    initAcceptingMatchedRequestsAPI() {
       this.getAcceptingMatchedRequestAPIStatus = API_INITIAL
       this.getAcceptingMatchedRequestAPIError = null
@@ -47,7 +47,6 @@ class MatchingRideRequestCard {
    }
    @action.bound
    onClickAddButton() {
-      
       this.postTheRequestId()
    }
    displayToaster = () => {
@@ -60,14 +59,11 @@ class MatchingRideRequestCard {
    }
    async postTheRequestId() {
       await this.acceptTheMatchedRequest(this.ride_request_id)
-      
    }
    @action.bound
    acceptTheMatchedRequest(requestId) {
       this.initAcceptingMatchedRequestsAPI()
-      let matchedRequestPromise = this.acceptTheMatchedRequestAPI(
-         requestId
-      )
+      let matchedRequestPromise = this.acceptTheMatchedRequestAPI(requestId)
       return bindPromiseWithOnSuccess(matchedRequestPromise)
          .to(
             this.setGetAcceptingMatchedRequestAPIStatus,
@@ -78,11 +74,11 @@ class MatchingRideRequestCard {
    @action.bound
    setGetAcceptingMatchedRequestAPIStatus(apiStatus) {
       this.getAcceptingMatchedRequestAPIStatus = apiStatus
-      if(this.getAcceptingMatchedRequestAPIStatus===200){
-         console.log(this.isAdded);
-         this.isAdded=!this.isAdded;
-         console.log(this.isAdded);
-         this.displayToaster();
+      if (this.getAcceptingMatchedRequestAPIStatus === 200) {
+         console.log(this.isAdded)
+         this.isAdded = !this.isAdded
+         console.log(this.isAdded)
+         this.displayToaster()
       }
    }
    @action.bound
@@ -93,13 +89,12 @@ class MatchingRideRequestCard {
    setGetAcceptingMatchedRequestAPIResponse(apiResponse) {
       this.getAcceptingMatchedRequestAPIResponse = apiResponse
    }
-    @action
+   @action
    acceptTheMatchedRequestAPI(requestId) {
-      return new Promise(resolve=>{
+      return new Promise(resolve => {
          setTimeout(() => {
-                  resolve('added')
-               }, 1000)
-        
+            resolve('added')
+         }, 1000)
       })
    }
 }

@@ -9,7 +9,7 @@ import {
    PasswordAlert,
    LogoImageContainer
 } from './styledComponents.js'
-import {COMMUTE_DASHBOARD_LOGIN_PAGE} from '../../constants/NavigationalConstants.js';
+import { COMMUTE_DASHBOARD_LOGIN_PAGE } from '../../constants/NavigationalConstants.js'
 import { FormHeading } from '../../styledComponents'
 
 import { InputField } from '../Common/InputField.js'

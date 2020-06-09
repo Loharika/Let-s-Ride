@@ -1,10 +1,10 @@
 import { action } from 'mobx'
 import { create } from 'apisauce'
 
-import assetRequestData from '../../fixtures/assetRequests.fixture.json';
-import rideRequestData from '../../fixtures/rideRequests.fixture.json';
-import matchedRideRequests from '../../fixtures/matchedRideRequests.fixture..json';
-import matchingAssetsRequests from '../../fixtures/matchedAssetRequests.fixture.json';
+import assetRequestData from '../../fixtures/assetRequests.fixture.json'
+import rideRequestData from '../../fixtures/rideRequests.fixture.json'
+import matchedRideRequests from '../../fixtures/matchedRideRequests.fixture..json'
+import matchingAssetsRequests from '../../fixtures/matchedAssetRequests.fixture.json'
 import sharedRides from '../../fixtures/sharedRide.fixture.json'
 import travelInfo from '../../fixtures/sharedTravelInfo.fixture.json'
 
@@ -88,7 +88,8 @@ class CommuteService {
                      index >= dataToGetRequests.offset &&
                      index < dataToGetRequests.offset + dataToGetRequests.limit
                ),
-               ride_requests_matches_count: matchedRideRequests.total_ride_requests_count
+               ride_requests_matches_count:
+                  matchedRideRequests.total_ride_requests_count
             }
 
             return new Promise(resolve => {
@@ -114,13 +115,12 @@ class CommuteService {
          }
       }
    }
-    @action
+   @action
    acceptTheMatchedRequestAPI(requestId) {
-      return new Promise(resolve=>{
+      return new Promise(resolve => {
          setTimeout(() => {
-                  resolve('added')
-               }, 1000)
-        
+            resolve('added')
+         }, 1000)
       })
    }
    @action
@@ -129,12 +129,11 @@ class CommuteService {
       let rides = {
          shared_rides: sharedRides.ride_shares.filter(
             (request, index) =>
-               index >= details.offset &&
-               index < details.offset + details.limit
+               index >= details.offset && index < details.offset + details.limit
          ),
          count_of_ride_shares: sharedRides.count_of_ride_shares
       }
-      
+
       return new Promise(resolve => {
          setTimeout(() => {
             resolve(rides)
@@ -147,8 +146,7 @@ class CommuteService {
       let travel_info = {
          shared_travels: travelInfo.travel_info.filter(
             (request, index) =>
-               index >= details.offset &&
-               index < details.offset + details.limit
+               index >= details.offset && index < details.offset + details.limit
          ),
          total_travel_infos_shared: travelInfo.no_of_travel_info
       }
@@ -157,7 +155,6 @@ class CommuteService {
             resolve(travel_info)
          }, 1000)
       })
-     
    }
 }
 export { CommuteService }

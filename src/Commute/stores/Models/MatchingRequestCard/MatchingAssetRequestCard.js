@@ -1,5 +1,5 @@
 import React from 'react'
-import { observable, action } from 'mobx';
+import { observable, action } from 'mobx'
 import { bindPromiseWithOnSuccess } from '@ib/mobx-promise'
 import { API_INITIAL } from '@ib/api-constants'
 import 'react-toastify/dist/ReactToastify.css'
@@ -9,8 +9,8 @@ import { toast } from 'react-toastify'
 toast.configure()
 
 class MatchingAssetRequestCard {
-   @observable getAcceptingMatchedRequestAPIStatus;
-   @observable getAcceptingMatchedRequestAPIError;
+   @observable getAcceptingMatchedRequestAPIStatus
+   @observable getAcceptingMatchedRequestAPIError
    @observable isAdded
    constructor(props) {
       this.origin = props.request.origin
@@ -30,10 +30,10 @@ class MatchingAssetRequestCard {
       } else {
          this.initIsNotFlexible(props)
       }
-     
-      this.initAcceptingMatchedRequestsAPI();
+
+      this.initAcceptingMatchedRequestsAPI()
    }
-         @action.bound
+   @action.bound
    initAcceptingMatchedRequestsAPI() {
       this.getAcceptingMatchedRequestAPIStatus = API_INITIAL
       this.getAcceptingMatchedRequestAPIError = null
@@ -50,7 +50,7 @@ class MatchingAssetRequestCard {
    }
    @action.bound
    onClickAddButton() {
-      this.isAdded=!this.isAdded;
+      this.isAdded = !this.isAdded
       this.postTheRequestId()
    }
    displayToaster = () => {
@@ -61,16 +61,14 @@ class MatchingAssetRequestCard {
          hideProgressBar: true
       })
    }
-   
+
    async postTheRequestId() {
       await this.acceptTheMatchedRequest(this.asset_request_id)
    }
    @action.bound
    acceptTheMatchedRequest(requestId) {
       this.initAcceptingMatchedRequestsAPI()
-      let matchedRequestPromise = this.acceptTheMatchedRequestAPI(
-         requestId
-      )
+      let matchedRequestPromise = this.acceptTheMatchedRequestAPI(requestId)
       return bindPromiseWithOnSuccess(matchedRequestPromise)
          .to(
             this.setGetAcceptingMatchedRequestAPIStatus,
@@ -81,8 +79,8 @@ class MatchingAssetRequestCard {
    @action.bound
    setGetAcceptingMatchedRequestAPIStatus(apiStatus) {
       this.getAcceptingMatchedRequestAPIStatus = apiStatus
-      if(this.getAcceptingMatchedRequestAPIStatus===200){
-         this.displayToaster();
+      if (this.getAcceptingMatchedRequestAPIStatus === 200) {
+         this.displayToaster()
       }
    }
    @action.bound
@@ -93,13 +91,12 @@ class MatchingAssetRequestCard {
    setGetAcceptingMatchedRequestAPIResponse(apiResponse) {
       this.getAcceptingMatchedRequestAPIResponse = apiResponse
    }
-    @action
+   @action
    acceptTheMatchedRequestAPI(requestId) {
-      return new Promise(resolve=>{
+      return new Promise(resolve => {
          setTimeout(() => {
-                  resolve('added')
-               }, 1000)
-        
+            resolve('added')
+         }, 1000)
       })
    }
 }

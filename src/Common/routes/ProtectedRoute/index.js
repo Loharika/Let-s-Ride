@@ -1,7 +1,7 @@
 import React from 'react'
 import { Redirect, Route } from 'react-router-dom'
 import { observer, inject } from 'mobx-react'
-import {COMMUTE_DASHBOARD_LOGIN_PAGE} from '../../../Authentication/constants/NavigationalConstants.js';
+import { COMMUTE_DASHBOARD_LOGIN_PAGE } from '../../../Authentication/constants/NavigationalConstants.js'
 const ProtectedRoute = inject('authStore')(
    observer(
       ({ component: Component, authStore, SIGN_IN_PATH, path, ...rest }) => {
@@ -17,7 +17,7 @@ const ProtectedRoute = inject('authStore')(
                      return (
                         <Redirect
                            to={{
-                              pathname:COMMUTE_DASHBOARD_LOGIN_PAGE
+                              pathname: COMMUTE_DASHBOARD_LOGIN_PAGE
                            }}
                         />
                      )

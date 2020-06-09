@@ -18,12 +18,9 @@ import {
 @observer
 class ShowAssetTransport extends React.Component {
    renderSuccessUI = () => {
-      const {
-         tableHeaders,
-         getRequests,
-      } = this.props
-      const assetRequests = getRequests();
-      
+      const { tableHeaders, getRequests } = this.props
+      const assetRequests = getRequests()
+
       if (assetRequests.length !== 0) {
          return (
             <RequestDetailsTable>

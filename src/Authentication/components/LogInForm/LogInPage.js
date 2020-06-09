@@ -3,9 +3,9 @@ import { observer } from 'mobx-react'
 import { InputField } from '../Common/InputField.js'
 import { LogoImage } from '../Common/LogoImage.js'
 import strings from '../../i18n/strings.json'
-import { Button } from '../Common/Button.js';
+import { Button } from '../Common/Button.js'
 
-import {COMMUTE_DASHBOARD_SIGNUP_PAGE} from '../../constants/NavigationalConstants.js';
+import { COMMUTE_DASHBOARD_SIGNUP_PAGE } from '../../constants/NavigationalConstants.js'
 import {
    FormType,
    FormDashBoard,

@@ -352,7 +352,8 @@ class CommuteStore {
    @action.bound
    setGetMyRideRequestAPIResponse(apiResponse) {
       this.displayData['myRequests'].rideRequests = apiResponse.ride_requests
-      this.displayData['myRequests'].noOfRideRequests =apiResponse.total_ride_requests_count
+      this.displayData['myRequests'].noOfRideRequests =
+         apiResponse.total_ride_requests_count
    }
    //<-------------------------------------GET MY ASSET REQUESTS ----------------------------------------------------->
 
@@ -480,7 +481,7 @@ class CommuteStore {
    setGetSharedRidesResponse(apiResponse) {
       this.displayData['sharedDetails'].sharedRides = apiResponse.shared_rides
       this.displayData['sharedDetails'].noOfSharedRides =
-         apiResponse.count_of_ride_shares;
+         apiResponse.count_of_ride_shares
    }
 
    //<--------------------------------------------GET SHARE TRAVEL INFO---------------------------------------------->
@@ -498,17 +499,14 @@ class CommuteStore {
 
    @action.bound
    setGetTravelInfoAPIStatus(apiStatus) {
-      
       this.getTravelInfoAPIStatus = apiStatus
    }
    @action.bound
    setGetTravelInfoAPIError(apiError) {
-      
       this.getTravelInfoAPIError = apiError
    }
    @action.bound
    setGetTravelInfoAPIResponse(apiResponse) {
-      
       this.displayData['sharedDetails'].travelInfo = apiResponse.shared_travels
       this.displayData['sharedDetails'].noOfSharedTravelInfo =
          apiResponse.total_travel_infos_shared
