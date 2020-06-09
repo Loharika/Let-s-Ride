@@ -1,6 +1,6 @@
-import React from 'react';
-import {observer,inject} from 'mobx-react';
-import {action} from 'mobx';
+import React from 'react'
+import { observer, inject } from 'mobx-react'
+import { action } from 'mobx'
 import { Pagination } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css'
 
@@ -28,28 +28,28 @@ import {
 import strings from '../../i18n/strings.json'
 
 const filterOptions = {
-         listTitle: '',
-         listItems: [
-             { key: 'PENDING', text: 'Pending', value: 'PENDING' },
-            { key: 'CONFIRMED', text: 'Confirmed', value: 'CONFIRMED' },
-            { key: 'EXPIRE', text: 'Expire', value: 'EXPIRE' }
-         ],
-         placeholder: 'Filter'
-      }
-      const sortOptions = {
-         listTitle: '',
-         listItems: [
-            { key: 'datetime', text: 'dateTime', value: 'datetime' },
-            { key: 'Seats', text: 'Seats', value: 'no_of_seats' }
-         ],
-         placeholder: 'Sort'
-      }
+   listTitle: '',
+   listItems: [
+      { key: 'PENDING', text: 'Pending', value: 'PENDING' },
+      { key: 'CONFIRMED', text: 'Confirmed', value: 'CONFIRMED' },
+      { key: 'EXPIRE', text: 'Expire', value: 'EXPIRE' }
+   ],
+   placeholder: 'Filter'
+}
+const sortOptions = {
+   listTitle: '',
+   listItems: [
+      { key: 'datetime', text: 'dateTime', value: 'datetime' },
+      { key: 'Seats', text: 'Seats', value: 'no_of_seats' }
+   ],
+   placeholder: 'Sort'
+}
 
 @inject('commuteStore')
 @observer
-class MatchingResults extends React.Component{
-    constructor(){
-        super();
+class MatchingResults extends React.Component {
+   constructor() {
+      super()
       this.rideRequestTableHeaders = [
          'REQUESTED PERSON DETAILS',
          'FROM',
@@ -70,79 +70,98 @@ class MatchingResults extends React.Component{
          'WHOM TO DELIVER',
          'STATUS'
       ]
-    }
-      
-      onChangePageNumber = (event, data) => {
-            const {commuteStore:{onChangePageNumber}}=this.props;
-            onChangePageNumber('matchingResults',data.activePage);
-            const {doNetWorkCallsForMatchingRequests}=this.props;
-            doNetWorkCallsForMatchingRequests();
-            
-      }
-      onClickRequestType = requestType => {
-         const {commuteStore:{onChangeRequestType}}=this.props;
-         onChangeRequestType('matchingResults',requestType);
-         const {doNetWorkCallsForMatchingRequests}=this.props;
-            doNetWorkCallsForMatchingRequests();
-      }
-      @action.bound
-      onChangeSortBy(sortBy) {
-         const {commuteStore:{onChangeSortBy}}=this.props;
-         onChangeSortBy('matchingResults',sortBy);
-         const {doNetWorkCallsForMatchingRequests}=this.props;
-            doNetWorkCallsForMatchingRequests();
-      }
-      @action.bound
-      onChangeFilter(filterBy) {
-         const {commuteStore:{onChangeFilter}}=this.props;
-         onChangeFilter('matchingResults',filterBy);
-         const {doNetWorkCallsForMatchingRequests}=this.props;
-            doNetWorkCallsForMatchingRequests();
-         
-      }
-      
-      @action.bound
-      getMatchingResults(){
-         const {commuteStore:{displayData}}=this.props;
-         switch(displayData.matchingResults.requestType){
-            case 'RIDE':{
-               return displayData.matchingResults.rideRequests
-            }
-            case 'ASSET':{
-               return displayData.matchingResults.assetRequests
-            }
-         }
-      }
-      
-       @action.bound
-      getMatchingRequestsAsModels() {
-         const { getMatchingResults } = this;
-         let modelsForMatchingRequests = getMatchingResults().map(request => {
-            if (request.hasOwnProperty('asset_type')) {
-               const requestData = {
-                  request: request,
-                  addButtonFunction: this.onClickAddButtonInRequest,
-               }
-               return new MatchingAssetRequestCard(requestData)
-            } else {
-               const requestData = {
-                  request: request,
-                  addButtonFunction: this.onClickAddButtonInRequest,
-               }
-               return new MatchingRideRequestCard(requestData)
-            }
-         })
-         return modelsForMatchingRequests
+   }
+
+   onChangePageNumber = (event, data) => {
+      const {
+         commuteStore: { onChangePageNumber }
+      } = this.props
+      onChangePageNumber('matchingResults', data.activePage)
+      const { doNetWorkCallsForMatchingRequests } = this.props
+      doNetWorkCallsForMatchingRequests()
+   }
+   onClickRequestType = requestType => {
+      const {
+         commuteStore: { onChangeRequestType }
+      } = this.props
+      onChangeRequestType('matchingResults', requestType)
+      const { doNetWorkCallsForMatchingRequests } = this.props
+      doNetWorkCallsForMatchingRequests()
    }
    @action.bound
-   renderSuccessUI(){
-      const {commuteStore:{displayData,getMatchingRequestAPIStatus,getMatchingRequestAPIError,getAcceptingMatchedRequestAPIStatus}}=this.props;
-      const {doNetWorkCallsForMatchingRequests}=this.props;
-        let requestType=displayData.matchingResults.requestType;
-        const {getMatchingRequestsAsModels,rideRequestTableHeaders,assetRequestTableHeaders}=this;
+   onChangeSortBy(sortBy) {
+      const {
+         commuteStore: { onChangeSortBy }
+      } = this.props
+      onChangeSortBy('matchingResults', sortBy)
+      const { doNetWorkCallsForMatchingRequests } = this.props
+      doNetWorkCallsForMatchingRequests()
+   }
+   @action.bound
+   onChangeFilter(filterBy) {
+      const {
+         commuteStore: { onChangeFilter }
+      } = this.props
+      onChangeFilter('matchingResults', filterBy)
+      const { doNetWorkCallsForMatchingRequests } = this.props
+      doNetWorkCallsForMatchingRequests()
+   }
 
-      switch(requestType){
-         case 'RIDE':{
+   @action.bound
+   getMatchingResults() {
+      const {
+         commuteStore: { displayData }
+      } = this.props
+      switch (displayData.matchingResults.requestType) {
+         case 'RIDE': {
+            return displayData.matchingResults.rideRequests
+         }
+         case 'ASSET': {
+            return displayData.matchingResults.assetRequests
+         }
+      }
+   }
+
+   @action.bound
+   getMatchingRequestsAsModels() {
+      const { getMatchingResults } = this
+      let modelsForMatchingRequests = getMatchingResults().map(request => {
+         if (request.hasOwnProperty('asset_type')) {
+            const requestData = {
+               request: request,
+               
+            }
+            return new MatchingAssetRequestCard(requestData)
+         } else {
+            const requestData = {
+               request: request,
+               
+            }
+            return new MatchingRideRequestCard(requestData)
+         }
+      })
+      return modelsForMatchingRequests
+   }
+   @action.bound
+   renderSuccessUI() {
+      const {
+         commuteStore: {
+            displayData,
+            getMatchingRequestAPIStatus,
+            getMatchingRequestAPIError,
+            getAcceptingMatchedRequestAPIStatus
+         }
+      } = this.props
+      const { doNetWorkCallsForMatchingRequests } = this.props
+      let requestType = displayData.matchingResults.requestType
+      const {
+         getMatchingRequestsAsModels,
+         rideRequestTableHeaders,
+         assetRequestTableHeaders
+      } = this
+
+      switch (requestType) {
+         case 'RIDE': {
             return (
                <ShowRideRequests
                   getRequests={getMatchingRequestsAsModels}
@@ -150,12 +169,11 @@ class MatchingResults extends React.Component{
                   doNetWorkCalls={doNetWorkCallsForMatchingRequests}
                   getMatchingRequestAPIStatus={getMatchingRequestAPIStatus}
                   getMatchingRequestAPIError={getMatchingRequestAPIError}
-                  getAcceptingMatchedRequestAPIStatus={getAcceptingMatchedRequestAPIStatus}
-               />);
-            
-            
+                 
+               />
+            )
          }
-         case 'ASSET':{
+         case 'ASSET': {
             return (
                <ShowAssetTransport
                   getRequests={getMatchingRequestsAsModels}
@@ -163,26 +181,36 @@ class MatchingResults extends React.Component{
                   doNetWorkCalls={doNetWorkCallsForMatchingRequests}
                   getMatchingRequestAPIStatus={getMatchingRequestAPIStatus}
                   getMatchingRequestAPIError={getMatchingRequestAPIError}
-                  getAcceptingMatchedRequestAPIStatus={getAcceptingMatchedRequestAPIStatus}
-               />)
+                  
+               />
+            )
          }
       }
    }
-   @action.bound
-      onClickAddButtonInRequest(requestId) {
-         const {commuteStore:{acceptTheMatchedRequest}}=this.props;
-         acceptTheMatchedRequest(requestId);
-         
-      }
-    render(){
-        const {onClickRequestType,onChangeSortBy,onChangeFilter,onChangePageNumber,getMatchingRequestsAsModels}=this;
-        const {commuteStore:{displayData,limit}}=this.props;
-        let requestType=displayData.matchingResults.requestType;
-        const noOfRequests=requestType==='RIDE'?displayData.matchingResults.noOfRideRequests:displayData.matchingResults.noOfAssetRequests;
-        const totalNumberOfPages=Math.ceil(noOfRequests/limit);
-        const pageNumber=requestType==='RIDE'?displayData.matchingResults.rideRequestPageNumber:displayData.matchingResults.assetRequestPageNumber;
-        return (
-           <MyRequestsDashboard key={Math.random() + requestType}>
+   
+   render() {
+      const {
+         onClickRequestType,
+         onChangeSortBy,
+         onChangeFilter,
+         onChangePageNumber,
+         getMatchingRequestsAsModels
+      } = this
+      const {
+         commuteStore: { displayData, limit }
+      } = this.props
+      let requestType = displayData.matchingResults.requestType
+      const noOfRequests =
+         requestType === 'RIDE'
+            ? displayData.matchingResults.noOfRideRequests
+            : displayData.matchingResults.noOfAssetRequests
+      const totalNumberOfPages = Math.ceil(noOfRequests / limit)
+      const pageNumber =
+         requestType === 'RIDE'
+            ? displayData.matchingResults.rideRequestPageNumber
+            : displayData.matchingResults.assetRequestPageNumber
+      return (
+         <MyRequestsDashboard key={Math.random() + requestType}>
             <MyRequestsHeader>
                <MyRequestType
                   onClick={() => onClickRequestType('RIDE')}
@@ -198,7 +226,11 @@ class MatchingResults extends React.Component{
                </MyRequestType>
             </MyRequestsHeader>
             <RequestHeader>
-               {getMatchingRequestsAsModels().length!==0?<NoOfRequests>{noOfRequests} Request(s)</NoOfRequests>:''}
+               {getMatchingRequestsAsModels().length !== 0 ? (
+                  <NoOfRequests>{noOfRequests} Request(s)</NoOfRequests>
+               ) : (
+                  ''
+               )}
 
                <FilterAndSort>
                   <DisplayDropDown
@@ -211,31 +243,33 @@ class MatchingResults extends React.Component{
                   />
                </FilterAndSort>
             </RequestHeader>
-            
+
             {this.renderSuccessUI()}
-            {getMatchingRequestsAsModels().length!==0?
-            <Footer>
-               
-               {totalNumberOfPages !== 0 ? (
-                  <Pages>
-                     {pageNumber} to {totalNumberOfPages}
-                  </Pages>
-               ) : (
-                  ''
-               )}
-               <Pagination
-                  boundaryRange={0}
-                  defaultActivePage={pageNumber}
-                  ellipsisItem={null}
-                  firstItem={null}
-                  lastItem={null}
-                  siblingRange={1}
-                  totalPages={totalNumberOfPages}
-                  onPageChange={onChangePageNumber}
-               />
-            </Footer>:''}
-            </MyRequestsDashboard>
-            );
-    }
+            {getMatchingRequestsAsModels().length !== 0 ? (
+               <Footer>
+                  {totalNumberOfPages !== 0 ? (
+                     <Pages>
+                        {pageNumber} to {totalNumberOfPages}
+                     </Pages>
+                  ) : (
+                     ''
+                  )}
+                  <Pagination
+                     boundaryRange={0}
+                     defaultActivePage={pageNumber}
+                     ellipsisItem={null}
+                     firstItem={null}
+                     lastItem={null}
+                     siblingRange={1}
+                     totalPages={totalNumberOfPages}
+                     onPageChange={onChangePageNumber}
+                  />
+               </Footer>
+            ) : (
+               ''
+            )}
+         </MyRequestsDashboard>
+      )
+   }
 }
-export {MatchingResults}
+export { MatchingResults }

@@ -2,8 +2,19 @@ import React from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { observer, Provider } from 'mobx-react'
 
-import { endPoints as AuthEndPoints } from './Authentication/constants'
-import { endPoints as CommuteEndPoints } from './Commute/constants'
+import {
+   COMMUTE_DASHBOARD_SIGNUP_PAGE,
+   COMMUTE_DASHBOARD_LOGIN_PAGE
+} from './Authentication/constants/NavigationalConstants.js'
+import {
+   COMMUTE_DASHBOARD_HOME_PAGE,
+   COMMUTE_DASHBOARD_RIDE_REQUEST,
+   COMMUTE_DASHBOARD_ASSET_REQUEST,
+   COMMUTE_DASHBOARD_SHARE_RIDE,
+   COMMUTE_DASHBOARD_USERPROFILE,
+   COMMUTE_DASHBOARD_SHARE_TRAVEL_INFO
+} from './Commute/constants/NavigationalConstants.js'
+
 import { LogInPageRoute } from './Authentication/routes'
 import { SignInFormRoute } from './Authentication/routes'
 import DashBoardRoute from './Commute/routes/DashBoardRoute/DashBoardRoute.js'
@@ -24,40 +35,44 @@ class App extends React.Component {
          <Provider {...stores}>
             <Router basename={process.env.PUBLIC_URL}>
                <Switch>
-                  <Route exact path='/login-page' component={LogInPageRoute} />
                   <Route
                      exact
-                     path={'/commute-dashboard/user-profile'}
-                     component={UserProfile}
+                     path={COMMUTE_DASHBOARD_LOGIN_PAGE}
+                     component={LogInPageRoute}
                   />
-                  <ProtectedRoute
+                  <Route
                      exact
-                     path='/commute-dashboard/home-page'
-                     component={DashBoardRoute}
-                  />
-                  <ProtectedRoute
-                     exact
-                     path={'/sign-in'}
+                     path={COMMUTE_DASHBOARD_SIGNUP_PAGE}
                      component={SignInFormRoute}
                   />
                   <ProtectedRoute
                      exact
-                     path='/commute-dashboard/asset-transport-request'
+                     path={COMMUTE_DASHBOARD_USERPROFILE}
+                     component={UserProfile}
+                  />
+                  <ProtectedRoute
+                     exact
+                     path={COMMUTE_DASHBOARD_HOME_PAGE}
+                     component={DashBoardRoute}
+                  />
+                  <ProtectedRoute
+                     exact
+                     path={COMMUTE_DASHBOARD_ASSET_REQUEST}
                      component={AssetTransportRequest}
                   />
                   <ProtectedRoute
                      exact
-                     path='/commute-dashboard/ride-request'
+                     path={COMMUTE_DASHBOARD_RIDE_REQUEST}
                      component={RideRequest}
                   />
                   <ProtectedRoute
                      exact
-                     path='/commute-dashboard/share-ride'
+                     path={COMMUTE_DASHBOARD_SHARE_RIDE}
                      component={ShareRide}
                   />
                   <ProtectedRoute
                      exact
-                     path='/commute-dashboard/share-travelInfo'
+                     path={COMMUTE_DASHBOARD_SHARE_TRAVEL_INFO}
                      component={TravelInfo}
                   />
                </Switch>

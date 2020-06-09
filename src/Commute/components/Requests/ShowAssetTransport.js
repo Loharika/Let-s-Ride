@@ -14,78 +14,94 @@ import {
 
 @observer
 class ShowAssetTransport extends React.Component {
-   constructor(){
-      super();
-      this.tableHeaders=['FROM','TO','DATE AND TIME','NO OF PEOPLE','ASSET TYPE','ASSET SENSITIVITY','WHOM TO DELIVER','ACCEPTED PERSON DETAILS','STATUS'];
+   constructor() {
+      super()
+      this.tableHeaders = [
+         'FROM',
+         'TO',
+         'DATE AND TIME',
+         'NO OF PEOPLE',
+         'ASSET TYPE',
+         'ASSET SENSITIVITY',
+         'WHOM TO DELIVER',
+         'ACCEPTED PERSON DETAILS',
+         'STATUS'
+      ]
    }
    renderSuccessUI = () => {
-      const {tableHeaders}=this;
+      const { tableHeaders } = this
       const { getRequests } = this.props
       const assetRequests = getRequests()
-      if(assetRequests.length!==0){
-      
-      return (
-         <RequestDetailsTable>
-            <TableRow>
-               {tableHeaders.map(eachOne => {
-                  return <TableHeader>{eachOne}</TableHeader>
-               })}
-            </TableRow>
-            {Object.values(assetRequests).map(request => {
-               return (
-                  <TableRow>
-                     <TableCellLeftAligned>{request.origin}</TableCellLeftAligned>
-                     <TableCellLeftAligned>{request.destination}</TableCellLeftAligned>
-                     <TableCellLeftAligned>
-                        {request.flexible_with_time ? (
-                           <span>
-                              From:{request.start_datetime.slice(0, 21)} <br />
-                              To:{request.end_datetime.slice(0, 21)}
-                           </span>
-                        ) : (
-                           request.datetime.slice(0, 21)
-                        )}
-                     </TableCellLeftAligned>
-                     <TableCellAlignedCenter>
-                        {request.no_of_seats}
-                     </TableCellAlignedCenter>
-                     <TableCellAlignedCenter>
-                        {request.asset_type}
-                     </TableCellAlignedCenter>
-                     <TableCellAlignedCenter>
-                        {request.asset_sensitivity}
-                     </TableCellAlignedCenter>
-                     <TableCellLeftAligned>
-                     {request.whom_to_deliver}
-                     </TableCellLeftAligned>
-                     <TableCellLeftAligned>
-                        {request.status === 'CONFIRM'
-                           ? <span>{request.accepted_person.name}<br/>{request.accepted_person.mobile_number}</span>
-                           : request.status === 'PENDING'
-                           ? 'Not Confirmed'
-                           : 'EXPIRE'}
-                     </TableCellLeftAligned>
-                     
-                     <TableCellLeftAligned>
-                        <StatusButton status={request.status}>
-                           {request.status.toUpperCase()}
-                        </StatusButton>
-                     </TableCellLeftAligned>
-                  </TableRow>
-               )
-            })}
-         </RequestDetailsTable>)
-      }
-      else{
+      if (assetRequests.length !== 0) {
          return (
-            <NoDataFound> No Data Found</NoDataFound>
-            )
-         
+            <RequestDetailsTable>
+               <TableRow>
+                  {tableHeaders.map(eachOne => {
+                     return <TableHeader>{eachOne}</TableHeader>
+                  })}
+               </TableRow>
+               {Object.values(assetRequests).map(request => {
+                  return (
+                     <TableRow>
+                        <TableCellLeftAligned>
+                           {request.origin}
+                        </TableCellLeftAligned>
+                        <TableCellLeftAligned>
+                           {request.destination}
+                        </TableCellLeftAligned>
+                        <TableCellLeftAligned>
+                           {request.flexible_with_time ? (
+                              <span>
+                                 From:{request.start_datetime.slice(0, 21)}{' '}
+                                 <br />
+                                 To:{request.end_datetime.slice(0, 21)}
+                              </span>
+                           ) : (
+                              request.datetime.slice(0, 21)
+                           )}
+                        </TableCellLeftAligned>
+                        <TableCellAlignedCenter>
+                           {request.no_of_seats}
+                        </TableCellAlignedCenter>
+                        <TableCellAlignedCenter>
+                           {request.asset_type}
+                        </TableCellAlignedCenter>
+                        <TableCellAlignedCenter>
+                           {request.asset_sensitivity}
+                        </TableCellAlignedCenter>
+                        <TableCellLeftAligned>
+                           {request.whom_to_deliver}
+                        </TableCellLeftAligned>
+                        <TableCellLeftAligned>
+                           {request.status === 'CONFIRM' ? (
+                              <span>
+                                 {request.accepted_person.name}
+                                 <br />
+                                 {request.accepted_person.mobile_number}
+                              </span>
+                           ) : request.status === 'PENDING' ? (
+                              'Not Confirmed'
+                           ) : (
+                              'EXPIRE'
+                           )}
+                        </TableCellLeftAligned>
+
+                        <TableCellLeftAligned>
+                           <StatusButton status={request.status}>
+                              {request.status.toUpperCase()}
+                           </StatusButton>
+                        </TableCellLeftAligned>
+                     </TableRow>
+                  )
+               })}
+            </RequestDetailsTable>
+         )
+      } else {
+         return <NoDataFound> No Data Found</NoDataFound>
       }
    }
 
    render() {
-      
       const { renderSuccessUI } = this
       const {
          getMyAssetRequestAPIStatus,

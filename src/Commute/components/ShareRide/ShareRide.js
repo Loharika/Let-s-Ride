@@ -1,7 +1,7 @@
 import React from 'react'
 import { observable, action } from 'mobx'
 import { observer, inject } from 'mobx-react'
-import moment from 'moment';
+import moment from 'moment'
 import { Typo20DarkBlueGreyHKGrotestBold as FormHeadingText } from '../../styleGuides/StyleGuides.js'
 import { Form, FormDashboard } from '../../styledComponents/styleComponents.js'
 
@@ -61,13 +61,13 @@ class ShareRide extends React.Component {
       this.displayError = false
    }
    onChangeTime = time => {
-      this.dateTime = moment(time).format('YYYY-MM-DD HH:mm:ss');
+      this.dateTime = moment(time).format('YYYY-MM-DD HH:mm:ss')
    }
    onChangeFromTime = time => {
-      this.startDateTime = moment(time).format('YYYY-MM-DD HH:mm:ss');
+      this.startDateTime = moment(time).format('YYYY-MM-DD HH:mm:ss')
    }
    onChangeToTime = time => {
-      this.endDateTime = moment(time).format('YYYY-MM-DD HH:mm:ss');
+      this.endDateTime = moment(time).format('YYYY-MM-DD HH:mm:ss')
    }
    onChangeNoOfSeats = seats => {
       this.seats = seats
@@ -77,7 +77,7 @@ class ShareRide extends React.Component {
    }
    onSubmitRequest = () => {
       this.displayError = true
-      
+
       let formDetails = [
          this.from,
          this.to,
@@ -98,8 +98,8 @@ class ShareRide extends React.Component {
                origin: this.from,
                destination: this.to,
                flexible_with_time: false,
-               start_datetime:null,
-               end_datetime:null,
+               start_datetime: null,
+               end_datetime: null,
                datetime: this.dateTime,
                no_of_seats: this.seats,
                assets_quantity: this.assetsQuantity
@@ -117,25 +117,25 @@ class ShareRide extends React.Component {
                origin: this.from,
                destination: this.to,
                flexible_with_time: true,
-               datetime:null,
+               datetime: null,
                start_datetime: this.startDateTime,
                end_datetime: this.endDateTime,
                no_of_seats: this.seats,
                assets_quantity: this.assetsQuantity
             }
-           
+
             this.shareRideInfo(shareRideData)
          }
       }
    }
-   async shareRideInfo(shareRideData){
+   async shareRideInfo(shareRideData) {
       const {
          commuteStore: { shareRideInfo }
       } = this.props
-      await shareRideInfo(shareRideData);
+      await shareRideInfo(shareRideData)
       alert('Submitted Succesfully')
-       this.init()
-       this.displayError=false;
+      this.init()
+      this.displayError = false
    }
    render() {
       const {
@@ -226,7 +226,6 @@ class ShareRide extends React.Component {
    }
 }
 export default withRouter(withHeader(ShareRide))
-
 
 //  "origin": "string",
 //  "destination": "string",

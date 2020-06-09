@@ -52,7 +52,7 @@ export const RequestDetailsTable = styled.tbody`
    border-collapse: collapse;
    width: 100%;
    height: 350px;
-   align-self:center;
+   align-self: center;
 `
 export const TableHeader = styled.th`
    border: 1px solid #dddddd;
@@ -88,7 +88,7 @@ export const PageNumber = styled.div`
    padding: 5px 10px;
 `
 export const StatusButton = styled.button`
-    background-color: ${props =>
+   background-color: ${props =>
       props.status === 'Confirmed'
          ? colors.greenishTeal
          : props.status === 'Pending'
@@ -101,8 +101,8 @@ export const StatusButton = styled.button`
    color: ${colors.white};
 `
 export const Pages = styled.div`
-        text-align:center;
-`;
+   text-align: center;
+`
 /*
 export const Card=styled.div`
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);

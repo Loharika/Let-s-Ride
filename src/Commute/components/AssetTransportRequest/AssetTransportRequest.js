@@ -1,8 +1,8 @@
 import React from 'react'
 import { observer, inject } from 'mobx-react'
-import { observable, action } from 'mobx';
+import { observable, action } from 'mobx'
 
-import moment from 'moment';
+import moment from 'moment'
 
 import { Typo20DarkBlueGreyHKGrotestBold as FormHeadingText } from '../../styleGuides/StyleGuides.js'
 import { Form, FormDashboard } from '../../styledComponents/styleComponents.js'
@@ -108,13 +108,13 @@ class AssetTransportRequest extends React.Component {
       this.displayError = false
    }
    onChangeTime = time => {
-      this.dateTime =moment(time).format('YYYY-MM-DD HH:mm:ss');
+      this.dateTime = moment(time).format('YYYY-MM-DD HH:mm:ss')
    }
    onChangeFromTime = time => {
-      this.startDateTime = moment(time).format('YYYY-MM-DD HH:mm:ss');
+      this.startDateTime = moment(time).format('YYYY-MM-DD HH:mm:ss')
    }
    onChangeToTime = time => {
-      this.endDateTime = moment(time).format('YYYY-MM-DD HH:mm:ss');
+      this.endDateTime = moment(time).format('YYYY-MM-DD HH:mm:ss')
    }
    onChangeNoOfAssets = assets => {
       this.assets = assets
@@ -130,7 +130,7 @@ class AssetTransportRequest extends React.Component {
    }
    onSubmitRequest = () => {
       this.displayError = true
-      
+
       let formDetails = [
          this.from,
          this.to,
@@ -153,8 +153,8 @@ class AssetTransportRequest extends React.Component {
                destination: this.to,
                flexible_with_time: false,
                datetime: this.dateTime,
-               start_datetime:null,
-               end_datetime:null,
+               start_datetime: null,
+               end_datetime: null,
                assets_quantity: this.assets,
                asset_type: this.assetType.toUpperCase(),
                asset_sensitivity: this.assetSensitivity.toUpperCase(),
@@ -168,12 +168,11 @@ class AssetTransportRequest extends React.Component {
             this.startDateTime.length !== 0 &&
             this.endDateTime.length !== 0
          ) {
-            
             const assetRequestData = {
                origin: this.from,
                destination: this.to,
                flexible_with_time: true,
-               datetime:null,
+               datetime: null,
                start_datetime: this.startDateTime,
                end_datetime: this.endDateTime,
                assets_quantity: this.assets,
@@ -182,15 +181,14 @@ class AssetTransportRequest extends React.Component {
                whom_to_deliver: this.details
             }
             this.postAssetTransportRequest(assetRequestData)
-
          }
       }
    }
-   async postAssetTransportRequest(assetRequestData){
+   async postAssetTransportRequest(assetRequestData) {
       const {
          commuteStore: { postAssetTransportRequest }
       } = this.props
-      await postAssetTransportRequest(assetRequestData);
+      await postAssetTransportRequest(assetRequestData)
       alert('Submitted Succesfully')
       this.init()
       this.displayError = false

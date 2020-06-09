@@ -4,8 +4,7 @@ import { observer, inject } from 'mobx-react'
 import { withRouter } from 'react-router-dom'
 
 import SignInForm from '../../components/SignInForm/SignInForm.js'
-import { endPoints } from '../../constants'
-
+import {COMMUTE_DASHBOARD_HOME_PAGE} from '../../constants/NavigationalConstants.js';
 @inject('authStore')
 @observer
 class SignInFormRoute extends React.Component {
@@ -88,7 +87,7 @@ class SignInFormRoute extends React.Component {
          authStore: { access_token }
       } = this.props
       if (access_token) {
-         this.props.history.push('/commute-dashboard/home-page')
+         this.props.history.push(COMMUTE_DASHBOARD_HOME_PAGE)
       }
    }
 

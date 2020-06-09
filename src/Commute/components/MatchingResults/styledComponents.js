@@ -89,22 +89,22 @@ export const PageNumber = styled.div`
 export const StatusButton = styled.button`
    padding: 3px 4px;
    font-weight: bold;
-   font-size:20px;
+   font-size: 20px;
    border-radius: 50%;
    text-align: center;
-   border:1px solid lightgrey;
-   
+   border: 1px solid lightgrey;
+
    color: ${colors.black};
 `
 export const Pages = styled.div`
-        text-align:center;
-`;
-export const NoDataFound=styled.div`
-    width:100%;
-    margin-top:100px;
-    font-weight:bold;
-    font-size:30px;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    `;
+   text-align: center;
+`
+export const NoDataFound = styled.div`
+   width: 100%;
+   margin-top: 100px;
+   font-weight: bold;
+   font-size: 30px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+`

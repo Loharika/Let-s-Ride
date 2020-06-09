@@ -66,9 +66,8 @@ export const UserProfile = styled.img`
    height: 50px;
    border-radius: 20px;
    align-self: center;
-`;
-export const HomePage=styled.button`
-   
-   padding:5px 10px;
-   border-radius:5px;
-`;
+`
+export const HomePage = styled.button`
+   padding: 5px 10px;
+   border-radius: 5px;
+`

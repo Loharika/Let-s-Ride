@@ -21,7 +21,7 @@ class DateAndTime extends React.Component {
    @observable startDate
    constructor(props) {
       super(props)
-      const {startDate}=this.props;
+      const { startDate } = this.props
       this.startDate = startDate
       this.isChanged = false
    }

@@ -1,3 +1,3 @@
-import { AuthService } from './authService.js'
+import { AuthService } from './authService.fixture.js'
 
 export { AuthService }

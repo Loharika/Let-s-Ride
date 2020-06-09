@@ -6,15 +6,13 @@ import { apiMethods } from '../../../Common/constants/APIConstants'
 
 import { endPoints } from '../endPoints'
 import assetRequestData from '../../fixtures/assetRequests.fixture.json'
-import rideRequestData from '../../fixtures/rideRequests.fixture.json';
-import sharedRides from '../../fixtures/sharedRide.fixture.json';
-import travelInfo from '../../fixtures/sharedTravelInfo.fixture.json';
+import rideRequestData from '../../fixtures/rideRequests.fixture.json'
 
 class CommuteService {
    baseApi
    constructor() {
       this.baseApi = create({
-          baseURL:'https://1d2c1582fff8.ngrok.io'
+         baseURL: 'https://1d2c1582fff8.ngrok.io'
       })
    }
    @action
@@ -26,39 +24,41 @@ class CommuteService {
          apiMethods.post
       )
    }
-   
-   
+
    @action
    assetTransportRequestAPI(requestData) {
       return networkCallWithApisauce(
          this.baseApi,
-         '/api/lets_ride/asset/transport/request/v1/', 
+         '/api/lets_ride/asset/transport/request/v1/',
          requestData,
-      apiMethods.post)
+         apiMethods.post
+      )
    }
    @action
    shareRideInfoAPI(details) {
       return networkCallWithApisauce(
-         this.baseApi, 
-         '/api/lets_ride/user/share/ride/v1/', 
-         details, 
-         apiMethods.post)
+         this.baseApi,
+         '/api/lets_ride/user/share/ride/v1/',
+         details,
+         apiMethods.post
+      )
    }
    @action
    shareTravelInfoAPI(details) {
       return networkCallWithApisauce(
          this.baseApi,
-         '/api/lets_ride/user/share/travel/info/v1/', 
+         '/api/lets_ride/user/share/travel/info/v1/',
          details,
-         apiMethods.post)
+         apiMethods.post
+      )
    }
    @action
    myRideRequestsAPI(dataToGetRequests) {
-      let offset=dataToGetRequests.offset;
-      let limit=dataToGetRequests.limit;
-      let sortBy=dataToGetRequests.sortBy; 
-      let sort_by_field=dataToGetRequests.sortByField;
-      let filterby=dataToGetRequests.filterBy;
+      let offset = dataToGetRequests.offset
+      let limit = dataToGetRequests.limit
+      let sortBy = dataToGetRequests.sortBy
+      let sort_by_field = dataToGetRequests.sortByField
+      let filterby = dataToGetRequests.filterBy
       return networkCallWithApisauce(
          this.baseApi,
          `/api/lets_ride/user/requests/rides/v1/?offset=${offset}&limit=${limit}&sort_by_field=${sort_by_field}&sortby=${sortBy}&filterby=${filterby}`,
@@ -68,11 +68,11 @@ class CommuteService {
    }
    @action
    myAssetRequestsAPI(dataToGetRequests) {
-      let offset=dataToGetRequests.offset;
-      let limit=dataToGetRequests.limit;
-      let sortBy=dataToGetRequests.sortBy; 
-      let sort_by_field=dataToGetRequests.sortByField;
-      let filterby=dataToGetRequests.filterBy;
+      let offset = dataToGetRequests.offset
+      let limit = dataToGetRequests.limit
+      let sortBy = dataToGetRequests.sortBy
+      let sort_by_field = dataToGetRequests.sortByField
+      let filterby = dataToGetRequests.filterBy
       return networkCallWithApisauce(
          this.baseApi,
          `/api/lets_ride/user/requests/assets/v1/?offset=${offset}&limit=${limit}&sort_by_field=${sort_by_field}&sortby=${sortBy}&filterby=${filterby}`,
@@ -81,71 +81,49 @@ class CommuteService {
       )
    }
    @action
-   matchingAllRequestsAPI(requestType,dataToGetMatchingRequests) {
-      
-      let limit=dataToGetMatchingRequests.limit;
-      let offset=dataToGetMatchingRequests.offset; 
-      return networkCallWithApisauce(this.baseApi, 
-      `/api/lets_ride/share/match/requests/v1/?offset=${offset}&limit=${limit}`, 
-      {},
-      apiMethods.get)
+   matchingAllRequestsAPI(requestType, dataToGetMatchingRequests) {
+      let limit = dataToGetMatchingRequests.limit
+      let offset = dataToGetMatchingRequests.offset
+      return networkCallWithApisauce(
+         this.baseApi,
+         `/api/lets_ride/share/match/requests/v1/?offset=${offset}&limit=${limit}`,
+         {},
+         apiMethods.get
+      )
    }
-   
+
    @action
    acceptTheMatchedRequestAPI(requestId) {
-      return networkCallWithApisauce(this.baseApi, 
-      '/api/lets_ride/request4/update/accepted/person/v1/', 
-         {
-        "share_type": "ride",
-        "share_id": 2
-      }, 
-      apiMethods.put);
-   }
-   
-   @action 
-   sharedRideAPI(details){
-      console.log(details)
-      // let rides = {
-      //    shared_rides: sharedRides.shared_rides.filter(
-      //       (request, index) =>
-      //          index >= details.offset &&
-      //          index < details.offset + details.limit
-      //    ),
-      //    noOfRides: sharedRides.no_of_shared_rides
-      // }
-      // return new Promise(resolve => {
-      //    setTimeout(() => {
-      //       resolve(rides)
-      //    }, 1000)
-      // })
       return networkCallWithApisauce(
-         this.baseApi, 
-      '/api/lets_ride/shared/rides/v1/', 
-        {}, 
-      apiMethods.get);
+         this.baseApi,
+         '/api/lets_ride/request4/update/accepted/person/v1/',
+         {
+            share_type: 'ride',
+            share_id: 2
+         },
+         apiMethods.put
+      )
+   }
+
+   @action
+   sharedRideAPI(details) {
+      console.log(details)
+      return networkCallWithApisauce(
+         this.baseApi,
+         '/api/lets_ride/shared/rides/v1/',
+         {},
+         apiMethods.get
+      )
    }
    @action
-   travelInfoAPI(details){
+   travelInfoAPI(details) {
       console.log(details)
-      // let travel_info = {
-      //    travel_info: travelInfo.travel_info.filter(
-      //       (request, index) =>
-      //          index >= details.offset &&
-      //          index < details.offset + details.limit
-      //    ),
-      //    noOfRides: travelInfo.no_of_travel_info
-      // }
-      // return new Promise(resolve => {
-      //    setTimeout(() => {
-      //       resolve(travel_info)
-      //    }, 1000)
-      // })
       return networkCallWithApisauce(
-         this.baseApi, 
-      '/api/lets_ride/shared/travel/infos/v1/', 
-        {}, 
-      apiMethods.get);
+         this.baseApi,
+         '/api/lets_ride/shared/travel/infos/v1/',
+         {},
+         apiMethods.get
+      )
    }
-  
 }
 export { CommuteService }

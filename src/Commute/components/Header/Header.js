@@ -2,6 +2,7 @@ import React from 'react'
 import { observer, inject } from 'mobx-react'
 import { Dropdown } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css'
+import {goToRideRequestPage,goToAssetRequestPage,goToShareRidePage,goToTravelInfoPage,goToUserProfilePage,goToHomePage} from '../../utils/NavigationalUtils.js';
 
 import { LogoImage } from '../Common/components'
 
@@ -20,24 +21,24 @@ import {
 @observer
 class Header extends React.Component {
    onClickRide = (event, data) => {
-      const { history } = this.props
-      history.push('/commute-dashboard/ride-request')
+      const { history } = this.props;
+      goToRideRequestPage(history);
    }
    onClickAssetRequest = (event, data) => {
-      const { history } = this.props
-      history.push('/commute-dashboard/asset-transport-request')
+      const { history } = this.props;
+      goToAssetRequestPage(history);
    }
    onClickShareRide = (event, data) => {
-      const { history } = this.props
-      history.push('/commute-dashboard/share-ride')
+      const { history } = this.props;
+      goToShareRidePage(history);
    }
    onClickTravelInfo = (event, data) => {
       const { history } = this.props
-      history.push('/commute-dashboard/share-travelInfo')
+      goToTravelInfoPage(history);
    }
    onClickUserProfile = () => {
       const { history } = this.props
-      history.push('/commute-dashboard/user-profile')
+      goToUserProfilePage(history);
    }
    onClickSignOut = () => {
       const {
@@ -45,12 +46,12 @@ class Header extends React.Component {
       } = this.props
       userSignOut()
    }
-   onClickHomeButton=()=>{
-       const { history } = this.props
-      history.push('/commute-dashboard/home-page');
+   onClickHomeButton = () => {
+      const { history } = this.props;
+      goToHomePage(history);
    }
    render() {
-      const { onClickSignOut, onClickUserProfile,onClickHomeButton } = this
+      const { onClickSignOut, onClickUserProfile, onClickHomeButton } = this
       return (
          <HeaderStyle>
             <LogoImageContainer>

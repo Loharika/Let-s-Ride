@@ -15,15 +15,21 @@ import LoadingWrapperWithFailure from '../../../Common/components/common/Loading
 
 @observer
 class TravelInfoTable extends React.Component {
-   constructor(props){
-      super(props);
-        this.shareTravelInfoHeaders=['FROM','TO','DATE AND TIME','TRAVEL MEDIUM','ASSETS QUANTITY','STATUS'];  
-       
+   constructor(props) {
+      super(props)
+      this.shareTravelInfoHeaders = [
+         'FROM',
+         'TO',
+         'DATE AND TIME',
+         'TRAVEL MEDIUM',
+         'ASSETS QUANTITY',
+         'STATUS'
+      ]
    }
    renderSuccessUI = () => {
-      const {  getTravelDetails } = this.props
-      const travelInfo = getTravelDetails();
-      
+      const { getTravelDetails } = this.props
+      const travelInfo = getTravelDetails()
+
       return (
          <RequestDetailsTable>
             <TableRow key={Math.random()}>
@@ -37,8 +43,10 @@ class TravelInfoTable extends React.Component {
                return (
                   <TableRow key={Math.random()}>
                      <TableCellLeftAligned>{ride.origin}</TableCellLeftAligned>
-                     <TableCellLeftAligned>{ride.destination}</TableCellLeftAligned>
-                     <TableCellLeftAligned>                                                     
+                     <TableCellLeftAligned>
+                        {ride.destination}
+                     </TableCellLeftAligned>
+                     <TableCellLeftAligned>
                         {ride.flexibleWithTime ? (
                            <span>
                               From:{ride.startDatetime.slice(0, 21)} <br />
@@ -75,7 +83,7 @@ class TravelInfoTable extends React.Component {
       return (
          <React.Fragment>
             <LoadingWrapperWithFailure
-                key={Math.random()}
+               key={Math.random()}
                apiStatus={getTravelInfoAPIStatus}
                apiError={getTravelInfoAPIError}
                onRetryClick={doNetworkCalls}

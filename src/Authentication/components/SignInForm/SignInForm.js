@@ -9,6 +9,7 @@ import {
    PasswordAlert,
    LogoImageContainer
 } from './styledComponents.js'
+import {COMMUTE_DASHBOARD_LOGIN_PAGE} from '../../constants/NavigationalConstants.js';
 import { FormHeading } from '../../styledComponents'
 
 import { InputField } from '../Common/InputField.js'
@@ -82,7 +83,7 @@ class SignInForm extends React.Component {
                <Button buttonText={strings.signUp} onClickFunction={onSubmit} />
                <LoginLink>
                   {strings.logInLink} &nbsp;{' '}
-                  <LogInPageLink href='/login-page'>
+                  <LogInPageLink href={COMMUTE_DASHBOARD_LOGIN_PAGE}>
                      {' '}
                      &nbsp;{strings.logInLinkText}
                   </LogInPageLink>

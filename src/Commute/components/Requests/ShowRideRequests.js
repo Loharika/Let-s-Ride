@@ -16,68 +16,83 @@ import LoadingWrapperWithFailure from '../../../Common/components/common/Loading
 
 @observer
 class ShowRideRequests extends React.Component {
-   constructor(){
-      super();
-      this.tableHeaders=['FROM','TO','DATE AND TIME','NO OF PEOPLE','LUGGAGE QUANTITY','ACCEPTED PERSON DETAILS','STATUS'];
+   constructor() {
+      super()
+      this.tableHeaders = [
+         'FROM',
+         'TO',
+         'DATE AND TIME',
+         'NO OF PEOPLE',
+         'LUGGAGE QUANTITY',
+         'ACCEPTED PERSON DETAILS',
+         'STATUS'
+      ]
    }
    renderSuccessUI = () => {
-      const {tableHeaders}=this;
-      const {  getRequests } = this.props
-      const rideRequests = getRequests();
-      if(rideRequests.length!==0){
-         
-      return (
-         <RequestDetailsTable>
-            <TableRow key={Math.random()}>
-               {this.tableHeaders.map(eachOne => {
+      const { tableHeaders } = this
+      const { getRequests } = this.props
+      const rideRequests = getRequests()
+      if (rideRequests.length !== 0) {
+         return (
+            <RequestDetailsTable>
+               <TableRow key={Math.random()}>
+                  {this.tableHeaders.map(eachOne => {
+                     return (
+                        <TableHeader key={Math.random()}>{eachOne}</TableHeader>
+                     )
+                  })}
+               </TableRow>
+               {Object.values(rideRequests).map(request => {
                   return (
-                     <TableHeader key={Math.random()}>{eachOne}</TableHeader>
+                     <TableRow key={Math.random() + request.id}>
+                        <TableCellLeftAligned>
+                           {request.origin}
+                        </TableCellLeftAligned>
+                        <TableCellLeftAligned>
+                           {request.destination}
+                        </TableCellLeftAligned>
+                        <TableCellLeftAligned>
+                           {request.flexible_with_time ? (
+                              <span>
+                                 From:{request.start_datetime.slice(0, 21)}{' '}
+                                 <br />
+                                 To:{request.end_datetime.slice(0, 21)}
+                              </span>
+                           ) : (
+                              request.datetime.slice(0, 21)
+                           )}
+                        </TableCellLeftAligned>
+                        <TableCellAlignedCenter>
+                           {request.no_of_seats}
+                        </TableCellAlignedCenter>
+                        <TableCellAlignedCenter>
+                           {request.luggage_quantity}
+                        </TableCellAlignedCenter>
+                        <TableCellLeftAligned>
+                           {request.status === 'CONFIRM' ? (
+                              <span>
+                                 {request.accepted_person.name}
+                                 <br />
+                                 {request.accepted_person.mobile_number}
+                              </span>
+                           ) : request.status === 'PENDING' ? (
+                              'Pending'
+                           ) : (
+                              'Expired'
+                           )}
+                        </TableCellLeftAligned>
+                        <TableCellLeftAligned>
+                           <StatusButton status={request.status}>
+                              {request.status.toUpperCase()}
+                           </StatusButton>
+                        </TableCellLeftAligned>
+                     </TableRow>
                   )
                })}
-            </TableRow>
-            {Object.values(rideRequests).map(request => {
-               return (
-                  <TableRow key={Math.random() + request.id}>
-                     <TableCellLeftAligned>{request.origin}</TableCellLeftAligned>
-                     <TableCellLeftAligned>{request.destination}</TableCellLeftAligned>
-                     <TableCellLeftAligned>                                                     
-                        {request.flexible_with_time ? (
-                           <span>
-                              From:{request.start_datetime.slice(0, 21)} <br />
-                              To:{request.end_datetime.slice(0, 21)}
-                           </span>
-                        ) : (
-                           request.datetime.slice(0, 21)
-                        )}
-                     </TableCellLeftAligned>
-                     <TableCellAlignedCenter>
-                        {request.no_of_seats}
-                     </TableCellAlignedCenter>
-                     <TableCellAlignedCenter>
-                        {request.luggage_quantity}
-                     </TableCellAlignedCenter>
-                     <TableCellLeftAligned>
-                        {request.status === 'CONFIRM'
-                           ? <span>{request.accepted_person.name}<br/>{request.accepted_person.mobile_number}</span>
-                           : request.status === 'PENDING'
-                           ? 'Pending'
-                           : 'Expired'}
-                     </TableCellLeftAligned>
-                     <TableCellLeftAligned>
-                        <StatusButton status={request.status}>
-                           {request.status.toUpperCase()}
-                        </StatusButton>
-                     </TableCellLeftAligned>
-                  </TableRow>
-               )
-            })}
-         </RequestDetailsTable>
-      )
-      }
-      else{
-         return (
-            <NoDataFound> No Data Found</NoDataFound>);
-         
+            </RequestDetailsTable>
+         )
+      } else {
+         return <NoDataFound> No Data Found</NoDataFound>
       }
    }
    render() {

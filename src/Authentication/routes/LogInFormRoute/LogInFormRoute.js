@@ -7,6 +7,10 @@ import { withRouter, Redirect } from 'react-router-dom'
 import { LogInForm } from '../../components/LogInForm'
 import { endPoints } from '../../constants'
 
+
+import {COMMUTE_DASHBOARD_HOME_PAGE} from '../../constants/NavigationalConstants.js';
+import {goToDashboardHomePage} from '../../utils/NavigationalUtils.js';
+
 @inject('authStore')
 @observer
 class LogInPageRoute extends React.Component {
@@ -29,12 +33,11 @@ class LogInPageRoute extends React.Component {
    }
    onSubmit = () => {
       event.preventDefault()
-      let { userName, password } = this;
+      let { userName, password } = this
       if (userName.length !== 0 && password.length !== 0) {
-               this.displayError = false
-               this.onClickLogInButton(this.userName, this.password)
-         } 
-       else {
+         this.displayError = false
+         this.onClickLogInButton(this.userName, this.password)
+      } else {
          this.displayError = true
       }
    }
@@ -60,9 +63,9 @@ class LogInPageRoute extends React.Component {
       const {
          authStore: { access_token }
       } = this.props
-      console.log(access_token);    
       if (access_token) {
-         this.props.history.push('/commute-dashboard/home-page')
+         const {history}=this.props;
+         goToDashboardHomePage(history);
       }
    }
 

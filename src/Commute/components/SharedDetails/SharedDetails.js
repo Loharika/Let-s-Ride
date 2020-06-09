@@ -1,19 +1,19 @@
-import React from 'react';
-import {observer,inject} from 'mobx-react';
-import {action} from 'mobx';
+import React from 'react'
+import { observer, inject } from 'mobx-react'
+import { action } from 'mobx'
 import { Pagination } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css'
 import { RiAddLine } from 'react-icons/ri'
 import { DisplayDropDown } from '../Common/components/DisplayDropDown.js'
 
 const filterOptions = {
-         listTitle: '',
-         listItems: [
-            { key: 'ACTIVE', text: 'Pending', value: 'PENDING' },
-            { key: 'EXPIRE', text: 'Expire', value: 'EXPIRED' }
-         ],
-         placeholder: 'Filter'
-      }
+   listTitle: '',
+   listItems: [
+      { key: 'ACTIVE', text: 'Pending', value: 'PENDING' },
+      { key: 'EXPIRE', text: 'Expire', value: 'EXPIRED' }
+   ],
+   placeholder: 'Filter'
+}
 
 import {
    MyRequestsHeader,
@@ -25,9 +25,9 @@ import {
    Footer,
    Pages,
    AddRequestButton
-} from './styledComponents.js';
-import {SharedRidesTable} from './ShareRides.js';
-import {TravelInfoTable} from './TravelInfo.js';
+} from './styledComponents.js'
+import { SharedRidesTable } from './ShareRides.js'
+import { TravelInfoTable } from './TravelInfo.js'
 import {
    SharedRides,
    TravelInfo
@@ -35,111 +35,128 @@ import {
 
 @inject('commuteStore')
 @observer
-class SharedDetails extends React.Component{
-    constructor(props){
-        super(props);
-    }
-    @action.bound
-    onChangeFilter(filterBy){
-        //alert(filterBy);
-        const {commuteStore:{onChangeSharedDetailsFilter}}=this.props;
-        onChangeSharedDetailsFilter(filterBy);
-        const {doNetWorkCallsForSharedDetails}=this.props;
-            doNetWorkCallsForSharedDetails();
-    }
-    @action.bound
-    onChangePageNumber = (event, data) => {
-        //alert(data.activePage);
-        const {commuteStore:{onChangeSharedDetailsPageNumber}}=this.props;
-        onChangeSharedDetailsPageNumber(data.activePage);
-        const {doNetWorkCallsForSharedDetails}=this.props;
-            doNetWorkCallsForSharedDetails();
-    }
-    @action.bound
-    onClickShareType(shareType){
-        //alert(shareType);
-        const {commuteStore:{onChangeSharedDetailsShareType}}=this.props;
-        onChangeSharedDetailsShareType(shareType);
-        const {doNetWorkCallsForSharedDetails}=this.props;
-            doNetWorkCallsForSharedDetails();
-    }
-    @action.bound
-    getSharedDetails(){
-        const {commuteStore:{displayData}}=this.props;
-         switch(displayData.sharedDetails.shareType){
-            case 'RIDE':{
-               return displayData.sharedDetails.sharedRides
-            }
-            case 'TRAVEL INFO':{
-               return displayData.sharedDetails.travelInfo
-            }
+class SharedDetails extends React.Component {
+   constructor(props) {
+      super(props)
+   }
+   @action.bound
+   onChangeFilter(filterBy) {
+      //alert(filterBy);
+      const {
+         commuteStore: { onChangeSharedDetailsFilter }
+      } = this.props
+      onChangeSharedDetailsFilter(filterBy)
+      const { doNetWorkCallsForSharedDetails } = this.props
+      doNetWorkCallsForSharedDetails()
+   }
+   @action.bound
+   onChangePageNumber = (event, data) => {
+      //alert(data.activePage);
+      const {
+         commuteStore: { onChangeSharedDetailsPageNumber }
+      } = this.props
+      onChangeSharedDetailsPageNumber(data.activePage)
+      const { doNetWorkCallsForSharedDetails } = this.props
+      doNetWorkCallsForSharedDetails()
+   }
+   @action.bound
+   onClickShareType(shareType) {
+      //alert(shareType);
+      const {
+         commuteStore: { onChangeSharedDetailsShareType }
+      } = this.props
+      onChangeSharedDetailsShareType(shareType)
+      const { doNetWorkCallsForSharedDetails } = this.props
+      doNetWorkCallsForSharedDetails()
+   }
+   @action.bound
+   getSharedDetails() {
+      const {
+         commuteStore: { displayData }
+      } = this.props
+      switch (displayData.sharedDetails.shareType) {
+         case 'RIDE': {
+            return displayData.sharedDetails.sharedRides
          }
-    }
-    @action.bound
-    getSharedDetailsAsModels(){
-        const {getSharedDetails}=this;
-        
-        let modelsForSharedDetails = getSharedDetails().map(share => {
-            if (!share.hasOwnProperty('transport_medium')) {
-               return new SharedRides(share)
-            } else {
-               return new TravelInfo(share)
-            }
-         });
-         
-         return modelsForSharedDetails;
-        
-    }
-    
-    renderSuccessUI(){
-        const {commuteStore:{displayData,getSharedRidesStatus,getSharedRidesError,getTravelInfoAPIStatus,getTravelInfoAPIError}}=this.props;
-      const {doNetWorkCallsForSharedDetails}=this.props;
-        let shareType=displayData.sharedDetails.shareType;
-        const {getSharedDetailsAsModels}=this;
-        
-        
-      
-            switch(shareType){
-                case 'RIDE':{
-                    return (
-                        //<div>RIDE</div>
-                        <SharedRidesTable 
-                        getShares={getSharedDetailsAsModels}
-                        getSharedRidesStatus={getSharedRidesStatus}
-                        getSharedRidesError={getSharedRidesError}
-                        doNetworkCalls={doNetWorkCallsForSharedDetails}
-                        />
-                        
-                        
-                        )
-                }
-                case 'TRAVEL INFO':{
-                    return (
-                        //<div>Travel Info</div>
-                        <TravelInfoTable
-                        doNetworkCalls={doNetWorkCallsForSharedDetails}
-                        getTravelDetails={getSharedDetailsAsModels}
-                        getTravelInfoAPIStatus={getTravelInfoAPIStatus}
-                        getTravelInfoAPIError={getTravelInfoAPIError}
-                        />
-                        )
-                }
-            }
-            
-            
-    }
-    
-    render(){
-        const {commuteStore:{displayData,limit}}=this.props;
-        const {onClickShareType,onChangePageNumber,onChangeFilter}=this;
-        
-        let shareType=displayData.sharedDetails.shareType;
-        const noOfShareDetails=shareType==='RIDE'?displayData.sharedDetails.noOfSharedRides:displayData.sharedDetails.noOfSharedTravelInfo;
-        
-        const totalNumberOfPages=Math.ceil(noOfShareDetails/limit);
-        const pageNumber=shareType==='RIDE'?displayData.sharedDetails.sharedRidePageNumber:displayData.sharedDetails.sharedTravelInfoPageNumber;
-        return (
-            <MyRequestsDashboard key={Math.random() + shareType}>
+         case 'TRAVEL INFO': {
+            return displayData.sharedDetails.travelInfo
+         }
+      }
+   }
+   @action.bound
+   getSharedDetailsAsModels() {
+      const { getSharedDetails } = this
+
+      let modelsForSharedDetails = getSharedDetails().map(share => {
+         if (!share.hasOwnProperty('transport_medium')) {
+            return new SharedRides(share)
+         } else {
+            return new TravelInfo(share)
+         }
+      })
+
+      return modelsForSharedDetails
+   }
+
+   renderSuccessUI() {
+      const {
+         commuteStore: {
+            displayData,
+            getSharedRidesStatus,
+            getSharedRidesError,
+            getTravelInfoAPIStatus,
+            getTravelInfoAPIError
+         }
+      } = this.props
+      const { doNetWorkCallsForSharedDetails } = this.props
+      let shareType = displayData.sharedDetails.shareType
+      const { getSharedDetailsAsModels } = this
+
+      switch (shareType) {
+         case 'RIDE': {
+            return (
+               //<div>RIDE</div>
+               <SharedRidesTable
+                  getShares={getSharedDetailsAsModels}
+                  getSharedRidesStatus={getSharedRidesStatus}
+                  getSharedRidesError={getSharedRidesError}
+                  doNetworkCalls={doNetWorkCallsForSharedDetails}
+               />
+            )
+         }
+         case 'TRAVEL INFO': {
+            return (
+               //<div>Travel Info</div>
+               <TravelInfoTable
+                  doNetworkCalls={doNetWorkCallsForSharedDetails}
+                  getTravelDetails={getSharedDetailsAsModels}
+                  getTravelInfoAPIStatus={getTravelInfoAPIStatus}
+                  getTravelInfoAPIError={getTravelInfoAPIError}
+               />
+            )
+         }
+      }
+   }
+
+   render() {
+      const {
+         commuteStore: { displayData, limit }
+      } = this.props
+      const { onClickShareType, onChangePageNumber, onChangeFilter } = this
+
+      let shareType = displayData.sharedDetails.shareType
+      const noOfShareDetails =
+         shareType === 'RIDE'
+            ? displayData.sharedDetails.noOfSharedRides
+            : displayData.sharedDetails.noOfSharedTravelInfo
+
+      const totalNumberOfPages = Math.ceil(noOfShareDetails / limit)
+      const pageNumber =
+         shareType === 'RIDE'
+            ? displayData.sharedDetails.sharedRidePageNumber
+            : displayData.sharedDetails.sharedTravelInfoPageNumber
+      return (
+         <MyRequestsDashboard key={Math.random() + shareType}>
             <MyRequestsHeader>
                <MyRequestType
                   onClick={() => onClickShareType('RIDE')}
@@ -166,7 +183,6 @@ class SharedDetails extends React.Component{
             </RequestHeader>
             {this.renderSuccessUI()}
             <Footer>
-               
                {totalNumberOfPages !== 0 ? (
                   <Pages>
                      {pageNumber} to {totalNumberOfPages}
@@ -185,13 +201,11 @@ class SharedDetails extends React.Component{
                   onPageChange={onChangePageNumber}
                />
             </Footer>
-            </MyRequestsDashboard>
-            
-            )
-    }
+         </MyRequestsDashboard>
+      )
+   }
 }
-export {SharedDetails}
-
+export { SharedDetails }
 
 /*{
             "origin":"hyderabad",

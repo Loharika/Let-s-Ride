@@ -1,2 +1,2 @@
-import {SharedDetails} from './SharedDetails.js';
-export {SharedDetails};
+import { SharedDetails } from './SharedDetails.js'
+export { SharedDetails }

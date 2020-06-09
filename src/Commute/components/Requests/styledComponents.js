@@ -87,7 +87,7 @@ export const PageNumber = styled.div`
    padding: 5px 10px;
 `
 export const StatusButton = styled.button`
-    background-color: ${props =>
+   background-color: ${props =>
       props.status === 'Confirmed'
          ? colors.greenishTeal
          : props.status === 'Pending'
@@ -100,15 +100,15 @@ export const StatusButton = styled.button`
    color: ${colors.white};
 `
 export const Pages = styled.div`
-        text-align:center;
-`;
+   text-align: center;
+`
 
-export const NoDataFound=styled.div`
-    width:100%;
-    margin-top:100px;
-    font-weight:bold;
-    font-size:30px;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    `;
+export const NoDataFound = styled.div`
+   width: 100%;
+   margin-top: 100px;
+   font-weight: bold;
+   font-size: 30px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+`

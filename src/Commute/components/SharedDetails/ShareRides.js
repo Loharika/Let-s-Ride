@@ -15,14 +15,20 @@ import LoadingWrapperWithFailure from '../../../Common/components/common/Loading
 
 @observer
 class SharedRidesTable extends React.Component {
-   constructor(props){
-      super(props);
-        this.sharedRidesHeaders=['FROM','TO','DATE AND TIME','NO OF SEATS','ASSETS QUANTITY','STATUS'];   
-       
+   constructor(props) {
+      super(props)
+      this.sharedRidesHeaders = [
+         'FROM',
+         'TO',
+         'DATE AND TIME',
+         'NO OF SEATS',
+         'ASSETS QUANTITY',
+         'STATUS'
+      ]
    }
    renderSuccessUI = () => {
-      const {  getShares } = this.props
-      const sharesRides = getShares();
+      const { getShares } = this.props
+      const sharesRides = getShares()
       return (
          <RequestDetailsTable>
             <TableRow key={Math.random()}>
@@ -36,8 +42,10 @@ class SharedRidesTable extends React.Component {
                return (
                   <TableRow key={Math.random()}>
                      <TableCellLeftAligned>{ride.origin}</TableCellLeftAligned>
-                     <TableCellLeftAligned>{ride.destination}</TableCellLeftAligned>
-                     <TableCellLeftAligned>                                                     
+                     <TableCellLeftAligned>
+                        {ride.destination}
+                     </TableCellLeftAligned>
+                     <TableCellLeftAligned>
                         {ride.flexibleWithTime ? (
                            <span>
                               From:{ride.startDatetime.slice(0, 21)} <br />
