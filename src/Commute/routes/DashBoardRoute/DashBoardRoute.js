@@ -40,7 +40,7 @@ class DashBoardRoute extends React.Component {
                offset: offset,
                limit: limit
             }
-             getMyRideRequests(dataToGetRequests)
+            getMyRideRequests(dataToGetRequests)
             break
          }
          case 'ASSET': {
@@ -56,7 +56,7 @@ class DashBoardRoute extends React.Component {
                offset: offset,
                limit: limit
             }
-             getMyAssetRequests(dataToGetRequests)
+            getMyAssetRequests(dataToGetRequests)
             break
          }
       }

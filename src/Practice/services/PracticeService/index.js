@@ -1,2 +1,2 @@
-import {PracticeService} from './PracticeService.js';
-export {PracticeService}
+import { PracticeService } from './PracticeService.js'
+export { PracticeService }

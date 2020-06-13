@@ -1,3 +1,3 @@
-import {PracticeDashboardRoute} from './PracticeDashboardRoute.js';
+import { PracticeDashboardRoute } from './PracticeDashboardRoute.js'
 
-export {PracticeDashboardRoute};
+export { PracticeDashboardRoute }

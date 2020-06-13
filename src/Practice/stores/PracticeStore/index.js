@@ -1,2 +1,2 @@
-import {PracticeStore} from './PracticeStore.js';
-export {PracticeStore};
+import { PracticeStore } from './PracticeStore.js'
+export { PracticeStore }
