@@ -15,7 +15,7 @@ class DashBoardRoute extends React.Component {
       doNetWorkCallsForMatchingRequests()
    }
    @action.bound
-   async doNetWorkCallsForRequests() {
+   doNetWorkCallsForRequests() {
       const {
          commuteStore: {
             displayData,
@@ -40,7 +40,7 @@ class DashBoardRoute extends React.Component {
                offset: offset,
                limit: limit
             }
-            await getMyRideRequests(dataToGetRequests)
+             getMyRideRequests(dataToGetRequests)
             break
          }
          case 'ASSET': {
@@ -56,7 +56,7 @@ class DashBoardRoute extends React.Component {
                offset: offset,
                limit: limit
             }
-            await getMyAssetRequests(dataToGetRequests)
+             getMyAssetRequests(dataToGetRequests)
             break
          }
       }
