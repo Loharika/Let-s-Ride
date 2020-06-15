@@ -40,7 +40,7 @@ export const NoOfRequests = styled.span`
 `
 export const FilterAndSort = styled.div`
    display: flex;
-   margin-left:${props=>props.noOfRequests!==0?'':'auto'}
+   margin-left: ${props => (props.noOfRequests !== 0 ? '' : 'auto')};
 `
 export const Sort = styled.span`
    padding: 10px 10px;

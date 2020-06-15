@@ -106,7 +106,8 @@ class SharedDetails extends React.Component {
             getSharedRidesError,
             getTravelInfoAPIStatus,
             getTravelInfoAPIError
-         },addShareButton
+         },
+         addShareButton
       } = this.props
       const { doNetWorkCallsForSharedDetails } = this.props
       let shareType = displayData.sharedDetails.shareType
@@ -144,9 +145,15 @@ class SharedDetails extends React.Component {
 
    render() {
       const {
-         commuteStore: { displayData, limit },addShareButton
+         commuteStore: { displayData, limit },
+         addShareButton
       } = this.props
-      const { onClickShareType, onChangePageNumber, onChangeFilter,getSharedDetails } = this
+      const {
+         onClickShareType,
+         onChangePageNumber,
+         onChangeFilter,
+         getSharedDetails
+      } = this
 
       let shareType = displayData.sharedDetails.shareType
       const noOfShareDetails =
@@ -176,8 +183,11 @@ class SharedDetails extends React.Component {
                </MyRequestType>
             </MyRequestsHeader>
             <RequestHeader>
-               
-               {noOfShareDetails!==0?<NoOfRequests>{noOfShareDetails} Request(s)</NoOfRequests>:' '}
+               {noOfShareDetails !== 0 ? (
+                  <NoOfRequests>{noOfShareDetails} Request(s)</NoOfRequests>
+               ) : (
+                  ' '
+               )}
                <FilterAndSort>
                   <DisplayDropDown
                      data={filterOptions}
@@ -186,30 +196,32 @@ class SharedDetails extends React.Component {
                </FilterAndSort>
             </RequestHeader>
             {this.renderSuccessUI()}
-            {getSharedDetails().length!==0?<Footer>
-             <AddShareButton
-                     onClick={() => addShareButton(shareType)}
-                  >
-                     <RiAddLine /> &nbsp;Share {shareType.toLowerCase()} 
+            {getSharedDetails().length !== 0 ? (
+               <Footer>
+                  <AddShareButton onClick={() => addShareButton(shareType)}>
+                     <RiAddLine /> &nbsp;Share {shareType.toLowerCase()}
                   </AddShareButton>
-               {totalNumberOfPages !== 0 ? (
-                  <Pages>
-                     {pageNumber} to {totalNumberOfPages}
-                  </Pages>
-               ) : (
-                  ''
-               )}
-               <Pagination
-                  boundaryRange={0}
-                  defaultActivePage={pageNumber}
-                  ellipsisItem={null}
-                  firstItem={null}
-                  lastItem={null}
-                  siblingRange={1}
-                  totalPages={totalNumberOfPages}
-                  onPageChange={onChangePageNumber}
-               />
-            </Footer>:''}
+                  {totalNumberOfPages !== 0 ? (
+                     <Pages>
+                        {pageNumber} to {totalNumberOfPages}
+                     </Pages>
+                  ) : (
+                     ''
+                  )}
+                  <Pagination
+                     boundaryRange={0}
+                     defaultActivePage={pageNumber}
+                     ellipsisItem={null}
+                     firstItem={null}
+                     lastItem={null}
+                     siblingRange={1}
+                     totalPages={totalNumberOfPages}
+                     onPageChange={onChangePageNumber}
+                  />
+               </Footer>
+            ) : (
+               ''
+            )}
          </MyRequestsDashboard>
       )
    }

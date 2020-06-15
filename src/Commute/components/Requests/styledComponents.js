@@ -40,7 +40,7 @@ export const NoOfRequests = styled.span`
 `
 export const FilterAndSort = styled.div`
    display: flex;
-   margin-left:${props=>props.noOfRequests!==0?'':'auto'}
+   margin-left: ${props => (props.noOfRequests !== 0 ? '' : 'auto')};
 `
 export const Sort = styled.span`
    padding: 10px 10px;
@@ -82,7 +82,7 @@ export const Footer = styled.div`
 export const AddRequestButton = styled.button`
    display: flex;
    padding: 5px 10px;
-   margin:${props=>props.noOfRequests!==0?'20px 5px':'0px 0px'}
+   margin: ${props => (props.noOfRequests !== 0 ? '20px 5px' : '0px 0px')};
 `
 
 export const PageNumber = styled.div`

@@ -9,11 +9,11 @@ import {
    TableCellAlignedCenter,
    TableHeader,
    TableRow,
-   StatusButton,
+   StatusButton
 } from './styledComponents.js'
 
-import LoadingWrapperWithFailure from '../../../Common/components/common/LoadingWrapperWithFailure';
-import {NoDataFound as NoDataFoundDisplay} from '../Common/components/NoDataFound.js';
+import LoadingWrapperWithFailure from '../../../Common/components/common/LoadingWrapperWithFailure'
+import { NoDataFound as NoDataFoundDisplay } from '../Common/components/NoDataFound.js'
 
 @observer
 class ShowRideRequests extends React.Component {
@@ -31,7 +31,7 @@ class ShowRideRequests extends React.Component {
    }
    renderSuccessUI = () => {
       const { tableHeaders } = this
-      const { getRequests,addRequestButton,requestType } = this.props
+      const { getRequests, addRequestButton, requestType } = this.props
       const rideRequests = getRequests()
       if (rideRequests.length !== 0) {
          return (
@@ -94,7 +94,12 @@ class ShowRideRequests extends React.Component {
          )
       } else {
          return (
-         <NoDataFoundDisplay noOfItems={getRequests()} onClick={addRequestButton} buttonType={requestType} />)
+            <NoDataFoundDisplay
+               noOfItems={getRequests()}
+               onClick={addRequestButton}
+               buttonType={requestType}
+            />
+         )
       }
    }
    render() {

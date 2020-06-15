@@ -126,10 +126,9 @@ class Requests extends React.Component {
             getMyAssetRequestAPIError
          }
       } = this.props
-      const { doNetWorkCallsForRequests,addRequestButton } = this.props
+      const { doNetWorkCallsForRequests, addRequestButton } = this.props
       let requestType = displayData.myRequests.requestType
-      const { getRequests } = this;
-      
+      const { getRequests } = this
 
       switch (requestType) {
          case 'RIDE': {
@@ -139,8 +138,8 @@ class Requests extends React.Component {
                   doNetWorkCalls={doNetWorkCallsForRequests}
                   getMyRideRequestAPIStatus={getMyRideRequestAPIStatus}
                   getMyRideRequestAPIError={getMyRideRequestAPIError}
-                 addRequestButton={addRequestButton} 
-                 requestType={requestType}
+                  addRequestButton={addRequestButton}
+                  requestType={requestType}
                />
             )
          }
@@ -151,8 +150,8 @@ class Requests extends React.Component {
                   doNetWorkCalls={doNetWorkCallsForRequests}
                   getMyAssetRequestAPIStatus={getMyAssetRequestAPIStatus}
                   getMyAssetRequestAPIError={getMyAssetRequestAPIError}
-                  addRequestButton={addRequestButton} 
-                 requestType={requestType}
+                  addRequestButton={addRequestButton}
+                  requestType={requestType}
                />
             )
          }
@@ -199,9 +198,12 @@ class Requests extends React.Component {
                </MyRequestType>
             </MyRequestsHeader>
             <RequestHeader>
-               
-                     {noOfRequests!==0?<NoOfRequests>{noOfRequests} Request(s)</NoOfRequests>:' '}
-                  
+               {noOfRequests !== 0 ? (
+                  <NoOfRequests>{noOfRequests} Request(s)</NoOfRequests>
+               ) : (
+                  ' '
+               )}
+
                <FilterAndSort noOfRequests={noOfRequests}>
                   <DisplayDropDown
                      data={
@@ -245,7 +247,9 @@ class Requests extends React.Component {
                      onPageChange={onChangePageNumber}
                   />
                </Footer>
-            ) : ''}
+            ) : (
+               ''
+            )}
          </MyRequestsDashboard>
       )
    }

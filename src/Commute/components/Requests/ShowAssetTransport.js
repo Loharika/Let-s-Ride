@@ -2,15 +2,15 @@ import React from 'react'
 import { observer } from 'mobx-react'
 import { RiAddLine } from 'react-icons/ri'
 
-import LoadingWrapperWithFailure from '../../../Common/components/common/LoadingWrapperWithFailure';
-import {NoDataFound as NoDataFoundDisplay} from '../Common/components/NoDataFound.js';
+import LoadingWrapperWithFailure from '../../../Common/components/common/LoadingWrapperWithFailure'
+import { NoDataFound as NoDataFoundDisplay } from '../Common/components/NoDataFound.js'
 import {
    RequestDetailsTable,
    TableCellLeftAligned,
    TableCellAlignedCenter,
    TableHeader,
    TableRow,
-   StatusButton,
+   StatusButton
 } from './styledComponents.js'
 
 @observer
@@ -31,7 +31,7 @@ class ShowAssetTransport extends React.Component {
    }
    renderSuccessUI = () => {
       const { tableHeaders } = this
-      const { getRequests,addRequestButton,requestType } = this.props
+      const { getRequests, addRequestButton, requestType } = this.props
       const assetRequests = getRequests()
       if (assetRequests.length !== 0) {
          return (
@@ -99,9 +99,12 @@ class ShowAssetTransport extends React.Component {
          )
       } else {
          return (
-         <NoDataFoundDisplay noOfItems={getRequests()} onClick={addRequestButton} buttonType={requestType} />
+            <NoDataFoundDisplay
+               noOfItems={getRequests()}
+               onClick={addRequestButton}
+               buttonType={requestType}
+            />
          )
-         
       }
    }
 
