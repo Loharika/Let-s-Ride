@@ -1,6 +1,7 @@
 import React from 'react'
 import { observer } from 'mobx-react'
 
+import { RiAddLine } from 'react-icons/ri'
 import strings from '../../i18n/strings.json'
 import {
    RequestDetailsTable,
@@ -9,10 +10,10 @@ import {
    TableHeader,
    TableRow,
    StatusButton,
-   NoDataFound
 } from './styledComponents.js'
 
-import LoadingWrapperWithFailure from '../../../Common/components/common/LoadingWrapperWithFailure'
+import LoadingWrapperWithFailure from '../../../Common/components/common/LoadingWrapperWithFailure';
+import {NoDataFound as NoDataFoundDisplay} from '../Common/components/NoDataFound.js';
 
 @observer
 class ShowRideRequests extends React.Component {
@@ -30,7 +31,7 @@ class ShowRideRequests extends React.Component {
    }
    renderSuccessUI = () => {
       const { tableHeaders } = this
-      const { getRequests } = this.props
+      const { getRequests,addRequestButton,requestType } = this.props
       const rideRequests = getRequests()
       if (rideRequests.length !== 0) {
          return (
@@ -82,7 +83,7 @@ class ShowRideRequests extends React.Component {
                            )}
                         </TableCellLeftAligned>
                         <TableCellLeftAligned>
-                           <StatusButton status={request.status}>
+                           <StatusButton status={request.status.toUpperCase()}>
                               {request.status.toUpperCase()}
                            </StatusButton>
                         </TableCellLeftAligned>
@@ -92,7 +93,8 @@ class ShowRideRequests extends React.Component {
             </RequestDetailsTable>
          )
       } else {
-         return <NoDataFound> No Data Found</NoDataFound>
+         return (
+         <NoDataFoundDisplay noOfItems={getRequests()} onClick={addRequestButton} buttonType={requestType} />)
       }
    }
    render() {
@@ -116,21 +118,3 @@ class ShowRideRequests extends React.Component {
    }
 }
 export { ShowRideRequests }
-
-// "ride_requests" : [ {
-//     "origin" : "string",
-//     "destination" : "string",
-//     "datetime" : "string",
-//     "flexible_with_time" : true,
-//     "start_datetime" : "string",
-//     "end_datetime" : "string",
-//     "no_of_seats" : 0,
-//     "luggage_quantity" : 0,
-//     "accepted_person" : {
-//       "name" : "string",
-//       "mobile_number" : "string"
-//     },
-//     "status" : "CONFIRM"
-//  } ],
-//  "total_ride_requests_count" : 0
-// }

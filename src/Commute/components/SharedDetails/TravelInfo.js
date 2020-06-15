@@ -1,6 +1,7 @@
 import React from 'react'
 import { observer } from 'mobx-react'
 
+import { RiAddLine } from 'react-icons/ri'
 import strings from '../../i18n/strings.json'
 import {
    RequestDetailsTable,
@@ -8,11 +9,11 @@ import {
    TableCellAlignedCenter,
    TableHeader,
    TableRow,
-   StatusButton
+   StatusButton,
 } from './styledComponents.js'
 
 import LoadingWrapperWithFailure from '../../../Common/components/common/LoadingWrapperWithFailure'
-
+import {NoDataFound as NoDataFoundDisplay} from '../Common/components/NoDataFound.js';
 @observer
 class TravelInfoTable extends React.Component {
    constructor(props) {
@@ -27,9 +28,9 @@ class TravelInfoTable extends React.Component {
       ]
    }
    renderSuccessUI = () => {
-      const { getTravelDetails } = this.props
+      const { getTravelDetails,addShareButton,shareType } = this.props
       const travelInfo = getTravelDetails()
-
+      if (travelInfo.length !== 0) {
       return (
          <RequestDetailsTable>
             <TableRow key={Math.random()}>
@@ -72,6 +73,11 @@ class TravelInfoTable extends React.Component {
             })}
          </RequestDetailsTable>
       )
+      }
+   else{
+      return (
+         <NoDataFoundDisplay noOfItems={travelInfo} onClick={addShareButton} buttonType={shareType} />)
+   }
    }
    render() {
       const { renderSuccessUI } = this

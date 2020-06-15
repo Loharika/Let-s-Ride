@@ -49,6 +49,7 @@ class DashBoard extends React.Component {
    renderPage = () => {
       const {
          addRequestButton,
+         addShareButton,
          doNetWorkCallsForMatchingRequests,
          doNetWorkCallsForRequests,
          doNetWorkCallsForSharedDetails
@@ -99,6 +100,7 @@ class DashBoard extends React.Component {
                   doNetWorkCallsForSharedDetails={
                      doNetWorkCallsForSharedDetails
                   }
+                  addShareButton={addShareButton}
                   key={Math.random() + 'sharedDetails'}
                />
             )

@@ -24,7 +24,7 @@ import {
    FilterAndSort,
    Footer,
    Pages,
-   AddRequestButton
+   AddShareButton
 } from './styledComponents.js'
 import { SharedRidesTable } from './ShareRides.js'
 import { TravelInfoTable } from './TravelInfo.js'
@@ -106,7 +106,7 @@ class SharedDetails extends React.Component {
             getSharedRidesError,
             getTravelInfoAPIStatus,
             getTravelInfoAPIError
-         }
+         },addShareButton
       } = this.props
       const { doNetWorkCallsForSharedDetails } = this.props
       let shareType = displayData.sharedDetails.shareType
@@ -121,6 +121,8 @@ class SharedDetails extends React.Component {
                   getSharedRidesStatus={getSharedRidesStatus}
                   getSharedRidesError={getSharedRidesError}
                   doNetworkCalls={doNetWorkCallsForSharedDetails}
+                  addShareButton={addShareButton}
+                  shareType={shareType}
                />
             )
          }
@@ -132,6 +134,8 @@ class SharedDetails extends React.Component {
                   getTravelDetails={getSharedDetailsAsModels}
                   getTravelInfoAPIStatus={getTravelInfoAPIStatus}
                   getTravelInfoAPIError={getTravelInfoAPIError}
+                  addShareButton={addShareButton}
+                  shareType={shareType}
                />
             )
          }
@@ -140,9 +144,9 @@ class SharedDetails extends React.Component {
 
    render() {
       const {
-         commuteStore: { displayData, limit }
+         commuteStore: { displayData, limit },addShareButton
       } = this.props
-      const { onClickShareType, onChangePageNumber, onChangeFilter } = this
+      const { onClickShareType, onChangePageNumber, onChangeFilter,getSharedDetails } = this
 
       let shareType = displayData.sharedDetails.shareType
       const noOfShareDetails =
@@ -172,8 +176,8 @@ class SharedDetails extends React.Component {
                </MyRequestType>
             </MyRequestsHeader>
             <RequestHeader>
-               <NoOfRequests>{noOfShareDetails} Request(s)</NoOfRequests>
-
+               
+               {noOfShareDetails!==0?<NoOfRequests>{noOfShareDetails} Request(s)</NoOfRequests>:' '}
                <FilterAndSort>
                   <DisplayDropDown
                      data={filterOptions}
@@ -182,7 +186,12 @@ class SharedDetails extends React.Component {
                </FilterAndSort>
             </RequestHeader>
             {this.renderSuccessUI()}
-            <Footer>
+            {getSharedDetails().length!==0?<Footer>
+             <AddShareButton
+                     onClick={() => addShareButton(shareType)}
+                  >
+                     <RiAddLine /> &nbsp;Share {shareType.toLowerCase()} 
+                  </AddShareButton>
                {totalNumberOfPages !== 0 ? (
                   <Pages>
                      {pageNumber} to {totalNumberOfPages}
@@ -200,87 +209,9 @@ class SharedDetails extends React.Component {
                   totalPages={totalNumberOfPages}
                   onPageChange={onChangePageNumber}
                />
-            </Footer>
+            </Footer>:''}
          </MyRequestsDashboard>
       )
    }
 }
 export { SharedDetails }
-
-/*{
-            "origin":"hyderabad",
-            "destination":"kurnool",
-            "flexible_with_time":true,
-            "start_datetime":"Thu Sep 31 2020 21:46:04 GMT+0530 (India Standard Time)",
-            "end_datetime":"Thu Oct 04 2020 21:46:04 GMT+0530 (India Standard Time)",
-            "datetime":"null",
-            "travel_medium":"BUS",
-            "assets_quantity":4,
-            "status":"EXPIRED"
-        },
-        {
-            "origin":"hyderabad",
-            "destination":"kurnool",
-            "flexible_with_time":true,
-            "start_datetime":"Thu Apr 31 2020 21:46:04 GMT+0530 (India Standard Time)",
-            "end_datetime":"Thu May 14 2020 21:46:04 GMT+0530 (India Standard Time)",
-            "datetime":"null",
-            "travel_medium":"BUS",
-            "assets_quantity":4,
-            "status":"ACTIVE"
-        },
-        {
-            "origin":"kurnool",
-            "destination":"kadapa",
-            "flexible_with_time":false,
-            "start_datetime":"null"
-            "end_datetime":"null",
-            "datetime":"Thu Apr 31 2020 21:46:04 GMT+0530 (India Standard Time)",
-            "travel_medium":"FLIGHT",
-            "assets_quantity":2,
-            "status":"EXPIRED"
-        },
-        {
-            "origin":"hyderabad",
-            "destination":"kurnool",
-            "flexible_with_time":true,
-            "start_datetime":"Thu Apr 31 2020 21:46:04 GMT+0530 (India Standard Time)",
-            "end_datetime":"Thu May 14 2020 21:46:04 GMT+0530 (India Standard Time)",
-            "datetime":"null",
-            "travel_medium":"BUS",
-            "assets_quantity":4,
-            "status":"ACTIVE"
-        },
-        {
-            "origin":"hyderabad",
-            "destination":"kurnool",
-            "flexible_with_time":true,
-            "start_datetime":"Thu Sep 31 2020 21:46:04 GMT+0530 (India Standard Time)",
-            "end_datetime":"Thu Oct 04 2020 21:46:04 GMT+0530 (India Standard Time)",
-            "datetime":"null",
-            "travel_medium":"BUS",
-            "assets_quantity":4,
-            "status":"EXPIRED"
-        },
-        {
-            "origin":"hyderabad",
-            "destination":"kurnool",
-            "flexible_with_time":true,
-            "start_datetime":"Thu Apr 31 2020 21:46:04 GMT+0530 (India Standard Time)",
-            "end_datetime":"Thu May 14 2020 21:46:04 GMT+0530 (India Standard Time)",
-            "datetime":"null",
-            "travel_medium":"BUS",
-            "assets_quantity":4,
-            "status":"ACTIVE"
-        },
-        {
-            "origin":"kurnool",
-            "destination":"kadapa",
-            "flexible_with_time":false,
-            "start_datetime":"null"
-            "end_datetime":"null",
-            "datetime":"Thu Apr 31 2020 21:46:04 GMT+0530 (India Standard Time)",
-            "travel_medium":"FLIGHT",
-            "assets_quantity":2,
-            "status":"EXPIRED"
-        },*/

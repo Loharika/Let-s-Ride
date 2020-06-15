@@ -40,6 +40,7 @@ export const NoOfRequests = styled.span`
 `
 export const FilterAndSort = styled.div`
    display: flex;
+   margin-left:${props=>props.noOfRequests!==0?'':'auto'}
 `
 export const Sort = styled.span`
    padding: 10px 10px;
@@ -81,6 +82,7 @@ export const Footer = styled.div`
 export const AddRequestButton = styled.button`
    display: flex;
    padding: 5px 10px;
+   margin:${props=>props.noOfRequests!==0?'20px 5px':'0px 0px'}
 `
 
 export const PageNumber = styled.div`
@@ -88,9 +90,9 @@ export const PageNumber = styled.div`
 `
 export const StatusButton = styled.button`
    background-color: ${props =>
-      props.status === 'Confirmed'
+      props.status === 'CONFIRM'
          ? colors.greenishTeal
-         : props.status === 'Pending'
+         : props.status === 'PENDING'
          ? colors.yellowOrange
          : colors.lightBlueGrey};
    padding: 3px 4px;
@@ -101,14 +103,4 @@ export const StatusButton = styled.button`
 `
 export const Pages = styled.div`
    text-align: center;
-`
-
-export const NoDataFound = styled.div`
-   width: 100%;
-   margin-top: 100px;
-   font-weight: bold;
-   font-size: 30px;
-   display: flex;
-   justify-content: center;
-   align-items: center;
 `

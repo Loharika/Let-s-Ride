@@ -1,7 +1,9 @@
 import React from 'react'
 import { observer } from 'mobx-react'
+import { RiAddLine } from 'react-icons/ri'
 
-import LoadingWrapperWithFailure from '../../../Common/components/common/LoadingWrapperWithFailure'
+import LoadingWrapperWithFailure from '../../../Common/components/common/LoadingWrapperWithFailure';
+import {NoDataFound as NoDataFoundDisplay} from '../Common/components/NoDataFound.js';
 import {
    RequestDetailsTable,
    TableCellLeftAligned,
@@ -9,7 +11,6 @@ import {
    TableHeader,
    TableRow,
    StatusButton,
-   NoDataFound
 } from './styledComponents.js'
 
 @observer
@@ -30,7 +31,7 @@ class ShowAssetTransport extends React.Component {
    }
    renderSuccessUI = () => {
       const { tableHeaders } = this
-      const { getRequests } = this.props
+      const { getRequests,addRequestButton,requestType } = this.props
       const assetRequests = getRequests()
       if (assetRequests.length !== 0) {
          return (
@@ -87,7 +88,7 @@ class ShowAssetTransport extends React.Component {
                         </TableCellLeftAligned>
 
                         <TableCellLeftAligned>
-                           <StatusButton status={request.status}>
+                           <StatusButton status={request.status.toUpperCase()}>
                               {request.status.toUpperCase()}
                            </StatusButton>
                         </TableCellLeftAligned>
@@ -97,7 +98,10 @@ class ShowAssetTransport extends React.Component {
             </RequestDetailsTable>
          )
       } else {
-         return <NoDataFound> No Data Found</NoDataFound>
+         return (
+         <NoDataFoundDisplay noOfItems={getRequests()} onClick={addRequestButton} buttonType={requestType} />
+         )
+         
       }
    }
 

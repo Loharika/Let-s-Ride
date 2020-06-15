@@ -1,5 +1,10 @@
 import React from 'react'
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import {
+   BrowserRouter as Router,
+   Switch,
+   Route,
+   Redirect
+} from 'react-router-dom'
 import { observer, Provider } from 'mobx-react'
 
 import {
@@ -78,7 +83,7 @@ class App extends React.Component {
                      path={COMMUTE_DASHBOARD_SHARE_TRAVEL_INFO}
                      component={TravelInfo}
                   />
-                  <Route exact path='/' component={PracticeDashboardRoute} />
+                  {/*<Route exact path='/' component={PracticeDashboardRoute} />*/}
                </Switch>
             </Router>
          </Provider>

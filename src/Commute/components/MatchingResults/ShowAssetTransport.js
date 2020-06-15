@@ -77,7 +77,7 @@ class ShowAssetTransport extends React.Component {
             </RequestDetailsTable>
          )
       } else {
-         return <NoDataFound> No Data Found</NoDataFound>
+         return <NoDataFound> No Matching Requests Found</NoDataFound>
       }
    }
 

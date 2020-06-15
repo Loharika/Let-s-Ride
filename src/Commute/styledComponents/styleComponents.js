@@ -153,3 +153,19 @@ export const InputFiledWithError = styled.div`
 export const Icon = styled.div`
    margin-right: 5px;
 `
+export const NoDataFoundStyle=styled.div`
+   width: 100%;
+   margin-top: 100px;
+   font-weight: bold;
+   font-size: 30px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   flex-direction:column;
+
+`;
+export const AddButton=styled.button`
+   display: flex;
+   padding: 5px 10px;
+   margin:${props=>props.noOfItems!==0?'20px 5px':'0px 0px'}
+`;

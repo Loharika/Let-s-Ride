@@ -149,8 +149,7 @@
             "origin":"Harayan",
             "destination":"Kurnool",
             "no_of_seats":6,
-             "flexible_with_time":false,
-
+            "flexible_with_time":false,
             "datetime":"Thu Oct 21 2012 03:43:04 GMT+0530 (India Standard Time)",
             "start_datetime":"null",
             "end_datetime":"null",

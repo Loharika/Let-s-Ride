@@ -228,7 +228,7 @@ class MatchingResults extends React.Component {
                   ''
                )}
 
-               <FilterAndSort>
+               <FilterAndSort noOfRequests={noOfRequests}>
                   <DisplayDropDown
                      data={sortOptions}
                      onChange={onChangeSortBy}

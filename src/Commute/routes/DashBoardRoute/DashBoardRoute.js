@@ -105,6 +105,20 @@ class DashBoardRoute extends React.Component {
       }
    }
    @action.bound
+   addShareButton(shareType){
+      const {history}=this.props;
+      switch (shareType) {
+         case 'RIDE': {
+            history.push('/commute-dashboard/share-ride')
+            return
+         }
+         case 'TRAVEL INFO': {
+            history.push('/commute-dashboard/share-travelInfo')
+            return
+         }
+      }
+   }
+   @action.bound
    async doNetWorkCallsForSharedDetails() {
       const {
          commuteStore: {
@@ -148,7 +162,8 @@ class DashBoardRoute extends React.Component {
          doNetWorkCallsForMatchingRequests,
          doNetWorkCallsForRequests,
          doNetWorkCallsForSharedDetails,
-         addRequestButton
+         addRequestButton,
+         addShareButton
       } = this
       //
       //
@@ -161,6 +176,7 @@ class DashBoardRoute extends React.Component {
             doNetWorkCallsForRequests={doNetWorkCallsForRequests}
             doNetWorkCallsForSharedDetails={doNetWorkCallsForSharedDetails}
             addRequestButton={addRequestButton}
+            addShareButton={addShareButton}
          />
       )
    }

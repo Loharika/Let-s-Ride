@@ -1,6 +1,6 @@
 import React from 'react'
 import { observer } from 'mobx-react'
-
+import { RiAddLine } from 'react-icons/ri'
 import strings from '../../i18n/strings.json'
 import {
    RequestDetailsTable,
@@ -8,10 +8,11 @@ import {
    TableCellAlignedCenter,
    TableHeader,
    TableRow,
-   StatusButton
+   StatusButton,
 } from './styledComponents.js'
 
-import LoadingWrapperWithFailure from '../../../Common/components/common/LoadingWrapperWithFailure'
+import LoadingWrapperWithFailure from '../../../Common/components/common/LoadingWrapperWithFailure';
+import {NoDataFound as NoDataFoundDisplay} from '../Common/components/NoDataFound.js';
 
 @observer
 class SharedRidesTable extends React.Component {
@@ -27,9 +28,10 @@ class SharedRidesTable extends React.Component {
       ]
    }
    renderSuccessUI = () => {
-      const { getShares } = this.props
+      const { getShares,addShareButton,shareType } = this.props
       const sharesRides = getShares()
-      return (
+      if (sharesRides.length !== 0) {
+         return (
          <RequestDetailsTable>
             <TableRow key={Math.random()}>
                {this.sharedRidesHeaders.map(eachOne => {
@@ -71,6 +73,11 @@ class SharedRidesTable extends React.Component {
             })}
          </RequestDetailsTable>
       )
+   }
+   else{
+      return (
+         <NoDataFoundDisplay noOfItems={sharesRides} onClick={addShareButton} buttonType={shareType} />)
+   }
    }
    render() {
       const { renderSuccessUI } = this
