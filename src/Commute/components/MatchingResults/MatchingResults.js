@@ -18,7 +18,6 @@ import {
    FilterAndSort,
    Footer,
    Pages,
-   NoDataFound
 } from './styledComponents.js'
 
 import {
@@ -147,7 +146,6 @@ class MatchingResults extends React.Component {
             displayData,
             getMatchingRequestAPIStatus,
             getMatchingRequestAPIError,
-            getAcceptingMatchedRequestAPIStatus
          }
       } = this.props
       const { doNetWorkCallsForMatchingRequests } = this.props

@@ -103,8 +103,7 @@ class DashBoard extends React.Component {
                   addShareButton={addShareButton}
                   key={Math.random() + 'sharedDetails'}
                />
-            )
-            //return <div>SharedDetails</div>
+            );
          }
       }
    }

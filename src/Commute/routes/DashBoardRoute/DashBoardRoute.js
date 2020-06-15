@@ -164,9 +164,7 @@ class DashBoardRoute extends React.Component {
          doNetWorkCallsForSharedDetails,
          addRequestButton,
          addShareButton
-      } = this
-      //
-      //
+      } = this;
       return (
          <DashBoard
             history={this.props.history}
