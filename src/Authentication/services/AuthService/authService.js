@@ -25,6 +25,18 @@ class AuthService {
          apiMethods.post
       )
    }
+   logInAPI = (userName, password) => {
+      const siva = {
+         username: userName,
+         password: password
+      }
+      return networkCallWithApisauce(
+         this.api,
+         'api/lets_ride/user/login/v1/',
+         siva,
+         apiMethods.post
+      )
+   }
    @action.bound
    getProfileDetailsAPI() {
       return networkCallWithApisauce(

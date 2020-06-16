@@ -56,7 +56,7 @@ class CommuteStore {
             sortBy: 'SELECT', //DATE TIME
             rideRequestPageNumber: 1,
             assetRequestPageNumber: 1,
-            sortByOrder: 'ASC' //ASC DEC
+            sortByOrder: 'ASC' //ASC DESC
          },
          myRequests: {
             rideRequests: [],
@@ -126,7 +126,7 @@ class CommuteStore {
             this.displayData['sharedDetails'].sharedRidePageNumber = pageNumber
             break
          }
-         case 'ASSET': {
+         case 'TRAVEL INFO': {
             this.displayData[
                'sharedDetails'
             ].sharedTravelInfoPageNumber = pageNumber
@@ -422,7 +422,7 @@ class CommuteStore {
          }
          case 'ASSET': {
             this.displayData['matchingResults'].assetRequests =
-               apiResponse.asset_requests
+               apiResponse.asset_requests;
             this.displayData['matchingResults'].noOfAssetRequests =
                apiResponse.assets_matches_count
             break
@@ -513,18 +513,3 @@ class CommuteStore {
    }
 }
 export { CommuteStore }
-
-// shared_travels": [
-//     {
-//       "origin": "string",
-//       "destination": "string",
-//       "datetime": "string",
-//       "flexible_with_time": true,
-//       "start_datetime": "string",
-//       "end_datetime": "string",
-//       "transport_medium": "BUS",
-//       "assets_quantity": 0
-//     }
-//  ],
-//  "total_travel_infos_shared": 0
-// }

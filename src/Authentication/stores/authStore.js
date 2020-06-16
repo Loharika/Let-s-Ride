@@ -37,13 +37,13 @@ class AuthStore {
       this.getUserProfileDetailsResponse = ''
    }
 
-   // @action.bound
-   // userSignUp() {
-   //    let signInPromise = this.authService.signInAPI()
-   //    return bindPromiseWithOnSuccess(signInPromise)
-   //       .to(this.setGetUserSignInAPIStatus, this.setUserSignInAPIResponse)
-   //       .catch(this.setGetUserSignInAPIError)
-   // }
+   @action.bound
+   userSignUp() {
+      let signInPromise = this.authService.signInAPI()
+      return bindPromiseWithOnSuccess(signInPromise)
+         .to(this.setGetUserSignInAPIStatus, this.setUserSignInAPIResponse)
+         .catch(this.setGetUserSignInAPIError)
+   }
    @action.bound
    userLogIn(userName, password) {
       let signInPromise = this.authService.signInAPI(userName, password)
@@ -80,18 +80,15 @@ class AuthStore {
    }
    @action.bound
    setGetUserProfileDetailsStatus(apiStatus) {
-      console.log(apiStatus)
       this.getUserProfileDetailsStatus = apiStatus
    }
    @action.bound
    setGetUserProfileDetailsError(apiError) {
-      console.log('apiErrorr--->  ' + apiError)
       this.getUserProfileDetailsError = apiError
    }
    @action.bound
    setGetUserProfileDetailsResponse(apiResponse) {
-      console.log('response    ' + apiResponse)
-      console.log('12367890762123456789009623567890')
+    
       this.getUserProfileDetailsResponse = apiResponse
    }
 

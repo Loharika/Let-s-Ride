@@ -3,7 +3,7 @@ import { create } from 'apisauce'
 
 import assetRequestData from '../../fixtures/assetRequests.fixture.json'
 import rideRequestData from '../../fixtures/rideRequests.fixture.json'
-import matchedRideRequests from '../../fixtures/matchedRideRequests.fixture..json'
+import matchedRideRequests from '../../fixtures/matchedRideRequests.fixture.json'
 import matchingAssetsRequests from '../../fixtures/matchedAssetRequests.fixture.json'
 import sharedRides from '../../fixtures/sharedRide.fixture.json'
 import travelInfo from '../../fixtures/sharedTravelInfo.fixture.json'

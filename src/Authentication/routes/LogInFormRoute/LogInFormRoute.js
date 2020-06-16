@@ -5,7 +5,6 @@ import { observer, inject } from 'mobx-react'
 import { withRouter, Redirect } from 'react-router-dom'
 
 import { LogInForm } from '../../components/LogInForm'
-import { endPoints } from '../../constants'
 
 import { COMMUTE_DASHBOARD_HOME_PAGE } from '../../constants/NavigationalConstants.js'
 import { goToDashboardHomePage } from '../../utils/NavigationalUtils.js'
@@ -30,7 +29,7 @@ class LogInPageRoute extends React.Component {
       this.password = ''
       this.errorText = ''
    }
-   onSubmit = () => {
+   onSubmit = (event) => {
       event.preventDefault()
       let { userName, password } = this
       if (userName.length !== 0 && password.length !== 0) {
