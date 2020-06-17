@@ -4,15 +4,16 @@ import getUserSignUpResponse from '../../fixtures/getUserSignUpResponse.json'
 
 class AuthService {
    signInAPI = (userName, password) => {
+      
       return new Promise(resolve => {
          resolve(getUserSignUpResponse)
       })
    }
    
    getProfileDetailsAPI=()=> {
+      
       let Details = {
-         name: 'Loharika',
-         gender: 'female'
+         name: 'Loharika'
       }
       return new Promise(resolve => {
          resolve(Details)

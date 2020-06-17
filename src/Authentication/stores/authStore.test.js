@@ -74,19 +74,19 @@ describe("AuthStore Tests Cases",()=>{
         const mockLoadingPromise = new Promise(function(resolve, reject){});
         const mockUserProfileAPI = jest.fn();
         mockUserProfileAPI.mockReturnValue(mockLoadingPromise);
-      authService.getProfileDetailsAPI=mockUserProfileAPI;
-      authStore.getUserProfileDetails();
-      expect(authStore.getUserProfileDetailsStatus).toBe(API_FETCHING);
+          authService.getProfileDetailsAPI=mockUserProfileAPI;
+          authStore.getUserProfileDetails();
+          expect(authStore.getUserProfileDetailsStatus).toBe(API_FETCHING);
     });
     
-    it("it should test the signInAPI data success state",async ()=>{
+    it("it should test the userProfile data success state",async ()=>{
         const mockLoadingPromise=new Promise(function(resolve,reject){
             resolve(getUserProfileData);
         });
       const mockUserProfileAPI = jest.fn();
         mockUserProfileAPI.mockReturnValue(mockLoadingPromise);
       authService.getProfileDetailsAPI=mockUserProfileAPI;
-      await authStore.getUserProfileDetails();
+      await authStore.getUserProfileDetails({userName:'Harika',});
         expect(authStore.getUserProfileDetailsStatus).toBe(API_SUCCESS);
         expect(authStore.getUserProfileDetailsError).toBe(null)
         expect(authStore.getUserProfileDetailsResponse).toStrictEqual(getUserProfileData);
@@ -97,8 +97,8 @@ describe("AuthStore Tests Cases",()=>{
         });
         const mockUserProfileAPI = jest.fn();
         mockUserProfileAPI.mockReturnValue(mockLoadingPromise);
-       authService.getProfileDetailsAPI=mockUserProfileAPI;
-       await authStore.getUserProfileDetails();
+      authService.getProfileDetailsAPI=mockUserProfileAPI;
+      await authStore.getUserProfileDetails();
         expect(authStore.getUserProfileDetailsError).toBe('error')
     });
     it("it should test the usersignout function",()=>{

@@ -52,7 +52,6 @@ class Header extends React.Component {
       const {
          authStore: { userSignOut }
       } = this.props
-      console.log(typeof userSignOut)
       userSignOut()
    }
    onClickHomeButton = () => {

@@ -30,7 +30,7 @@ const LocationDisplay = withRouter(({ location }) => (
    <div data-testid='location-display'>{location.pathname}</div>
 ))
 
-describe('SignInRoute Tests', () => {
+describe('DashBoardRoute Tests', () => {
    let commuteStore
    let commuteService
 
@@ -214,11 +214,15 @@ describe('SignInRoute Tests', () => {
       fireEvent.click(userProfileButton);
       expect(history.location.pathname).toBe(COMMUTE_DASHBOARD_USERPROFILE)
    });
+   
+   
+   
     it("it should check the whether it is redirected to the Login  page or not",()=>{
       
       const history = createMemoryHistory()
       const route = COMMUTE_DASHBOARD_HOME_PAGE;
       history.push(route);
+      
       const {  getByText, getByTestId } = render(
          func(commuteStore,history)
       )
@@ -229,7 +233,25 @@ describe('SignInRoute Tests', () => {
       const userSignOutButton=getByTestId('signout-button')
       fireEvent.click(userSignOutButton);
       expect(authStore.userSignOut).toBeCalled()
-      })
+      });
+      
+      
+      it("it should check the addRequestButton ",()=>{
+      
+      const { getByText, getByTestId, getByRole } = render(
+         <Router history={createMemoryHistory()}>
+         <Provider commuteStore={commuteStore} authStore={authStore}>
+            <DashBoardRoute  />
+            </Provider>
+         </Router>
+      )
+      
+      const myRequestsButton = getByRole('button', { name: 'My Requests' });
+      expect(myRequestsButton).toBeInTheDocument();
+      fireEvent.click(myRequestsButton)
+      //const addRequestButton=getByTestId('addButton');
+      
+      });
    
 });
 

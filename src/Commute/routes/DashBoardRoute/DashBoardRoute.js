@@ -106,6 +106,7 @@ class DashBoardRoute extends React.Component {
    }
    @action.bound
    addShareButton(shareType) {
+      console.log("shareType" ,shareType)
       const { history } = this.props
       switch (shareType) {
          case 'RIDE': {

@@ -1,11 +1,10 @@
 import React from 'react'
 import { observer, inject } from 'mobx-react'
 import { action } from 'mobx'
-import { Pagination } from 'semantic-ui-react'
-import 'semantic-ui-css/semantic.min.css'
+
 import { RiAddLine } from 'react-icons/ri'
 import { DisplayDropDown } from '../Common/components/DisplayDropDown.js'
-
+import {PaginationUI as Pagination} from '../Common/components/Pagination.js';
 const filterOptions = {
    listTitle: '',
    listItems: [
@@ -208,16 +207,8 @@ class SharedDetails extends React.Component {
                   ) : (
                      ''
                   )}
-                  <Pagination
-                     boundaryRange={0}
-                     defaultActivePage={pageNumber}
-                     ellipsisItem={null}
-                     firstItem={null}
-                     lastItem={null}
-                     siblingRange={1}
-                     totalPages={totalNumberOfPages}
-                     onPageChange={onChangePageNumber}
-                  />
+                  <Pagination totalNumberOfPages={totalNumberOfPages} pageNumber={pageNumber} onChangePageNumber={onChangePageNumber}/>
+               
                </Footer>
             ) : (
                ''
