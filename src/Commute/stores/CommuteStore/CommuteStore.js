@@ -39,12 +39,13 @@ class CommuteStore {
    @observable getTravelInfoAPIError
 
    @observable displayData
-
+   @observable selectedPage
    commuteService
    constructor(commuteService) {
       this.commuteService = commuteService
       this.init()
       this.limit = 4
+      this.selectedPage='/home/matched-requests';
       this.displayData = {
          matchingResults: {
             rideRequests: [],
@@ -56,7 +57,8 @@ class CommuteStore {
             sortBy: 'SELECT', //DATE TIME
             rideRequestPageNumber: 1,
             assetRequestPageNumber: 1,
-            sortByOrder: 'ASC' //ASC DESC
+            sortByOrder: 'ASC',//ASC DESC
+            
          },
          myRequests: {
             rideRequests: [],
@@ -85,6 +87,10 @@ class CommuteStore {
             sharedTravelInfoPageNumber: 1
          }
       }
+   }
+   @action.bound
+   onChangeSelectedPage(page){
+      this.selectedPage=page;
    }
    @action.bound
    onChangeRequestType(selectorTabType, requestType) {

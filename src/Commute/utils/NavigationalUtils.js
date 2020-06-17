@@ -4,7 +4,8 @@ import {
    COMMUTE_DASHBOARD_ASSET_REQUEST,
    COMMUTE_DASHBOARD_SHARE_RIDE,
    COMMUTE_DASHBOARD_SHARE_TRAVEL_INFO,
-   COMMUTE_DASHBOARD_USERPROFILE
+   COMMUTE_DASHBOARD_USERPROFILE,
+   COMMUTE_DASHBOARD_MATCHEDRESULTS
 } from '../constants/NavigationalConstants.js'
 
 export const goToRideRequestPage = history => {
@@ -22,6 +23,6 @@ export const goToTravelInfoPage = history => {
 export const goToUserProfilePage = history => {
    history.push(COMMUTE_DASHBOARD_USERPROFILE)
 }
-export const goToHomePage = history => {
-   history.push(COMMUTE_DASHBOARD_HOME_PAGE)
+export const goToHomePage =( history,path) => {
+   history.push(COMMUTE_DASHBOARD_MATCHEDRESULTS)
 }

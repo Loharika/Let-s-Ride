@@ -17,7 +17,10 @@ import {
    COMMUTE_DASHBOARD_ASSET_REQUEST,
    COMMUTE_DASHBOARD_SHARE_RIDE,
    COMMUTE_DASHBOARD_USERPROFILE,
-   COMMUTE_DASHBOARD_SHARE_TRAVEL_INFO
+   COMMUTE_DASHBOARD_SHARE_TRAVEL_INFO,
+   COMMUTE_DASHBOARD_MY_REQUESTS,
+   COMMUTE_DASHBOARD_MATCHEDRESULTS,
+   COMMUTE_DASHBOARD_SHARED_DETAILS
 } from './Commute/constants/NavigationalConstants.js'
 
 import { LogInPageRoute } from './Authentication/routes'
@@ -32,7 +35,7 @@ import { RideRequest } from './Commute/components/RideRequest'
 import { ShareRide } from './Commute/components/ShareRide'
 import { TravelInfo } from './Commute/components/TravelInfo'
 
-import { PracticeDashboardRoute } from './Practice/routes/PracticeDashboardRoute'
+//import { PracticeDashboardRoute } from './Practice/routes/PracticeDashboardRoute'
 
 import './App.css'
 
@@ -60,9 +63,21 @@ class App extends React.Component {
                   />
                   <ProtectedRoute
                      exact
-                     path={COMMUTE_DASHBOARD_HOME_PAGE}
+                     path={COMMUTE_DASHBOARD_MY_REQUESTS}
                      component={DashBoardRoute}
                   />
+                  <ProtectedRoute
+                     exact
+                     path={COMMUTE_DASHBOARD_MATCHEDRESULTS}
+                     component={DashBoardRoute}
+                     history={this.props.history}
+                  />
+                  <ProtectedRoute
+                     exact
+                     path={COMMUTE_DASHBOARD_SHARED_DETAILS}
+                     component={DashBoardRoute}
+                  />
+
                   <ProtectedRoute
                      exact
                      path={COMMUTE_DASHBOARD_ASSET_REQUEST}

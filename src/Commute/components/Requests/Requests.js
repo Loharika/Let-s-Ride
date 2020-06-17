@@ -56,7 +56,6 @@ class Requests extends React.Component {
    constructor() {
       super()
    }
-
    onChangePageNumber = (event, data) => {
       const {
          commuteStore: { onChangePageNumber }

@@ -4,9 +4,9 @@ import { observer, inject } from 'mobx-react'
 import { COMMUTE_DASHBOARD_LOGIN_PAGE } from '../../../Authentication/constants/NavigationalConstants.js'
 const ProtectedRoute = inject('authStore')(
    observer(
-      ({ component: Component, authStore, SIGN_IN_PATH, path, ...rest }) => {
+      ({ component: Component, authStore, history, path, ...rest }) => {
          let accessToken = authStore.access_token
-         //window.localStorage.setItem('path', path)
+         window.localStorage.setItem('path', path)
          return (
             <Route
                {...rest}

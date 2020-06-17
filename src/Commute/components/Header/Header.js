@@ -24,7 +24,7 @@ import {
    HomePage
 } from './styledComponents.js'
 
-@inject('authStore')
+@inject('authStore','commuteStore')
 @observer
 class Header extends React.Component {
    onClickRide = (event, data) => {
@@ -56,10 +56,15 @@ class Header extends React.Component {
    }
    onClickHomeButton = () => {
       const { history } = this.props
-      goToHomePage(history)
+      const {commuteStore:{onChangeSelectedPage}}=this.props;
+      onChangeSelectedPage('/home/matched-requests');
+      goToHomePage(history,'/home/matched-requests')
    }
    render() {
-      const { onClickSignOut, onClickUserProfile, onClickHomeButton } = this
+      const { onClickSignOut, onClickUserProfile, 
+      onClickHomeButton,onClickRide,
+      onClickAssetRequest,onClickShareRide,
+      onClickTravelInfo } = this
       return (
          <HeaderStyle>
             <LogoImageContainer>
@@ -73,13 +78,13 @@ class Header extends React.Component {
                         <Dropdown.Item
                            text='Ride'
                            value={'rideRequest'}
-                           onClick={this.onClickRide}
+                           onClick={onClickRide}
                            data-testid='rideRequest'
                         />
                         <Dropdown.Item
                            text='Asset Transport'
                            value={'assetTranportRequest'}
-                           onClick={this.onClickAssetRequest}
+                           onClick={onClickAssetRequest}
                            data-testid='assetTranportRequest'
                         />
                      </Dropdown.Menu>
@@ -91,13 +96,13 @@ class Header extends React.Component {
                         <Dropdown.Item
                            text='Ride'
                            value={'shareRide'}
-                           onClick={this.onClickShareRide}
+                           onClick={onClickShareRide}
                            data-testid={'share-ride-button'}
                         />
                         <Dropdown.Item
                            text='Travel Info'
                            value={'shareTravelInfo'}
-                           onClick={this.onClickTravelInfo}
+                           onClick={onClickTravelInfo}
                            data-testid={'share-travelInfo-button'}
                         />
                      </Dropdown.Menu>

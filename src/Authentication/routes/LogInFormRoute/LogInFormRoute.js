@@ -63,7 +63,7 @@ class LogInPageRoute extends React.Component {
       } = this.props
       if (access_token) {
          const { history } = this.props
-         goToDashboardHomePage(history)
+         goToDashboardHomePage(history,window.localStorage.getItem('path'))
       }
    }
 

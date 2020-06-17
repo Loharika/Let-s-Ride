@@ -248,8 +248,7 @@ describe('DashBoardRoute Tests', () => {
       
       const myRequestsButton = getByRole('button', { name: 'My Requests' });
       expect(myRequestsButton).toBeInTheDocument();
-      fireEvent.click(myRequestsButton)
-      //const addRequestButton=getByTestId('addButton');
+      fireEvent.click(myRequestsButton);
       
       });
    
