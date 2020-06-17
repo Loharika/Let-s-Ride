@@ -1,5 +1,5 @@
 import React from 'react'
-import { action ,observable} from 'mobx'
+import { action, observable } from 'mobx'
 import { observer, inject } from 'mobx-react'
 import { withRouter } from 'react-router-dom'
 
@@ -9,37 +9,44 @@ import { withHeader } from '../../Hocs/withHeader'
 import { MatchingResults } from '../../components/MatchingResults'
 import { Requests } from '../../components/Requests'
 import { SharedDetails } from '../../components/SharedDetails'
-import {COMMUTE_DASHBOARD_MY_REQUESTS,
+import {
+   COMMUTE_DASHBOARD_MY_REQUESTS,
    COMMUTE_DASHBOARD_MATCHEDRESULTS,
-   COMMUTE_DASHBOARD_SHARED_DETAILS} from '../../constants/NavigationalConstants.js';
+   COMMUTE_DASHBOARD_SHARED_DETAILS
+} from '../../constants/NavigationalConstants.js'
 
 @inject('commuteStore')
 @observer
 class DashBoardRoute extends React.Component {
    @observable selector
    constructor(props) {
-      super(props);
-      const {commuteStore:{onChangeSelectedPage}}=this.props;
-      onChangeSelectedPage(this.props.history.location.pathname.slice(18,50));
-      const {commuteStore:{selectedPage}}=this.props;
-      this.selector = selectedPage;
+      super(props)
+      const {
+         commuteStore: { onChangeSelectedPage }
+      } = this.props
+      onChangeSelectedPage(this.props.history.location.pathname.slice(18, 50))
+      const {
+         commuteStore: { selectedPage }
+      } = this.props
+      this.selector = selectedPage
    }
 
    componentDidMount() {
-       const {commuteStore:{onChangeSelectedPage}}=this.props;
-         onChangeSelectedPage(this.props.history.location.pathname);
-       const {doNetWorkCalls } = this
+      const {
+         commuteStore: { onChangeSelectedPage }
+      } = this.props
+      onChangeSelectedPage(this.props.history.location.pathname)
+      const { doNetWorkCalls } = this
       doNetWorkCalls(this.selector)
    }
    @action.bound
-   doNetWorkCalls(selectedPage){
+   doNetWorkCalls(selectedPage) {
       const {
          doNetWorkCallsForMatchingRequests,
          doNetWorkCallsForRequests,
          doNetWorkCallsForSharedDetails
-      } = this;
-       switch (selectedPage) {
-          
+      } = this
+      switch (selectedPage) {
          case '/home/my-requests': {
             doNetWorkCallsForRequests()
             return
@@ -56,14 +63,13 @@ class DashBoardRoute extends React.Component {
    }
    @action.bound
    onClickSelector(selector) {
-      const {commuteStore:{onChangeSelectedPage}}=this.props;
-      onChangeSelectedPage(selector);
       const {
-         doNetWorkCalls
-      } = this
+         commuteStore: { onChangeSelectedPage }
+      } = this.props
+      onChangeSelectedPage(selector)
+      const { doNetWorkCalls } = this
       this.selector = selector
       switch (this.selector) {
-         
          case '/home/my-requests': {
             this.props.history.push(COMMUTE_DASHBOARD_MY_REQUESTS)
             doNetWorkCalls('/home/my-requests')
@@ -186,9 +192,7 @@ class DashBoardRoute extends React.Component {
       }
    }
    @action.bound
-   onChangePath(){
-      
-   }
+   onChangePath() {}
    @action.bound
    async doNetWorkCallsForSharedDetails() {
       const {
@@ -283,7 +287,7 @@ class DashBoardRoute extends React.Component {
                   addShareButton={addShareButton}
                   key={Math.random() + 'sharedDetails'}
                />
-            );
+            )
          }
       }
    }
@@ -295,13 +299,11 @@ class DashBoardRoute extends React.Component {
          addRequestButton,
          addShareButton,
          selector,
-         onClickSelector,
-         
-      } = this;
-      
+         onClickSelector
+      } = this
+
       return (
          <DashBoard
-         
             selector={selector}
             onClickSelector={onClickSelector}
             history={this.props.history}

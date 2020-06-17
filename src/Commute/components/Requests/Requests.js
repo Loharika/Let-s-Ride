@@ -3,7 +3,7 @@ import { observer, inject } from 'mobx-react'
 import { action } from 'mobx'
 import { RiAddLine } from 'react-icons/ri'
 import { DisplayDropDown } from '../Common/components/DisplayDropDown.js'
-import {PaginationUI as Pagination} from '../Common/components/Pagination.js';
+import { PaginationUI as Pagination } from '../Common/components/Pagination.js'
 import { ShowRideRequests } from './ShowRideRequests.js'
 import { ShowAssetTransport } from './ShowAssetTransport.js'
 
@@ -217,7 +217,7 @@ class Requests extends React.Component {
             {getRequests().length !== 0 ? (
                <Footer>
                   <AddRequestButton
-                  data-testid='addButton'
+                     data-testid='addButton'
                      onClick={() => addRequestButton(requestType)}
                   >
                      <RiAddLine /> &nbsp;Add {requestType.toLowerCase()}
@@ -229,7 +229,11 @@ class Requests extends React.Component {
                   ) : (
                      ''
                   )}
-                  <Pagination totalNumberOfPages={totalNumberOfPages} pageNumber={pageNumber} onChangePageNumber={onChangePageNumber}/>
+                  <Pagination
+                     totalNumberOfPages={totalNumberOfPages}
+                     pageNumber={pageNumber}
+                     onChangePageNumber={onChangePageNumber}
+                  />
                </Footer>
             ) : (
                ''

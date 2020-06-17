@@ -11,8 +11,7 @@ import {
 @observer
 class DashBoard extends React.Component {
    render() {
-       const {selector,onClickSelector
-       }=this.props;
+      const { selector, onClickSelector } = this.props
       return (
          <CommuteDashboardDisplay key={Math.random()}>
             <Selectors>
@@ -32,7 +31,9 @@ class DashBoard extends React.Component {
                </MyRequestsSelector>
                <SharedDetailsSelector
                   onClick={() => onClickSelector('/home/shared-details')}
-                        isSelected={selector === '/home/shared-details' ? true : false}
+                  isSelected={
+                     selector === '/home/shared-details' ? true : false
+                  }
                >
                   Shared Details
                </SharedDetailsSelector>

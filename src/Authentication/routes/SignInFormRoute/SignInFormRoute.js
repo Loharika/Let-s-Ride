@@ -88,8 +88,8 @@ class SignInFormRoute extends React.Component {
          authStore: { access_token }
       } = this.props
       if (access_token) {
-          const { history } = this.props
-          goToDashboardHomePage(history,window.localStorage.getItem('path'))
+         const { history } = this.props
+         goToDashboardHomePage(history, window.localStorage.getItem('path'))
       }
    }
 

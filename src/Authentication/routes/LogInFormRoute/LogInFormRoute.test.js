@@ -7,11 +7,13 @@ import { Router, Route, withRouter } from 'react-router-dom'
 import { Provider } from 'mobx-react'
 import { createMemoryHistory } from 'history'
 
-
 import { AuthService } from '../../services/AuthService'
 import { AuthStore } from '../../stores'
-import getUserLogInResponse from '../../fixtures/getUserSignUpResponse.json';
-import {COMMUTE_DASHBOARD_LOGIN_PAGE,COMMUTE_DASHBOARD_HOME_PAGE} from '../../constants/NavigationalConstants.js';
+import getUserLogInResponse from '../../fixtures/getUserSignUpResponse.json'
+import {
+   COMMUTE_DASHBOARD_LOGIN_PAGE,
+   COMMUTE_DASHBOARD_HOME_PAGE
+} from '../../constants/NavigationalConstants.js'
 
 import LogInFormRoute from './LogInFormRoute.js'
 
@@ -76,7 +78,7 @@ describe('LogInFormRoute Tests', () => {
    })
 
    it('should render logInRoute loading state', async () => {
-      const {  getByPlaceholderText, getByRole } = render(
+      const { getByPlaceholderText, getByRole } = render(
          <Router history={createMemoryHistory()}>
             <LogInFormRoute authStore={authStore} />
          </Router>
@@ -102,7 +104,7 @@ describe('LogInFormRoute Tests', () => {
 
    it('should render logInRoute success state', async () => {
       const history = createMemoryHistory()
-      const route = COMMUTE_DASHBOARD_LOGIN_PAGE;
+      const route = COMMUTE_DASHBOARD_LOGIN_PAGE
       history.push(route)
 
       const { getByRole, queryByRole, getByTestId } = render(

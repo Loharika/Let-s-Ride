@@ -2,7 +2,7 @@ import React from 'react'
 import { observer, inject } from 'mobx-react'
 import { action } from 'mobx'
 import { DisplayDropDown } from '../Common/components/DisplayDropDown.js'
-import {PaginationUI as Pagination} from '../Common/components/Pagination.js';
+import { PaginationUI as Pagination } from '../Common/components/Pagination.js'
 import { ShowRideRequests } from './ShowRideRequests.js'
 import { ShowAssetTransport } from './ShowAssetTransport.js'
 
@@ -14,7 +14,7 @@ import {
    NoOfRequests,
    FilterAndSort,
    Footer,
-   Pages,
+   Pages
 } from './styledComponents.js'
 
 import {
@@ -142,7 +142,7 @@ class MatchingResults extends React.Component {
          commuteStore: {
             displayData,
             getMatchingRequestAPIStatus,
-            getMatchingRequestAPIError,
+            getMatchingRequestAPIError
          }
       } = this.props
       const { doNetWorkCallsForMatchingRequests } = this.props
@@ -245,7 +245,11 @@ class MatchingResults extends React.Component {
                   ) : (
                      ''
                   )}
-                  <Pagination totalNumberOfPages={totalNumberOfPages} pageNumber={pageNumber} onChangePageNumber={onChangePageNumber}/>
+                  <Pagination
+                     totalNumberOfPages={totalNumberOfPages}
+                     pageNumber={pageNumber}
+                     onChangePageNumber={onChangePageNumber}
+                  />
                </Footer>
             ) : (
                ''

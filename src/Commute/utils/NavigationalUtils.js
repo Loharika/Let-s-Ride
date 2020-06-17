@@ -23,6 +23,6 @@ export const goToTravelInfoPage = history => {
 export const goToUserProfilePage = history => {
    history.push(COMMUTE_DASHBOARD_USERPROFILE)
 }
-export const goToHomePage =( history,path) => {
+export const goToHomePage = (history, path) => {
    history.push(COMMUTE_DASHBOARD_MATCHEDRESULTS)
 }

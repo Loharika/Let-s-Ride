@@ -24,7 +24,7 @@ import {
    HomePage
 } from './styledComponents.js'
 
-@inject('authStore','commuteStore')
+@inject('authStore', 'commuteStore')
 @observer
 class Header extends React.Component {
    onClickRide = (event, data) => {
@@ -48,7 +48,6 @@ class Header extends React.Component {
       goToUserProfilePage(history)
    }
    onClickSignOut = () => {
-      
       const {
          authStore: { userSignOut }
       } = this.props
@@ -56,15 +55,22 @@ class Header extends React.Component {
    }
    onClickHomeButton = () => {
       const { history } = this.props
-      const {commuteStore:{onChangeSelectedPage}}=this.props;
-      onChangeSelectedPage('/home/matched-requests');
-      goToHomePage(history,'/home/matched-requests')
+      const {
+         commuteStore: { onChangeSelectedPage }
+      } = this.props
+      onChangeSelectedPage('/home/matched-requests')
+      goToHomePage(history, '/home/matched-requests')
    }
    render() {
-      const { onClickSignOut, onClickUserProfile, 
-      onClickHomeButton,onClickRide,
-      onClickAssetRequest,onClickShareRide,
-      onClickTravelInfo } = this
+      const {
+         onClickSignOut,
+         onClickUserProfile,
+         onClickHomeButton,
+         onClickRide,
+         onClickAssetRequest,
+         onClickShareRide,
+         onClickTravelInfo
+      } = this
       return (
          <HeaderStyle>
             <LogoImageContainer>
@@ -73,7 +79,11 @@ class Header extends React.Component {
             <RiderInfo>
                <HomePage onClick={onClickHomeButton}>Home</HomePage>
                <Requests>
-                  <Dropdown text='Requests' data-testid={'Requests'}closeOnEscape={true}>
+                  <Dropdown
+                     text='Requests'
+                     data-testid={'Requests'}
+                     closeOnEscape={true}
+                  >
                      <Dropdown.Menu>
                         <Dropdown.Item
                            text='Ride'
@@ -115,7 +125,6 @@ class Header extends React.Component {
                         <UserProfile
                            src='https://www.logolynx.com/images/logolynx/b4/b4ef8b89b08d503b37f526bca624c19a.jpeg'
                            alt={'userImage'}
-                           
                         />
                      }
                   >

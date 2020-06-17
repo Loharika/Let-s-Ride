@@ -1,9 +1,8 @@
-import React from 'react';
+import React from 'react'
 
-class PaginationStore{
-    constructor(props){
-        console.log(props)
-        
-    }
+class PaginationStore {
+   constructor(props) {
+      console.log(props)
+   }
 }
-export {PaginationStore}
+export { PaginationStore }

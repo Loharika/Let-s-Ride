@@ -1,3 +1,3 @@
-import {PaginationStore} from './PaginationStore.js';
+import { PaginationStore } from './PaginationStore.js'
 
-export {PaginationStore}
+export { PaginationStore }

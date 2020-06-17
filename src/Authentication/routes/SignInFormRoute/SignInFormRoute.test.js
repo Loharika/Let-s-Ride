@@ -10,7 +10,10 @@ import { createMemoryHistory } from 'history'
 import { AuthService } from '../../services/AuthService'
 import { AuthStore } from '../../stores'
 import getUserSignInResponse from '../../fixtures/getUserSignUpResponse.json'
-import {COMMUTE_DASHBOARD_SIGNUP_PAGE,COMMUTE_DASHBOARD_HOME_PAGE} from '../../constants/NavigationalConstants.js';
+import {
+   COMMUTE_DASHBOARD_SIGNUP_PAGE,
+   COMMUTE_DASHBOARD_HOME_PAGE
+} from '../../constants/NavigationalConstants.js'
 
 import SignInFormRoute from './SignInFormRoute.js'
 
@@ -64,8 +67,8 @@ describe('SignInRoute Tests', () => {
       )
       const username = 'test-user'
       const password = 'test-password'
-      const confirmPassword='test-confirmPassword';
-      const mobileNumber='test-mobileNumber';
+      const confirmPassword = 'test-confirmPassword'
+      const mobileNumber = 'test-mobileNumber'
       let usernameField = getByPlaceholderText('Username')
       let passwordField = getByPlaceholderText('Password')
       let confirmPasswordField = getByPlaceholderText('Confirm Password')
@@ -74,8 +77,10 @@ describe('SignInRoute Tests', () => {
 
       fireEvent.change(usernameField, { target: { value: username } })
       fireEvent.change(passwordField, { target: { value: password } })
-      fireEvent.change(confirmPasswordField,{target:{value:confirmPassword}})
-      fireEvent.change(mobileNumberField,{target:{value:mobileNumber}})
+      fireEvent.change(confirmPasswordField, {
+         target: { value: confirmPassword }
+      })
+      fireEvent.change(mobileNumberField, { target: { value: mobileNumber } })
       fireEvent.keyPress(signInButton, { key: 'Enter', code: 'Enter' })
    })
 
@@ -87,13 +92,13 @@ describe('SignInRoute Tests', () => {
       )
       const username = 'test-user'
       const password = 'test-password'
-      const confirmPassword='test-confirmPassword';
-      const mobileNumber='test-mobileNumber';
+      const confirmPassword = 'test-confirmPassword'
+      const mobileNumber = 'test-mobileNumber'
       let usernameField = getByPlaceholderText('Username')
       let passwordField = getByPlaceholderText('Password')
       let confirmPasswordField = getByPlaceholderText('Confirm Password')
       let mobileNumberField = getByPlaceholderText('Mobile Number')
-      
+
       let signInButton = getByRole('button', { name: 'SIGN UP' })
 
       const mockLoadingPromise = new Promise(function(resolve, reject) {})
@@ -103,8 +108,10 @@ describe('SignInRoute Tests', () => {
 
       fireEvent.change(usernameField, { target: { value: username } })
       fireEvent.change(passwordField, { target: { value: password } })
-      fireEvent.change(confirmPasswordField,{target:{value:confirmPassword}})
-      fireEvent.change(mobileNumberField,{target:{value:mobileNumber}})
+      fireEvent.change(confirmPasswordField, {
+         target: { value: confirmPassword }
+      })
+      fireEvent.change(mobileNumberField, { target: { value: mobileNumber } })
       fireEvent.click(signInButton)
 
       getByRole('button', { disabled: true })
@@ -136,7 +143,7 @@ describe('SignInRoute Tests', () => {
       mockSignInAPI.mockReturnValue(mockSuccessPromise)
       authService.signInAPI = mockSignInAPI
       fireEvent.click(signInButton)
-      
+
       await (() => {
          expect(
             queryByRole('button', { name: 'SIGN UP' })

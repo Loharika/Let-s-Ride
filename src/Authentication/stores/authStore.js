@@ -88,7 +88,6 @@ class AuthStore {
    }
    @action.bound
    setGetUserProfileDetailsResponse(apiResponse) {
-    
       this.getUserProfileDetailsResponse = apiResponse
    }
 

@@ -1,5 +1,8 @@
-import { COMMUTE_DASHBOARD_HOME_PAGE,COMMUTE_DASHBOARD_MATCHEDRESULTS } from '../constants/NavigationalConstants.js'
+import {
+   COMMUTE_DASHBOARD_HOME_PAGE,
+   COMMUTE_DASHBOARD_MATCHEDRESULTS
+} from '../constants/NavigationalConstants.js'
 
-export const goToDashboardHomePage = (history,path) => {
+export const goToDashboardHomePage = (history, path) => {
    history.push(path)
 }

@@ -45,7 +45,7 @@ class CommuteStore {
       this.commuteService = commuteService
       this.init()
       this.limit = 4
-      this.selectedPage='/home/matched-requests';
+      this.selectedPage = '/home/matched-requests'
       this.displayData = {
          matchingResults: {
             rideRequests: [],
@@ -57,8 +57,7 @@ class CommuteStore {
             sortBy: 'SELECT', //DATE TIME
             rideRequestPageNumber: 1,
             assetRequestPageNumber: 1,
-            sortByOrder: 'ASC',//ASC DESC
-            
+            sortByOrder: 'ASC' //ASC DESC
          },
          myRequests: {
             rideRequests: [],
@@ -89,8 +88,8 @@ class CommuteStore {
       }
    }
    @action.bound
-   onChangeSelectedPage(page){
-      this.selectedPage=page;
+   onChangeSelectedPage(page) {
+      this.selectedPage = page
    }
    @action.bound
    onChangeRequestType(selectorTabType, requestType) {
@@ -334,7 +333,7 @@ class CommuteStore {
    }
    //<-------------------------------------GET MY RIDE REQUESTS ----------------------------------------------------->
 
-   getMyRideRequests=(dataToGetRequests)=> {
+   getMyRideRequests = dataToGetRequests => {
       this.initMyRideRequestAPI()
       let assetRequestPromise = this.commuteService.myRideRequestsAPI(
          dataToGetRequests
@@ -363,7 +362,7 @@ class CommuteStore {
    }
    //<-------------------------------------GET MY ASSET REQUESTS ----------------------------------------------------->
 
-   getMyAssetRequests=(dataToGetRequests)=>{
+   getMyAssetRequests = dataToGetRequests => {
       this.initMyAssetRequestAPI()
       let assetRequestPromise = this.commuteService.myAssetRequestsAPI(
          dataToGetRequests
@@ -392,8 +391,11 @@ class CommuteStore {
          apiResponse.total_asset_tansport_count
    }
    //<---------------------------------GET MATCHING REQUESTS----------------------------->
-   
-   getAllMatchingRequests=(matchingRequestsFilter, dataToGetMatchingRequests)=>{
+
+   getAllMatchingRequests = (
+      matchingRequestsFilter,
+      dataToGetMatchingRequests
+   ) => {
       this.initMatchingRequestsAPI()
       let assetRequestPromise = this.commuteService.matchingAllRequestsAPI(
          matchingRequestsFilter,
@@ -427,7 +429,7 @@ class CommuteStore {
          }
          case 'ASSET': {
             this.displayData['matchingResults'].assetRequests =
-               apiResponse.asset_requests;
+               apiResponse.asset_requests
             this.displayData['matchingResults'].noOfAssetRequests =
                apiResponse.assets_matches_count
             break
@@ -463,8 +465,8 @@ class CommuteStore {
    //    this.getAcceptingMatchedRequestAPIResponse = apiResponse
    // }
    //<------------------------------------------------ GET SHARED RIDES--------------------------------------------------->
-   
-   getSharedRides=(dataToGetSharedRides)=> {
+
+   getSharedRides = dataToGetSharedRides => {
       this.initSharedRidesAPI()
       let shareRidePromise = this.commuteService.sharedRideAPI(
          dataToGetSharedRides
@@ -491,8 +493,7 @@ class CommuteStore {
 
    //<--------------------------------------------GET SHARE TRAVEL INFO---------------------------------------------->
 
-   
-   getSharedTravelInfo=(dataToGetSharedTravelInfo)=> {
+   getSharedTravelInfo = dataToGetSharedTravelInfo => {
       this.initSharedTravelInfoAPI()
       let sharedTravelInfoPromise = this.commuteService.travelInfoAPI(
          dataToGetSharedTravelInfo

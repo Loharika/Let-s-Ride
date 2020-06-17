@@ -29,7 +29,7 @@ class LogInPageRoute extends React.Component {
       this.password = ''
       this.errorText = ''
    }
-   onSubmit = (event) => {
+   onSubmit = event => {
       event.preventDefault()
       let { userName, password } = this
       if (userName.length !== 0 && password.length !== 0) {
@@ -63,7 +63,7 @@ class LogInPageRoute extends React.Component {
       } = this.props
       if (access_token) {
          const { history } = this.props
-         goToDashboardHomePage(history,window.localStorage.getItem('path'))
+         goToDashboardHomePage(history, window.localStorage.getItem('path'))
       }
    }
 

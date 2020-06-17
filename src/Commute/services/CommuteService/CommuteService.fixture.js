@@ -48,7 +48,7 @@ class CommuteService {
    @action
    myRideRequestsAPI(dataToGetRequests) {
       //console.log(dataToGetRequests)
-      
+
       let requests = {
          ride_requests: rideRequestData.ride_requests.filter(
             (request, index) =>

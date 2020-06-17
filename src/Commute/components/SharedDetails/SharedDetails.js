@@ -4,7 +4,7 @@ import { action } from 'mobx'
 
 import { RiAddLine } from 'react-icons/ri'
 import { DisplayDropDown } from '../Common/components/DisplayDropDown.js'
-import {PaginationUI as Pagination} from '../Common/components/Pagination.js';
+import { PaginationUI as Pagination } from '../Common/components/Pagination.js'
 const filterOptions = {
    listTitle: '',
    listItems: [
@@ -207,8 +207,11 @@ class SharedDetails extends React.Component {
                   ) : (
                      ''
                   )}
-                  <Pagination totalNumberOfPages={totalNumberOfPages} pageNumber={pageNumber} onChangePageNumber={onChangePageNumber}/>
-               
+                  <Pagination
+                     totalNumberOfPages={totalNumberOfPages}
+                     pageNumber={pageNumber}
+                     onChangePageNumber={onChangePageNumber}
+                  />
                </Footer>
             ) : (
                ''
