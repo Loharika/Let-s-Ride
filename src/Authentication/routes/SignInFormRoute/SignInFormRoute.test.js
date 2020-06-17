@@ -136,8 +136,8 @@ describe('SignInRoute Tests', () => {
       mockSignInAPI.mockReturnValue(mockSuccessPromise)
       authService.signInAPI = mockSignInAPI
       fireEvent.click(signInButton)
-
-      waitFor(() => {
+      
+      await (() => {
          expect(
             queryByRole('button', { name: 'SIGN UP' })
          ).not.toBeInTheDocument()

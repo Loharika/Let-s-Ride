@@ -225,6 +225,7 @@ class Requests extends React.Component {
             {getRequests().length !== 0 ? (
                <Footer>
                   <AddRequestButton
+                  data-testid='addButton'
                      onClick={() => addRequestButton(requestType)}
                   >
                      <RiAddLine /> &nbsp;Add {requestType.toLowerCase()}

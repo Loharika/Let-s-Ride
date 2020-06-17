@@ -327,8 +327,8 @@ class CommuteStore {
       this.getShareTravelInfoAPIResponse = apiResponse
    }
    //<-------------------------------------GET MY RIDE REQUESTS ----------------------------------------------------->
-   @action.bound
-   getMyRideRequests(dataToGetRequests) {
+
+   getMyRideRequests=(dataToGetRequests)=> {
       this.initMyRideRequestAPI()
       let assetRequestPromise = this.commuteService.myRideRequestsAPI(
          dataToGetRequests
@@ -357,8 +357,7 @@ class CommuteStore {
    }
    //<-------------------------------------GET MY ASSET REQUESTS ----------------------------------------------------->
 
-   @action.bound
-   getMyAssetRequests(dataToGetRequests) {
+   getMyAssetRequests=(dataToGetRequests)=>{
       this.initMyAssetRequestAPI()
       let assetRequestPromise = this.commuteService.myAssetRequestsAPI(
          dataToGetRequests
@@ -387,8 +386,8 @@ class CommuteStore {
          apiResponse.total_asset_tansport_count
    }
    //<---------------------------------GET MATCHING REQUESTS----------------------------->
-   @action.bound
-   getAllMatchingRequests(matchingRequestsFilter, dataToGetMatchingRequests) {
+   
+   getAllMatchingRequests=(matchingRequestsFilter, dataToGetMatchingRequests)=>{
       this.initMatchingRequestsAPI()
       let assetRequestPromise = this.commuteService.matchingAllRequestsAPI(
          matchingRequestsFilter,
@@ -458,8 +457,8 @@ class CommuteStore {
    //    this.getAcceptingMatchedRequestAPIResponse = apiResponse
    // }
    //<------------------------------------------------ GET SHARED RIDES--------------------------------------------------->
-   @action.bound
-   getSharedRides(dataToGetSharedRides) {
+   
+   getSharedRides=(dataToGetSharedRides)=> {
       this.initSharedRidesAPI()
       let shareRidePromise = this.commuteService.sharedRideAPI(
          dataToGetSharedRides
@@ -486,8 +485,8 @@ class CommuteStore {
 
    //<--------------------------------------------GET SHARE TRAVEL INFO---------------------------------------------->
 
-   @action.bound
-   getSharedTravelInfo(dataToGetSharedTravelInfo) {
+   
+   getSharedTravelInfo=(dataToGetSharedTravelInfo)=> {
       this.initSharedTravelInfoAPI()
       let sharedTravelInfoPromise = this.commuteService.travelInfoAPI(
          dataToGetSharedTravelInfo

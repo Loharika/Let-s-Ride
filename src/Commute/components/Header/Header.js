@@ -48,9 +48,11 @@ class Header extends React.Component {
       goToUserProfilePage(history)
    }
    onClickSignOut = () => {
+      
       const {
          authStore: { userSignOut }
       } = this.props
+      console.log(typeof userSignOut)
       userSignOut()
    }
    onClickHomeButton = () => {
@@ -67,17 +69,19 @@ class Header extends React.Component {
             <RiderInfo>
                <HomePage onClick={onClickHomeButton}>Home</HomePage>
                <Requests>
-                  <Dropdown text='Requests' closeOnEscape={true}>
+                  <Dropdown text='Requests' data-testid={'Requests'}closeOnEscape={true}>
                      <Dropdown.Menu>
                         <Dropdown.Item
                            text='Ride'
                            value={'rideRequest'}
                            onClick={this.onClickRide}
+                           data-testid='rideRequest'
                         />
                         <Dropdown.Item
                            text='Asset Transport'
                            value={'assetTranportRequest'}
                            onClick={this.onClickAssetRequest}
+                           data-testid='assetTranportRequest'
                         />
                      </Dropdown.Menu>
                   </Dropdown>
@@ -89,11 +93,13 @@ class Header extends React.Component {
                            text='Ride'
                            value={'shareRide'}
                            onClick={this.onClickShareRide}
+                           data-testid={'share-ride-button'}
                         />
                         <Dropdown.Item
                            text='Travel Info'
                            value={'shareTravelInfo'}
                            onClick={this.onClickTravelInfo}
+                           data-testid={'share-travelInfo-button'}
                         />
                      </Dropdown.Menu>
                   </Dropdown>
@@ -105,6 +111,7 @@ class Header extends React.Component {
                         <UserProfile
                            src='https://www.logolynx.com/images/logolynx/b4/b4ef8b89b08d503b37f526bca624c19a.jpeg'
                            alt={'userImage'}
+                           
                         />
                      }
                   >
@@ -113,11 +120,13 @@ class Header extends React.Component {
                            text='Edit Profile'
                            value={'editProfile'}
                            onClick={onClickUserProfile}
+                           data-testid={'user-profile'}
                         />
                         <Dropdown.Item
                            text='Sign Out'
                            value={'signOut'}
                            onClick={onClickSignOut}
+                           data-testid={'signout-button'}
                         />
                      </Dropdown.Menu>
                   </Dropdown>
