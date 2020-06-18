@@ -227,10 +227,10 @@ describe('DashBoardRoute Tests', () => {
       expect(authStore.userSignOut).toBeCalled()
    })
 
-   it("it should check whether it going to the home page or not with onClick home",()=>{
-      let history=createMemoryHistory();
-      const {  getByTestId ,getByRole,debug} = render(
-          <Provider commuteStore={commuteStore} authStore={authStore}>
+   it('it should check whether it going to the home page or not with onClick home', () => {
+      let history = createMemoryHistory()
+      const { getByTestId, getByRole, debug } = render(
+         <Provider commuteStore={commuteStore} authStore={authStore}>
             <Router history={history}>
                <Route path={COMMUTE_DASHBOARD_MATCHED_RESULTS}>
                   <DashBoardRoute />
@@ -240,16 +240,13 @@ describe('DashBoardRoute Tests', () => {
                </Route>
             </Router>
          </Provider>
-      );
-      const homeButton=getByRole('button',{name:'My Requests'});
+      )
+      const homeButton = getByRole('button', { name: 'My Requests' })
       expect(homeButton).toBeInTheDocument()
-      fireEvent.click(homeButton);
-     expect(history.location.pathname).toBe(COMMUTE_DASHBOARD_MY_REQUESTS);
-   });
-   
-   
-});
-
+      fireEvent.click(homeButton)
+      expect(history.location.pathname).toBe(COMMUTE_DASHBOARD_MY_REQUESTS)
+   })
+})
 
 function func(commuteStore, history) {
    return (

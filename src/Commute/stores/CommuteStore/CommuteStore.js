@@ -44,11 +44,11 @@ class CommuteStore {
    constructor(commuteService) {
       this.commuteService = commuteService
       this.init()
-      this.limit = 4;
+      this.limit = 4
       this.selectedPage = '/home/matched-requests'
       this.displayData = {
          matchingResults: {
-            limit:6,
+            limit: 6,
             rideRequests: [],
             noOfRideRequests: 0,
             assetRequests: [],
@@ -58,10 +58,10 @@ class CommuteStore {
             sortBy: 'SELECT', //DATE TIME
             rideRequestPageNumber: 1,
             assetRequestPageNumber: 1,
-            sortByOrder: 'ASC', //ASC DESC
+            sortByOrder: 'ASC' //ASC DESC
          },
          myRequests: {
-            limit:6,
+            limit: 6,
             rideRequests: [],
             noOfRideRequests: 0,
             assetRequests: [],
@@ -75,7 +75,7 @@ class CommuteStore {
             assetRequestPageNumber: 1
          },
          sharedDetails: {
-            limit:6,
+            limit: 6,
             sharedRides: [],
             noOfSharedRides: 0,
             travelInfo: [],

@@ -18,7 +18,12 @@ function Home() {
             >
                Learn React
             </a>
-            <Link to='/commute-dashboard/home/matched-requests' className='mt-12'>Commute Dashboard</Link>
+            <Link
+               to='/commute-dashboard/home/matched-requests'
+               className='mt-12'
+            >
+               Commute Dashboard
+            </Link>
          </header>
       </div>
    )

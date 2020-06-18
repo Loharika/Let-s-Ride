@@ -39,7 +39,7 @@ class SharedDetails extends React.Component {
       super(props)
    }
    @action.bound
-   doNetWorkCalls(){
+   doNetWorkCalls() {
       const { doNetWorkCallsForSharedDetails } = this.props
       doNetWorkCallsForSharedDetails()
    }
@@ -50,7 +50,7 @@ class SharedDetails extends React.Component {
          commuteStore: { onChangeSharedDetailsFilter }
       } = this.props
       onChangeSharedDetailsFilter(filterBy)
-      this.doNetWorkCalls();
+      this.doNetWorkCalls()
    }
    @action.bound
    onChangePageNumber = (event, data) => {
@@ -59,7 +59,7 @@ class SharedDetails extends React.Component {
          commuteStore: { onChangeSharedDetailsPageNumber }
       } = this.props
       onChangeSharedDetailsPageNumber(data.activePage)
-       this.doNetWorkCalls();
+      this.doNetWorkCalls()
    }
    @action.bound
    onClickShareType(shareType) {
@@ -68,7 +68,7 @@ class SharedDetails extends React.Component {
          commuteStore: { onChangeSharedDetailsShareType }
       } = this.props
       onChangeSharedDetailsShareType(shareType)
-       this.doNetWorkCalls();
+      this.doNetWorkCalls()
    }
    @action.bound
    getSharedDetails() {

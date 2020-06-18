@@ -15,14 +15,15 @@ import {
    COMMUTE_DASHBOARD_SHARED_DETAILS
 } from '../../constants/NavigationalConstants.js'
 
-import {goToRideRequestPage,
+import {
+   goToRideRequestPage,
    goToAssetRequestPage,
    goToShareRidePage,
    goToTravelInfoPage,
    goToSharedDetailsPage,
    goToMyRequestsPage,
    goToMatchingResultsPage
-} from '../../utils/NavigationalUtils.js';
+} from '../../utils/NavigationalUtils.js'
 
 @inject('commuteStore')
 @observer
@@ -33,7 +34,7 @@ class DashBoardRoute extends React.Component {
       const {
          commuteStore: { onChangeSelectedPage }
       } = this.props
-      const {history}=this.props;
+      const { history } = this.props
       onChangeSelectedPage(history.location.pathname.slice(18, 50))
       const {
          commuteStore: { selectedPage }
@@ -188,7 +189,7 @@ class DashBoardRoute extends React.Component {
       const { history } = this.props
       switch (shareType) {
          case 'RIDE': {
-         goToShareRidePage(history)
+            goToShareRidePage(history)
             return
          }
          case 'TRAVEL INFO': {

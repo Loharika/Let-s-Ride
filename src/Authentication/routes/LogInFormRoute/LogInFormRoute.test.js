@@ -107,7 +107,7 @@ describe('LogInFormRoute Tests', () => {
       const route = COMMUTE_DASHBOARD_LOGIN_PAGE
       history.push(route)
 
-      const { getByRole,debug, queryByRole, getByTestId } = render(
+      const { getByRole, debug, queryByRole, getByTestId } = render(
          <Provider authStore={authStore}>
             <Router history={history}>
                <Route path={COMMUTE_DASHBOARD_LOGIN_PAGE}>
@@ -130,7 +130,6 @@ describe('LogInFormRoute Tests', () => {
       fireEvent.click(logInButton)
 
       waitFor(() => {
-        
          expect(
             queryByRole('button', { name: 'LOG IN' })
          ).not.toBeInTheDocument()

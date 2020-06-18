@@ -25,12 +25,12 @@ export const goToTravelInfoPage = history => {
 export const goToUserProfilePage = history => {
    history.push(COMMUTE_DASHBOARD_USERPROFILE)
 }
-export const goToMyRequestsPage=(history)=>{
+export const goToMyRequestsPage = history => {
    history.push(COMMUTE_DASHBOARD_MY_REQUESTS)
 }
-export const goToSharedDetailsPage=(history)=>{
-   history.push(COMMUTE_DASHBOARD_SHARED_DETAILS);
+export const goToSharedDetailsPage = history => {
+   history.push(COMMUTE_DASHBOARD_SHARED_DETAILS)
 }
-export const goToMatchingResultsPage=history=>{
-   history.push(COMMUTE_DASHBOARD_MATCHEDRESULTS);
+export const goToMatchingResultsPage = history => {
+   history.push(COMMUTE_DASHBOARD_MATCHEDRESULTS)
 }

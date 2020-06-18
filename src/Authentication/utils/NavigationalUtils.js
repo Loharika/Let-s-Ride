@@ -5,5 +5,4 @@ import {
 
 export const goToDashboardHomePage = (history, path) => {
    history.push(COMMUTE_DASHBOARD_MATCHEDRESULTS)
-   
 }

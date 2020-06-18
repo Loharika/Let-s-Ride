@@ -56,7 +56,7 @@ class Requests extends React.Component {
    constructor() {
       super()
    }
-   doNetWorkCalls(){
+   doNetWorkCalls() {
       const { doNetWorkCallsForRequests } = this.props
       doNetWorkCallsForRequests()
    }
@@ -65,14 +65,14 @@ class Requests extends React.Component {
          commuteStore: { onChangePageNumber }
       } = this.props
       onChangePageNumber('myRequests', data.activePage)
-      this.doNetWorkCalls();
+      this.doNetWorkCalls()
    }
    onClickRequestType = requestType => {
       const {
          commuteStore: { onChangeRequestType }
       } = this.props
       onChangeRequestType('myRequests', requestType)
-      this.doNetWorkCalls();
+      this.doNetWorkCalls()
    }
    @action.bound
    onChangeSortField(sortBy) {
@@ -80,7 +80,7 @@ class Requests extends React.Component {
          commuteStore: { onChangeSortField }
       } = this.props
       onChangeSortField('myRequests', sortBy)
-     this.doNetWorkCalls();
+      this.doNetWorkCalls()
    }
    @action.bound
    onChangeFilter(filterBy) {
@@ -88,9 +88,9 @@ class Requests extends React.Component {
          commuteStore: { onChangeFilter }
       } = this.props
       onChangeFilter('myRequests', filterBy)
-      this.doNetWorkCalls();
+      this.doNetWorkCalls()
    }
-  
+
    @action.bound
    getRequests() {
       const {
