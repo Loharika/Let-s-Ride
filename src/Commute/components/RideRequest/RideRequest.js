@@ -24,6 +24,7 @@ import {
 } from './styledComponents.js'
 
 import strings from '../../i18n/strings.json'
+
 @inject('commuteStore')
 @observer
 class RideRequest extends React.Component {
@@ -195,8 +196,9 @@ class RideRequest extends React.Component {
                   <CheckBox
                      type={strings.type.checkbox}
                      onClick={onClickFlexibleTimings}
+                     data-testid='flexibleTimings'
                   />
-                  <FlexibleTimingsLabel>
+                  <FlexibleTimingsLabel htmlFor='flexibleTimings'>
                      {strings.label.flexibleTimings}
                   </FlexibleTimingsLabel>
                </FlexibleTimings>

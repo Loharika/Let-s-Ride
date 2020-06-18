@@ -21,20 +21,32 @@ const ResourceItems = {
       }
    ]
 }
+import getResourceItems from '../../fixtures/getResourceItems.json';
 
 class PracticeService {
    getResourceDetailsAPI() {
       return new Promise(resolve => {
          setTimeout(() => {
             resolve(Details)
-         }, 3000)
+         }, 1000)
       })
    }
    getResourceItemsAPI() {
       return new Promise(resolve => {
          setTimeout(() => {
             resolve(ResourceItems)
-         }, 3000)
+         }, 1000)
+      })
+   }
+   getResourceListItemsAPI(data){
+      let listOfItems={
+         resource_items:getResourceItems.resource_items.filter((item,index)=>(index>=data.offset && index<data.limit+data.offset)),
+         no_of_resource_items:getResourceItems.no_of_resource_items
+      }
+      return new Promise(resolve => {
+         setTimeout(() => {
+            resolve(listOfItems)
+         }, 1000)
       })
    }
 }

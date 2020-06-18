@@ -205,6 +205,7 @@ class TravelInfo extends React.Component {
                   <CheckBox
                      type={strings.type.checkbox}
                      onClick={onClickFlexibleTimings}
+                      data-testid='flexibleTimings'
                   />
                   <FlexibleTimingsLabel>
                      {strings.label.flexibleTimings}

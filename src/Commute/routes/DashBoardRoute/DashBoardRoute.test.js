@@ -5,7 +5,8 @@ import React from 'react'
 import { render, fireEvent, waitFor } from '@testing-library/react'
 import { Router, Route, withRouter } from 'react-router-dom'
 import { Provider } from 'mobx-react'
-import { createMemoryHistory } from 'history'
+import { createMemoryHistory } from 'history';
+
 import {
    COMMUTE_DASHBOARD_RIDE_REQUEST,
    COMMUTE_DASHBOARD_HOME_PAGE,
@@ -14,9 +15,14 @@ import {
    COMMUTE_DASHBOARD_SHARE_TRAVEL_INFO,
    COMMUTE_DASHBOARD_USERPROFILE,
    COMMUTE_DASHBOARD_MY_REQUESTS,
-   COMMUTE_DASHBOARD_MATCHED_RESULTS
+   COMMUTE_DASHBOARD_MATCHED_RESULTS,
+   COMMUTE_DASHBOARD_SHARE_DETAILS
 } from '../../constants/NavigationalConstants.js'
 import { COMMUTE_DASHBOARD_LOGIN_PAGE } from '../../../Authentication/constants/NavigationalConstants.js'
+import rideRequestData from '../../fixtures/rideRequests.fixture.json';
+import assetRequestData from '../../fixtures/assetRequests.fixture.json';
+import { RideRequest } from '../../components/RideRequest';
+
 import {
    API_INITIAL,
    API_SUCCESS,
@@ -227,10 +233,10 @@ describe('DashBoardRoute Tests', () => {
       expect(authStore.userSignOut).toBeCalled()
    })
 
-   it('it should check whether it going to the home page or not with onClick home', () => {
-      let history = createMemoryHistory()
-      const { getByTestId, getByRole, debug } = render(
-         <Provider commuteStore={commuteStore} authStore={authStore}>
+   it("it should check whether it going to the home page or not with onClick home",()=>{
+      let history=createMemoryHistory();
+      const {  getByTestId ,getByRole,debug} = render(
+          <Provider commuteStore={commuteStore} authStore={authStore}>
             <Router history={history}>
                <Route path={COMMUTE_DASHBOARD_MATCHED_RESULTS}>
                   <DashBoardRoute />
@@ -240,13 +246,69 @@ describe('DashBoardRoute Tests', () => {
                </Route>
             </Router>
          </Provider>
-      )
-      const homeButton = getByRole('button', { name: 'My Requests' })
+      );
+      const homeButton=getByRole('button',{name:'My Requests'});
       expect(homeButton).toBeInTheDocument()
-      fireEvent.click(homeButton)
-      expect(history.location.pathname).toBe(COMMUTE_DASHBOARD_MY_REQUESTS)
-   })
-})
+      fireEvent.click(homeButton);
+     expect(history.location.pathname).toBe(COMMUTE_DASHBOARD_MY_REQUESTS);
+   });
+   it("it should check the page is navigated to the add requestpage or not when Click on ADD Ride Request Buttton",async ()=>{
+      let history=createMemoryHistory();
+      history.push(COMMUTE_DASHBOARD_MY_REQUESTS)
+      commuteStore.displayData.myRequests.rideRequests=rideRequestData.ride_requests
+      commuteStore.displayData.myRequests.noOfRideRequests=rideRequestData.total_ride_requests_count
+      let buttonTestId=commuteStore.displayData['myRequests'].requestType.toLowerCase()+'RequestButton';
+      const {  getByTestId ,debug} = render(
+      <Provider commuteStore={commuteStore} authStore={authStore}>
+            <Router history={history}>
+               <Route path={COMMUTE_DASHBOARD_MY_REQUESTS}>
+                  <DashBoardRoute />
+               </Route>
+               <Route path={COMMUTE_DASHBOARD_RIDE_REQUEST}>
+                  <LocationDisplay />
+               </Route>
+            </Router>
+         </Provider>)
+         const AddRequestButton=getByTestId(buttonTestId);
+         expect(AddRequestButton).toBeInTheDocument();
+         fireEvent.click(AddRequestButton);
+         expect(
+            AddRequestButton
+         ).not.toBeInTheDocument()
+         expect(getByTestId('location-display')).toHaveTextContent(
+            COMMUTE_DASHBOARD_RIDE_REQUEST);
+   });
+   it("it should check the page is navigated to the add requestpage or not when Click on ADD Asset Request Buttton",async ()=>{
+      let history=createMemoryHistory();
+      history.push(COMMUTE_DASHBOARD_MY_REQUESTS)
+      commuteStore.displayData['myRequests'].requestType='ASSET'
+      commuteStore.displayData.myRequests.assetRequests=assetRequestData.asset_requests
+      
+      commuteStore.displayData.myRequests.noOfAssetRequests=
+         assetRequestData.total_asset_tansport_count
+      let buttonTestId=commuteStore.displayData['myRequests'].requestType.toLowerCase()+'RequestButton';
+      const {  getByTestId ,debug} = render(
+      <Provider commuteStore={commuteStore} authStore={authStore}>
+            <Router history={history}>
+               <Route path={COMMUTE_DASHBOARD_MY_REQUESTS}>
+                  <DashBoardRoute />
+               </Route>
+               <Route path={COMMUTE_DASHBOARD_ASSET_REQUEST}>
+                  <LocationDisplay />
+               </Route>
+            </Router>
+         </Provider>)
+         const AddRequestButton=getByTestId(buttonTestId);
+         expect(AddRequestButton).toBeInTheDocument();
+         fireEvent.click(AddRequestButton);
+         expect(
+            AddRequestButton
+         ).not.toBeInTheDocument();
+         expect(getByTestId('location-display')).toHaveTextContent(
+            COMMUTE_DASHBOARD_ASSET_REQUEST);
+   });
+});
+
 
 function func(commuteStore, history) {
    return (

@@ -2,7 +2,7 @@ import styled from '@emotion/styled'
 import tw from 'tailwind.macro'
 
 export const LoadingViewContainer = styled.div`
-   ${tw`flex flex-col justify-center items-center min-h-screen `}
+   ${tw`flex flex-col justify-center items-center max-h-screen `}
 `
 
 export const FailureViewContainer = styled.div`

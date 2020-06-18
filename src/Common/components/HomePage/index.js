@@ -24,6 +24,12 @@ function Home() {
             >
                Commute Dashboard
             </Link>
+            <Link
+               to='/pagination'
+               className='mt-12'
+            >
+               Pagination
+            </Link>
          </header>
       </div>
    )
