@@ -49,16 +49,27 @@ class DisplayListOfElements extends Component {
                   {listData.title} <Star>*</Star>
                </Label>
                <ListItemsDisplay>
-                  <ChangeNoOfListItems onClick={this.handleDecrement} data-testid={'decrement-button '+listData.title.toLowerCase()}>
+                  <ChangeNoOfListItems
+                     onClick={this.handleDecrement}
+                     data-testid={
+                        'decrement-button ' + listData.title.toLowerCase()
+                     }
+                  >
                      -
                   </ChangeNoOfListItems>
                   <ListItemsCount>
-                     <Text data-testid={listData.title.toLowerCase()}>{this.props.intial}</Text>
+                     <Text data-testid={listData.title.toLowerCase()}>
+                        {this.props.intial}
+                     </Text>
                   </ListItemsCount>
-                  <ChangeNoOfListItems onClick={this.handleIncrement} data-testid={'increment-button '+listData.title.toLowerCase()}>
+                  <ChangeNoOfListItems
+                     onClick={this.handleIncrement}
+                     data-testid={
+                        'increment-button ' + listData.title.toLowerCase()
+                     }
+                  >
                      +
                   </ChangeNoOfListItems>
-                  
                </ListItemsDisplay>
             </NoOfListItems>
             <ErrorStyle

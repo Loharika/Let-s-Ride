@@ -256,7 +256,7 @@ class AssetTransportRequest extends React.Component {
                      onClick={onClickFlexibleTimings}
                      data-testid='flexibleTimings'
                   />
-                  <FlexibleTimingsLabel >
+                  <FlexibleTimingsLabel>
                      {strings.label.flexibleTimings}
                   </FlexibleTimingsLabel>
                </FlexibleTimings>
