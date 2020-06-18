@@ -12,7 +12,9 @@ import {
    COMMUTE_DASHBOARD_ASSET_REQUEST,
    COMMUTE_DASHBOARD_SHARE_RIDE,
    COMMUTE_DASHBOARD_SHARE_TRAVEL_INFO,
-   COMMUTE_DASHBOARD_USERPROFILE
+   COMMUTE_DASHBOARD_USERPROFILE,
+   COMMUTE_DASHBOARD_MY_REQUESTS,
+   COMMUTE_DASHBOARD_MATCHED_RESULTS
 } from '../../constants/NavigationalConstants.js'
 import { COMMUTE_DASHBOARD_LOGIN_PAGE } from '../../../Authentication/constants/NavigationalConstants.js'
 import {
@@ -225,20 +227,29 @@ describe('DashBoardRoute Tests', () => {
       expect(authStore.userSignOut).toBeCalled()
    })
 
-   it('it should check the addRequestButton ', () => {
-      const { getByText, getByTestId, getByRole } = render(
-         <Router history={createMemoryHistory()}>
-            <Provider commuteStore={commuteStore} authStore={authStore}>
-               <DashBoardRoute />
-            </Provider>
-         </Router>
-      )
+   it("it should check whether it going to the home page or not with onClick home",()=>{
+      let history=createMemoryHistory();
+      const {  getByTestId ,getByRole,debug} = render(
+          <Provider commuteStore={commuteStore} authStore={authStore}>
+            <Router history={history}>
+               <Route path={COMMUTE_DASHBOARD_MATCHED_RESULTS}>
+                  <DashBoardRoute />
+               </Route>
+               <Route path={COMMUTE_DASHBOARD_MY_REQUESTS}>
+                  <LocationDisplay />
+               </Route>
+            </Router>
+         </Provider>
+      );
+      const homeButton=getByRole('button',{name:'My Requests'});
+      expect(homeButton).toBeInTheDocument()
+      fireEvent.click(homeButton);
+     expect(history.location.pathname).toBe(COMMUTE_DASHBOARD_MY_REQUESTS);
+   });
+   
+   
+});
 
-      const myRequestsButton = getByRole('button', { name: 'My Requests' })
-      expect(myRequestsButton).toBeInTheDocument()
-      fireEvent.click(myRequestsButton)
-   })
-})
 
 function func(commuteStore, history) {
    return (

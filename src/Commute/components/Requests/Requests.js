@@ -56,21 +56,23 @@ class Requests extends React.Component {
    constructor() {
       super()
    }
+   doNetWorkCalls(){
+      const { doNetWorkCallsForRequests } = this.props
+      doNetWorkCallsForRequests()
+   }
    onChangePageNumber = (event, data) => {
       const {
          commuteStore: { onChangePageNumber }
       } = this.props
       onChangePageNumber('myRequests', data.activePage)
-      const { doNetWorkCallsForRequests } = this.props
-      doNetWorkCallsForRequests()
+      this.doNetWorkCalls();
    }
    onClickRequestType = requestType => {
       const {
          commuteStore: { onChangeRequestType }
       } = this.props
       onChangeRequestType('myRequests', requestType)
-      const { doNetWorkCallsForRequests } = this.props
-      doNetWorkCallsForRequests()
+      this.doNetWorkCalls();
    }
    @action.bound
    onChangeSortField(sortBy) {
@@ -78,8 +80,7 @@ class Requests extends React.Component {
          commuteStore: { onChangeSortField }
       } = this.props
       onChangeSortField('myRequests', sortBy)
-      const { doNetWorkCallsForRequests } = this.props
-      doNetWorkCallsForRequests()
+     this.doNetWorkCalls();
    }
    @action.bound
    onChangeFilter(filterBy) {
@@ -87,12 +88,9 @@ class Requests extends React.Component {
          commuteStore: { onChangeFilter }
       } = this.props
       onChangeFilter('myRequests', filterBy)
-      const { doNetWorkCallsForRequests } = this.props
-      doNetWorkCallsForRequests()
+      this.doNetWorkCalls();
    }
-   @action.bound
-   onClickAddButtonInRequest(userDetails) {}
-
+  
    @action.bound
    getRequests() {
       const {

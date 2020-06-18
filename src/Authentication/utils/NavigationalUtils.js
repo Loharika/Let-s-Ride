@@ -4,5 +4,6 @@ import {
 } from '../constants/NavigationalConstants.js'
 
 export const goToDashboardHomePage = (history, path) => {
-   history.push(path)
+   history.push(COMMUTE_DASHBOARD_MATCHEDRESULTS)
+   
 }

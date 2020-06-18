@@ -1,8 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import logo from '../../logo.svg'
+import logo from '../../../logo.svg'
 
-function App() {
+function Home() {
    return (
       <div className='App'>
          <header className='App-header'>
@@ -18,11 +18,10 @@ function App() {
             >
                Learn React
             </a>
-            <Link to='/page-1'>Page 1</Link>
-            <Link to='/user-profile'>User Details</Link>
+            <Link to='/commute-dashboard/home/matched-requests' className='mt-12'>Commute Dashboard</Link>
          </header>
       </div>
    )
 }
 
-export default App
+export default Home

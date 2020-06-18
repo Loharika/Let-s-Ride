@@ -8,7 +8,7 @@ import {
    goToShareRidePage,
    goToTravelInfoPage,
    goToUserProfilePage,
-   goToHomePage
+   goToMatchingResultsPage
 } from '../../utils/NavigationalUtils.js'
 
 import { LogoImage } from '../Common/components'
@@ -59,7 +59,7 @@ class Header extends React.Component {
          commuteStore: { onChangeSelectedPage }
       } = this.props
       onChangeSelectedPage('/home/matched-requests')
-      goToHomePage(history, '/home/matched-requests')
+      goToMatchingResultsPage(history, '/home/matched-requests')
    }
    render() {
       const {

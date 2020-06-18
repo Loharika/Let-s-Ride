@@ -107,7 +107,9 @@
       "collectCoverageFrom": [
           "!src/*.{ts,tsx,js,jsx}",
          "!src/Common/**/*.{ts,tsx,js,jsx}",
-         "!src/Practice/**/*.{ts,tsx,js,jsx}"
+         "!src/Practice/**/*.{ts,tsx,js,jsx}",
+         "!src/Commute/services/CommuteService/**/*.{ts,tsx,js,jsx}",
+         "!src/Authentication/services/**/*.{ts,tsx,js,jsx}"
       ]
    }
 }

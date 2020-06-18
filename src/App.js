@@ -34,7 +34,7 @@ import { AssetTransportRequest } from './Commute/components/AssetTransportReques
 import { RideRequest } from './Commute/components/RideRequest'
 import { ShareRide } from './Commute/components/ShareRide'
 import { TravelInfo } from './Commute/components/TravelInfo'
-
+import Home from './Common/components/HomePage'
 //import { PracticeDashboardRoute } from './Practice/routes/PracticeDashboardRoute'
 
 import './App.css'
@@ -98,7 +98,8 @@ class App extends React.Component {
                      path={COMMUTE_DASHBOARD_SHARE_TRAVEL_INFO}
                      component={TravelInfo}
                   />
-                  {/*<Route exact path='/' component={PracticeDashboardRoute} />*/}
+
+                  <Route exact path='/' component={Home} />
                </Switch>
             </Router>
          </Provider>

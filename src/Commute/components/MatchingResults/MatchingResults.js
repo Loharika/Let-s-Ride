@@ -67,22 +67,24 @@ class MatchingResults extends React.Component {
          'STATUS'
       ]
    }
-
+   @action.bound
+   doNetWorkCalls(){
+      const { doNetWorkCallsForMatchingRequests } = this.props
+      doNetWorkCallsForMatchingRequests()
+   }
    onChangePageNumber = (event, data) => {
       const {
          commuteStore: { onChangePageNumber }
       } = this.props
       onChangePageNumber('matchingResults', data.activePage)
-      const { doNetWorkCallsForMatchingRequests } = this.props
-      doNetWorkCallsForMatchingRequests()
+      this.doNetWorkCalls();
    }
    onClickRequestType = requestType => {
       const {
          commuteStore: { onChangeRequestType }
       } = this.props
       onChangeRequestType('matchingResults', requestType)
-      const { doNetWorkCallsForMatchingRequests } = this.props
-      doNetWorkCallsForMatchingRequests()
+      this.doNetWorkCalls();
    }
    @action.bound
    onChangeSortBy(sortBy) {
@@ -90,8 +92,7 @@ class MatchingResults extends React.Component {
          commuteStore: { onChangeSortBy }
       } = this.props
       onChangeSortBy('matchingResults', sortBy)
-      const { doNetWorkCallsForMatchingRequests } = this.props
-      doNetWorkCallsForMatchingRequests()
+      this.doNetWorkCalls();
    }
    @action.bound
    onChangeFilter(filterBy) {
@@ -99,8 +100,7 @@ class MatchingResults extends React.Component {
          commuteStore: { onChangeFilter }
       } = this.props
       onChangeFilter('matchingResults', filterBy)
-      const { doNetWorkCallsForMatchingRequests } = this.props
-      doNetWorkCallsForMatchingRequests()
+      this.doNetWorkCalls();
    }
 
    @action.bound

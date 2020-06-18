@@ -15,6 +15,15 @@ import {
    COMMUTE_DASHBOARD_SHARED_DETAILS
 } from '../../constants/NavigationalConstants.js'
 
+import {goToRideRequestPage,
+   goToAssetRequestPage,
+   goToShareRidePage,
+   goToTravelInfoPage,
+   goToSharedDetailsPage,
+   goToMyRequestsPage,
+   goToMatchingResultsPage
+} from '../../utils/NavigationalUtils.js';
+
 @inject('commuteStore')
 @observer
 class DashBoardRoute extends React.Component {
@@ -24,7 +33,8 @@ class DashBoardRoute extends React.Component {
       const {
          commuteStore: { onChangeSelectedPage }
       } = this.props
-      onChangeSelectedPage(this.props.history.location.pathname.slice(18, 50))
+      const {history}=this.props;
+      onChangeSelectedPage(history.location.pathname.slice(18, 50))
       const {
          commuteStore: { selectedPage }
       } = this.props
@@ -32,10 +42,6 @@ class DashBoardRoute extends React.Component {
    }
 
    componentDidMount() {
-      const {
-         commuteStore: { onChangeSelectedPage }
-      } = this.props
-      onChangeSelectedPage(this.props.history.location.pathname)
       const { doNetWorkCalls } = this
       doNetWorkCalls(this.selector)
    }
@@ -71,17 +77,17 @@ class DashBoardRoute extends React.Component {
       this.selector = selector
       switch (this.selector) {
          case '/home/my-requests': {
-            this.props.history.push(COMMUTE_DASHBOARD_MY_REQUESTS)
+            goToMyRequestsPage(this.props.history)
             doNetWorkCalls('/home/my-requests')
             return
          }
          case '/home/matched-requests': {
-            this.props.history.push(COMMUTE_DASHBOARD_MATCHEDRESULTS)
+            goToMatchingResultsPage(this.props.history)
             doNetWorkCalls('/home/matched-requests')
             return
          }
          case '/home/shared-details': {
-            this.props.history.push(COMMUTE_DASHBOARD_SHARED_DETAILS)
+            goToSharedDetailsPage(this.props.history)
             doNetWorkCalls('/home/shared-details')
             return
          }
@@ -168,11 +174,11 @@ class DashBoardRoute extends React.Component {
       const { history } = this.props
       switch (requestType) {
          case 'RIDE': {
-            history.push('/commute-dashboard/ride-request')
+            goToRideRequestPage(history)
             return
          }
          case 'ASSET': {
-            history.push('/commute-dashboard/asset-transport-request')
+            goToAssetRequestPage(history)
             return
          }
       }
@@ -182,11 +188,11 @@ class DashBoardRoute extends React.Component {
       const { history } = this.props
       switch (shareType) {
          case 'RIDE': {
-            history.push('/commute-dashboard/share-ride')
+         goToShareRidePage(history)
             return
          }
          case 'TRAVEL INFO': {
-            history.push('/commute-dashboard/share-travelInfo')
+            goToTravelInfoPage(history)
             return
          }
       }
@@ -246,11 +252,7 @@ class DashBoardRoute extends React.Component {
          commuteStore: {
             getMatchingRequestAPIStatus,
             getMatchingRequestAPIError,
-            noOfAssetRequests
-         }
-      } = this.props
-      const {
-         commuteStore: {
+            noOfAssetRequests,
             getMyRideRequestAPIStatus,
             getMyRideRequestAPIError,
             getMyAssetRequestAPIStatus,
