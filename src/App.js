@@ -36,6 +36,7 @@ import { ShareRide } from './Commute/components/ShareRide'
 import { TravelInfo } from './Commute/components/TravelInfo'
 import Home from './Common/components/HomePage'
 import { PracticeDashboardRoute } from './Practice/routes/PracticeDashboardRoute'
+import { PracticeCommonComponents } from './Practice/components/PracticeCommonComponents'
 
 import './App.css'
 
@@ -98,11 +99,18 @@ class App extends React.Component {
                      path={COMMUTE_DASHBOARD_SHARE_TRAVEL_INFO}
                      component={TravelInfo}
                   />
+
                   <Route
                      exact
                      path='/pagination'
                      component={PracticeDashboardRoute}
                   />
+                  <Route
+                     exact
+                     path='/practice-common-components'
+                     component={PracticeCommonComponents}
+                  />
+
                   <Route exact path='/' component={Home} />
                </Switch>
             </Router>

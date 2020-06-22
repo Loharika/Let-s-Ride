@@ -29,7 +29,7 @@ class DisplayDropDown extends React.Component {
       return (
          <DropdownAs>
             {data.listTitle.length !== 0 ? (
-               <Label>
+               <Label htmlFor={data.listTitle.toLowerCase()}>
                   {data.listTitle}
                   <Star>*</Star>
                </Label>
@@ -37,6 +37,7 @@ class DisplayDropDown extends React.Component {
                ''
             )}
             <Dropdown
+               id={data.listTitle.toLowerCase()}
                placeholder={data.placeholder}
                selection
                options={data.listItems}

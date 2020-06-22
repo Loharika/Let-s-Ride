@@ -6,14 +6,13 @@ import { Router, Route, withRouter } from 'react-router-dom'
 import { Provider } from 'mobx-react'
 import { createMemoryHistory } from 'history'
 
-import { COMMUTE_DASHBOARD_RIDE_REQUEST } from '../../constants/NavigationalConstants.js'
-
+import { COMMUTE_DASHBOARD_SHARE_TRAVEL_INFO } from '../../constants/NavigationalConstants.js'
 import stores from '../../../Common/stores'
-import { RideRequest } from '.'
+import { TravelInfo } from '.'
 describe('', () => {
    it('it should check whether the request details are getting posted or not ', () => {
       let history = createMemoryHistory()
-      history.push(COMMUTE_DASHBOARD_RIDE_REQUEST)
+      history.push(COMMUTE_DASHBOARD_SHARE_TRAVEL_INFO)
       const {
          getByPlaceholderText,
          getByRole,
@@ -23,22 +22,24 @@ describe('', () => {
       } = render(
          <Provider {...stores}>
             <Router history={history}>
-               <Route path={COMMUTE_DASHBOARD_RIDE_REQUEST}>
-                  <RideRequest
+               <Route path={COMMUTE_DASHBOARD_SHARE_TRAVEL_INFO}>
+                  <TravelInfo
                      onClickFlexibleTimings={() => {}}
                      onSubmitRequest={() => {}}
                      onChangeTime={()=>{}}
                      onChangeFromTime={()=>{}}
                      onChangeToTime={()=>{}}
-                     onChangeNoOfSeats={()=>{}}
-                     onChangeNoOfLuggages={()=>{}}
+                     onChangeAssetsQuantity={()=>{}}
+                     onChangeTravelMedium={()=>{}}
                   />
                </Route>
             </Router>
          </Provider>
-      )
+      );
+      // debug()
       const testfrom = 'hyderabad'
-      const testto = 'kurnool'
+      const testto = 'kurnool';
+      const testTravelMedium='Flight'
       let fromElement = getByLabelText('FROM*')
       let toElement = getByLabelText('TO*')
       fireEvent.change(fromElement, { target: { value: testfrom } })
@@ -53,26 +54,18 @@ describe('', () => {
       fireEvent.change(fromDateElement, { target: { value: new Date() } })
       expect(toDateElement).toBeInTheDocument();
       fireEvent.change(toDateElement, { target: { value: new Date() } })
-      let noOfSeatsElements = getByTestId('no of seats')
-      let noOfLuggagesElements = getByTestId('no of luggages')
-      let decrementSeatsElement = getByTestId('decrement-button no of seats')
-      let incrementSeatsElement = getByTestId('increment-button no of seats')
-      let decrementLuggagessElement = getByTestId(
-         'decrement-button no of luggages'
-      )
-      let incrementLuggagesElement = getByTestId(
-         'increment-button no of luggages'
-      )
-      expect(noOfSeatsElements).toHaveTextContent(0)
-      fireEvent.click(decrementSeatsElement)
-      fireEvent.click(incrementSeatsElement)
-      expect(noOfSeatsElements).toHaveTextContent(1)
-      expect(noOfLuggagesElements).toHaveTextContent(0)
-      fireEvent.click(decrementLuggagessElement)
-      fireEvent.click(decrementLuggagessElement)
-      fireEvent.click(incrementLuggagesElement)
-      expect(noOfLuggagesElements).toHaveTextContent(1)
-      let rideRequestButton = getByRole('button', { name: 'REQUEST' })
-      fireEvent.click(rideRequestButton)
+       let noOfLuggagesElements=getByTestId('assets quantity')
+       let decrementAssetsQuanityElement=getByTestId('decrement-button assets quantity');
+       let incrementAssetsQuanityElement=getByTestId('increment-button assets quantity');
+       expect(noOfLuggagesElements).toHaveTextContent(0);
+       fireEvent.click(decrementAssetsQuanityElement)
+       fireEvent.click(decrementAssetsQuanityElement)
+       fireEvent.click(incrementAssetsQuanityElement)
+       expect(noOfLuggagesElements).toHaveTextContent(1);
+      //  let travelMedium=getByLabelText('TRAVEL MEDIUM*');
+      //  fireEvent.change(travelMedium,{data:{value:testTravelMedium}});
+      //  expect(travelMedium).toBeInTheDocument();
+       let shareRequestButton = getByRole('button', { name: 'SHARE' });
+       fireEvent.click(shareRequestButton);
    })
 })

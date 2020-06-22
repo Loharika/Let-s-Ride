@@ -34,7 +34,8 @@ class DateAndTime extends React.Component {
    }
 
    render() {
-      const { displayError } = this.props
+      const { displayError,label } = this.props
+      const placeholderText=label==='DATE AND TIME'?'Select the '+label.toLowerCase():'Select the '+label.toLowerCase()+' date and time';
       return (
          <DateAndTimeStyle>
             <Label>
@@ -47,7 +48,7 @@ class DateAndTime extends React.Component {
                </Icon>
 
                <DatePicker
-                  placeholderText='Select the date'
+                  placeholderText={placeholderText}
                   selected={this.startDate}
                   onChange={this.handleChange}
                   showTimeSelect

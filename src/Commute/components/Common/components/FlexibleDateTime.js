@@ -5,9 +5,7 @@ import { FlexibleDateAndTimeStyle } from '../../../styledComponents/styleCompone
 
 @observer
 class FlexibleDateTime extends React.Component {
-   constructor() {
-      super()
-   }
+  
    render() {
       const { onChangeFromTime, onChangeToTime, displayError } = this.props
       return (

@@ -76,6 +76,14 @@ class TravelInfo extends React.Component {
       this.travelMedium = travelMedium
    }
    onSubmitRequest = () => {
+      console.log(this.from,
+         this.to,
+         this.dateTime,
+         this.assetsQuantity,
+         this.travelMedium,
+         this.dateTime,
+         this.startDateTime,
+         this.endDateTime);
       this.displayError = true
 
       let formDetails = [
@@ -128,6 +136,7 @@ class TravelInfo extends React.Component {
       }
    }
    async shareTravelInfo(travelInfoData) {
+      
       const {
          commuteStore: { shareTravelInfo }
       } = this.props
@@ -205,7 +214,7 @@ class TravelInfo extends React.Component {
                   <CheckBox
                      type={strings.type.checkbox}
                      onClick={onClickFlexibleTimings}
-                     data-testid='flexibleTimings'
+                      data-testid='flexibleTimings'
                   />
                   <FlexibleTimingsLabel>
                      {strings.label.flexibleTimings}
