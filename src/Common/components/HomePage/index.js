@@ -27,7 +27,9 @@ function Home() {
             <Link to='/pagination' className='mt-12'>
                Pagination
             </Link>
-            <Link to='/practice-common-components' >Practice Common Components</Link>
+            <Link to='/practice-common-components'>
+               Practice Common Components
+            </Link>
          </header>
       </div>
    )

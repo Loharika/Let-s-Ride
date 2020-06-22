@@ -1,3 +1,3 @@
-import {PracticeCommonComponents} from './PracticeCommonComponents';
- 
-export {PracticeCommonComponents};
+import { PracticeCommonComponents } from './PracticeCommonComponents'
+
+export { PracticeCommonComponents }

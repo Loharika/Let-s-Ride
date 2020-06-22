@@ -34,8 +34,11 @@ class DateAndTime extends React.Component {
    }
 
    render() {
-      const { displayError,label } = this.props
-      const placeholderText=label==='DATE AND TIME'?'Select the '+label.toLowerCase():'Select the '+label.toLowerCase()+' date and time';
+      const { displayError, label } = this.props
+      const placeholderText =
+         label === 'DATE AND TIME'
+            ? 'Select the ' + label.toLowerCase()
+            : 'Select the ' + label.toLowerCase() + ' date and time'
       return (
          <DateAndTimeStyle>
             <Label>

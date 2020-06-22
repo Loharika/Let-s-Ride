@@ -1,4 +1,4 @@
-export const buttonType={
-    rectangular:'RECTANGULAR',
-    oval:'OVAL'
+export const buttonType = {
+   rectangular: 'RECTANGULAR',
+   oval: 'OVAL'
 }
