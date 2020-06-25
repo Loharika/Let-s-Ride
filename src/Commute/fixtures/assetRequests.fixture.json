@@ -1,7 +1,6 @@
 {
     "asset_requests":[
-            {"id":"10",
-            "name":"Dr. Madelynn Lehner",
+            {
             "origin":"Hyderabad",
             "destination":"Kurnool",
             "no_of_seats":6,
@@ -11,15 +10,14 @@
             "end_datetime":"Sat Jan 04 2019 23:36:04 GMT+0530 (India Standard Time)",
             "asset_type":"gadgets",
             "asset_sensitivity":"VERY SENSITIVE",
-            "asset_to_be_delivered_to":"raani-1234560987",
+            "whom_to_deliver":"Hari-0987612345",
             "accepted_person":{
                 "name":"kavya",
                 "mobile_number":"1234567890"
             },
             "status":"Expire"
             },
-            {"id":"10",
-            "name":"Dr. Madelynn Lehner",
+            {
             "origin":"Hyderabad",
             "destination":"Kurnool",
             "no_of_seats":6,
@@ -36,8 +34,7 @@
             },
             "status":"Confirmed"
             },
-            {"id":"10",
-            "name":"Dr. Madelynn Lehner",
+            {
             "origin":"Hyderabad",
             "destination":"Kurnool",
             "no_of_seats":6,
@@ -54,8 +51,7 @@
             },
             "status":"Pending"
             },
-            {"id":"10",
-            "name":"Dr. Madelynn Lehner",
+            {
             "origin":"Hyderabad",
             "destination":"Kurnool",
             "no_of_seats":6,
@@ -72,11 +68,10 @@
             },
             "status":"Confirmed"
             },
-            {"id":"10",
-            "name":"Dr. Madelynn Lehner",
+            {
             "origin":"Hyderabad",
             "destination":"Kurnool",
-            "asset_sensitivity":6,
+            "no_of_seats":6,
             "flexible_with_time":true,
             "datetime":"null",
             "start_datetime":"Thu Jan 04 2019 10:36:04 GMT+0530 (India Standard Time)",
@@ -89,8 +84,7 @@
                 "mobile_number":"1234567890"
             },
             "status":"Expire"},
-            {"id":"10",
-            "name":"Dr. Madelynn Lehner",
+            {
             "origin":"Hyderabad",
             "destination":"Kurnool",
             "no_of_seats":6,
@@ -106,8 +100,7 @@
                 "mobile_number":"1234567890"
             },
             "status":"Confirmed"},
-            {"id":"10",
-            "name":"Dr. Madelynn Lehner",
+            {
             "origin":"Hyderabad",
             "destination":"Kurnool",
             "no_of_seats":6,
@@ -124,8 +117,7 @@
             },
             "status":"Expire"
             },
-            {"id":"10",
-            "name":"Dr. Madelynn Lehner",
+            {
             "origin":"Hyderabad",
             "destination":"Kurnool",
             "no_of_seats":6,
@@ -142,8 +134,7 @@
             },
             "status":"Expire"
             },
-            {"id":"10",
-            "name":"Dr. Madelynn Lehner",
+            {
             "origin":"Hyderabad",
             "destination":"Kurnool",
             "no_of_seats":6,
@@ -160,8 +151,7 @@
             },
             "status":"Pending"
             },
-            {"id":"10",
-            "name":"Dr. Madelynn Lehner",
+            {
             "origin":"Hyderabad",
             "destination":"Kurnool",
             "no_of_seats":6,

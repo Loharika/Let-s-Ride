@@ -1,7 +1,6 @@
 {
 "ride_requests":[
-            {"id":"10",
-            "name":"Dr. Madelynn Lehner",
+            {
             "origin":"Hyderabad",
             "destination":"Kurnool",
             "no_of_seats":6,
@@ -17,8 +16,7 @@
             },
             "status":"EXPIRED"
             },
-            {"id":"11",
-            "name":"Dr. Madelynn Lehner",
+            {
             "origin":"Rollinfurt",
             "destination":"North Linda",
             "no_of_seats":4,
@@ -34,8 +32,7 @@
             },
             "status":"PENDING"
             },
-            {"id":"18",
-            "name":"Hello",
+            {
             "origin":"Harayan",
             "destination":"Kurnool",
             "no_of_seats":6,
@@ -51,8 +48,7 @@
             },
             "status":"EXPIRED"
             },
-            {"id":"12",
-            "name":"Dr. Madelynn Lehner",
+            {
             "origin":"Panjab",
             "destination":"Rajastan",
             "no_of_seats":6,
@@ -68,8 +64,7 @@
             },
             "status":"CONFIRM"
             },
-            {"id":"14",
-            "name":"Leena",
+            {
             "origin":"Hyd",
             "destination":"bangalore",
             "no_of_seats":2,
@@ -84,8 +79,7 @@
                 "mobile_number":"1234567890"
             },
             "status":"CONFIRM"},
-            {"id":"10",
-            "name":"Dr. Madelynn Lehner",
+            {
             "origin":"Hyderabad",
             "destination":"Kurnool",
             "no_of_seats":6,
@@ -101,10 +95,9 @@
             },
             "status":"EXPIRED"
             },
-            {"id":"11",
-            "name":"Dr. Madelynn Lehner",
+            {
             "origin":"Rollinfurt",
-            "to":"North Linda",
+            "destination":"North Linda",
             "no_of_seats":4,
              "flexible_with_time":false,
             "datetime":"Wed Dec 25 2020 09:34:04 GMT+0530 (India Standard Time)",
@@ -117,8 +110,7 @@
                 "mobile_number":"1234567890"
             },
             "status":"PENDING"
-            },{"id":"12",
-            "name":"Dr. Madelynn Lehner",
+            },{
             "origin":"Panjab",
             "destination":"Rajastan",
             "no_of_seats":6,
@@ -134,8 +126,7 @@
             },
             "status":"EXPIRED"
             },
-            {"id":"11",
-            "name":"Dr. Madelynn Lehner",
+            {
             "origin":"Rollinfurt",
             "destination":"North Linda",
             "no_of_seats":4,
@@ -151,8 +142,7 @@
             },
             "status":"CONFIRM"
             },
-            {"id":"18",
-            "name":"Hello",
+            {
             "origin":"Harayan",
             "destination":"Kurnool",
             "no_of_seats":6,
@@ -168,8 +158,7 @@
                 "mobile_number":"1234567890"
             },
             "status":"EXPIRED"},
-            {"id":"14",
-            "name":"Leena",
+            {
             "origin":"Hyd",
             "destination":"bangalore",
             "no_of_seats":2,
@@ -184,8 +173,7 @@
                 "mobile_number":"1234567890"
             },
             "status":"PENDING"},
-            {"id":"10",
-            "name":"Dr. Madelynn Lehner",
+            {
             "origin":"Hyderabad",
             "destination":"Kurnool",
             "no_of_seats":6,
@@ -202,8 +190,7 @@
             "status":"PENDING"
             },
             
-            {"id":"11",
-            "name":"Dr. Madelynn Lehner",
+            {
             "origin":"Rollinfurt",
             "destination":"North Linda",
             "no_of_seats":4,
@@ -220,8 +207,7 @@
             "status":"PENDING"
             },
             
-            {"id":"14",
-            "name":"Leena",
+            {
             "origin":"Hyd",
             "destination":"bangalore",
             "no_of_seats":2,

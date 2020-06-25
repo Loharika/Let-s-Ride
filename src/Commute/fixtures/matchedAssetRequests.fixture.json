@@ -1,6 +1,6 @@
 {
     "asset_requests":[
-            {"id":"10",
+            {
             "origin":"Hyderabad",
             "destination":"Kurnool",
             "assets_quantity":6,
@@ -19,7 +19,7 @@
             },
             "status":"EXPIRED"
             },
-            {"id":"10",
+            {
             "origin":"Hyderabad",
             "destination":"Kurnool",
             "assets_quantity":6,
@@ -38,7 +38,7 @@
             },
             "status":"CONFIRM"
             },
-            {"id":"10",
+            {
             "origin":"Hyderabad",
             "destination":"Kurnool",
             "assets_quantity":6,
@@ -57,7 +57,7 @@
             },
             "status":"PENDING"
             },
-            {"id":"10",
+            {
             "origin":"Hyderabad",
             "destination":"Kurnool",
             "assets_quantity":6,
@@ -76,10 +76,9 @@
             },
             "status":"CONFIRM"
             },
-            {"id":"10",
+            {
             "origin":"Hyderabad",
             "destination":"Kurnool",
-            "asset_sensitivity":6,
             "flexible_with_time":true,
             "assets_quantity":6,
             "datetime":"null",
@@ -95,7 +94,7 @@
                 "mobile_number":"1234567890"
             },
             "status":"EXPIRED"},
-            {"id":"10",
+            {
             "origin":"Hyderabad",
             "destination":"Kurnool",
             "assets_quantity":6,
@@ -113,7 +112,7 @@
                 "mobile_number":"1234567890"
             },
             "status":"CONFIRM"},
-            {"id":"10",
+            {
             "origin":"Hyderabad",
             "destination":"Kurnool",
             "assets_quantity":6,
@@ -132,7 +131,7 @@
             },
             "status":"EXPIRED"
             },
-            {"id":"10",
+            {
             "name":"Dr. Madelynn Lehner",
             "origin":"Hyderabad",
             "destination":"Kurnool",
@@ -152,7 +151,7 @@
             },
             "status":"EXPIRED"
             },
-            {"id":"10",
+            {
             "origin":"Hyderabad",
             "destination":"Kurnool",
             "assets_quantity":6,
@@ -171,8 +170,8 @@
             },
             "status":"PENDING"
             },
-            {"id":"10",
-            "name":"Dr. Madelynn Lehner",
+            {
+           
             "origin":"Hyderabad",
             "destination":"Kurnool",
             "assets_quantity":6,

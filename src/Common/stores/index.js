@@ -3,7 +3,7 @@ import { CommuteStore } from '../../Commute/stores/CommuteStore'
 import { PracticeStore } from '../../Practice/stores/PracticeStore'
 
 import { AuthService } from '../../Authentication/services/AuthService'
-import { CommuteService } from '../../Commute/services/CommuteService/CommuteService.fixture.js'
+import { CommuteService } from '../../Commute/services/CommuteService/index.fixture'
 import { PracticeService } from '../../Practice/services/PracticeService'
 
 const authService = new AuthService()

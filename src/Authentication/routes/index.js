@@ -1,3 +1,3 @@
-import SignInFormRoute from './SignInFormRoute/SignInFormRoute.js'
-import LogInPageRoute from './LogInFormRoute/LogInFormRoute.js'
+import SignInFormRoute from './SignInFormRoute/SignInFormRoute'
+import LogInPageRoute from './LogInFormRoute/LogInFormRoute'
 export { SignInFormRoute, LogInPageRoute }

@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import { Typo14WhiteRubikMedium } from '../../../StyleGuides/Typos.js'
+import { Typo14WhiteRubikMedium } from '../../../StyleGuides/Typos'
 
 export const BaseButtonStyle = styled.button`
    background-color: teal;
