@@ -66,8 +66,8 @@ class MatchingAssetRequestCard{
    initIsNotFlexible(request) {
       this.datetime = request.datetime
    }
-   displayToaster (){
-      toast(<div className='text-black font-bold'>Accepted</div>, {
+   displayToaster (status){
+   toast(<div className='text-black font-bold'>{status}</div>, {
          position: 'top-center',
          autoClose: 3000,
          closeButton: false,
@@ -98,8 +98,8 @@ class MatchingAssetRequestCard{
       this.getAcceptingMatchedRequestAPIStatus = apiStatus
       if (this.getAcceptingMatchedRequestAPIStatus === 200) {
             this.isAdded = true
-          this.displayToaster()
-      }
+            this.displayToaster('Successfully added the Request')
+         }
    }
    @action.bound
    setGetAcceptingMatchedRequestAPIError(apiError) {

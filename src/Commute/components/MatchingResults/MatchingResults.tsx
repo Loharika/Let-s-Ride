@@ -173,7 +173,7 @@ class MatchingResults extends React.Component <MatchingResultsProps>{
    }
 
    render() {
-      const {
+       const {
          onClickRequestType,
          onChangeSortBy,
          onChangeFilter,
@@ -229,7 +229,7 @@ class MatchingResults extends React.Component <MatchingResultsProps>{
                   />
                </FilterAndSort>
             </RequestHeader>
-                        <DisplayTable>{this.renderSuccessUI()}</DisplayTable>
+                        <DisplayTable >{this.renderSuccessUI()}</DisplayTable>
             
             {getMatchingResults().length !== 0 ? (
                <Footer>

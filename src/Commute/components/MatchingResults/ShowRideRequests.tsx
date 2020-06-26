@@ -20,7 +20,7 @@ type ShowRideRequestsProps={
 
 @observer 
 class ShowRideRequests extends React.Component<ShowRideRequestsProps>{
-   renderSuccessUI = () => {
+   renderSuccessUI = observer(() => {
       const {
          tableHeaders,
          getRequests
@@ -69,8 +69,8 @@ class ShowRideRequests extends React.Component<ShowRideRequestsProps>{
                         </TableCellAlignedCenter>
 
                         <TableCellLeftAligned>
-                           <StatusButton onClick={request.onClickAddButton}>
-                              {console.log(request.isAdded)}
+                           <StatusButton onClick={request.onClickAddButton} disabled={request.isAdded}>
+                              
                               {request.isAdded? <FcCheckmark /> : <FiPlus />}
                            </StatusButton>
                         </TableCellLeftAligned>
@@ -82,7 +82,7 @@ class ShowRideRequests extends React.Component<ShowRideRequestsProps>{
       } else {
          return <NoDataFound> No Matching Requests Found</NoDataFound>
       }
-   }
+   })
    render() {
       const { renderSuccessUI } = this
       const {

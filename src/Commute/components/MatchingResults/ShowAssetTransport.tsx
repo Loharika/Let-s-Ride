@@ -20,9 +20,10 @@ type ShowAssetTransportProps={
       doNetworkCalls: () => void; 
       getMatchingRequestAPIStatus: any; 
       getMatchingRequestAPIError: any; }
+
 @observer
 class ShowAssetTransport extends React.Component <ShowAssetTransportProps>{
-   renderSuccessUI = () => {
+   renderSuccessUI = observer(() => {
       const { tableHeaders, getRequests } = this.props
       const assetRequests:Array<MatchingAssetRequestCard> = getRequests()
 
@@ -73,6 +74,7 @@ class ShowAssetTransport extends React.Component <ShowAssetTransportProps>{
                         </TableCellAlignedCenter>
                         <TableCellLeftAligned>
                            <StatusButton onClick={request.onClickAddButton}>
+                              
                               {request.isAdded ? <FcCheckmark /> : <FiPlus />}
                            </StatusButton>
                         </TableCellLeftAligned>
@@ -84,19 +86,21 @@ class ShowAssetTransport extends React.Component <ShowAssetTransportProps>{
       } else {
          return <NoDataFound> No Matching Requests Found</NoDataFound>
       }
-   }
+   })
 
    render() {
       const { renderSuccessUI } = this
       const {
          getMatchingRequestAPIError,
          getMatchingRequestAPIStatus,
-         doNetworkCalls
+         doNetworkCalls,
+         getRequests
       } = this.props
+      console.log("render assets ")
       return (
          <React.Fragment>
             <LoadingWrapperWithFailure
-               key={Math.random()}
+               key={getRequests().length}
                apiStatus={getMatchingRequestAPIStatus}
                apiError={getMatchingRequestAPIError}
                onRetryClick={doNetworkCalls}
