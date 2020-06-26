@@ -14,27 +14,6 @@ import {
 
 import LoadingWrapperWithFailure from '../../../Common/components/common/LoadingWrapperWithFailure'
 import { MatchingRideRequestCard } from "../../stores/Models/MatchingRequestCard"
-
-type EachRideRequest={
-   id?:string
-    origin:string
-    destination:string
-    flexibleWithTime:boolean
-    noOfSeats:number
-    luggageQuantity:number
-    status:string
-    startDatetime:string
-    endDatetime:string
-    dateTime:string
-    requestedBy:{
-       name:string,
-       mobile_number:string
-    }
-    rideRequestId:number
-    onClickAddButton:()=>void
-    isAdded:boolean
-    getAcceptingMatching
-}
 type ShowRideRequestsProps={ 
    getRequests: () => Array<MatchingRideRequestCard>;
     tableHeaders: string[]; doNetworkCalls: () => void; getMatchingRequestAPIStatus: any; getMatchingRequestAPIError: any; }
@@ -59,7 +38,7 @@ class ShowRideRequests extends React.Component<ShowRideRequestsProps>{
                </TableRow>
                {Object.values(rideRequests).map((request:MatchingRideRequestCard) => {
                   return (
-                     <TableRow key={Math.random()}>
+                     <TableRow key={request.requestedBy.name}>
                         <TableCellLeftAligned>
                            {request.requestedBy.name}
                            <br />
@@ -91,7 +70,8 @@ class ShowRideRequests extends React.Component<ShowRideRequestsProps>{
 
                         <TableCellLeftAligned>
                            <StatusButton onClick={request.onClickAddButton}>
-                              {request.isAdded ? <FcCheckmark /> : <FiPlus />}
+                              {console.log(request.isAdded)}
+                              {request.isAdded? <FcCheckmark /> : <FiPlus />}
                            </StatusButton>
                         </TableCellLeftAligned>
                      </TableRow>

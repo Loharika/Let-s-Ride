@@ -48,19 +48,6 @@ type DisplayData={
       sharedTravelInfoPageNumber: number
    }
 }
-type CommuteServiceType={
-   rideRequestAPI:(rideRequest:object)=>Promise<object>
-   assetTransportRequestAPI:(assetRequest:object)=>Promise<object>
-   shareRideInfoAPI:(details:object)=>Promise<object>
-   shareTravelInfoAPI:(details:object)=>Promise<object>
-   myRideRequestsAPI:(dataToGetRequests:object)=>Promise<object>
-   myAssetRequestsAPI:(dataToGetRequests:object)=>Promise<object>
-   matchingAllRequestsAPI:(matchingRequestsFilter:string,
-      dataToGetMatchingRequests:object)=>Promise<object>
-   sharedRideAPI:(dataToGetSharedRides:object)=>Promise<object>
-   travelInfoAPI:(dataToGetSharedTravelInfo:object)=>Promise<object>
-   
-}
 class CommuteStore {
    @observable getRideRequestAPIStatus
    @observable getRideRequestAPIError
@@ -99,9 +86,9 @@ class CommuteStore {
 
    @observable displayData:DisplayData
    @observable selectedPage
-   commuteService:CommuteServiceType
+   commuteService
    limit:number
-   constructor(commuteService:CommuteServiceType) {
+   constructor(commuteService) {
       this.commuteService= commuteService
       this.init()
       this.limit = 4
@@ -482,7 +469,7 @@ class CommuteStore {
       switch (this.displayData['matchingResults'].requestType) {
          case 'RIDE': {
             this.displayData['matchingResults'].rideRequests =
-               apiResponse.ride_requests.map((request,index)=> { return new MatchingRideRequestCard(request,'service')})
+               apiResponse.ride_requests.map((request,index)=> { return new MatchingRideRequestCard(request,this.commuteService)})
                this.displayData['matchingResults'].noOfRideRequests =
                apiResponse.ride_requests_matches_count;
             break
@@ -490,7 +477,7 @@ class CommuteStore {
          case 'ASSET': {
             
             this.displayData['matchingResults'].assetRequests =
-               apiResponse.asset_requests.map(request=>new MatchingAssetRequestCard(request,'service'))
+               apiResponse.asset_requests.map(request=>new MatchingAssetRequestCard(request,this.commuteService))
             this.displayData['matchingResults'].noOfAssetRequests =
                apiResponse.assets_matches_count
             break

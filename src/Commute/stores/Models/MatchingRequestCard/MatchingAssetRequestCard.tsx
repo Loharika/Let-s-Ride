@@ -29,7 +29,9 @@ class MatchingAssetRequestCard{
       @observable getAcceptingMatchedRequestAPIStatus
       @observable getAcceptingMatchedRequestAPIError
       @observable isAdded:boolean
-   constructor(request:MatchedAssetRequestObject,service) {
+      commuteService
+   constructor(request:MatchedAssetRequestObject,commuteService) {
+      this.commuteService=commuteService;
       this.origin = request.origin
       this.destination = request.destination
       this.noOfAssets = request.assets_quantity
@@ -64,27 +66,26 @@ class MatchingAssetRequestCard{
    initIsNotFlexible(request) {
       this.datetime = request.datetime
    }
-   @action.bound
-   onClickAddButton() {
-      this.isAdded = !this.isAdded
-      this.postTheRequestId()
+   displayToaster (){
+      toast(<div className='text-black font-bold'>Accepted</div>, {
+         position: 'top-center',
+         autoClose: 3000,
+         closeButton: false,
+         hideProgressBar: true
+      })
    }
-   // displayToaster = () => {
-   //    toast(<div className='text-black font-bold'>Accepted</div>, {
-   //       position: toast.POSITION.TOP_CENTER,
-   //       autoClose: 3000,
-   //       closeButton: false,
-   //       hideProgressBar: true
-   //    })
-   // }
 
    async postTheRequestId() {
       await this.acceptTheMatchedRequest(this.assetRequestId)
    }
+   onClickAddButton=():void =>{
+      
+      this.postTheRequestId()
+   }
    @action.bound
    acceptTheMatchedRequest(requestId) {
       this.initAcceptingMatchedRequestsAPI()
-      let matchedRequestPromise = this.acceptTheMatchedRequestAPI(requestId)
+      let matchedRequestPromise = this.commuteService.acceptTheMatchedRequestAPI(requestId)
       return bindPromiseWithOnSuccess(matchedRequestPromise)
          .to(
             this.setGetAcceptingMatchedRequestAPIStatus,
@@ -96,7 +97,8 @@ class MatchingAssetRequestCard{
    setGetAcceptingMatchedRequestAPIStatus(apiStatus) {
       this.getAcceptingMatchedRequestAPIStatus = apiStatus
       if (this.getAcceptingMatchedRequestAPIStatus === 200) {
-         // this.displayToaster()
+            this.isAdded = true
+          this.displayToaster()
       }
    }
    @action.bound
@@ -106,14 +108,6 @@ class MatchingAssetRequestCard{
    @action.bound
    setGetAcceptingMatchedRequestAPIResponse(apiResponse) {
       // this.getAcceptingMatchedRequestAPIResponse = apiResponse
-   }
-   @action
-   acceptTheMatchedRequestAPI(requestId) {
-      return new Promise(resolve => {
-         setTimeout(() => {
-            resolve('added')
-         }, 1000)
-      })
    }
 }
 export { MatchingAssetRequestCard }

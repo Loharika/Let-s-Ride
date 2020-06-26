@@ -72,12 +72,11 @@ export interface ShareRideObject{
         origin:string
             destination:string,
             flexible_with_time:boolean,
-            datetime:string,
-            start_datetime:string
-            end_datetime:string,
+            datetime:string|null,
+            start_datetime:string|null
+            end_datetime:string|null,
         no_of_seats:number
         assets_quantity:number
-        status:string
 }
 export interface ShareTravelInfoObject{
     origin:string
@@ -133,9 +132,9 @@ export interface AssetRequestObject {
   origin:string
   destination: string,
   flexible_with_time: boolean,
-  datetime: string,
-  start_datetime: string,
-  end_datetime: string ,
+  datetime: null|string,
+  start_datetime: string|null,
+  end_datetime: string|null,
   assets_quantity: number,
   asset_type: string,
   asset_sensitivity: string,
@@ -145,9 +144,9 @@ export interface AssetRequestObject {
     origin:string
     destination: string,
     flexible_with_time: boolean,
-    datetime: string,
-    start_datetime: string,
-    end_datetime: string ,
+    datetime: string|null,
+    start_datetime: string|null,
+    end_datetime: string |null,
     no_of_seats: number
     luggage_quantity: number  
    }

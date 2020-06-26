@@ -5,7 +5,7 @@ import { getLoadingStatus, ApiFailed } from '@ib/api-utils'
 import { Table, Rating } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css'
 
-import { PaginationUI } from '../../../Commute/components/Common/components/Pagination.js'
+import { PaginationUI } from '../../../Commute/components/Common/components/Pagination'
 import LoadingWrapperWithFailure from '../../../Common/components/common/LoadingWrapperWithFailure'
 
 @observer

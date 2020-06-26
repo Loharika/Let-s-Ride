@@ -54,33 +54,33 @@ class TravelInfo extends React.Component <TravelInfoProps>{
       this.travelMedium = ''
       this.assetsQuantity = 0
    }
-   onClickFlexibleTimings = () => {
+   onClickFlexibleTimings = (event:React.MouseEvent<HTMLInputElement>):void => {
       this.isCheckedFlexibleTimings = !this.isCheckedFlexibleTimings
    }
-   onChangeFrom = event => {
+   onChangeFrom = (event:React.ChangeEvent<HTMLInputElement>):void => {
       this.from = event.target.value
       this.displayError = false
    }
-   onChangeTo = event => {
+   onChangeTo =  (event:React.ChangeEvent<HTMLInputElement>):void => {
       this.to = event.target.value
       this.displayError = false
    }
-   onChangeDateTime = time => {
+   onChangeDateTime =(time:string):void => {
       this.dateTime = moment(time).format('YYYY-MM-DD HH:mm:ss')
    }
-   onChangeFromTime = time => {
+   onChangeFromTime = (time:string):void => {
       this.startDateTime = moment(time).format('YYYY-MM-DD HH:mm:ss')
    }
-   onChangeToTime = time => {
+   onChangeToTime = (time:string):void => {
       this.endDateTime = moment(time).format('YYYY-MM-DD HH:mm:ss')
    }
-   onChangeAssetsQuantity = assetsQuantity => {
+   onChangeAssetsQuantity = (assetsQuantity:number):void => {
       this.assetsQuantity = assetsQuantity
    }
-   onChangeTravelMedium = travelMedium => {
+   onChangeTravelMedium = (travelMedium:string):void => {
       this.travelMedium = travelMedium
    }
-   onSubmitRequest = () => {
+   onSubmitRequest = (event:React.MouseEvent<HTMLButtonElement>):void => {
       console.log(
          this.from,
          this.to,
@@ -144,12 +144,14 @@ class TravelInfo extends React.Component <TravelInfoProps>{
    }
    async shareTravelInfo(travelInfoData) {
       const {
-         commuteStore: { shareTravelInfo }
+         commuteStore: { shareTravelInfo,getTravelInfoAPIStatus }
       } = this.props
       shareTravelInfo(travelInfoData)
-      alert('Submitted Succesfully')
-      this.init()
-      this.displayError = false
+      if(getTravelInfoAPIStatus===200){
+         alert('Submitted Succesfully')
+         this.init()
+         this.displayError = false
+      }
    }
    render() {
       const travelMediums = {

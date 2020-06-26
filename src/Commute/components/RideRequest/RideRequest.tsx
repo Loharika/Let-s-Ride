@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ChangeEvent, MouseEvent } from 'react'
 import { observer, inject } from 'mobx-react'
 import { observable, action } from 'mobx'
 import moment from 'moment'
@@ -23,6 +23,7 @@ import {
 
 import strings from '../../i18n/strings.json'
 import { CommuteStore } from "../../stores/CommuteStore"
+import { MyRideRequestObject, RideRequestObject } from "../../stores/types"
 
 interface InjectedProps extends RouteComponentProps{
 
@@ -59,33 +60,33 @@ class RideRequest extends React.Component <RideRequestProps>{
       this.seats = 0
       this.luggages = 0
    }
-   onClickFlexibleTimings = () => {
+   onClickFlexibleTimings = (event:React.MouseEvent<HTMLInputElement>):void => {
       this.isCheckedFlexibleTimings = !this.isCheckedFlexibleTimings
    }
-   onChangeRequestFrom = (event:any) => {
+   onChangeRequestFrom = (event:ChangeEvent<HTMLInputElement>):void => {
       this.from = event.target.value
       this.displayError = false
    }
-   onChangeRequestTo = (event:any) => {
+   onChangeRequestTo =(event:ChangeEvent<HTMLInputElement>):void  => {
       this.to = event.target.value
       this.displayError = false
    }
-   onChangeTime = (time:string) => {
+   onChangeTime = (time:string):void => {
       this.dateTime = moment(time).format('YYYY-MM-DD HH:mm:ss')
    }
-   onChangeFromTime = (time:string) => {
+   onChangeFromTime = (time:string):void => {
       this.startDateTime = moment(time).format('YYYY-MM-DD HH:mm:ss')
    }
-   onChangeToTime = (time:string) => {
+   onChangeToTime = (time:string):void => {
       this.endDateTime = moment(time).format('YYYY-MM-DD HH:mm:ss')
    }
-   onChangeNoOfSeats = (seats:number) => {
+   onChangeNoOfSeats = (seats:number):void => {
       this.seats = seats
    }
-   onChangeNoOfLuggages = (luggages:number) => {
+   onChangeNoOfLuggages = (luggages:number):void => {
       this.luggages = luggages
    }
-   onSubmitRequest = () => {
+   onSubmitRequest = (event:MouseEvent<HTMLButtonElement>):void => {
       this.displayError = true
       let formDetails = [this.from, this.to, this.seats, this.luggages]
       let count = 0
@@ -129,15 +130,19 @@ class RideRequest extends React.Component <RideRequestProps>{
       }
    }
    getInjectedProps=()=>this.props as RideRequestProps
-   async postRideRequest(rideRequestData) {
+   async postRideRequest(rideRequestData:RideRequestObject) {
       const {
-         commuteStore: { postRideRequest }
+         commuteStore: { postRideRequest,getRideRequestAPIStatus }
       } = this.getInjectedProps()
 
       await postRideRequest(rideRequestData)
-      this.init()
-      this.displayError = false
-      alert('Submitted Succesfully')
+      
+      if(getRideRequestAPIStatus===200){
+         alert('Submitted Succesfully')
+         this.init()
+         this.displayError = false
+      }
+      
    }
    const
    render() {

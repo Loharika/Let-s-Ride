@@ -22,6 +22,7 @@ import {
 } from '../RideRequest/styledComponents'
 import strings from '../../i18n/strings.json'
 import { CommuteStore } from "../../stores/CommuteStore/index"
+import { AssetRequestObject } from "../../stores/types"
 const assetType = {
    listTitle: 'ASSET TYPE',
    listItems: [
@@ -84,9 +85,11 @@ class AssetTransportRequest extends React.Component<AssetTransportRequestProps> 
    @observable assets
    @observable assetType
    @observable assetSensitivity
+   inputEl
    constructor(props) {
       super(props)
-      this.init()
+      this.init();
+
    }
    @action.bound
    init() {
@@ -102,39 +105,39 @@ class AssetTransportRequest extends React.Component<AssetTransportRequestProps> 
       this.assetSensitivity = ''
       this.details = ''
    }
-   onClickFlexibleTimings = () => {
+   onClickFlexibleTimings = (event:React.MouseEvent<HTMLInputElement>):void => {
       this.isCheckedFlexibleTimings = !this.isCheckedFlexibleTimings
    }
-   onChangeRequestFrom = event => {
+   onChangeRequestFrom  = (event:React.ChangeEvent<HTMLInputElement>): void => {
       this.from = event.target.value
       this.displayError = false
    }
-   onChangeRequestTo = event => {
+   onChangeRequestTo = (event:React.ChangeEvent<HTMLInputElement>): void => {
       this.to = event.target.value
       this.displayError = false
    }
-   onChangeTime = time => {
+   onChangeTime = (time:string) => {
       this.dateTime = moment(time).format('YYYY-MM-DD HH:mm:ss')
    }
-   onChangeFromTime = time => {
+   onChangeFromTime = (time:string) => {
       this.startDateTime = moment(time).format('YYYY-MM-DD HH:mm:ss')
    }
-   onChangeToTime = time => {
+   onChangeToTime = (time:string) => {
       this.endDateTime = moment(time).format('YYYY-MM-DD HH:mm:ss')
    }
-   onChangeNoOfAssets = (count:number) => {
+   onChangeNoOfAssets = (count:number):void => {
       this.assets = count
    }
-   onChangeAssetType = (value:string) => {
+   onChangeAssetType = (value:string):void => {
       this.assetType = value
    }
-   onChangeAssetSensitivity = (value:string) => {
+   onChangeAssetSensitivity = (value:string) :void=> {
       this.assetSensitivity = value
    }
-   onChangeWhomToDeliver = event => {
+   onChangeWhomToDeliver = (event:React.ChangeEvent<HTMLInputElement>): void => {
       this.details = event.target.value
    }
-   onSubmitRequest = () => {
+   onSubmitRequest = (event:React.MouseEvent<HTMLButtonElement>): void  => {
       this.displayError = true
 
       let formDetails = [
@@ -191,7 +194,7 @@ class AssetTransportRequest extends React.Component<AssetTransportRequestProps> 
       }
    }
    getInjectedProps=()=>this.props as AssetTransportRequestProps
-   async postAssetTransportRequest(assetRequestData) {
+   async postAssetTransportRequest(assetRequestData:AssetRequestObject) {
       const {
          commuteStore: { postAssetTransportRequest,getAssetTrasportRequestAPIStatus }
       } = this.getInjectedProps()

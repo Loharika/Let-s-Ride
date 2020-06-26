@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ChangeEvent } from 'react'
 import { observable, action } from 'mobx'
 import { observer, inject } from 'mobx-react'
 import moment from 'moment'
@@ -22,6 +22,7 @@ import {
 
 import strings from '../../i18n/strings.json'
 import { CommuteStore } from "../../stores/CommuteStore"
+import { ShareRideObject } from "../../stores/types"
 interface InjectedProps extends RouteComponentProps{}
 interface ShareRideProps extends InjectedProps{
    commuteStore:CommuteStore
@@ -54,33 +55,33 @@ class ShareRide extends React.Component<ShareRideProps> {
       this.seats = 0
       this.assetsQuantity = 0
    }
-   onClickFlexibleTimings = () => {
+   onClickFlexibleTimings = (event:React.MouseEvent<HTMLInputElement>):void => {
       this.isCheckedFlexibleTimings = !this.isCheckedFlexibleTimings
    }
-   onChangeRequestFrom = event => {
+   onChangeRequestFrom = (event:React.ChangeEvent<HTMLInputElement>):void => {
       this.from = event.target.value
       this.displayError = false
    }
-   onChangeRequestTo = event => {
+   onChangeRequestTo = (event:React.ChangeEvent<HTMLInputElement>):void => {
       this.to = event.target.value
       this.displayError = false
    }
-   onChangeTime = time => {
+   onChangeTime = (time:string):void => {
       this.dateTime = moment(time).format('YYYY-MM-DD HH:mm:ss')
    }
-   onChangeFromTime = time => {
+   onChangeFromTime = (time:string):void=> {
       this.startDateTime = moment(time).format('YYYY-MM-DD HH:mm:ss')
    }
-   onChangeToTime = time => {
+   onChangeToTime = (time:string):void => {
       this.endDateTime = moment(time).format('YYYY-MM-DD HH:mm:ss')
    }
-   onChangeNoOfSeats = seats => {
+   onChangeNoOfSeats = (seats:number) :void=> {
       this.seats = seats
    }
-   onChangeNoOfAssetsQuantity = assetsQuantity => {
+   onChangeNoOfAssetsQuantity = (assetsQuantity:number):void => {
       this.assetsQuantity = assetsQuantity
    }
-   onSubmitRequest = () => {
+   onSubmitRequest = (event:ChangeEvent<HTMLButtonElement>):void  => {
       this.displayError = true
 
       let formDetails = [
@@ -134,14 +135,17 @@ class ShareRide extends React.Component<ShareRideProps> {
       }
    }
    getInjectedProps=()=>this.props as ShareRideProps
-   async shareRideInfo(shareRideData: { origin: any; destination: any; flexible_with_time: boolean; start_datetime: any; end_datetime: any; datetime: any; no_of_seats: any; assets_quantity: any }) {
+   async shareRideInfo(shareRideData:ShareRideObject){  
       const {
-         commuteStore: { shareRideInfo }
+         commuteStore: { shareRideInfo ,getShareRideAPIStatus}
       } = this.props
       await shareRideInfo(shareRideData)
-      alert('Submitted Succesfully')
-      this.init()
-      this.displayError = false
+      if(getShareRideAPIStatus===200){
+         alert('Submitted Succesfully')
+         this.init()
+         this.displayError = false
+      }
+      
    }
    render() {
       const {
