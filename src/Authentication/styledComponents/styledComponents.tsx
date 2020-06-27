@@ -1,4 +1,5 @@
 import styled from '@emotion/styled'
+import colors from '../../Common/Theme/Colors.json'
 
 import { Typo14DarkBlueGreyHKGroteskRegular } from '../styleGuides/StyleGuides'
 
@@ -9,7 +10,6 @@ type ErrorSymbolProps={
    value:string,
    isError:boolean
 }
-import colors from '../../Common/Theme/Colors.json'
 export const FormHeading = styled(Typo14DarkBlueGreyHKGroteskRegular)`
    width: 100%;
    height: 24px;

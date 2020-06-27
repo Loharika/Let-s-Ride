@@ -28,17 +28,17 @@ class ShowRideRequests extends React.Component<ShowRideRequestsProps>{
       const rideRequests:Array<MatchingRideRequestCard> = getRequests()
       if (rideRequests.length !== 0) {
          return (
-            <RequestDetailsTable key={Math.random()}>
-               <TableRow key={Math.random()}>
+            <RequestDetailsTable >
+               <TableRow>
                   {tableHeaders.map(eachOne => {
                      return (
-                        <TableHeader key={Math.random()}>{eachOne}</TableHeader>
+                        <TableHeader>{eachOne}</TableHeader>
                      )
                   })}
                </TableRow>
                {Object.values(rideRequests).map((request:MatchingRideRequestCard) => {
                   return (
-                     <TableRow key={request.requestedBy.name}>
+                     <TableRow >
                         <TableCellLeftAligned>
                            {request.requestedBy.name}
                            <br />

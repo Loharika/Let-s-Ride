@@ -194,7 +194,7 @@ class MatchingResults extends React.Component <MatchingResultsProps>{
             ? displayData.matchingResults.rideRequestPageNumber
             : displayData.matchingResults.assetRequestPageNumber
       return (
-         <MyRequestsDashboard key={Math.random() + requestType}>
+         <MyRequestsDashboard>
             <MyRequestsHeader>
                <MyRequestType
                   onClick={() => onClickRequestType('RIDE')}
@@ -229,7 +229,7 @@ class MatchingResults extends React.Component <MatchingResultsProps>{
                   />
                </FilterAndSort>
             </RequestHeader>
-                        <DisplayTable >{this.renderSuccessUI()}</DisplayTable>
+                        {this.renderSuccessUI()}
             
             {getMatchingResults().length !== 0 ? (
                <Footer>

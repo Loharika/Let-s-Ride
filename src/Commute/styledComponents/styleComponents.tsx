@@ -81,7 +81,6 @@ export const Dropdown = styled.div`
    position: relative;
    display: flex;
    flex-grow: none;
-   padding: 10px 0px;
    width: 100%;
    flex-direction: column;
 `
@@ -174,3 +173,12 @@ export const AddButton = styled.button<AddButtonProps>`
    padding: 5px 10px;
    margin: ${props => (props.noOfItems !== 0 ? '20px 5px' : '0px 0px')};
 `
+export const DropdownWithIcon=styled.div`
+      display:flex;
+      justify-content:center;
+      align-items:baseline;
+      padding: 10px 0px;
+`
+export const FilterIcon=styled.div`
+ 
+`;

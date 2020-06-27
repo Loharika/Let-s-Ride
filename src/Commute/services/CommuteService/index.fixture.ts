@@ -12,6 +12,11 @@ import sharedRides from '../../fixtures/sharedRide.fixture.json'
 import travelInfo from '../../fixtures/sharedTravelInfo.fixture.json'
 import CommuteServiceInterface from "."
 import { resolveWithTimeout } from '../../../Common/utils/TestUtils'
+
+import Config from '../../../Common/constants/EnvironmentalCostants';
+   console.log(Config.BASE_URL)
+
+
 class CommuteService  implements CommuteServiceInterface{
    baseApi:Record<string, any>
    constructor() {

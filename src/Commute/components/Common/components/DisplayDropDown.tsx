@@ -3,12 +3,14 @@ import { action, observable } from 'mobx'
 import { observer } from 'mobx-react'
 import { Dropdown } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css'
-
+import Filter from '../../../../Common/components/common/Icons/Filter' 
 import { Label } from '../../../styleGuides/StyleGuides'
 import {
    Dropdown as DropdownAs,
    Star,
-   ErrorStyle
+   ErrorStyle,
+   DropdownWithIcon,
+   FilterIcon
 } from '../../../styledComponents/styleComponents'
 type DisplayDropDownProps={
    onChange:(value: string) => void,
@@ -35,6 +37,9 @@ class DisplayDropDown extends React.Component<DisplayDropDownProps> {
    render() {
       const { data,displayError } = this.props
       return (
+         <DropdownWithIcon>  
+            <FilterIcon> <Filter /></FilterIcon>     
+            
          <DropdownAs>
             {data.listTitle.length !== 0 ? (
                <Label htmlFor={data.listTitle.toLowerCase()}>
@@ -56,6 +61,8 @@ class DisplayDropDown extends React.Component<DisplayDropDownProps> {
                Required
             </ErrorStyle>
          </DropdownAs>
+         </DropdownWithIcon>
+ 
       )
    }
 }

@@ -29,6 +29,7 @@ class ShowAssetTransport extends React.Component <ShowAssetTransportProps>{
 
       if (assetRequests.length !== 0) {
          return (
+            <React.Fragment>
             <RequestDetailsTable>
                <TableRow>
                   {tableHeaders.map(eachOne => {
@@ -82,6 +83,7 @@ class ShowAssetTransport extends React.Component <ShowAssetTransportProps>{
                   )
                })}
             </RequestDetailsTable>
+            </React.Fragment>
          )
       } else {
          return <NoDataFound> No Matching Requests Found</NoDataFound>
@@ -96,7 +98,6 @@ class ShowAssetTransport extends React.Component <ShowAssetTransportProps>{
          doNetworkCalls,
          getRequests
       } = this.props
-      console.log("render assets ")
       return (
          <React.Fragment>
             <LoadingWrapperWithFailure
