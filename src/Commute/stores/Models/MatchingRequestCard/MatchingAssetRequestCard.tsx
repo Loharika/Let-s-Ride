@@ -5,33 +5,34 @@ import { API_INITIAL } from '@ib/api-constants'
 import 'react-toastify/dist/ReactToastify.css'
 
 import { toast } from 'react-toastify'
-import {MatchedAssetRequestObject} from '../../types'
+import { MatchedAssetRequestObject } from '../../types'
 toast.configure()
 
-class MatchingAssetRequestCard{
-      origin:string
-      destination:string
-      noOfAssets:number
-      assetType:string
-      startDatetime!:string
-      endDatetime!:string
-      datetime!:string
-      assetSensitivity:string
-      luggageQuantity:number
-      assetToBeDeliveredTo:string
-      requestedBy:{
-         name:string,
-         mobile_number:string
-      }
-      assetRequestId :string
-      flexibleWithTime:boolean
-      whomToDeliver:string
-      @observable getAcceptingMatchedRequestAPIStatus
-      @observable getAcceptingMatchedRequestAPIError
-      @observable isAdded:boolean
-      commuteService
-   constructor(request:MatchedAssetRequestObject,commuteService) {
-      this.commuteService=commuteService;
+class MatchingAssetRequestCard {
+   origin: string
+   destination: string
+   noOfAssets: number
+   assetType: string
+   startDatetime!: string
+   endDatetime!: string
+   datetime!: string
+   assetSensitivity: string
+   luggageQuantity: number
+   assetToBeDeliveredTo: string
+   requestedBy: {
+      name: string
+      mobile_number: string
+   }
+   assetRequestId: string
+   flexibleWithTime: boolean
+   whomToDeliver: string
+   @observable getAcceptingMatchedRequestAPIStatus
+   @observable getAcceptingMatchedRequestAPIError
+   @observable isAdded: boolean
+   @observable isHover!: boolean
+   commuteService
+   constructor(request: MatchedAssetRequestObject, commuteService) {
+      this.commuteService = commuteService
       this.origin = request.origin
       this.destination = request.destination
       this.noOfAssets = request.assets_quantity
@@ -44,6 +45,7 @@ class MatchingAssetRequestCard{
       this.flexibleWithTime = request.flexible_with_time
       this.whomToDeliver = request.whom_to_deliver
       this.isAdded = false
+      this.isHover = false
       if (request.flexible_with_time) {
          this.initIsFlexible(request)
       } else {
@@ -66,8 +68,8 @@ class MatchingAssetRequestCard{
    initIsNotFlexible(request) {
       this.datetime = request.datetime
    }
-   displayToaster (status){
-   toast(<div className='text-black font-bold'>{status}</div>, {
+   displayToaster(status) {
+      toast(<div className='text-black font-bold'>{status}</div>, {
          position: 'top-center',
          autoClose: 3000,
          closeButton: false,
@@ -78,14 +80,15 @@ class MatchingAssetRequestCard{
    async postTheRequestId() {
       await this.acceptTheMatchedRequest(this.assetRequestId)
    }
-   onClickAddButton=():void =>{
-      
+   onClickAddButton = (): void => {
       this.postTheRequestId()
    }
    @action.bound
    acceptTheMatchedRequest(requestId) {
       this.initAcceptingMatchedRequestsAPI()
-      let matchedRequestPromise = this.commuteService.acceptTheMatchedRequestAPI(requestId)
+      let matchedRequestPromise = this.commuteService.acceptTheMatchedRequestAPI(
+         requestId
+      )
       return bindPromiseWithOnSuccess(matchedRequestPromise)
          .to(
             this.setGetAcceptingMatchedRequestAPIStatus,
@@ -97,9 +100,9 @@ class MatchingAssetRequestCard{
    setGetAcceptingMatchedRequestAPIStatus(apiStatus) {
       this.getAcceptingMatchedRequestAPIStatus = apiStatus
       if (this.getAcceptingMatchedRequestAPIStatus === 200) {
-            this.isAdded = true
-            this.displayToaster('Successfully added the Request')
-         }
+         this.isAdded = true
+         this.displayToaster('Successfully added the Request')
+      }
    }
    @action.bound
    setGetAcceptingMatchedRequestAPIError(apiError) {
@@ -108,6 +111,14 @@ class MatchingAssetRequestCard{
    @action.bound
    setGetAcceptingMatchedRequestAPIResponse(apiResponse) {
       // this.getAcceptingMatchedRequestAPIResponse = apiResponse
+   }
+   @action.bound
+   onMouseEnterOnRequest() {
+      this.isHover = true
+   }
+   @action.bound
+   onMouseLeaveOnRequest() {
+      this.isHover = false
    }
 }
 export { MatchingAssetRequestCard }

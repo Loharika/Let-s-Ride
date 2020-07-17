@@ -4,31 +4,32 @@ import 'react-toastify/dist/ReactToastify.css'
 import { bindPromiseWithOnSuccess } from '@ib/mobx-promise'
 import { API_INITIAL, APIStatus } from '@ib/api-constants'
 import { toast } from 'react-toastify'
-import { MatchedRideRequestObject } from "../../types"
+import { MatchedRideRequestObject } from '../../types'
 
 toast.configure()
 class MatchingRideRequestCard {
-   id?:string
-    origin:string
-    destination:string
-    flexibleWithTime:boolean
-    noOfSeats:number
-    luggageQuantity:number
-    status?:string
-    startDatetime!:string
-    endDatetime!:string
-    dateTime!:string
-    requestedBy:{
-       name:string,
-       mobile_number:string
-    }
-    rideRequestId:string
-   @observable isAdded:boolean
-   @observable getAcceptingMatchedRequestAPIStatus!:APIStatus
-   @observable getAcceptingMatchedRequestAPIError!:Error|null
+   id?: string
+   origin: string
+   destination: string
+   flexibleWithTime: boolean
+   noOfSeats: number
+   luggageQuantity: number
+   status?: string
+   startDatetime!: string
+   endDatetime!: string
+   dateTime!: string
+   requestedBy: {
+      name: string
+      mobile_number: string
+   }
+   rideRequestId: string
+   @observable isAdded: boolean
+   @observable getAcceptingMatchedRequestAPIStatus!: APIStatus
+   @observable getAcceptingMatchedRequestAPIError!: Error | null
+   @observable isHover!: boolean
    commuteService
-   constructor(request:MatchedRideRequestObject,commuteService) {
-      this.commuteService=commuteService;
+   constructor(request: MatchedRideRequestObject, commuteService) {
+      this.commuteService = commuteService
       this.origin = request.origin
       this.destination = request.destination
       this.flexibleWithTime = request.flexible_with_time
@@ -37,7 +38,8 @@ class MatchingRideRequestCard {
       this.requestedBy = request.requested_by
       this.rideRequestId = request.ride_request_id
       this.isAdded = false
-      this.status=request.status
+      this.status = request.status
+      this.isHover = false
       if (request.flexible_with_time) {
          this.initIsFlexible(request)
       } else {
@@ -54,15 +56,15 @@ class MatchingRideRequestCard {
    @action.bound
    initIsFlexible(props) {
       this.startDatetime = props.start_datetime
-      this.endDatetime= props.end_datetime
+      this.endDatetime = props.end_datetime
    }
    @action.bound
    initIsNotFlexible(props) {
       this.dateTime = props.datetime
    }
-  
-   displayToaster = (status) => {
-   toast(<div className='text-black font-bold'>{status}</div>, {
+
+   displayToaster = status => {
+      toast(<div className='text-black font-bold'>{status}</div>, {
          position: 'top-center',
          autoClose: 3000,
          closeButton: false,
@@ -73,13 +75,15 @@ class MatchingRideRequestCard {
    async postTheRequestId() {
       await this.acceptTheMatchedRequest(this.rideRequestId)
    }
-   onClickAddButton=(event:MouseEvent<HTMLButtonElement>):void=> {
+   onClickAddButton = (event: MouseEvent<HTMLButtonElement>): void => {
       this.postTheRequestId()
    }
    @action.bound
    acceptTheMatchedRequest(requestId) {
       this.initAcceptingMatchedRequestsAPI()
-      let matchedRequestPromise = this.commuteService.acceptTheMatchedRequestAPI(requestId)
+      let matchedRequestPromise = this.commuteService.acceptTheMatchedRequestAPI(
+         requestId
+      )
       return bindPromiseWithOnSuccess(matchedRequestPromise)
          .to(
             this.setGetAcceptingMatchedRequestAPIStatus,
@@ -95,7 +99,6 @@ class MatchingRideRequestCard {
          this.isAdded = true
          this.displayToaster('Successfully added the Request')
       }
-      
    }
    @action.bound
    setGetAcceptingMatchedRequestAPIError(apiError) {
@@ -104,6 +107,14 @@ class MatchingRideRequestCard {
    @action.bound
    setGetAcceptingMatchedRequestAPIResponse(apiResponse) {
       // this.getAcceptingMatchedRequestAPIResponse = apiResponse
+   }
+   @action.bound
+   onMouseEnterOnRequest() {
+      this.isHover = true
+   }
+   @action.bound
+   onMouseLeaveOnRequest() {
+      this.isHover = false
    }
 }
 export { MatchingRideRequestCard }

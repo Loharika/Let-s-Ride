@@ -1,3 +1,4 @@
+/* eslint-disable no-lone-blocks */
 import React from 'react'
 import { observer } from 'mobx-react'
 import { FcCheckmark } from 'react-icons/fc'
@@ -31,7 +32,7 @@ class ShowRideRequests extends React.Component<ShowRideRequestsProps> {
       if (rideRequests.length !== 0) {
          return (
             <RequestDetailsTable>
-               <TableRow>
+               <TableRow isHover={false}>
                   {tableHeaders.map(eachOne => {
                      return (
                         <TableHeader key={getUniqueKey()}>
@@ -43,7 +44,12 @@ class ShowRideRequests extends React.Component<ShowRideRequestsProps> {
                {Object.values(rideRequests).map(
                   (request: MatchingRideRequestCard) => {
                      return (
-                        <TableRow key={getUniqueKey()}>
+                        <TableRow
+                           key={getUniqueKey()}
+                           onMouseEnter={request.onMouseEnterOnRequest}
+                           onMouseLeave={request.onMouseLeaveOnRequest}
+                           isHover={request.isHover}
+                        >
                            <TableCellLeftAligned>
                               {request.requestedBy.name}
                               <br />
@@ -74,16 +80,20 @@ class ShowRideRequests extends React.Component<ShowRideRequestsProps> {
                            </TableCellAlignedCenter>
 
                            <TableCellLeftAligned>
-                              <StatusButton
-                                 onClick={request.onClickAddButton}
-                                 disabled={request.isAdded}
-                              >
-                                 {request.isAdded ? (
-                                    <FcCheckmark />
-                                 ) : (
-                                    <FiPlus />
-                                 )}
-                              </StatusButton>
+                              {request.isHover || request.isAdded ? (
+                                 <StatusButton
+                                    onClick={request.onClickAddButton}
+                                    disabled={request.isAdded}
+                                 >
+                                    {request.isAdded ? (
+                                       <FcCheckmark />
+                                    ) : (
+                                       <FiPlus />
+                                    )}
+                                 </StatusButton>
+                              ) : (
+                                 ''
+                              )}
                            </TableCellLeftAligned>
                         </TableRow>
                      )

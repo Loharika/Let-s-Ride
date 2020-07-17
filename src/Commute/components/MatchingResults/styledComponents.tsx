@@ -2,21 +2,24 @@ import styled from '@emotion/styled'
 import { Typo32DarkBlueGreyRubikRegular } from '../../styleGuides/StyleGuides'
 import colors from '../../../Common/Theme/Colors.json'
 
-type MyRequestTypeProps={
-   isSelected:boolean
+type MyRequestTypeProps = {
+   isSelected: boolean
 }
-type FilterAndSortProps={
-      noOfRequests:number
+type FilterAndSortProps = {
+   noOfRequests: number
+}
+type TableRowProps = {
+   isHover: boolean
 }
 
-export const DisplayTable=styled.div`
-   width:100%;
-   height:100%;
-   display:flex;
-   justify-content:center;
-   align-items:center;
-`;
-   export const MyRequestsHeader = styled.ul`
+export const DisplayTable = styled.div`
+   width: 100%;
+   height: 100%;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+`
+export const MyRequestsHeader = styled.ul`
    list-style-type: none;
    margin: 0;
    padding: 0;
@@ -66,7 +69,7 @@ export const RequestDetailsTable = styled.tbody`
    border-collapse: collapse;
    width: 100%;
    height: 350px;
-  `
+`
 export const TableHeader = styled.th`
    border: 1px solid #dddddd;
    text-align: left;
@@ -77,7 +80,8 @@ export const TableCellLeftAligned = styled.td`
    text-align: left;
    padding: 8px;
 `
-export const TableRow = styled.tr`
+export const TableRow = styled.tr<TableRowProps>`
+   background-color: ${props => (props.isHover ? '#f2f2f2' : 'none')};
    height: 25px;
 `
 export const TableCellAlignedCenter = styled.td`
@@ -121,4 +125,4 @@ export const NoDataFound = styled.div`
    display: flex;
    justify-content: center;
    align-items: center;
-`;
+`

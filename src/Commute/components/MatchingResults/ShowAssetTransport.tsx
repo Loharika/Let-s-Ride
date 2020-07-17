@@ -33,7 +33,7 @@ class ShowAssetTransport extends React.Component<ShowAssetTransportProps> {
          return (
             <React.Fragment>
                <RequestDetailsTable>
-                  <TableRow>
+                  <TableRow isHover={false}>
                      {tableHeaders.map(eachOne => {
                         return (
                            <TableHeader key={getUniqueKey()}>
@@ -45,7 +45,12 @@ class ShowAssetTransport extends React.Component<ShowAssetTransportProps> {
                   {Object.values(assetRequests).map(
                      (request: MatchingAssetRequestCard) => {
                         return (
-                           <TableRow key={getUniqueKey()}>
+                           <TableRow
+                              key={getUniqueKey()}
+                              onMouseEnter={request.onMouseEnterOnRequest}
+                              onMouseLeave={request.onMouseLeaveOnRequest}
+                              isHover={request.isHover}
+                           >
                               <TableCellLeftAligned>
                                  {request.requestedBy.name}
                                  <br />
@@ -81,15 +86,20 @@ class ShowAssetTransport extends React.Component<ShowAssetTransportProps> {
                                  {request.whomToDeliver}
                               </TableCellAlignedCenter>
                               <TableCellLeftAligned>
-                                 <StatusButton
-                                    onClick={request.onClickAddButton}
-                                 >
-                                    {request.isAdded ? (
-                                       <FcCheckmark />
-                                    ) : (
-                                       <FiPlus />
-                                    )}
-                                 </StatusButton>
+                                 {request.isHover || request.isAdded ? (
+                                    <StatusButton
+                                       onClick={request.onClickAddButton}
+                                       disabled={request.isAdded}
+                                    >
+                                       {request.isAdded ? (
+                                          <FcCheckmark />
+                                       ) : (
+                                          <FiPlus />
+                                       )}
+                                    </StatusButton>
+                                 ) : (
+                                    ''
+                                 )}
                               </TableCellLeftAligned>
                            </TableRow>
                         )
