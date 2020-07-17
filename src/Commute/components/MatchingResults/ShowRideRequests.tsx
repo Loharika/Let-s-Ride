@@ -13,70 +13,82 @@ import {
 } from './styledComponents'
 
 import LoadingWrapperWithFailure from '../../../Common/components/common/LoadingWrapperWithFailure'
-import { MatchingRideRequestCard } from "../../stores/Models/MatchingRequestCard"
-type ShowRideRequestsProps={ 
-   getRequests: () => Array<MatchingRideRequestCard>;
-    tableHeaders: string[]; doNetworkCalls: () => void; getMatchingRequestAPIStatus: any; getMatchingRequestAPIError: any; }
+import { MatchingRideRequestCard } from '../../stores/Models/MatchingRequestCard'
+import { getUniqueKey } from '../../../Common/utils/TestUtils'
+type ShowRideRequestsProps = {
+   getRequests: () => Array<MatchingRideRequestCard>
+   tableHeaders: string[]
+   doNetworkCalls: () => void
+   getMatchingRequestAPIStatus: any
+   getMatchingRequestAPIError: any
+}
 
-@observer 
-class ShowRideRequests extends React.Component<ShowRideRequestsProps>{
+@observer
+class ShowRideRequests extends React.Component<ShowRideRequestsProps> {
    renderSuccessUI = observer(() => {
-      const {
-         tableHeaders,
-         getRequests
-      } = this.props
-      const rideRequests:Array<MatchingRideRequestCard> = getRequests()
+      const { tableHeaders, getRequests } = this.props
+      const rideRequests: Array<MatchingRideRequestCard> = getRequests()
       if (rideRequests.length !== 0) {
          return (
-            <RequestDetailsTable >
+            <RequestDetailsTable>
                <TableRow>
                   {tableHeaders.map(eachOne => {
                      return (
-                        <TableHeader>{eachOne}</TableHeader>
+                        <TableHeader key={getUniqueKey()}>
+                           {eachOne}
+                        </TableHeader>
                      )
                   })}
                </TableRow>
-               {Object.values(rideRequests).map((request:MatchingRideRequestCard) => {
-                  return (
-                     <TableRow >
-                        <TableCellLeftAligned>
-                           {request.requestedBy.name}
-                           <br />
-                           {request.requestedBy.mobile_number}
-                        </TableCellLeftAligned>
-                        <TableCellLeftAligned>
-                           {request.origin}
-                        </TableCellLeftAligned>
-                        <TableCellLeftAligned>
-                           {request.destination}
-                        </TableCellLeftAligned>
-                        <TableCellLeftAligned>
-                           {request.flexibleWithTime ? (
-                              <span>
-                                 From:{request.startDatetime.slice(0, 21)}{' '}
-                                 <br />
-                                 To:{request.endDatetime.slice(0, 21)}
-                              </span>
-                           ) : (
-                              request.dateTime.slice(0, 21)
-                           )}
-                        </TableCellLeftAligned>
-                        <TableCellAlignedCenter>
-                           {request.noOfSeats}
-                        </TableCellAlignedCenter>
-                        <TableCellAlignedCenter>
-                           {request.luggageQuantity}
-                        </TableCellAlignedCenter>
+               {Object.values(rideRequests).map(
+                  (request: MatchingRideRequestCard) => {
+                     return (
+                        <TableRow key={getUniqueKey()}>
+                           <TableCellLeftAligned>
+                              {request.requestedBy.name}
+                              <br />
+                              {request.requestedBy.mobile_number}
+                           </TableCellLeftAligned>
+                           <TableCellLeftAligned>
+                              {request.origin}
+                           </TableCellLeftAligned>
+                           <TableCellLeftAligned>
+                              {request.destination}
+                           </TableCellLeftAligned>
+                           <TableCellLeftAligned>
+                              {request.flexibleWithTime ? (
+                                 <span>
+                                    From:{request.startDatetime.slice(0, 21)}{' '}
+                                    <br />
+                                    To:{request.endDatetime.slice(0, 21)}
+                                 </span>
+                              ) : (
+                                 request.dateTime.slice(0, 21)
+                              )}
+                           </TableCellLeftAligned>
+                           <TableCellAlignedCenter>
+                              {request.noOfSeats}
+                           </TableCellAlignedCenter>
+                           <TableCellAlignedCenter>
+                              {request.luggageQuantity}
+                           </TableCellAlignedCenter>
 
-                        <TableCellLeftAligned>
-                           <StatusButton onClick={request.onClickAddButton} disabled={request.isAdded}>
-                              
-                              {request.isAdded? <FcCheckmark /> : <FiPlus />}
-                           </StatusButton>
-                        </TableCellLeftAligned>
-                     </TableRow>
-                  )
-               })}
+                           <TableCellLeftAligned>
+                              <StatusButton
+                                 onClick={request.onClickAddButton}
+                                 disabled={request.isAdded}
+                              >
+                                 {request.isAdded ? (
+                                    <FcCheckmark />
+                                 ) : (
+                                    <FiPlus />
+                                 )}
+                              </StatusButton>
+                           </TableCellLeftAligned>
+                        </TableRow>
+                     )
+                  }
+               )}
             </RequestDetailsTable>
          )
       } else {

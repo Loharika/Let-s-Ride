@@ -6,27 +6,24 @@ import { withRouter, Redirect, RouteComponentProps } from 'react-router-dom'
 
 import { LogInForm } from '../../components/LogInForm'
 
-import { goToDashboardHomePage } from '../../utils/NavigationalUtils';
-import { AuthStore } from "../../stores"
- 
-interface InjectedProps extends RouteComponentProps{
+import { goToDashboardHomePage } from '../../utils/NavigationalUtils'
+import { AuthStore } from '../../stores'
 
-}
-interface LogInPageRouteProps extends  InjectedProps{
-   authStore:AuthStore,
-   goToDashboardHomePage:()=>{}
-
+interface InjectedProps extends RouteComponentProps {}
+interface LogInPageRouteProps extends RouteComponentProps {
+   authStore: AuthStore
+   goToDashboardHomePage: () => {}
 }
 @inject('authStore')
 @observer
-class LogInPageRoute extends React.Component<LogInPageRouteProps>{
+class LogInPageRoute extends React.Component<LogInPageRouteProps> {
    @observable userName
    @observable password
    @observable displayError
    @observable errorText
    @observable userNameErrorText
    constructor(props) {
-      super(props);
+      super(props)
       this.init()
       this.displayError = false
    }
@@ -36,7 +33,7 @@ class LogInPageRoute extends React.Component<LogInPageRouteProps>{
       this.password = ''
       this.errorText = ''
    }
-   onSubmit = (event:any) => {
+   onSubmit = (event: any) => {
       event.preventDefault()
       let { userName, password } = this
       if (userName.length !== 0 && password.length !== 0) {
@@ -46,19 +43,19 @@ class LogInPageRoute extends React.Component<LogInPageRouteProps>{
          this.displayError = true
       }
    }
-   onChangeUserName = (event:any) => {
+   onChangeUserName = (event: any) => {
       this.userName = event.target.value
       this.displayError = false
       this.errorText = ''
    }
-   onChangePassword = (event:any) => {
+   onChangePassword = (event: any) => {
       this.password = event.target.value
       this.displayError = false
       this.errorText = ''
    }
-   getInjectedProps=()=>this.props as InjectedProps
+   getInjectedProps = () => this.props as InjectedProps
    @action.bound
-   async onClickLogInButton(userName:string, password:string) {
+   async onClickLogInButton(userName: string, password: string) {
       this.init()
       const {
          authStore: { userLogIn }
@@ -66,7 +63,7 @@ class LogInPageRoute extends React.Component<LogInPageRouteProps>{
       await userLogIn(userName, password)
       const {
          authStore: { access_token }
-      } = this.props;
+      } = this.props
       if (access_token) {
          const { history } = this.getInjectedProps()
          goToDashboardHomePage(history)
@@ -81,7 +78,7 @@ class LogInPageRoute extends React.Component<LogInPageRouteProps>{
          onChangePassword,
          errorText,
          onSubmit,
-         displayError,
+         displayError
       } = this
       return (
          <LogInForm

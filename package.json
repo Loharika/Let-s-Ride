@@ -34,6 +34,7 @@
       "react-toastify": "6.0.5",
       "semantic-ui-css": "2.4.1",
       "semantic-ui-react": "0.88.2",
+      "shortid": "2.2.15",
       "tailwind.macro": "^1.0.0-alpha.10",
       "typescript": "3.8.3"
    },

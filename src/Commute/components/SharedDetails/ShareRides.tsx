@@ -13,29 +13,30 @@ import {
 
 import LoadingWrapperWithFailure from '../../../Common/components/common/LoadingWrapperWithFailure'
 import { NoDataFound as NoDataFoundDisplay } from '../Common/components/NoDataFound'
-import {SharedRides} from '../../stores/Models/SharedDetailsModels'
-type SharedRidesTableProps={
-   getShares:()=>Array<SharedRides>
-   addShareButton:(shareType:string)=>void,
-   shareType:string,
-   getSharedRidesStatus:number,
-   getSharedRidesError:string,
-   doNetworkCalls:()=>void
+import { SharedRides } from '../../stores/Models/SharedDetailsModels'
+import { getUniqueKey } from '../../../Common/utils/TestUtils'
+type SharedRidesTableProps = {
+   getShares: () => Array<SharedRides>
+   addShareButton: (shareType: string) => void
+   shareType: string
+   getSharedRidesStatus: number
+   getSharedRidesError: string
+   doNetworkCalls: () => void
 }
-type RideShare={
-   origin:string,
-   destination:string,
-   flexibleWithTime:boolean,
-   startDatetime:string,
-   endDatetime:string,
-   dateTime:string,
-   noOfSeats:number,
-   assetsQuantity:number,
-   status:string
+type RideShare = {
+   origin: string
+   destination: string
+   flexibleWithTime: boolean
+   startDatetime: string
+   endDatetime: string
+   dateTime: string
+   noOfSeats: number
+   assetsQuantity: number
+   status: string
 }
 @observer
 class SharedRidesTable extends React.Component<SharedRidesTableProps> {
-   sharedRidesHeaders:string[]
+   sharedRidesHeaders: string[]
    constructor(props) {
       super(props)
       this.sharedRidesHeaders = [
@@ -49,20 +50,22 @@ class SharedRidesTable extends React.Component<SharedRidesTableProps> {
    }
    renderSuccessUI = () => {
       const { getShares, addShareButton, shareType } = this.props
-      const sharesRides:SharedRides[] = getShares()
+      const sharesRides: SharedRides[] = getShares()
       if (sharesRides.length !== 0) {
          return (
             <RequestDetailsTable>
-               <TableRow key={Math.random()}>
+               <TableRow>
                   {this.sharedRidesHeaders.map(eachOne => {
                      return (
-                        <TableHeader key={Math.random()}>{eachOne}</TableHeader>
+                        <TableHeader key={getUniqueKey()}>
+                           {eachOne}
+                        </TableHeader>
                      )
                   })}
                </TableRow>
-               {Object.values(sharesRides).map((ride:RideShare) => {
+               {Object.values(sharesRides).map((ride: RideShare) => {
                   return (
-                     <TableRow key={Math.random()}>
+                     <TableRow key={getUniqueKey()}>
                         <TableCellLeftAligned>
                            {ride.origin}
                         </TableCellLeftAligned>

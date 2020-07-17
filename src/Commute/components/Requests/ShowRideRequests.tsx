@@ -14,17 +14,19 @@ import {
 
 import LoadingWrapperWithFailure from '../../../Common/components/common/LoadingWrapperWithFailure'
 import { NoDataFound as NoDataFoundDisplay } from '../Common/components/NoDataFound'
-import {RideRequestModel} from '../../stores/Models/MyRequestsModels'
-type ShowRideRequestsProps={ 
-      getRequests: () => Array<RideRequestModel>,
-      doNetworkCalls: () => void,
-     getMyRideRequestAPIStatus: any; 
-     getMyRideRequestAPIError: any;
-     addRequestButton:(requestType:string)=>void,
-     requestType:string}
+import { RideRequestModel } from '../../stores/Models/MyRequestsModels'
+import { getUniqueKey } from '../../../Common/utils/TestUtils'
+type ShowRideRequestsProps = {
+   getRequests: () => Array<RideRequestModel>
+   doNetworkCalls: () => void
+   getMyRideRequestAPIStatus: any
+   getMyRideRequestAPIError: any
+   addRequestButton: (requestType: string) => void
+   requestType: string
+}
 @observer
-class ShowRideRequests extends React.Component <ShowRideRequestsProps>{
-   tableHeaders:string[]
+class ShowRideRequests extends React.Component<ShowRideRequestsProps> {
+   tableHeaders: string[]
    constructor(props) {
       super(props)
       this.tableHeaders = [
@@ -40,20 +42,22 @@ class ShowRideRequests extends React.Component <ShowRideRequestsProps>{
    renderSuccessUI = () => {
       const { tableHeaders } = this
       const { getRequests, addRequestButton, requestType } = this.props
-      const rideRequests:RideRequestModel[]= getRequests()
+      const rideRequests: RideRequestModel[] = getRequests()
       if (rideRequests.length !== 0) {
          return (
             <RequestDetailsTable>
-               <TableRow key={Math.random()}>
+               <TableRow>
                   {tableHeaders.map(eachOne => {
                      return (
-                        <TableHeader key={Math.random()}>{eachOne}</TableHeader>
+                        <TableHeader key={getUniqueKey()}>
+                           {eachOne}
+                        </TableHeader>
                      )
                   })}
                </TableRow>
-               {Object.values(rideRequests).map((request:RideRequestModel) => {
+               {Object.values(rideRequests).map((request: RideRequestModel) => {
                   return (
-                     <TableRow key={Math.random() + request.id}>
+                     <TableRow key={getUniqueKey()}>
                         <TableCellLeftAligned>
                            {request.origin}
                         </TableCellLeftAligned>
